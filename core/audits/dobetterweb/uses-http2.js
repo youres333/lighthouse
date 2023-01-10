@@ -128,12 +128,11 @@ class UsesHTTP2Audit extends Audit {
 
     // Resources from third-parties that are less than 100 bytes are usually tracking pixels, not actual resources.
     // They can masquerade as static types though (gifs, documents, etc)
-    if (networkRequest.resourceSize < 100) {
+    if (!classifiedEntities.isFirstParty(networkRequest.url) && networkRequest.resourceSize < 100) {
       const entity = classifiedEntities.urlToEntity.get(networkRequest.url);
-      if (!entity || (!classifiedEntities.isFirstParty(networkRequest.url) &&
-          !entity.isUnrecognized)) {
-        return false;
-      }
+      // We want to skip only the known third-party entity assets.
+      const isKnownThirdparty = !entity?.isUnrecognized;
+      if (isKnownThirdparty) return false;
     }
 
     return true;
