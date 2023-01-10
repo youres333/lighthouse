@@ -13,7 +13,7 @@
 /** @typedef {import('../../lib/dependency-graph/base-node.js').Node} Node */
 
 import {Audit} from '../audit.js';
-import {EntityClassification} from '../../computed/entity-classification.js';
+import ThirdParty from '../../lib/third-party-web.js';
 import UrlUtils from '../../lib/url-utils.js';
 import {ByteEfficiencyAudit} from '../byte-efficiency/byte-efficiency-audit.js';
 import {LanternInteractive} from '../../computed/metrics/lantern-interactive.js';
@@ -120,19 +120,16 @@ class UsesHTTP2Audit extends Audit {
    * for the same origin at the exact same time.
    *
    * @param {LH.Artifacts.NetworkRequest} networkRequest
-   * @param {LH.Artifacts.EntityClassification} classifiedEntities
    * @return {boolean}
    */
-  static isStaticAsset(networkRequest, classifiedEntities) {
+  static isStaticAsset(networkRequest) {
     if (!STATIC_RESOURCE_TYPES.has(networkRequest.resourceType)) return false;
 
     // Resources from third-parties that are less than 100 bytes are usually tracking pixels, not actual resources.
     // They can masquerade as static types though (gifs, documents, etc)
-    if (!classifiedEntities.isFirstParty(networkRequest.url) && networkRequest.resourceSize < 100) {
-      const entity = classifiedEntities.urlToEntity.get(networkRequest.url);
-      // We want to skip only the known third-party entity assets.
-      const isKnownThirdparty = !entity?.isUnrecognized;
-      if (isKnownThirdparty) return false;
+    if (networkRequest.resourceSize < 100) {
+      const entity = ThirdParty.getEntity(networkRequest.url);
+      if (entity) return false;
     }
 
     return true;
@@ -158,10 +155,9 @@ class UsesHTTP2Audit extends Audit {
    *      https://www.cachefly.com/http-2-is-not-a-magic-bullet/
    *
    * @param {Array<LH.Artifacts.NetworkRequest>} networkRecords
-   * @param {LH.Artifacts.EntityClassification} classifiedEntities
    * @return {Array<{url: string, protocol: string}>}
    */
-  static determineNonHttp2Resources(networkRecords, classifiedEntities) {
+  static determineNonHttp2Resources(networkRecords) {
     /** @type {Array<{url: string, protocol: string}>} */
     const nonHttp2Resources = [];
 
@@ -170,7 +166,7 @@ class UsesHTTP2Audit extends Audit {
     /** @type {Map<string, Array<LH.Artifacts.NetworkRequest>>} */
     const groupedByOrigin = new Map();
     for (const record of networkRecords) {
-      if (!UsesHTTP2Audit.isStaticAsset(record, classifiedEntities)) continue;
+      if (!UsesHTTP2Audit.isStaticAsset(record)) continue;
       if (UrlUtils.isLikeLocalhost(record.parsedURL.host)) continue;
       const existing = groupedByOrigin.get(record.parsedURL.securityOrigin) || [];
       existing.push(record);
@@ -207,8 +203,7 @@ class UsesHTTP2Audit extends Audit {
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
     const URL = artifacts.URL;
     const networkRecords = await NetworkRecords.request(devtoolsLog, context);
-    const classifiedEntities = await EntityClassification.request({URL, devtoolsLog}, context);
-    const resources = UsesHTTP2Audit.determineNonHttp2Resources(networkRecords, classifiedEntities);
+    const resources = UsesHTTP2Audit.determineNonHttp2Resources(networkRecords);
 
     let displayValue;
     if (resources.length > 0) {
