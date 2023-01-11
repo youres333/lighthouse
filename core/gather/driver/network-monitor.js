@@ -41,8 +41,13 @@ class NetworkMonitor extends NetworkMonitorEventEmitter {
     /** @type {LH.Gatherer.FRProtocolSession} */
     this._session = targetManager.rootSession();
 
+    this._mainFrameId = '';
+
     /** @param {LH.Crdp.Page.FrameNavigatedEvent} event */
-    this._onFrameNavigated = event => this._frameNavigations.push(event.frame);
+    this._onFrameNavigated = event => {
+      this._frameNavigations.push(event.frame);
+      this._mainFrameId = event.frame.id;
+    };
 
     /** @param {LH.Protocol.RawEventMessage} event */
     this._onProtocolMessage = event => {
@@ -75,6 +80,9 @@ class NetworkMonitor extends NetworkMonitorEventEmitter {
 
     this._session.on('Page.frameNavigated', this._onFrameNavigated);
     this._targetManager.on('protocolevent', this._onProtocolMessage);
+
+    const {frameTree} = await this._session.sendCommand('Page.getFrameTree');
+    this._mainFrameId = frameTree.frame.id;
   }
 
   /**
@@ -95,9 +103,7 @@ class NetworkMonitor extends NetworkMonitorEventEmitter {
     const frameNavigations = this._frameNavigations;
     if (!frameNavigations.length) return {};
 
-    const resourceTreeResponse = await this._session.sendCommand('Page.getResourceTree');
-    const mainFrameId = resourceTreeResponse.frameTree.frame.id;
-    const mainFrameNavigations = frameNavigations.filter(frame => frame.id === mainFrameId);
+    const mainFrameNavigations = frameNavigations.filter(frame => frame.id === this._mainFrameId);
     if (!mainFrameNavigations.length) log.warn('NetworkMonitor', 'No detected navigations');
 
     // The requested URL is the initiator request for the first frame navigation.
