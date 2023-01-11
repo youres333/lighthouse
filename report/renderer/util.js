@@ -222,28 +222,13 @@ class Util {
   }
 
   /**
-   * Returns a URL locator function
+   * Returns a URL locator function based on the audit headings/id.
    * @param {string} id
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
    * @return {{(item: LH.FormattedIcu<LH.Audit.Details.TableItem>): string|undefined}=}
    */
   static getUrlLocatorFn(id, headings) {
-    switch (id) {
-      case 'network-server-latency':
-      case 'network-rtt':
-      case 'deprecations':
-      case 'duplicated-javascript':
-        // TODO: These audits require special handling.
-        return;
-        // return (item) => {
-        //   const sourceLocation = item?.source;
-        //   if (typeof sourceLocation === 'object' && sourceLocation.type === 'source-location') {
-        //     return sourceLocation.url;
-        //   }
-        // };
-    }
-
-    // The most common (and preferred) type, valueType=url.
+    // The most common type, valueType=url.
     const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
     if (urlKey) return (item) => item[urlKey]?.toString();
 
@@ -260,7 +245,7 @@ class Util {
   }
 
   /**
-   * Mark TableItems/OpportunityItems with entity name
+   * Mark TableItems/OpportunityItems with entity names.
    * @param {string} id
    * @param {LH.Result.EntityClassification|undefined} entityClassification
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings

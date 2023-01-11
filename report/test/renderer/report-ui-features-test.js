@@ -111,11 +111,43 @@ describe('ReportUIFeatures', () => {
         const webpAuditItemTemplate = {
           ...sampleResults.audits['modern-image-formats'].details.items[0],
           wastedBytes: 8.8 * 1024,
+          entity: undefined, // Remove entity classification from previous result.
         };
+
         const renderBlockingAuditItemTemplate =
           sampleResults.audits['render-blocking-resources'].details.items[0];
         const textCompressionAuditItemTemplate =
           sampleResults.audits['uses-text-compression'].details.items[0];
+
+        // Setup entity-classification with recognized entities first.
+        lhr.entityClassification = {
+          firstParty: 'example.com',
+          entities: [
+            {
+              name: 'example.com',
+              isFirstParty: true,
+              isUnrecognized: true,
+            },
+            {
+              name: 'cdn.com',
+              isUnrecognized: true,
+            },
+            {
+              name: 'notexample.com',
+              isUnrecognized: true,
+            },
+          ],
+          originLUT: {
+            'http://www.example.com': 0,
+            'http://www.cdn.com': 1,
+            'http://wwww.notexample.com': 2,
+          },
+          nameLUT: {
+            'example.com': 0,
+            'cdn.com': 1,
+            'notexample.com': 2,
+          },
+        };
 
         // Interleave first/third party URLs to test restoring order.
         lhr.audits['modern-image-formats'].details.items = [
@@ -202,8 +234,11 @@ describe('ReportUIFeatures', () => {
           },
         ];
 
+        // Entity resolution is done during prepareReportResult
+        const result = Util.prepareReportResult(lhr);
+
         // render a report onto the UIFeature dom
-        container = render(lhr);
+        container = render(result);
       });
 
       it('filters out third party resources in on click', () => {
