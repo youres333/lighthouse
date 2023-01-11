@@ -27,7 +27,9 @@ class ExecutionContext {
     // and other page actions. Cleanup our relevant bookkeeping as we see those events.
     // Domains are enabled when a dedicated execution context is requested.
     session.on('Page.frameNavigated', event => {
-      this._mainFrameId = event.frame.id;
+      if (!event.frame.parentId) {
+        this._mainFrameId = event.frame.id;
+      }
       this.clearContextId();
     });
     session.on('Runtime.executionContextDestroyed', event => {

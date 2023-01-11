@@ -46,7 +46,9 @@ class NetworkMonitor extends NetworkMonitorEventEmitter {
     /** @param {LH.Crdp.Page.FrameNavigatedEvent} event */
     this._onFrameNavigated = event => {
       this._frameNavigations.push(event.frame);
-      this._mainFrameId = event.frame.id;
+      if (!event.frame.parentId) {
+        this._mainFrameId = event.frame.id;
+      }
     };
 
     /** @param {LH.Protocol.RawEventMessage} event */
