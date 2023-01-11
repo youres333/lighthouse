@@ -155,7 +155,7 @@ class Util {
           }
 
           // Mark entities on items.
-          audit.details.items = Util.getEntityClassifiedTableItems(audit.details.headings,
+          audit.details.items = Util.getEntityClassifiedTableItems(audit.id, audit.details.headings,
             audit.details.items, result.entityClassification);
         }
       }
@@ -224,13 +224,39 @@ class Util {
   }
 
   /**
+   * Returns a URL locator function
+   * @param {string} id
+   * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
+   * @param {LH.FormattedIcu<LH.Audit.Details.TableItem[]>} items
+   * @return {{(item: LH.FormattedIcu<LH.Audit.Details.TableItem>): string|undefined}}
+   */
+  static getUrlLocatorFn(id, headings, items) {
+    switch (id) {
+      case 'errors-in-console':
+      case 'geolocation-on-start':
+      case 'no-document-write':
+      case 'no-unload-listeners':
+      case 'notification-on-start':
+      case 'uses-passive-event-listeners':
+        return (item) => {
+          const sourceLocation = item?.source;
+          if (typeof sourceLocation === 'object' && sourceLocation.type === 'source-location') {
+            return sourceLocation.url;
+          }
+        };
+    }
+    return (item) => item['url']?.toString();
+  }
+
+  /**
    * Classify entities on TableItems.
+   * @param {string} id
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
    * @param {LH.FormattedIcu<LH.Audit.Details.TableItem[]>} items
    * @param {LH.Result.EntityClassification=} entityClassification
    * @return {LH.FormattedIcu<LH.Audit.Details.TableItem[]>}
    */
-  static getEntityClassifiedTableItems(headings, items, entityClassification) {
+  static getEntityClassifiedTableItems(id, headings, items, entityClassification) {
     if (!entityClassification) return items;
 
     // If details.items are already marked with entity attribute during an audit, nothing to do here.
@@ -238,18 +264,11 @@ class Util {
       return items;
     }
 
-    const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
-    if (!urlKey) {
-      // look for next way to find a url.
-      return items;
-    }
+    const urlLocatorFn = Util.getUrlLocatorFn(id, headings, items);
+    if (!urlLocatorFn) return items;
 
     return items.map(item => {
-      /** @type {string|undefined} */
-      let url;
-      if (typeof item[urlKey] === 'string') {
-        url = item[urlKey]?.toString();
-      }
+      const url = urlLocatorFn(item);
       if (!url) return item;
 
       let origin;
@@ -260,7 +279,10 @@ class Util {
       if (!origin) return item;
 
       const entityId = entityClassification?.originLUT[origin];
-      if (!entityId) return item;
+      if (typeof entityId === 'undefined') {
+        console.log('originLUT empty for', origin); // TODO: Remove before merge.
+        return item;
+      }
       const entity = entityClassification?.entities[entityId];
       return {entity: entity?.name, ...item};
     });
