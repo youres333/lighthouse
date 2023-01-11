@@ -153,10 +153,12 @@ class Util {
               delete heading.subItemsHeading.itemType;
             }
           }
+        }
 
-          // Mark entities on items.
-          audit.details.items = Util.getEntityClassifiedTableItems(audit.id, audit.details.headings,
-            audit.details.items, result.entityClassification);
+        if (audit.details.type === 'opportunity' || audit.details.type === 'table') {
+          // Attach table/opportunity items with entity information.
+          Util.getEntityClassifiedTableItems(audit.id, result.entityClassification,
+            audit.details.headings, audit.details.items);
         }
       }
     }
@@ -227,47 +229,60 @@ class Util {
    * Returns a URL locator function
    * @param {string} id
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
-   * @param {LH.FormattedIcu<LH.Audit.Details.TableItem[]>} items
-   * @return {{(item: LH.FormattedIcu<LH.Audit.Details.TableItem>): string|undefined}}
+   * @return {{(item: LH.FormattedIcu<LH.Audit.Details.TableItem>): string|undefined}=}
    */
-  static getUrlLocatorFn(id, headings, items) {
+  static getUrlLocatorFn(id, headings) {
     switch (id) {
-      case 'errors-in-console':
-      case 'geolocation-on-start':
-      case 'no-document-write':
-      case 'no-unload-listeners':
-      case 'notification-on-start':
-      case 'uses-passive-event-listeners':
-        return (item) => {
-          const sourceLocation = item?.source;
-          if (typeof sourceLocation === 'object' && sourceLocation.type === 'source-location') {
-            return sourceLocation.url;
-          }
-        };
+      case 'network-server-latency':
+      case 'network-rtt':
+      case 'deprecations':
+      case 'duplicated-javascript':
+        // TODO: These audits require special handling.
+        return;
+        // return (item) => {
+        //   const sourceLocation = item?.source;
+        //   if (typeof sourceLocation === 'object' && sourceLocation.type === 'source-location') {
+        //     return sourceLocation.url;
+        //   }
+        // };
     }
-    return (item) => item['url']?.toString();
+
+    // The most common (and preferred) type, valueType=url.
+    const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
+    if (urlKey) return (item) => item[urlKey]?.toString();
+
+    // valueType=source-location.
+    const srcLocationKey = headings.find(heading => heading.valueType === 'source-location')?.key;
+    if (srcLocationKey) {
+      return (item) => {
+        const sourceLocation = item?.source;
+        if (typeof sourceLocation === 'object' && sourceLocation.type === 'source-location') {
+          return sourceLocation.url;
+        }
+      };
+    }
   }
 
   /**
-   * Classify entities on TableItems.
+   * Mark TableItems/OpportunityItems with entity name
    * @param {string} id
+   * @param {LH.Result.EntityClassification|undefined} entityClassification
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
-   * @param {LH.FormattedIcu<LH.Audit.Details.TableItem[]>} items
-   * @param {LH.Result.EntityClassification=} entityClassification
-   * @return {LH.FormattedIcu<LH.Audit.Details.TableItem[]>}
+   * @param {LH.FormattedIcu<(LH.Audit.Details.TableItem|LH.Audit.Details.OpportunityItem)[]>} items
+   * @return void
    */
-  static getEntityClassifiedTableItems(id, headings, items, entityClassification) {
-    if (!entityClassification) return items;
+  static getEntityClassifiedTableItems(id, entityClassification, headings, items) {
+    if (!entityClassification) return;
 
     // If details.items are already marked with entity attribute during an audit, nothing to do here.
     if (items.length && items.find(item => typeof item.entity !== 'undefined')) {
-      return items;
+      return;
     }
 
-    const urlLocatorFn = Util.getUrlLocatorFn(id, headings, items);
-    if (!urlLocatorFn) return items;
+    const urlLocatorFn = Util.getUrlLocatorFn(id, headings);
+    if (!urlLocatorFn) return;
 
-    return items.map(item => {
+    items.forEach(item => {
       const url = urlLocatorFn(item);
       if (!url) return item;
 
@@ -279,12 +294,9 @@ class Util {
       if (!origin) return item;
 
       const entityId = entityClassification?.originLUT[origin];
-      if (typeof entityId === 'undefined') {
-        console.log('originLUT empty for', origin); // TODO: Remove before merge.
-        return item;
-      }
+      if (typeof entityId === 'undefined') return;
       const entity = entityClassification?.entities[entityId];
-      return {entity: entity?.name, ...item};
+      item.entity = entity?.name;
     });
   }
 
