@@ -121,6 +121,7 @@ class FullPageScreenshot extends FRGatherer {
 
     const result = await session.sendCommand('Page.captureScreenshot', {
       format: 'webp',
+      fromSurface: false,
       quality: FULL_PAGE_SCREENSHOT_QUALITY,
     });
     const data = 'data:image/webp;base64,' + result.data;
