@@ -113,7 +113,7 @@ class ThirdPartySummary extends Audit {
       byURL.set(attributableURL, urlSummary);
     }
 
-    // Map each URL's stat to a particular (third party?) entity.
+    // Map each URL's stat to a particular entity.
     /** @type {Map<LH.Artifacts.Entity, string[]>} */
     const urls = new Map();
     for (const [url, urlSummary] of byURL.entries()) {
