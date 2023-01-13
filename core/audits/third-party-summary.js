@@ -117,7 +117,7 @@ class ThirdPartySummary extends Audit {
     /** @type {Map<LH.Artifacts.Entity, string[]>} */
     const urls = new Map();
     for (const [url, urlSummary] of byURL.entries()) {
-      const entity = entityClassification.urlToEntity.get(url);
+      const entity = entityClassification.entityByUrl.get(url);
       if (!entity) {
         byURL.delete(url);
         continue;

@@ -19,7 +19,7 @@ async function getEntityClassification(artifacts, context) {
   /** @type {Record<string, number>} */
   const nameLUT = {};
 
-  for (const [entity, entityUrls] of classifiedEntities.entityToURLs.entries()) {
+  for (const [entity, entityUrls] of classifiedEntities.urlsByEntity) {
     /** @type {LH.Result.Entity} */
     const shortEntity = {
       name: entity.name,

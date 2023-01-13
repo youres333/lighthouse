@@ -53,22 +53,22 @@ class EntityClassification {
     /** @type {EntityCache} */
     const madeUpEntityCache = new Map();
     /** @type {Map<string, LH.Artifacts.Entity>} */
-    const urlToEntity = new Map();
+    const entityByUrl = new Map();
     /** @type {Map<LH.Artifacts.Entity, Array<string>>} */
-    const entityToURLs = new Map();
+    const urlsByEntity = new Map();
 
     for (const record of networkRecords) {
       const {url} = record;
-      if (urlToEntity.has(url)) continue;
+      if (entityByUrl.has(url)) continue;
 
       const entity = thirdPartyWeb.getEntity(url) ||
         EntityClassification.makeUpAnEntity(madeUpEntityCache, url);
       if (!entity) continue;
 
-      const entityURLs = entityToURLs.get(entity) || [];
+      const entityURLs = urlsByEntity.get(entity) || [];
       entityURLs.push(url);
-      entityToURLs.set(entity, entityURLs);
-      urlToEntity.set(url, entity);
+      urlsByEntity.set(entity, entityURLs);
+      entityByUrl.set(url, entity);
     }
 
     // When available, first party identification will be done via
@@ -88,7 +88,7 @@ class EntityClassification {
      * @return {string | undefined}
      */
     function getEntityName(url) {
-      return urlToEntity.get(url)?.name;
+      return entityByUrl.get(url)?.name;
     }
 
     /**
@@ -97,12 +97,12 @@ class EntityClassification {
      * @return {boolean}
      */
     function isFirstParty(url) {
-      return urlToEntity.get(url) === firstParty;
+      return entityByUrl.get(url) === firstParty;
     }
 
     return {
-      urlToEntity,
-      entityToURLs,
+      entityByUrl,
+      urlsByEntity,
       firstParty,
       getEntityName,
       isFirstParty,

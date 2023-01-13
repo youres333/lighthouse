@@ -940,8 +940,8 @@ declare module Artifacts {
   }
 
   interface EntityClassification {
-    entityToURLs: Map<Entity, Array<string>>,
-    urlToEntity: Map<string, Entity>,
+    urlsByEntity: Map<Entity, Array<string>>,
+    entityByUrl: Map<string, Entity>,
     firstParty?: Entity,
 
     // Convenience methods.
