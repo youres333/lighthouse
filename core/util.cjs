@@ -157,7 +157,7 @@ class Util {
 
         if (audit.details.type === 'opportunity' || audit.details.type === 'table') {
           // Attach table/opportunity items with entity information.
-          Util.getEntityClassifiedTableItems(audit.id, result.entityClassification,
+          Util.getEntityClassifiedTableItems(result.entityClassification,
             audit.details.headings, audit.details.items);
         }
       }
@@ -226,19 +226,23 @@ class Util {
   }
 
   /**
-   * Returns a URL locator function based on the audit headings/id.
-   * @param {string} id
+   * Given an audit's details, identify and return a URL locator function that
+   * can be called later with an `item` to extract the URL of it.
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
    * @return {{(item: LH.FormattedIcu<LH.Audit.Details.TableItem>): string|undefined}=}
    */
-  static getUrlLocatorFn(id, headings) {
+  static getUrlLocatorFn(headings) {
     // The most common type, valueType=url.
     const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
-    if (urlKey) return (item) => item[urlKey]?.toString();
+    if (urlKey) {
+      // Return a function that extracts item.url.
+      return (item) => item[urlKey]?.toString();
+    }
 
-    // valueType=source-location.
+    // The second common type, valueType=source-location.
     const srcLocationKey = headings.find(heading => heading.valueType === 'source-location')?.key;
     if (srcLocationKey) {
+      // Return a function that extracts item.source.url.
       return (item) => {
         const sourceLocation = item?.source;
         if (typeof sourceLocation === 'object' && sourceLocation.type === 'source-location') {
@@ -246,38 +250,44 @@ class Util {
         }
       };
     }
+
+    // More specific tests go here, as we need to identify URLs in more audits.
   }
 
   /**
    * Mark TableItems/OpportunityItems with entity names.
-   * @param {string} id
    * @param {LH.Result.EntityClassification|undefined} entityClassification
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
    * @param {LH.FormattedIcu<(LH.Audit.Details.TableItem|LH.Audit.Details.OpportunityItem)[]>} items
-   * @return void
    */
-  static getEntityClassifiedTableItems(id, entityClassification, headings, items) {
+  static getEntityClassifiedTableItems(entityClassification, headings, items) {
     if (!entityClassification) return;
 
     // If details.items are already marked with entity attribute during an audit, nothing to do here.
-    if (items.length && items.find(item => typeof item.entity !== 'undefined')) {
-      return;
-    }
+    if (!items.length || items.some(item => item.entity)) return;
 
-    const urlLocatorFn = Util.getUrlLocatorFn(id, headings);
+    /**
+     * To avoid the downside of setting up a block of conditional statements here
+     * that determine if/where a URL is located within an item based on the audit
+     * (and then switching between them later as we loop through items), we try to
+     * create a URL locator function that can be called on each item to extract the URL.
+     */
+    const urlLocatorFn = Util.getUrlLocatorFn(headings);
     if (!urlLocatorFn) return;
 
     items.forEach(item => {
       const url = urlLocatorFn(item);
-      if (!url) return item;
+      if (!url) return;
 
       let origin;
       try {
         // Non-URLs can appear in valueType: url columns, like 'Unattributable'
         origin = Util.parseURL(url).origin;
       } catch (e) {}
-      if (!origin) return item;
+      if (!origin) return;
 
+      // Use entityClassification.originLUT lookup table to match
+      // the origin to an entity.
       const entityId = entityClassification?.originLUT[origin];
       if (typeof entityId === 'undefined') return;
       const entity = entityClassification?.entities[entityId];
