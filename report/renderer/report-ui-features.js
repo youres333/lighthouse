@@ -329,7 +329,7 @@ export class ReportUIFeatures {
     const thirdPartyRows = [];
     for (const rowEl of rowEls) {
       if (mainEntityName && rowEl.dataset?.entity) {
-        // We rely on entity-classification audit for new LHRs that support it.
+        // We rely on entity-classification for new LHRs that support it.
         if (rowEl.dataset?.entity === mainEntityName) continue;
       } else {
         // Continue the legacy root domain check for back compat.
