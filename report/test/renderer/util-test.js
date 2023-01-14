@@ -254,6 +254,32 @@ describe('util helpers', () => {
       const interactiveRef = perfAuditRefs.find(ref => ref.id === 'interactive');
       assert.strictEqual(interactiveRef.stackPacks, undefined);
     });
+
+    it('identifies entities on items of tables with urls', () => {
+      const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
+
+      const auditsWithTableDetails = Object.values(clonedSampleResult.audits)
+        .filter(audit => audit.details?.type === 'table');
+      assert.notEqual(auditsWithTableDetails.length, 0);
+
+      const auditsWithUrls = auditsWithTableDetails.filter(audit => {
+        const urlFields = ['url', 'source-location'];
+        return audit.details.headings.some(heading =>
+          urlFields.includes(heading.valueType) ||
+          urlFields.includes(heading.subItemsHeading?.valueType)
+        );
+      }).map(audit => audit.id);
+      assert.notEqual(auditsWithUrls.length, 0);
+
+      const preparedResult = Util.prepareReportResult(clonedSampleResult);
+      for (const id of auditsWithUrls) {
+        // Some audits dont have URLs within our data set.
+        if (['bf-cache', 'font-size'].includes(id)) continue;
+        const foundEntities = preparedResult.audits[id].details.items.some(item => item.entity);
+        if (!foundEntities) console.log(id);
+        assert.equal(foundEntities, true);
+      }
+    });
   });
 
   describe('getTld', () => {

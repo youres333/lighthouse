@@ -151,11 +151,8 @@ class Util {
           }
         }
 
-        if (audit.details.type === 'opportunity' || audit.details.type === 'table') {
-          // Attach table/opportunity items with entity information.
-          Util.getEntityClassifiedTableItems(result.entityClassification,
-            audit.details.headings, audit.details.items);
-        }
+        // Attach table/opportunity items with entity information.
+        Util.classifyEntities(result.entityClassification, audit);
       }
     }
 
@@ -240,7 +237,7 @@ class Util {
     if (srcLocationKey) {
       // Return a function that extracts item.source.url.
       return (item) => {
-        const sourceLocation = item?.source;
+        const sourceLocation = item[srcLocationKey];
         if (typeof sourceLocation === 'object' && sourceLocation.type === 'source-location') {
           return sourceLocation.url;
         }
@@ -253,13 +250,16 @@ class Util {
   /**
    * Mark TableItems/OpportunityItems with entity names.
    * @param {LH.Result.EntityClassification|undefined} entityClassification
-   * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
-   * @param {LH.FormattedIcu<(LH.Audit.Details.TableItem|LH.Audit.Details.OpportunityItem)[]>} items
+   * @param {import('../../types/lhr/audit-result').Result} audit
    */
-  static getEntityClassifiedTableItems(entityClassification, headings, items) {
+  static classifyEntities(entityClassification, audit) {
     if (!entityClassification) return;
+    if (!(audit.details?.type === 'opportunity' || audit.details?.type === 'table')) {
+      return;
+    }
 
     // If details.items are already marked with entity attribute during an audit, nothing to do here.
+    const {items, headings} = audit.details;
     if (!items.length || items.some(item => item.entity)) return;
 
     /**
