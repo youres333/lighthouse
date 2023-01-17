@@ -232,6 +232,9 @@ message LighthouseResult {
 
   // Entity classification data.
   EntityClassification entityClassification = 19;
+
+  // Screenshot data of the full page, along with node rects relevant to the audit results.
+  google.protobuf.Value full_page_screenshot = 19;
 }
 
 // Message containing a category

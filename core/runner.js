@@ -113,6 +113,8 @@ class Runner {
         stackPacks: stackPacks.getStackPacks(artifacts.Stacks),
         entityClassification: await getEntityClassification(artifacts,
           {options: {}, computedCache, settings}),
+        fullPageScreenshot: resolvedConfig.settings.disableFullPageScreenshot ?
+          undefined : artifacts.FullPageScreenshot,
         timing: this._getTiming(artifacts),
         i18n: {
           rendererFormattedStrings: format.getRendererFormattedStrings(settings.locale),

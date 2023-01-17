@@ -5,6 +5,7 @@
  */
 
 import {Result as AuditResult} from './audit-result';
+import AuditDetails from './audit-details.js';
 import {ConfigSettings} from './settings';
 
 /**
@@ -57,6 +58,8 @@ interface Result {
   stackPacks?: Result.StackPack[];
   /** Entity classification for this Lighthouse run. */
   entityClassification?: Result.EntityClassification;
+  /** Screenshot taken of the full page, with node rects referencing audit results. If there was an error with collection, this is null. If disabled via the disableFullPageScreenshot setting, this is undefined. */
+  fullPageScreenshot?: Result.FullPageScreenshot | null;
 }
 
 // Result namespace
@@ -138,6 +141,16 @@ declare module Result {
     iconDataURL: string;
     /** A set of descriptions for some of Lighthouse's audits, keyed by audit `id`. */
     descriptions: Record<string, string>;
+  }
+
+  interface FullPageScreenshot {
+    screenshot: {
+      /** Base64 image data URL. */
+      data: string;
+      width: number;
+      height: number;
+    };
+    nodes: Record<string, AuditDetails.Rect>;
   }
 
   /**

@@ -170,7 +170,7 @@ for (const key of Object.keys(artifacts)) {
   artifacts[/** @type {keyof typeof artifacts} */ (key)] = key;
 }
 
-/** @type {LH.Config.Json} */
+/** @type {LH.Config} */
 const defaultConfig = {
   settings: constants.defaultSettings,
   artifacts: [
@@ -278,7 +278,6 @@ const defaultConfig = {
     'valid-source-maps',
     'preload-lcp-image',
     'csp-xss',
-    'full-page-screenshot',
     'script-treemap-data',
     'manual/pwa-cross-browser',
     'manual/pwa-page-transitions',
@@ -517,7 +516,6 @@ const defaultConfig = {
         {id: 'non-composited-animations', weight: 0},
         {id: 'unsized-images', weight: 0},
         {id: 'viewport', weight: 0},
-        {id: 'no-unload-listeners', weight: 0},
         {id: 'uses-responsive-images-snapshot', weight: 0},
         {id: 'work-during-interaction', weight: 0},
         {id: 'bf-cache', weight: 0},
@@ -623,6 +621,7 @@ const defaultConfig = {
         {id: 'doctype', weight: 1, group: 'best-practices-browser-compat'},
         {id: 'charset', weight: 1, group: 'best-practices-browser-compat'},
         // General Group
+        {id: 'no-unload-listeners', weight: 1, group: 'best-practices-general'},
         {id: 'js-libraries', weight: 0, group: 'best-practices-general'},
         {id: 'deprecations', weight: 1, group: 'best-practices-general'},
         {id: 'errors-in-console', weight: 1, group: 'best-practices-general'},
