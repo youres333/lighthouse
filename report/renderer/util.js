@@ -306,7 +306,7 @@ class Util {
     });
   }
 
-  /*
+  /**
    * @param {LH.Result} lhr
    * @return {LH.Result.FullPageScreenshot=}
    */
