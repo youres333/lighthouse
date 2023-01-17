@@ -230,11 +230,11 @@ message LighthouseResult {
   // URL displayed on the page after Lighthouse finishes.
   string final_displayed_url = 18;
 
-  // Entity classification data.
-  EntityClassification entityClassification = 19;
-
   // Screenshot data of the full page, along with node rects relevant to the audit results.
   google.protobuf.Value full_page_screenshot = 19;
+
+  // Entity classification data.
+  EntityClassification entityClassification = 20;
 }
 
 // Message containing a category
@@ -623,10 +623,10 @@ message EntityClassification {
   string firstParty = 2;
   
   // Lookup table that maps URL origins to corresponding index in entities.
-  map<string, double> originLUT = 3;
+  map<string, uint32> originLUT = 3;
 
   // Lookup table that maps entity names to corresponding index in entities.
-  map<string, double> nameLUT = 4;
+  map<string, uint32> nameLUT = 4;
 }
 
 // Message containing an Entity.
@@ -641,8 +641,8 @@ message Entity {
   optional string category = 3;
 
   // An optional flag indicating if the entity is the first party.
-  optional google.protobuf.BoolValue isFirstParty = 4;
+  optional bool isFirstParty = 4;
 
   // An optional flag indicating if the entity is not recognized.
-  optional google.protobuf.BoolValue isUnrecognized = 5;
+  optional bool isUnrecognized = 5;
 }
