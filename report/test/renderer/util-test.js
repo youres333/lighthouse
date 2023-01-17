@@ -262,7 +262,10 @@ describe('util helpers', () => {
         .filter(audit => audit.details?.type === 'table');
       assert.notEqual(auditsWithTableDetails.length, 0);
 
+      // collect audit names that might have urls
+      const auditsThatDontHaveUrls = ['bf-cache', 'font-size']; // no urls in data-set
       const auditsWithUrls = auditsWithTableDetails.filter(audit => {
+        if (auditsThatDontHaveUrls.includes(audit.id)) return false;
         const urlFields = ['url', 'source-location'];
         return audit.details.headings.some(heading =>
           urlFields.includes(heading.valueType) ||
@@ -272,9 +275,9 @@ describe('util helpers', () => {
       assert.notEqual(auditsWithUrls.length, 0);
 
       const preparedResult = Util.prepareReportResult(clonedSampleResult);
+
+      // ensure each audit that had urls detected to have marked entities.
       for (const id of auditsWithUrls) {
-        // Some audits dont have URLs within our data set.
-        if (['bf-cache', 'font-size'].includes(id)) continue;
         const foundEntities = preparedResult.audits[id].details.items.some(item => item.entity);
         if (!foundEntities) console.log(id);
         assert.equal(foundEntities, true);
