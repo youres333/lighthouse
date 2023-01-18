@@ -1689,7 +1689,8 @@
                   "key": "startTime",
                   "valueType": "ms",
                   "granularity": 1,
-                  "label": "Start Time"
+                  "label": "Start Time",
+                  "dontAggregate": true
                 },
                 {
                   "key": "duration",
@@ -8726,7 +8727,8 @@
                   "key": "startTime",
                   "valueType": "ms",
                   "granularity": 1,
-                  "label": "Start Time"
+                  "label": "Start Time",
+                  "dontAggregate": true
                 },
                 {
                   "key": "duration",
@@ -8866,7 +8868,8 @@
                   "key": "cacheLifetimeMs",
                   "valueType": "ms",
                   "label": "Cache TTL",
-                  "displayUnit": "duration"
+                  "displayUnit": "duration",
+                  "dontAggregate": true
                 },
                 {
                   "key": "totalBytes",
@@ -17367,7 +17370,8 @@
                   "key": "startTime",
                   "valueType": "ms",
                   "granularity": 1,
-                  "label": "Start Time"
+                  "label": "Start Time",
+                  "dontAggregate": true
                 },
                 {
                   "key": "duration",
