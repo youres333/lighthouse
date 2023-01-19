@@ -88,11 +88,11 @@ export class ReportUIFeatures {
     });
     const disableFireworks =
       this._opts.disableFireworks || this._opts.disableAutoDarkModeAndFireworks;
-    if (scoresAll100 && !disableFireworks) {
+    // if (scoresAll100 && !disableFireworks) {
       this._enableFireworks();
       // If dark mode is allowed, force it on because it looks so much better.
       if (!disableDarkMode) toggleDarkTheme(this._dom, true);
-    }
+    // }
 
     // Show the metric descriptions by default when there is an error.
     const hasMetricError = lhr.categories.performance && lhr.categories.performance.auditRefs
