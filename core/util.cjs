@@ -238,7 +238,7 @@ class Util {
   }
 
   /**
-   * Given an audit's detail headings, identify and return a URL locator function that
+   * Given an audit's details, identify and return a URL locator function that
    * can be called later with an `item` to extract the URL of it.
    * @param {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading[]>} headings
    * @return {{(item: LH.FormattedIcu<LH.Audit.Details.TableItem>): string|undefined}=}
@@ -282,10 +282,8 @@ class Util {
     if (!items.length || items.some(item => item.entity)) return;
 
     /**
-     * To avoid the downside of setting up a block of conditional statements here
-     * that determine if/where a URL is located within an item based on the audit
-     * (and then switching between them later as we loop through items), we try to
-     * create a URL locator function that can be called on each item to extract the URL.
+     * There is a common method to extract the url from all the items of a specific audit. That logic is encapsulated
+     * by getUrlLocatorFn.
      */
     const urlLocatorFn = Util.getUrlLocatorFn(headings);
     if (!urlLocatorFn) return;
@@ -298,7 +296,7 @@ class Util {
       try {
         // Non-URLs can appear in valueType: url columns, like 'Unattributable'
         origin = Util.parseURL(url).origin;
-      } catch (e) {}
+      } catch {}
       if (!origin) return;
 
       // Use entityClassification.originLUT lookup table to match
