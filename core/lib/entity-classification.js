@@ -15,9 +15,9 @@ async function getEntityClassification(artifacts, context) {
   /** @type {Array<LH.Result.Entity>} */
   const entities = [];
   /** @type {Record<string, number>} */
-  const originLUT = {};
+  const entityIndexByOrigin = {};
   /** @type {Record<string, number>} */
-  const nameLUT = {};
+  const entityIndexByName = {};
 
   for (const [entity, entityUrls] of classifiedEntities.urlsByEntity) {
     /** @type {LH.Result.Entity} */
@@ -34,16 +34,16 @@ async function getEntityClassification(artifacts, context) {
     entityUrls.forEach(url => {
       const origin = UrlUtils.getOrigin(url);
       if (!origin) return;
-      originLUT[origin] = id;
+      entityIndexByOrigin[origin] = id;
     });
-    nameLUT[shortEntity.name] = id;
+    entityIndexByName[shortEntity.name] = id;
   }
 
   return {
     entities,
     firstParty: classifiedEntities.firstParty?.name,
-    originLUT,
-    nameLUT,
+    entityIndexByOrigin,
+    entityIndexByName,
   };
 }
 

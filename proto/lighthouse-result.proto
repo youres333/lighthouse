@@ -623,10 +623,10 @@ message EntityClassification {
   string firstParty = 2;
   
   // Lookup table that maps URL origins to corresponding index in entities.
-  map<string, uint32> originLUT = 3;
+  map<string, uint32> entityIndexByOrigin = 3;
 
   // Lookup table that maps entity names to corresponding index in entities.
-  map<string, uint32> nameLUT = 4;
+  map<string, uint32> entityIndexByName = 4;
 }
 
 // Message containing an Entity.

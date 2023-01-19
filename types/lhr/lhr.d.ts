@@ -163,9 +163,9 @@ declare module Result {
     /** Name of the first-party entity */
     firstParty?: string;
     /** Entity-name to entity index lookup table  */
-    nameLUT: Record<string, number>;
+    entityIndexByName: Record<string, number>;
     /** URL origin to entity index lookup table */
-    originLUT: Record<string, number>;
+    entityIndexByOrigin: Record<string, number>;
   }
 
   /**

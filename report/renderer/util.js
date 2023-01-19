@@ -295,9 +295,9 @@ class Util {
       } catch {}
       if (!origin) return;
 
-      // Use entityClassification.originLUT lookup table to match
+      // Use entityClassification.entityIndexByOrigin lookup table to match
       // the origin to an entity.
-      const entityId = entityClassification?.originLUT[origin];
+      const entityId = entityClassification?.entityIndexByOrigin[origin];
       if (typeof entityId === 'undefined') return;
       const entity = entityClassification?.entities[entityId];
       item.entity = entity?.name;

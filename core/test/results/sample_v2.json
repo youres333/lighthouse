@@ -6353,11 +6353,11 @@
       }
     ],
     "firstParty": "localhost",
-    "originLUT": {
+    "entityIndexByOrigin": {
       "http://localhost:10200": 0,
       "http://ajax.googleapis.com": 1
     },
-    "nameLUT": {
+    "entityIndexByName": {
       "localhost": 0,
       "Google CDN": 1
     }

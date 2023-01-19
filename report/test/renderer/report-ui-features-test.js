@@ -137,12 +137,12 @@ describe('ReportUIFeatures', () => {
               isUnrecognized: true,
             },
           ],
-          originLUT: {
+          entityIndexByOrigin: {
             'http://www.example.com': 0,
             'http://www.cdn.com': 1,
             'http://wwww.notexample.com': 2,
           },
-          nameLUT: {
+          entityIndexByName: {
             'example.com': 0,
             'cdn.com': 1,
             'notexample.com': 2,

@@ -4229,13 +4229,13 @@
             }
           ],
           "firstParty": "mikescerealshack.co",
-          "originLUT": {
+          "entityIndexByOrigin": {
             "https://www.mikescerealshack.co": 0,
             "https://events.mikescerealshack.co": 0,
             "https://fonts.googleapis.com": 1,
             "https://fonts.gstatic.com": 1
           },
-          "nameLUT": {
+          "entityIndexByName": {
             "mikescerealshack.co": 0,
             "Google Fonts": 1
           }
@@ -9848,12 +9848,12 @@
             }
           ],
           "firstParty": "mikescerealshack.co",
-          "originLUT": {
+          "entityIndexByOrigin": {
             "https://www.mikescerealshack.co": 0,
             "https://cdn.mikescerealshack.co": 0,
             "https://mnl4bjjsnz-dsn.algolia.net": 1
           },
-          "nameLUT": {
+          "entityIndexByName": {
             "mikescerealshack.co": 0,
             "Algolia": 1
           }
@@ -20066,13 +20066,13 @@
             }
           ],
           "firstParty": "mikescerealshack.co",
-          "originLUT": {
+          "entityIndexByOrigin": {
             "https://www.mikescerealshack.co": 0,
             "https://events.mikescerealshack.co": 0,
             "https://fonts.googleapis.com": 1,
             "https://fonts.gstatic.com": 1
           },
-          "nameLUT": {
+          "entityIndexByName": {
             "mikescerealshack.co": 0,
             "Google Fonts": 1
           }
