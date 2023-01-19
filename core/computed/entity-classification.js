@@ -16,7 +16,7 @@ class EntityClassification {
   /**
    * @param {EntityCache} entityCache
    * @param {string} url
-   * @return {Entity | undefined}
+   * @return {LH.Artifacts.Entity | undefined}
    */
   static makeUpAnEntity(entityCache, url) {
     if (!UrlUtils.isValid(url)) return;
