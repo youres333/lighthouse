@@ -930,13 +930,13 @@ declare module Artifacts {
   }
 
   interface EntityClassification {
-    urlsByEntity: Map<Entity, Array<string>>,
-    entityByUrl: Map<string, Entity>,
-    firstParty?: Entity,
+    urlsByEntity: Map<Entity, Array<string>>;
+    entityByUrl: Map<string, Entity>;
+    firstParty?: Entity;
 
     // Convenience methods.
-    getEntityName: (url: string) => string | undefined,
-    isFirstParty: (url: string) => boolean,
+    getEntityName: (url: string) => string | undefined;
+    isFirstParty: (url: string) => boolean;
   }
 }
 
