@@ -47,11 +47,6 @@ describe('Entity Classification computed artifact', () => {
     // Make sure convenience functions work.
     expect(result).toHaveProperty('isFirstParty');
     expect(result.isFirstParty).toBeInstanceOf(Function);
-    expect(result).toHaveProperty('getEntityName');
-    expect(result.getEntityName).toBeInstanceOf(Function);
-    expect(result.getEntityName('http://example.com/app.js')).toEqual('example.com');
-    expect(result.getEntityName('http://cdn.example.com/script.js')).toEqual('example.com');
-    expect(result.getEntityName('http://nonexistent.com/')).toEqual(undefined);
     expect(result.isFirstParty('http://example.com/file.html')).toEqual(true);
     expect(result.isFirstParty('http://cdn.example.com/script.js')).toEqual(true);
     expect(result.isFirstParty('http://third-party.com/file.jpg')).toEqual(false);

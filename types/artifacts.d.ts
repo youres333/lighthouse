@@ -935,7 +935,6 @@ declare module Artifacts {
     firstParty?: Entity;
 
     // Convenience methods.
-    getEntityName: (url: string) => string | undefined;
     isFirstParty: (url: string) => boolean;
   }
 }

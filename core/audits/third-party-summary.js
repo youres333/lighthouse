@@ -198,7 +198,7 @@ class ThirdPartySummary extends Audit {
     const networkRecords = await NetworkRecords.request(devtoolsLog, context);
     const classifiedEntities = await EntityClassification.request(
       {URL: artifacts.URL, devtoolsLog}, context);
-    const mainEntity = classifiedEntities.firstParty;
+    const firstPartyEntity = classifiedEntities.firstParty;
     const tasks = await MainThreadTasks.request(trace, context);
     const multiplier = settings.throttlingMethod === 'simulate' ?
       settings.throttling.cpuSlowdownMultiplier : 1;
@@ -210,7 +210,7 @@ class ThirdPartySummary extends Audit {
     const results = Array.from(summaries.byEntity.entries())
       // Don't consider the page we're on to be third-party.
       // e.g. Facebook SDK isn't a third-party script on facebook.com
-      .filter(([entity]) => !(mainEntity && mainEntity === entity))
+      .filter(([entity]) => !(firstPartyEntity && firstPartyEntity === entity))
       .map(([entity, stats]) => {
         overallSummary.wastedBytes += stats.transferSize;
         overallSummary.wastedMs += stats.blockingTime;

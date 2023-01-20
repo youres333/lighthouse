@@ -83,15 +83,6 @@ class EntityClassification {
     }
 
     /**
-     * Convenience function to return the entity name for a URL.
-     * @param {string} url
-     * @return {string | undefined}
-     */
-    function getEntityName(url) {
-      return entityByUrl.get(url)?.name;
-    }
-
-    /**
      * Convenience function to check if a URL belongs to first party.
      * @param {string} url
      * @return {boolean}
@@ -104,7 +95,6 @@ class EntityClassification {
       entityByUrl,
       urlsByEntity,
       firstParty,
-      getEntityName,
       isFirstParty,
     };
   }
