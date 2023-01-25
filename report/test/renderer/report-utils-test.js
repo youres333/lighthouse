@@ -308,7 +308,6 @@ describe('util helpers', () => {
       // ensure each audit that had urls detected to have marked entities.
       for (const id of auditsWithUrls) {
         const foundEntities = preparedResult.audits[id].details.items.some(item => item.entity);
-        if (!foundEntities) console.log(id);
         assert.equal(foundEntities, true);
       }
     });

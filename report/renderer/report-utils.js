@@ -198,10 +198,23 @@ class ReportUtils {
    */
   static getUrlLocatorFn(headings) {
     // The most common type, valueType=url.
+    // const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
+    // if (urlKey) {
+    //   return (item) => {
+    //     const url = item[urlKey];
+    //     if (typeof url === 'object' && url.type === 'url') {
+    //       return item.url;
+    //     }
+    //   };
+    // }
+
     const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
-    if (urlKey) {
-      // Return a function that extracts item.url.
-      return (item) => item[urlKey]?.toString();
+    if (urlKey && typeof urlKey === 'string') {
+      // Return a function that extracts item.source.url.
+      return (item) => {
+        const url = item[urlKey];
+        if (typeof url === 'string') return url;
+      };
     }
 
     // The second common type, valueType=source-location.
@@ -234,29 +247,26 @@ class ReportUtils {
     const {items, headings} = audit.details;
     if (!items.length || items.some(item => item.entity)) return;
 
-    /**
-     * There is a common method to extract the url from all the items of a specific audit. That logic is encapsulated
-     * by getUrlLocatorFn.
-     */
+    // Identify a URL-locator function that we could call against each item to get its URL.
     const urlLocatorFn = ReportUtils.getUrlLocatorFn(headings);
     if (!urlLocatorFn) return;
 
-    items.forEach(item => {
+    for (const item of items) {
       const url = urlLocatorFn(item);
-      if (!url) return;
+      if (!url) continue;
 
       let origin;
       try {
         // Non-URLs can appear in valueType: url columns, like 'Unattributable'
         origin = Util.parseURL(url).origin;
       } catch {}
-      if (!origin) return;
+      if (!origin) continue;
 
       const entityIndex = entityClassification.entityIndexByOrigin[origin];
       if (entityIndex === undefined) return;
       const entity = entityClassification.list[entityIndex];
       item.entity = entity.name;
-    });
+    }
   }
 
   /**
