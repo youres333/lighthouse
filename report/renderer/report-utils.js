@@ -198,16 +198,6 @@ class ReportUtils {
    */
   static getUrlLocatorFn(headings) {
     // The most common type, valueType=url.
-    // const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
-    // if (urlKey) {
-    //   return (item) => {
-    //     const url = item[urlKey];
-    //     if (typeof url === 'object' && url.type === 'url') {
-    //       return item.url;
-    //     }
-    //   };
-    // }
-
     const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
     if (urlKey && typeof urlKey === 'string') {
       // Return a function that extracts item.source.url.

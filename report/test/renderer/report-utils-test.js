@@ -98,7 +98,8 @@ describe('util helpers', () => {
       it('corrects underscored `notApplicable` scoreDisplayMode', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
-        // Remove entity classification to be able to compare to sample_v2 results.
+        // Avoid injecting entity names into audits that would would
+        // make the diff at the end of this test difficult.
         delete clonedSampleResult.entities;
 
         let notApplicableCount = 0;
@@ -120,7 +121,8 @@ describe('util helpers', () => {
       it('corrects undefined auditDetails.type to `debugdata`', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
-        // Remove entity classification to be able to compare to sample_v2 results.
+        // Avoid injecting entity names into audits that would would
+        // make the diff at the end of this test difficult.
         delete clonedSampleResult.entities;
 
         // Delete debugdata details types.
@@ -142,7 +144,8 @@ describe('util helpers', () => {
       it('corrects `diagnostic` auditDetails.type to `debugdata`', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
-        // Remove entity classification to be able to compare to sample_v2 results.
+        // Avoid injecting entity names into audits that would would
+        // make the diff at the end of this test difficult.
         delete clonedSampleResult.entities;
 
         // Change debugdata details types.
@@ -164,7 +167,8 @@ describe('util helpers', () => {
       it('corrects screenshots in the `filmstrip` auditDetails.type', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
-        // Remove entity classification to be able to compare to sample_v2 results.
+        // Avoid injecting entity names into audits that would would
+        // make the diff at the end of this test difficult.
         delete clonedSampleResult.entities;
 
         // Strip filmstrip screenshots of data URL prefix.
@@ -195,7 +199,8 @@ describe('util helpers', () => {
           },
         };
         delete clonedSampleResult.fullPageScreenshot;
-        // Remove entity classification to be able to compare to sample_v2 results.
+        // Avoid injecting entity names into audits that would would
+        // make the diff at the end of this test difficult.
         delete clonedSampleResult.entities;
 
         assert.ok(clonedSampleResult.audits['full-page-screenshot'].details.nodes); // Make sure something's being tested.
@@ -232,7 +237,8 @@ describe('util helpers', () => {
       it('converts old opportunity table column headings to consolidated table headings', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
-        // Remove entity classification to be able to compare to sample_v2 results.
+        // Avoid injecting entity names into audits that would would
+        // make the diff at the end of this test difficult.
         delete clonedSampleResult.entities;
 
         const auditsWithTableDetails = Object.values(clonedSampleResult.audits)
