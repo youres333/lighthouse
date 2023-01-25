@@ -226,7 +226,7 @@ class ReportUtils {
    */
   static classifyEntities(entityClassification, audit) {
     if (!entityClassification) return;
-    if (!(audit.details?.type === 'opportunity' || audit.details?.type === 'table')) {
+    if (audit.details?.type !== 'opportunity' && audit.details?.type !== 'table') {
       return;
     }
 
@@ -252,12 +252,10 @@ class ReportUtils {
       } catch {}
       if (!origin) return;
 
-      // Use entityClassification.entityIndexByOrigin lookup table to match
-      // the origin to an entity.
-      const entityId = entityClassification?.entityIndexByOrigin[origin];
-      if (typeof entityId === 'undefined') return;
-      const entity = entityClassification?.list[entityId];
-      item.entity = entity?.name;
+      const entityIndex = entityClassification.entityIndexByOrigin[origin];
+      if (entityIndex === undefined) return;
+      const entity = entityClassification.list[entityIndex];
+      item.entity = entity.name;
     });
   }
 
