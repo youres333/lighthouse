@@ -10,7 +10,7 @@ import jsdom from 'jsdom';
 import jestMock from 'jest-mock';
 
 import {reportAssets} from '../../generator/report-assets.js';
-import {Util} from '../../renderer/util.js';
+import {ReportUtils, UIStrings} from '../../renderer/report-utils.js';
 import {DOM} from '../../renderer/dom.js';
 import {DetailsRenderer} from '../../renderer/details-renderer.js';
 import {ReportUIFeatures} from '../../renderer/report-ui-features.js';
@@ -76,7 +76,7 @@ describe('ReportUIFeatures', () => {
     };
 
     dom = new DOM(document.window.document);
-    sampleResults = Util.prepareReportResult(sampleResultsOrig);
+    sampleResults = ReportUtils.prepareReportResult(sampleResultsOrig);
     render(sampleResults);
   });
 
@@ -243,7 +243,7 @@ describe('ReportUIFeatures', () => {
           };
 
           // Entity resolution is done during prepareReportResult
-          const result = Util.prepareReportResult(lhrJson);
+          const result = ReportUtils.prepareReportResult(lhrJson);
 
           // render a report onto the UIFeature dom
           container = render(result);
@@ -338,7 +338,7 @@ describe('ReportUIFeatures', () => {
           // based third-party filtering (legacy)
           delete lhrJson.entities;
 
-          const result = Util.prepareReportResult(lhrJson);
+          const result = ReportUtils.prepareReportResult(lhrJson);
 
           // render a report onto the UIFeature dom
           container = render(result);
@@ -690,7 +690,7 @@ describe('ReportUIFeatures', () => {
       const container = render(sampleResults);
       for (const node of dom.findAll('[data-i18n]', container)) {
         const val = node.getAttribute('data-i18n');
-        assert.ok(val in Util.UIStrings, `Invalid data-i18n value of: "${val}" not found.`);
+        assert.ok(val in UIStrings, `Invalid data-i18n value of: "${val}" not found.`);
       }
     });
   });
