@@ -22,6 +22,7 @@
 import {Audit} from './audit.js';
 import * as i18n from '../lib/i18n/i18n.js';
 import {EntityClassification} from '../computed/entity-classification.js';
+import {EntityClassification} from '../computed/entity-classification.js';
 import thirdPartyWeb from '../lib/third-party-web.js';
 import {NetworkRecords} from '../computed/network-records.js';
 import {MainThreadTasks} from '../computed/main-thread-tasks.js';
@@ -189,6 +190,7 @@ class ThirdPartyFacades extends Audit {
         transferSize: entitySummary.transferSize,
         blockingTime: entitySummary.blockingTime,
         subItems: {type: 'subitems', items},
+        // Add entity manually since facades don't have a single `url`.
         entity: entity.name,
       });
     }
