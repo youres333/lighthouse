@@ -18,7 +18,6 @@ import {Audit} from './audits/audit.js';
 import * as format from '../shared/localization/format.js';
 import * as stackPacks from './lib/stack-packs.js';
 import * as assetSaver from './lib/asset-saver.js';
-import {getEntityClassification} from './lib/entity-classification.js';
 import {Sentry} from './lib/sentry.js';
 import {ReportGenerator} from '../report/generator/report-generator.js';
 import {LighthouseError} from './lib/lh-error.js';

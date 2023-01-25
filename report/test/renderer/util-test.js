@@ -94,7 +94,7 @@ describe('util helpers', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
         // Remove entity classification to be able to compare to sample_v2 results.
-        delete clonedSampleResult.entityClassification;
+        delete clonedSampleResult.entities;
 
         let notApplicableCount = 0;
         Object.values(clonedSampleResult.audits).forEach(audit => {
@@ -116,7 +116,7 @@ describe('util helpers', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
         // Remove entity classification to be able to compare to sample_v2 results.
-        delete clonedSampleResult.entityClassification;
+        delete clonedSampleResult.entities;
 
         // Delete debugdata details types.
         let undefinedCount = 0;
@@ -138,7 +138,7 @@ describe('util helpers', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
         // Remove entity classification to be able to compare to sample_v2 results.
-        delete clonedSampleResult.entityClassification;
+        delete clonedSampleResult.entities;
 
         // Change debugdata details types.
         let diagnosticCount = 0;
@@ -160,7 +160,7 @@ describe('util helpers', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
         // Remove entity classification to be able to compare to sample_v2 results.
-        delete clonedSampleResult.entityClassification;
+        delete clonedSampleResult.entities;
 
         // Strip filmstrip screenshots of data URL prefix.
         let filmstripCount = 0;
@@ -191,7 +191,7 @@ describe('util helpers', () => {
         };
         delete clonedSampleResult.fullPageScreenshot;
         // Remove entity classification to be able to compare to sample_v2 results.
-        delete clonedSampleResult.entityClassification;
+        delete clonedSampleResult.entities;
 
         assert.ok(clonedSampleResult.audits['full-page-screenshot'].details.nodes); // Make sure something's being tested.
         assert.notDeepStrictEqual(clonedSampleResult.audits, sampleResult.audits);
@@ -228,7 +228,7 @@ describe('util helpers', () => {
         const clonedSampleResult = JSON.parse(JSON.stringify(sampleResult));
 
         // Remove entity classification to be able to compare to sample_v2 results.
-        delete clonedSampleResult.entityClassification;
+        delete clonedSampleResult.entities;
 
         const auditsWithTableDetails = Object.values(clonedSampleResult.audits)
           .filter(audit => audit.details?.type === 'table');

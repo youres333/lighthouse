@@ -213,9 +213,9 @@ describe('ReportUIFeatures', () => {
 
         before(() => {
           // Setup entity-classification with recognized entities first.
-          lhrJson.entityClassification = {
+          lhrJson.entities = {
             firstParty: 'example.com',
-            entities: [
+            list: [
               {
                 name: 'example.com',
                 isFirstParty: true,
@@ -336,7 +336,7 @@ describe('ReportUIFeatures', () => {
         before(() => {
           // Remove entity-classification audit to fall back to origin string match
           // based third-party filtering (legacy)
-          delete lhrJson.entityClassification;
+          delete lhrJson.entities;
 
           const result = Util.prepareReportResult(lhrJson);
 
