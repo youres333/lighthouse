@@ -168,7 +168,7 @@ class Util {
         }
 
         // Attach table/opportunity items with entity information.
-        Util.classifyEntities(result.entityClassification, audit);
+        Util.classifyEntities(result.entities, audit);
 
         // TODO: convert printf-style displayValue.
         // Added:   #5099, v3
@@ -298,7 +298,7 @@ class Util {
 
   /**
    * Mark TableItems/OpportunityItems with entity names.
-   * @param {LH.Result.EntityClassification|undefined} entityClassification
+   * @param {LH.Result.Entities|undefined} entityClassification
    * @param {import('../../types/lhr/audit-result').Result} audit
    */
   static classifyEntities(entityClassification, audit) {
@@ -333,7 +333,7 @@ class Util {
       // the origin to an entity.
       const entityId = entityClassification?.entityIndexByOrigin[origin];
       if (typeof entityId === 'undefined') return;
-      const entity = entityClassification?.entities[entityId];
+      const entity = entityClassification?.list[entityId];
       item.entity = entity?.name;
     });
   }
