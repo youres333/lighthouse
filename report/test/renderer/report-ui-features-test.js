@@ -246,6 +246,7 @@ describe('ReportUIFeatures', () => {
               'example.com': 0,
               'cdn.com': 1,
               'notexample.com': 2,
+              'google.com': 3,
             },
           };
 
