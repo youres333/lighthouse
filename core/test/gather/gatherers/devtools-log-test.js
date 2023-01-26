@@ -11,6 +11,9 @@ import {flushAllTimersAndMicrotasks, timers} from '../../test-utils.js';
 import {createMockSession} from '../mock-driver.js';
 
 describe('enableAsyncStacks()', () => {
+  beforeEach(() => timers.useFakeTimers());
+  afterEach(() => timers.dispose());
+
   it('enables async stacks', async () => {
     const mockSession = createMockSession();
     mockSession.sendCommand
@@ -30,9 +33,6 @@ describe('enableAsyncStacks()', () => {
   });
 
   it('enables async stacks on every main frame navigation', async () => {
-    timers.useFakeTimers();
-    after(() => timers.dispose());
-
     const mockSession = createMockSession();
     mockSession.sendCommand
       .mockResponse('Debugger.enable')
