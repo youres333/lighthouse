@@ -710,6 +710,7 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   padding: var(--default-padding);
+  margin: 5px;
 }
 
 .lh-metric__details {
