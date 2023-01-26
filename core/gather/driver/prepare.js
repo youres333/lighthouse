@@ -103,15 +103,12 @@ async function prepareThrottlingAndNetwork(session, settings, options) {
  * @param {LH.Gatherer.FRTransitionalDriver} driver
  * @param {LH.Config.Settings} settings
  */
-async function prepareDeviceEmulationAndAsyncStacks(driver, settings) {
+async function prepareDeviceEmulation(driver, settings) {
   // Enable network domain here so future calls to `emulate()` don't clear cache (https://github.com/GoogleChrome/lighthouse/issues/12631)
   await driver.defaultSession.sendCommand('Network.enable');
 
   // Emulate our target device screen and user agent.
   await emulation.emulate(driver.defaultSession, settings);
-
-  // Enable better stacks on network requests.
-  // await enableAsyncStacks(driver.defaultSession);
 }
 
 /**
@@ -124,7 +121,7 @@ async function prepareTargetForTimespanMode(driver, settings) {
   const status = {msg: 'Preparing target for timespan mode', id: 'lh:prepare:timespanMode'};
   log.time(status);
 
-  await prepareDeviceEmulationAndAsyncStacks(driver, settings);
+  await prepareDeviceEmulation(driver, settings);
   await prepareThrottlingAndNetwork(driver.defaultSession, settings, {
     disableThrottling: false,
     blockedUrlPatterns: undefined,
@@ -146,7 +143,7 @@ async function prepareTargetForNavigationMode(driver, settings) {
   const status = {msg: 'Preparing target for navigation mode', id: 'lh:prepare:navigationMode'};
   log.time(status);
 
-  await prepareDeviceEmulationAndAsyncStacks(driver, settings);
+  await prepareDeviceEmulation(driver, settings);
 
   // Automatically handle any JavaScript dialogs to prevent a hung renderer.
   await dismissJavaScriptDialogs(driver.defaultSession);

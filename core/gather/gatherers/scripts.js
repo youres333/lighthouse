@@ -81,8 +81,11 @@ class Scripts extends FRGatherer {
    */
   async startInstrumentation(context) {
     const session = context.driver.defaultSession;
-    session.on('Debugger.scriptParsed', this.onScriptParsed);
+
+    // Enable the domain before listening to events so we don't
+    // get any scripts that were on the page at the start of the run.
     await session.sendCommand('Debugger.enable');
+    session.on('Debugger.scriptParsed', this.onScriptParsed);
   }
 
   /**
