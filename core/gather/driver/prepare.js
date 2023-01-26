@@ -11,31 +11,6 @@ import * as emulation from '../../lib/emulation.js';
 import {pageFunctions} from '../../lib/page-functions.js';
 
 /**
- * Enables `Debugger` domain to receive async stacktrace information on network request initiators.
- * This is critical for tracking attribution of tasks and performance simulation accuracy.
- * @param {LH.Gatherer.FRProtocolSession} session
- */
-async function enableAsyncStacks(session) {
-  const enable = async () => {
-    await session.sendCommand('Debugger.enable');
-    await session.sendCommand('Debugger.setSkipAllPauses', {skip: true});
-    await session.sendCommand('Debugger.setAsyncCallStackDepth', {maxDepth: 8});
-  };
-
-  // Resume any pauses that make it through `setSkipAllPauses`
-  session.on('Debugger.paused', () => session.sendCommand('Debugger.resume'));
-
-  // `Debugger.setSkipAllPauses` is reset after every navigation, so retrigger it on main frame navigations.
-  // See https://bugs.chromium.org/p/chromium/issues/detail?id=990945&q=setSkipAllPauses&can=2
-  session.on('Page.frameNavigated', event => {
-    if (event.frame.parentId) return;
-    enable().catch(err => log.error('Driver', err));
-  });
-
-  await enable();
-}
-
-/**
  * Use a RequestIdleCallback shim for tests run with simulated throttling, so that the deadline can be used without
  * a penalty.
  * @param {LH.Gatherer.FRTransitionalDriver} driver
@@ -136,7 +111,7 @@ async function prepareDeviceEmulationAndAsyncStacks(driver, settings) {
   await emulation.emulate(driver.defaultSession, settings);
 
   // Enable better stacks on network requests.
-  await enableAsyncStacks(driver.defaultSession);
+  // await enableAsyncStacks(driver.defaultSession);
 }
 
 /**

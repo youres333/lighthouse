@@ -10,6 +10,8 @@
  * This protocol log can be used to recreate the network records using lib/network-recorder.js.
  */
 
+import log from 'lighthouse-logger';
+
 import FRGatherer from '../base-gatherer.js';
 
 class DevtoolsLog extends FRGatherer {
@@ -28,12 +30,56 @@ class DevtoolsLog extends FRGatherer {
 
     /** @param {LH.Protocol.RawEventMessage} e */
     this._onProtocolMessage = e => this._messageLog.record(e);
+
+    this._disableAsyncStacks = () => {};
+  }
+
+  /**
+   * Enables `Debugger` domain to receive async stacktrace information on network request initiators.
+   * This is critical for tracking attribution of tasks and performance simulation accuracy.
+   * @param {LH.Gatherer.FRProtocolSession} session
+   */
+  async _enableAsyncStacks(session) {
+    async function enable() {
+      await session.sendCommand('Debugger.enable');
+      await session.sendCommand('Debugger.setSkipAllPauses', {skip: true});
+      await session.sendCommand('Debugger.setAsyncCallStackDepth', {maxDepth: 8});
+    }
+
+    /**
+     * Resume any pauses that make it through `setSkipAllPauses`
+     */
+    function onDebuggerPaused() {
+      session.sendCommand('Debugger.resume');
+    }
+
+    /**
+     * `Debugger.setSkipAllPauses` is reset after every navigation, so retrigger it on main frame navigations.
+     * See https://bugs.chromium.org/p/chromium/issues/detail?id=990945&q=setSkipAllPauses&can=2
+     * @param {LH.Crdp.Page.FrameNavigatedEvent} event
+     */
+    function onFrameNavigated(event) {
+      if (event.frame.parentId) return;
+      enable().catch(err => log.error('DevtoolsLog', err));
+    }
+
+    session.on('Debugger.paused', onDebuggerPaused);
+    session.on('Page.frameNavigated', onFrameNavigated);
+
+    this._disableAsyncStacks = async () => {
+      session.off('Page.frameNavigated', onFrameNavigated);
+      session.off('Debugger.paused', onDebuggerPaused);
+      await session.sendCommand('Debugger.disable');
+    };
+
+    await enable();
   }
 
   /**
    * @param {LH.Gatherer.FRTransitionalContext} passContext
    */
   async startSensitiveInstrumentation({driver}) {
+    await this._enableAsyncStacks(driver.defaultSession);
     this._messageLog.reset();
     this._messageLog.beginRecording();
 
@@ -47,6 +93,7 @@ class DevtoolsLog extends FRGatherer {
   async stopSensitiveInstrumentation({driver}) {
     this._messageLog.endRecording();
     driver.targetManager.off('protocolevent', this._onProtocolMessage);
+    await this._disableAsyncStacks();
   }
 
   /**
