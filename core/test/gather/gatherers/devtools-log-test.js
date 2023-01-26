@@ -6,7 +6,63 @@
 
 import assert from 'assert/strict';
 
-import {DevtoolsMessageLog} from '../../../gather/gatherers/devtools-log.js';
+import {DevtoolsMessageLog, enableAsyncStacks} from '../../../gather/gatherers/devtools-log.js';
+import {flushAllTimersAndMicrotasks, timers} from '../../test-utils.js';
+import {createMockSession} from '../mock-driver.js';
+
+describe('enableAsyncStacks()', () => {
+  it('enables async stacks', async () => {
+    const mockSession = createMockSession();
+    mockSession.sendCommand
+      .mockResponse('Debugger.enable')
+      .mockResponse('Debugger.setSkipAllPauses')
+      .mockResponse('Debugger.setAsyncCallStackDepth');
+
+    await enableAsyncStacks(mockSession);
+
+    const invocations = mockSession.sendCommand.mock.calls;
+    const debuggerInvocations = invocations.filter(call => call[0].startsWith('Debugger.'));
+    expect(debuggerInvocations.map(argList => argList[0])).toEqual([
+      'Debugger.enable',
+      'Debugger.setSkipAllPauses',
+      'Debugger.setAsyncCallStackDepth',
+    ]);
+  });
+
+  it('enables async stacks on every main frame navigation', async () => {
+    timers.useFakeTimers();
+    after(() => timers.dispose());
+
+    const mockSession = createMockSession();
+    mockSession.sendCommand
+      .mockResponse('Debugger.enable')
+      .mockResponse('Debugger.setSkipAllPauses')
+      .mockResponse('Debugger.setAsyncCallStackDepth')
+      .mockResponse('Debugger.enable')
+      .mockResponse('Debugger.setSkipAllPauses')
+      .mockResponse('Debugger.setAsyncCallStackDepth');
+
+    mockSession.on.mockEvent('Page.frameNavigated', {frame: {}});
+    mockSession.on.mockEvent('Page.frameNavigated', {frame: {parentId: '1'}});
+    mockSession.on.mockEvent('Page.frameNavigated', {frame: {parentId: '2'}});
+    mockSession.on.mockEvent('Page.frameNavigated', {frame: {parentId: '3'}});
+
+    await enableAsyncStacks(mockSession);
+
+    await flushAllTimersAndMicrotasks();
+
+    const invocations = mockSession.sendCommand.mock.calls;
+    const debuggerInvocations = invocations.filter(call => call[0].startsWith('Debugger.'));
+    expect(debuggerInvocations.map(argList => argList[0])).toEqual([
+      'Debugger.enable',
+      'Debugger.setSkipAllPauses',
+      'Debugger.setAsyncCallStackDepth',
+      'Debugger.enable',
+      'Debugger.setSkipAllPauses',
+      'Debugger.setAsyncCallStackDepth',
+    ]);
+  });
+});
 
 describe('DevtoolsMessageLog', () => {
   let messageLog;

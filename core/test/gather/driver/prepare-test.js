@@ -251,52 +251,6 @@ describe('.prepareTargetForNavigationMode()', () => {
     });
   });
 
-  it('enables async stacks', async () => {
-    await prepare.prepareTargetForNavigationMode(driverMock.asDriver(), {
-      ...constants.defaultSettings,
-    });
-
-    const invocations = sessionMock.sendCommand.mock.calls;
-    const debuggerInvocations = invocations.filter(call => call[0].startsWith('Debugger.'));
-    expect(debuggerInvocations.map(argList => argList[0])).toEqual([
-      'Debugger.enable',
-      'Debugger.setSkipAllPauses',
-      'Debugger.setAsyncCallStackDepth',
-    ]);
-  });
-
-  it('enables async stacks on every main frame navigation', async () => {
-    timers.useFakeTimers();
-    after(() => timers.dispose());
-
-    sessionMock.sendCommand
-      .mockResponse('Debugger.enable')
-      .mockResponse('Debugger.setSkipAllPauses')
-      .mockResponse('Debugger.setAsyncCallStackDepth');
-
-    sessionMock.on.mockEvent('Page.frameNavigated', {frame: {}});
-    sessionMock.on.mockEvent('Page.frameNavigated', {frame: {parentId: '1'}});
-    sessionMock.on.mockEvent('Page.frameNavigated', {frame: {parentId: '2'}});
-    sessionMock.on.mockEvent('Page.frameNavigated', {frame: {parentId: '3'}});
-
-    await prepare.prepareTargetForNavigationMode(driverMock.asDriver(), {
-      ...constants.defaultSettings,
-    });
-
-    await flushAllTimersAndMicrotasks();
-
-    const invocations = sessionMock.sendCommand.mock.calls;
-    const debuggerInvocations = invocations.filter(call => call[0].startsWith('Debugger.'));
-    expect(debuggerInvocations.map(argList => argList[0])).toEqual([
-      'Debugger.enable',
-      'Debugger.setSkipAllPauses',
-      'Debugger.setAsyncCallStackDepth',
-      'Debugger.enable',
-      'Debugger.setSkipAllPauses',
-      'Debugger.setAsyncCallStackDepth',
-    ]);
-  });
-
   it('cache natives on new document', async () => {
     await prepare.prepareTargetForNavigationMode(driverMock.asDriver(), {
       ...constants.defaultSettings,
@@ -391,20 +345,6 @@ describe('.prepareTargetForTimespanMode()', () => {
       width: 200,
       height: 300,
     });
-  });
-
-  it('enables async stacks', async () => {
-    await prepare.prepareTargetForTimespanMode(driverMock.asDriver(), {
-      ...constants.defaultSettings,
-    });
-
-    const invocations = sessionMock.sendCommand.mock.calls;
-    const debuggerInvocations = invocations.filter(call => call[0].startsWith('Debugger.'));
-    expect(debuggerInvocations.map(argList => argList[0])).toEqual([
-      'Debugger.enable',
-      'Debugger.setSkipAllPauses',
-      'Debugger.setAsyncCallStackDepth',
-    ]);
   });
 
   it('sets throttling', async () => {
