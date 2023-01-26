@@ -77,6 +77,23 @@ class EntityClassification {
     const firstPartyUrl = data.URL.mainDocumentUrl || data.URL.finalDisplayedUrl;
     const firstParty = thirdPartyWeb.getEntity(firstPartyUrl) ||
       EntityClassification.makeUpAnEntity(madeUpEntityCache, firstPartyUrl);
+    if (!firstParty) throw new Error('First party entity could not be found or created');
+
+    /**
+     * Convenience function to get the entity for a given url.
+     * @param {string} url
+     * @return {LH.Artifacts.Entity | undefined}
+     */
+    function getEntity(url) {
+      let entity = entityByUrl.get(url);
+      if (!entity) {
+        try {
+          const rootDomain = Util.getRootDomain(url);
+          entity = madeUpEntityCache.get(rootDomain);
+        } catch {}
+      }
+      return entity;
+    }
 
     /**
      * Convenience function to check if a URL belongs to first party.
@@ -84,15 +101,13 @@ class EntityClassification {
      * @return {boolean}
      */
     function isFirstParty(url) {
-      const entityUrl = entityByUrl.get(url);
-      if (!entityUrl) throw new Error('A url not in devtoolsLog was used for first-party check.');
-      return entityUrl === firstParty;
+      return getEntity(url) === firstParty;
     }
 
     return {
-      entityByUrl,
       urlsByEntity,
       firstParty,
+      getEntity,
       isFirstParty,
     };
   }

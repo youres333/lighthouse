@@ -937,10 +937,10 @@ declare module Artifacts {
 
   interface EntityClassification {
     urlsByEntity: Map<Entity, Set<string>>;
-    entityByUrl: Map<string, Entity>;
-    firstParty?: Entity;
+    firstParty: Entity;
 
     // Convenience methods.
+    getEntity: (url: string) => Entity | undefined;
     isFirstParty: (url: string) => boolean;
   }
 }

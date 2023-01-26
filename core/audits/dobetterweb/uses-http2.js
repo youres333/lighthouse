@@ -131,7 +131,7 @@ class UsesHTTP2Audit extends Audit {
     if (networkRequest.resourceSize < 100) {
       // This logic needs to be revisited.
       // See https://github.com/GoogleChrome/lighthouse/issues/14661
-      const entity = classifiedEntities.entityByUrl.get(networkRequest.url);
+      const entity = classifiedEntities.getEntity(networkRequest.url);
       if (entity && !entity.isUnrecognized) return false;
     }
 

@@ -181,7 +181,7 @@ class Runner {
 
     return {
       list: entities,
-      firstParty: classifiedEntities.firstParty?.name,
+      firstParty: classifiedEntities.firstParty.name,
       entityIndexByOrigin,
       entityIndexByName,
     };

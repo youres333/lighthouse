@@ -36,11 +36,9 @@ describe('Entity Classification computed artifact', () => {
   it('computes entity classification for all urls in devtoolsLogs', async () => {
     const result = await EntityClassification.request(artifacts, context);
     // Make sure classification was successful.
-    expect(result).toHaveProperty('entityByUrl');
     expect(result).toHaveProperty('urlsByEntity');
     expect(result).toHaveProperty('firstParty');
     // Make sure all entities have been identified.
-    expect(result.entityByUrl.size).toBe(4);
     expect(result.urlsByEntity.size).toBe(2);
     // Make sure first party is one of the entities.
     expect(result.urlsByEntity.keys()).toContainEqual(result.firstParty);
@@ -49,7 +47,16 @@ describe('Entity Classification computed artifact', () => {
     expect(result.isFirstParty).toBeInstanceOf(Function);
     expect(result.isFirstParty('http://example.com/file.html')).toEqual(true);
     expect(result.isFirstParty('http://cdn.example.com/script.js')).toEqual(true);
+    expect(result.isFirstParty('http://example.com/unidentified.jpg')).toEqual(true);
     expect(result.isFirstParty('http://third-party.com/file.jpg')).toEqual(false);
+
+    expect(result.getEntity).toBeInstanceOf(Function);
+    expect(result.getEntity('http://example.com/file.html')).toMatchObject({
+      name: 'example.com',
+    });
+    expect(result.getEntity('http://example.com/file.html')).toEqual(
+      result.getEntity('http://example.com/unidentified.jpg')
+    );
   });
 
   it('identifies 1st party URL given finalDisplayedUrl', async () => {
@@ -64,7 +71,6 @@ describe('Entity Classification computed artifact', () => {
     expect(result.firstParty.name).toBe('example.com');
     // Make sure all entities were identified..
     expect(entities).toEqual(['example.com', 'third-party.com']);
-    expect(result.entityByUrl.size).toBe(4);
   });
 
   it('identifies 1st party URL given mainDocumentUrl', async () => {
@@ -78,18 +84,12 @@ describe('Entity Classification computed artifact', () => {
     expect(result.firstParty.name).toBe('example.com');
     // Make sure all entities were identified.
     expect(entities).toEqual(['example.com', 'third-party.com']);
-    expect(result.entityByUrl.size).toBe(4);
   });
 
-  it('does not identify 1st party if URL artifact is missing', async () => {
+  it('throws if URL artifact is missing', async () => {
     artifacts.URL = {};
-    const result = await EntityClassification.request(artifacts, context);
-    const entities = Array.from(result.urlsByEntity.keys()).map(e => e.name);
-    // Make sure first party is not identified.
-    expect(result.firstParty).toBeFalsy();
-    // Make sure all entities were identified.
-    expect(entities).toEqual(['example.com', 'third-party.com']);
-    expect(result.entityByUrl.size).toBe(4);
+    const resultPromise = EntityClassification.request(artifacts, context);
+    await expect(resultPromise).rejects.toThrow();
   });
 
   it('prioritizes mainDocumentUrl over finalDisplayUrl when both are available', async () => {
@@ -104,7 +104,6 @@ describe('Entity Classification computed artifact', () => {
     expect(result.firstParty.name).toBe('third-party.com');
     // Make sure all entities were identified.
     expect(entities).toEqual(['example.com', 'third-party.com']);
-    expect(result.entityByUrl.size).toBe(4);
   });
 
   it('does not classify non-network URLs', async () => {
@@ -122,9 +121,7 @@ describe('Entity Classification computed artifact', () => {
     expect(result.firstParty.name).toBe('third-party.com');
     // Make sure only valid network urls with a domain is recognized.
     expect(entities).toEqual(['third-party.com']);
-    expect(result.entityByUrl.size).toBe(1);
-    // A url that's not present in devtoolsLogs would throw an exception.
-    expect(() => result.isFirstParty('chrome://version'))
-      .toThrow('A url not in devtoolsLog was used for first-party check.');
+    // A non network url will never be first party.
+    expect(result.isFirstParty('chrome://version')).toBeFalsy();
   });
 });

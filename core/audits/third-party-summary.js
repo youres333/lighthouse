@@ -117,7 +117,7 @@ class ThirdPartySummary extends Audit {
     /** @type {Map<LH.Artifacts.Entity, string[]>} */
     const urls = new Map();
     for (const [url, urlSummary] of byURL.entries()) {
-      const entity = entityClassification.entityByUrl.get(url);
+      const entity = entityClassification.getEntity(url);
       if (!entity) {
         byURL.delete(url);
         continue;
@@ -210,7 +210,7 @@ class ThirdPartySummary extends Audit {
     const results = Array.from(summaries.byEntity.entries())
       // Don't consider the page we're on to be third-party.
       // e.g. Facebook SDK isn't a third-party script on facebook.com
-      .filter(([entity]) => !(firstPartyEntity && firstPartyEntity === entity))
+      .filter(([entity]) => firstPartyEntity !== entity)
       .map(([entity, stats]) => {
         overallSummary.wastedBytes += stats.transferSize;
         overallSummary.wastedMs += stats.blockingTime;

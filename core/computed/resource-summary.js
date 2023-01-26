@@ -58,7 +58,7 @@ class ResourceSummary {
     if (budget?.options?.firstPartyHostnames) {
       firstPartyHosts = budget.options.firstPartyHostnames;
     } else {
-      firstPartyHosts = classifiedEntities.firstParty?.domains.map(domain => `*.${domain}`) ||
+      firstPartyHosts = classifiedEntities.firstParty.domains.map(domain => `*.${domain}`) ||
         [`*.${Util.getRootDomain(URLArtifact.finalDisplayedUrl)}`];
     }
 
