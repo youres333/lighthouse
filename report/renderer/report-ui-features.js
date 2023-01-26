@@ -244,8 +244,9 @@ export class ReportUIFeatures {
 
     tablesWithUrls.forEach((tableEl) => {
       const rowEls = getTableRows(tableEl);
+      const primaryRowEls = rowEls.filter(rowEl => !rowEl.classList.contains('lh-sub-item-row'));
       const thirdPartyRowEls = this._getThirdPartyRows(
-        rowEls, Util.getFinalDisplayedUrl(this.json));
+        primaryRowEls, Util.getFinalDisplayedUrl(this.json));
 
       // create input box
       const filterTemplate = this._dom.createComponent('3pFilter');
@@ -254,7 +255,7 @@ export class ReportUIFeatures {
       filterInput.addEventListener('change', e => {
         const shouldHideThirdParty = e.target instanceof HTMLInputElement && !e.target.checked;
         let even = true;
-        let rowEl = rowEls[0];
+        let rowEl = primaryRowEls[0];
         while (rowEl) {
           const shouldHide = shouldHideThirdParty && thirdPartyRowEls.includes(rowEl);
 
@@ -277,7 +278,7 @@ export class ReportUIFeatures {
       this._dom.find('.lh-3p-ui-string', filterTemplate).textContent =
           Globals.strings.thirdPartyResourcesLabel;
 
-      const allThirdParty = thirdPartyRowEls.length === rowEls.length;
+      const allThirdParty = thirdPartyRowEls.length === primaryRowEls.length;
       const allFirstParty = !thirdPartyRowEls.length;
 
       // If all or none of the rows are 3rd party, hide the control.
@@ -321,14 +322,14 @@ export class ReportUIFeatures {
    */
   _getThirdPartyRows(rowEls, finalDisplayedUrl) {
     const finalDisplayedUrlRootDomain = Util.getRootDomain(finalDisplayedUrl);
-    const mainEntityName = this.json.entities?.firstParty;
+    const firstPartyEntityName = this.json.entities?.firstParty;
 
     /** @type {Array<HTMLElement>} */
     const thirdPartyRowEls = [];
     for (const rowEl of rowEls) {
-      if (mainEntityName && rowEl.dataset?.entity) {
+      if (firstPartyEntityName) {
         // We rely on entity-classification for new LHRs that support it.
-        if (rowEl.dataset?.entity === mainEntityName) continue;
+        if (rowEl.dataset?.entity === firstPartyEntityName) continue;
       } else {
         // Continue the legacy root domain check for back compat.
         const urlItem = rowEl.querySelector('div.lh-text__url');

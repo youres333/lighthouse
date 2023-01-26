@@ -200,7 +200,7 @@ class ReportUtils {
     // The most common type, valueType=url.
     const urlKey = headings.find(heading => heading.valueType === 'url')?.key;
     if (urlKey && typeof urlKey === 'string') {
-      // Return a function that extracts item.source.url.
+      // Return a function that extracts item.url.
       return (item) => {
         const url = item[urlKey];
         if (typeof url === 'string') return url;

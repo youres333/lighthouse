@@ -411,7 +411,9 @@ export class DetailsRenderer {
       for (const rowEl of this._dom.findAll('tr', rowsFragment)) {
         // For zebra styling.
         rowEl.classList.add(even ? 'lh-row--even' : 'lh-row--odd');
-        if (entityName) rowEl.dataset.entity = entityName;
+        if (entityName && !rowEl.classList.contains('lh-sub-item-row')) {
+          rowEl.dataset.entity = entityName;
+        }
       }
       even = !even;
       tbodyElem.append(rowsFragment);

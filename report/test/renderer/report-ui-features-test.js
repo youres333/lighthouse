@@ -114,11 +114,14 @@ describe('ReportUIFeatures', () => {
           wastedBytes: 8.8 * 1024,
           entity: undefined, // Remove entity classification from previous result.
         };
-
-        const renderBlockingAuditItemTemplate =
-          sampleResults.audits['render-blocking-resources'].details.items[0];
-        const textCompressionAuditItemTemplate =
-          sampleResults.audits['uses-text-compression'].details.items[0];
+        const renderBlockingAuditItemTemplate = {
+          ...sampleResults.audits['render-blocking-resources'].details.items[0],
+          entity: undefined, // Remove entity classification from previous result.
+        };
+        const textCompressionAuditItemTemplate = {
+          ...sampleResults.audits['uses-text-compression'].details.items[0],
+          entity: undefined, // Remove entity classification from previous result.
+        };
 
         // Interleave first/third party URLs to test restoring order.
         lhr.audits['modern-image-formats'].details.items = [
@@ -229,11 +232,15 @@ describe('ReportUIFeatures', () => {
                 name: 'notexample.com',
                 isUnrecognized: true,
               },
+              {
+                name: 'google.com',
+              },
             ],
             entityIndexByOrigin: {
               'http://www.example.com': 0,
               'http://www.cdn.com': 1,
               'http://www.notexample.com': 2,
+              'http://www.google.com': 3,
             },
             entityIndexByName: {
               'example.com': 0,
@@ -272,6 +279,9 @@ describe('ReportUIFeatures', () => {
           expect(getUrlsInTable()).toEqual(['/img2.jpg']);
           filterCheckbox.click();
           expect(getUrlsInTable()).toEqual(['/img1.jpg', '/img2.jpg', '/img3.jpg']);
+
+          const filter3pCount = dom.find('#modern-image-formats .lh-3p-filter-count', container);
+          expect(filter3pCount.textContent).toEqual('2');
         });
 
         it('filters out sub-item rows of third party resources on click', () => {
@@ -306,6 +316,9 @@ describe('ReportUIFeatures', () => {
           ]);
           filterCheckbox.click();
           expect(getRowIdentifiers()).toEqual(initialExpected);
+
+          const filter3pCount = dom.find('#unused-javascript .lh-3p-filter-count', container);
+          expect(filter3pCount.textContent).toEqual('2');
         });
 
         it('adds no filter for audits in thirdPartyFilterAuditExclusions', () => {
@@ -322,11 +335,18 @@ describe('ReportUIFeatures', () => {
           const filterControl =
             dom.find('#render-blocking-resources .lh-3p-filter', container);
           expect(filterControl.hidden).toEqual(true);
+          // Expect the hidden filter to still count third parties correctly.
+          const filter3pCount = dom.find('#render-blocking-resources .lh-3p-filter-count',
+            container);
+          expect(filter3pCount.textContent).toEqual('3');
         });
 
         it('filter is hidden for just first party resources', () => {
           const filterControl = dom.find('#uses-text-compression .lh-3p-filter', container);
           expect(filterControl.hidden).toEqual(true);
+          // Expect the hidden filter to still count third parties correctly.
+          const filter3pCount = dom.find('#uses-text-compression .lh-3p-filter-count', container);
+          expect(filter3pCount.textContent).toEqual('0');
         });
       });
 
@@ -358,6 +378,8 @@ describe('ReportUIFeatures', () => {
           expect(getUrlsInTable()).toEqual(['/img2.jpg']);
           filterCheckbox.click();
           expect(getUrlsInTable()).toEqual(['/img1.jpg', '/img2.jpg', '/img3.jpg']);
+          const filter3pCount = dom.find('#modern-image-formats .lh-3p-filter-count', container);
+          expect(filter3pCount.textContent).toEqual('2');
         });
 
         it('filters out sub-item rows of third party resources on click', () => {
@@ -393,6 +415,8 @@ describe('ReportUIFeatures', () => {
 
           filterCheckbox.click();
           expect(getRowIdentifiers()).toEqual(initialExpected);
+          const filter3pCount = dom.find('#unused-javascript .lh-3p-filter-count', container);
+          expect(filter3pCount.textContent).toEqual('2');
         });
 
         it('adds no filter for audits in thirdPartyFilterAuditExclusions', () => {
@@ -409,11 +433,19 @@ describe('ReportUIFeatures', () => {
           const filterControl =
             dom.find('#render-blocking-resources .lh-3p-filter', container);
           expect(filterControl.hidden).toEqual(true);
+          // Expect the hidden filter to still count third parties correctly.
+          const filter3pCount = dom.find('#render-blocking-resources .lh-3p-filter-count',
+            container);
+          expect(filter3pCount.textContent).toEqual('3');
         });
 
         it('filter is hidden for just first party resources', () => {
           const filterControl = dom.find('#uses-text-compression .lh-3p-filter', container);
           expect(filterControl.hidden).toEqual(true);
+          // Expect the hidden filter to still count third parties correctly.
+          const filter3pCount = dom.find('#uses-text-compression .lh-3p-filter-count',
+            container);
+          expect(filter3pCount.textContent).toEqual('0');
         });
       });
     });
