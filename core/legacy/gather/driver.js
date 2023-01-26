@@ -13,7 +13,7 @@ import {Fetcher} from '../../gather/fetcher.js';
 import {ExecutionContext} from '../../gather/driver/execution-context.js';
 import {LighthouseError} from '../../lib/lh-error.js';
 import {fetchResponseBodyFromCache} from '../../gather/driver/network.js';
-import {DevtoolsMessageLog} from '../../gather/gatherers/devtools-log.js';
+import {DevtoolsMessageLog, enableAsyncStacks} from '../../gather/gatherers/devtools-log.js';
 import TraceGatherer from '../../gather/gatherers/trace.js';
 import {getBrowserVersion} from '../../gather/driver/environment.js';
 
@@ -443,17 +443,19 @@ class Driver {
   /**
    * Begin recording devtools protocol messages.
    */
-  beginDevtoolsLog() {
+  async beginDevtoolsLog() {
+    this._disableAsyncStacks = await enableAsyncStacks(this.defaultSession);
     this._devtoolsLog.reset();
     this._devtoolsLog.beginRecording();
   }
 
   /**
    * Stop recording to devtoolsLog and return log contents.
-   * @return {LH.DevtoolsLog}
+   * @return {Promise<LH.DevtoolsLog>}
    */
-  endDevtoolsLog() {
+  async endDevtoolsLog() {
     this._devtoolsLog.endRecording();
+    await this._disableAsyncStacks?.();
     return this._devtoolsLog.messages;
   }
 
