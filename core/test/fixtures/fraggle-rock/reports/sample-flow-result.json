@@ -8510,8 +8510,84 @@
             "title": "Keep request counts low and transfer sizes small",
             "description": "To set budgets for the quantity and size of page resources, add a budget.json file. [Learn more about performance budgets](https://web.dev/use-lighthouse-for-performance-budgets/).",
             "score": null,
-            "scoreDisplayMode": "error",
-            "errorMessage": "Required LinkElements gatherer did not run."
+            "scoreDisplayMode": "informative",
+            "displayValue": "18 requests • 65 KiB",
+            "details": {
+              "type": "table",
+              "headings": [
+                {
+                  "key": "label",
+                  "valueType": "text",
+                  "label": "Resource Type"
+                },
+                {
+                  "key": "requestCount",
+                  "valueType": "numeric",
+                  "label": "Requests"
+                },
+                {
+                  "key": "transferSize",
+                  "valueType": "bytes",
+                  "label": "Transfer Size"
+                }
+              ],
+              "items": [
+                {
+                  "resourceType": "total",
+                  "label": "Total",
+                  "requestCount": 18,
+                  "transferSize": 66067
+                },
+                {
+                  "resourceType": "image",
+                  "label": "Image",
+                  "requestCount": 10,
+                  "transferSize": 31673
+                },
+                {
+                  "resourceType": "other",
+                  "label": "Other",
+                  "requestCount": 5,
+                  "transferSize": 31109
+                },
+                {
+                  "resourceType": "script",
+                  "label": "Script",
+                  "requestCount": 3,
+                  "transferSize": 3285
+                },
+                {
+                  "resourceType": "stylesheet",
+                  "label": "Stylesheet",
+                  "requestCount": 0,
+                  "transferSize": 0
+                },
+                {
+                  "resourceType": "media",
+                  "label": "Media",
+                  "requestCount": 0,
+                  "transferSize": 0
+                },
+                {
+                  "resourceType": "font",
+                  "label": "Font",
+                  "requestCount": 0,
+                  "transferSize": 0
+                },
+                {
+                  "resourceType": "document",
+                  "label": "Document",
+                  "requestCount": 0,
+                  "transferSize": 0
+                },
+                {
+                  "resourceType": "third-party",
+                  "label": "Third-party",
+                  "requestCount": 2,
+                  "transferSize": 25328
+                }
+              ]
+            }
           },
           "third-party-summary": {
             "id": "third-party-summary",
@@ -10242,7 +10318,7 @@
             },
             {
               "startTime": 48,
-              "name": "lh:audit:third-party-summary",
+              "name": "lh:computed:ResourceSummary",
               "duration": 1,
               "entryType": "measure"
             },
@@ -10254,55 +10330,55 @@
             },
             {
               "startTime": 50,
-              "name": "lh:audit:layout-shift-elements",
+              "name": "lh:audit:third-party-summary",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 51,
-              "name": "lh:audit:long-tasks",
+              "name": "lh:audit:layout-shift-elements",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 52,
-              "name": "lh:audit:no-unload-listeners",
+              "name": "lh:audit:long-tasks",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 53,
-              "name": "lh:audit:non-composited-animations",
+              "name": "lh:audit:no-unload-listeners",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 54,
-              "name": "lh:audit:unsized-images",
+              "name": "lh:audit:non-composited-animations",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 55,
-              "name": "lh:audit:valid-source-maps",
+              "name": "lh:audit:unsized-images",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 56,
-              "name": "lh:audit:script-treemap-data",
+              "name": "lh:audit:valid-source-maps",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 57,
-              "name": "lh:computed:ModuleDuplication",
+              "name": "lh:audit:script-treemap-data",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 58,
-              "name": "lh:computed:UnusedJavascriptSummary",
+              "name": "lh:computed:ModuleDuplication",
               "duration": 1,
               "entryType": "measure"
             },
@@ -10320,138 +10396,144 @@
             },
             {
               "startTime": 61,
-              "name": "lh:audit:uses-long-cache-ttl",
+              "name": "lh:computed:UnusedJavascriptSummary",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 62,
-              "name": "lh:audit:total-byte-weight",
+              "name": "lh:audit:uses-long-cache-ttl",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 63,
-              "name": "lh:audit:unminified-css",
+              "name": "lh:audit:total-byte-weight",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 64,
-              "name": "lh:computed:LoadSimulator",
+              "name": "lh:audit:unminified-css",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 65,
-              "name": "lh:audit:unminified-javascript",
+              "name": "lh:computed:LoadSimulator",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 66,
-              "name": "lh:audit:unused-css-rules",
+              "name": "lh:audit:unminified-javascript",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 67,
-              "name": "lh:computed:UnusedCSS",
+              "name": "lh:audit:unused-css-rules",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 68,
-              "name": "lh:audit:unused-javascript",
+              "name": "lh:computed:UnusedCSS",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 69,
-              "name": "lh:audit:modern-image-formats",
+              "name": "lh:audit:unused-javascript",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 70,
-              "name": "lh:audit:uses-optimized-images",
+              "name": "lh:audit:modern-image-formats",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 71,
-              "name": "lh:audit:uses-text-compression",
+              "name": "lh:audit:uses-optimized-images",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 72,
-              "name": "lh:audit:uses-responsive-images",
+              "name": "lh:audit:uses-text-compression",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 73,
-              "name": "lh:computed:ImageRecords",
+              "name": "lh:audit:uses-responsive-images",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 74,
-              "name": "lh:audit:efficient-animated-content",
+              "name": "lh:computed:ImageRecords",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 75,
-              "name": "lh:audit:duplicated-javascript",
+              "name": "lh:audit:efficient-animated-content",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 76,
-              "name": "lh:audit:legacy-javascript",
+              "name": "lh:audit:duplicated-javascript",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 77,
-              "name": "lh:audit:inspector-issues",
+              "name": "lh:audit:legacy-javascript",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 78,
-              "name": "lh:audit:no-document-write",
+              "name": "lh:audit:inspector-issues",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 79,
-              "name": "lh:audit:uses-passive-event-listeners",
+              "name": "lh:audit:no-document-write",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 80,
-              "name": "lh:audit:work-during-interaction",
+              "name": "lh:audit:uses-passive-event-listeners",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 81,
-              "name": "lh:audit:bf-cache",
+              "name": "lh:audit:work-during-interaction",
               "duration": 1,
               "entryType": "measure"
             },
             {
               "startTime": 82,
+              "name": "lh:audit:bf-cache",
+              "duration": 1,
+              "entryType": "measure"
+            },
+            {
+              "startTime": 83,
               "name": "lh:runner:generate",
               "duration": 1,
               "entryType": "measure"
             }
           ],
-          "total": 83
+          "total": 84
         },
         "i18n": {
           "rendererFormattedStrings": {
@@ -10698,14 +10780,53 @@
             "core/audits/resource-summary.js | description": [
               "audits[resource-summary].description"
             ],
-            "core/lib/lh-error.js | missingRequiredArtifact": [
+            "core/audits/resource-summary.js | displayValue": [
               {
                 "values": {
-                  "errorCode": "MISSING_REQUIRED_ARTIFACT",
-                  "artifactName": "LinkElements"
+                  "requestCount": 18,
+                  "byteCount": 66067
                 },
-                "path": "audits[resource-summary].errorMessage"
+                "path": "audits[resource-summary].displayValue"
               }
+            ],
+            "core/lib/i18n/i18n.js | columnResourceType": [
+              "audits[resource-summary].details.headings[0].label"
+            ],
+            "core/lib/i18n/i18n.js | columnRequests": [
+              "audits[resource-summary].details.headings[1].label"
+            ],
+            "core/lib/i18n/i18n.js | columnTransferSize": [
+              "audits[resource-summary].details.headings[2].label",
+              "audits[third-party-summary].details.headings[1].label",
+              "audits[uses-long-cache-ttl].details.headings[2].label",
+              "audits[total-byte-weight].details.headings[1].label"
+            ],
+            "core/lib/i18n/i18n.js | totalResourceType": [
+              "audits[resource-summary].details.items[0].label"
+            ],
+            "core/lib/i18n/i18n.js | imageResourceType": [
+              "audits[resource-summary].details.items[1].label"
+            ],
+            "core/lib/i18n/i18n.js | otherResourceType": [
+              "audits[resource-summary].details.items[2].label"
+            ],
+            "core/lib/i18n/i18n.js | scriptResourceType": [
+              "audits[resource-summary].details.items[3].label"
+            ],
+            "core/lib/i18n/i18n.js | stylesheetResourceType": [
+              "audits[resource-summary].details.items[4].label"
+            ],
+            "core/lib/i18n/i18n.js | mediaResourceType": [
+              "audits[resource-summary].details.items[5].label"
+            ],
+            "core/lib/i18n/i18n.js | fontResourceType": [
+              "audits[resource-summary].details.items[6].label"
+            ],
+            "core/lib/i18n/i18n.js | documentResourceType": [
+              "audits[resource-summary].details.items[7].label"
+            ],
+            "core/lib/i18n/i18n.js | thirdPartyResourceType": [
+              "audits[resource-summary].details.items[8].label"
             ],
             "core/audits/third-party-summary.js | title": [
               "audits[third-party-summary].title"
@@ -10723,11 +10844,6 @@
             ],
             "core/audits/third-party-summary.js | columnThirdParty": [
               "audits[third-party-summary].details.headings[0].label"
-            ],
-            "core/lib/i18n/i18n.js | columnTransferSize": [
-              "audits[third-party-summary].details.headings[1].label",
-              "audits[uses-long-cache-ttl].details.headings[2].label",
-              "audits[total-byte-weight].details.headings[1].label"
             ],
             "core/lib/i18n/i18n.js | columnBlockingTime": [
               "audits[third-party-summary].details.headings[2].label"

@@ -116,6 +116,9 @@ class LinkElements extends FRGatherer {
    * @return {Promise<LH.Artifacts['LinkElements']>}
    */
   static async getLinkElementsInHeaders(context, devtoolsLog) {
+    // We currently cannot get the main resource in timespan mode.
+    if (context.gatherMode === 'timespan') return [];
+
     const mainDocument =
       await MainResource.request({devtoolsLog, URL: context.baseArtifacts.URL}, context);
 
