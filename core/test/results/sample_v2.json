@@ -6448,12 +6448,14 @@
     "list": [
       {
         "name": "localhost",
+        "category": "",
         "isFirstParty": true,
         "isUnrecognized": true
       },
       {
         "name": "Google CDN",
-        "homepage": "https://developers.google.com/speed/libraries/"
+        "homepage": "https://developers.google.com/speed/libraries/",
+        "category": "cdn"
       }
     ],
     "firstParty": "localhost",

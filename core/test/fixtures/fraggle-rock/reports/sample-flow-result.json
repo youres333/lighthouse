@@ -4234,12 +4234,14 @@
           "list": [
             {
               "name": "mikescerealshack.co",
+              "category": "",
               "isFirstParty": true,
               "isUnrecognized": true
             },
             {
               "name": "Google Fonts",
-              "homepage": "https://fonts.google.com/"
+              "homepage": "https://fonts.google.com/",
+              "category": "cdn"
             }
           ],
           "firstParty": "mikescerealshack.co",
@@ -9863,12 +9865,14 @@
           "list": [
             {
               "name": "mikescerealshack.co",
+              "category": "",
               "isFirstParty": true,
               "isUnrecognized": true
             },
             {
               "name": "Algolia",
-              "homepage": "https://www.algolia.com/"
+              "homepage": "https://www.algolia.com/",
+              "category": "utility"
             }
           ],
           "firstParty": "mikescerealshack.co",
@@ -20093,12 +20097,14 @@
           "list": [
             {
               "name": "mikescerealshack.co",
+              "category": "",
               "isFirstParty": true,
               "isUnrecognized": true
             },
             {
               "name": "Google Fonts",
-              "homepage": "https://fonts.google.com/"
+              "homepage": "https://fonts.google.com/",
+              "category": "cdn"
             }
           ],
           "firstParty": "mikescerealshack.co",
