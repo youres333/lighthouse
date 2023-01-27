@@ -22,6 +22,7 @@ describe('Performance: Resource budgets audit', () => {
         ]),
       },
       URL: {requestedUrl: 'http://example.com', mainDocumentUrl: 'http://example.com', finalDisplayedUrl: 'http://example.com'},
+      LinkElements: [],
     };
     context = {computedCache: new Map(), settings: {}};
   });
@@ -187,6 +188,7 @@ describe('Performance: Resource budgets audit', () => {
             ]),
           },
           URL: {requestedUrl: 'http://example.com/file.html', mainDocumentUrl: 'http://example.com/file.html', finalDisplayedUrl: 'http://example.com/file.html'},
+          LinkElements: [],
         };
         context.settings.budgets = [{
           path: '/',
