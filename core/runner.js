@@ -164,6 +164,7 @@ class Runner {
       const shortEntity = {
         name: entity.name,
         homepage: entity.homepage,
+        category: entity.category,
       };
 
       // Reduce payload size in LHR JSON by omitting whats falsy.
