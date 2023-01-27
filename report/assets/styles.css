@@ -617,7 +617,7 @@
 }
 
 .lh-audit--load-opportunity .lh-audit__header {
-  display: block;
+  display: contents;
 }
 
 
@@ -954,6 +954,9 @@
 /* Audit Group */
 
 .lh-audit-group {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto auto auto;
+  align-items: center;
   margin-bottom: var(--audit-group-margin-bottom);
   position: relative;
 }
@@ -1022,6 +1025,7 @@
   letter-spacing: 0.8px;
   padding: var(--default-padding);
   padding-left: 0;
+  grid-column: 1/-1;
 }
 
 .lh-audit-group__header, .lh-audit-group__summary {
@@ -1051,6 +1055,7 @@
 .lh-audit-group__footer {
   font-size: var(--report-font-size-secondary);
   line-height: var(--report-line-height-secondary);
+  grid-column: 1/-1;
 }
 
 .lh-audit-explanation {
@@ -1662,6 +1667,20 @@
 .lh-expandable-details[open] {
   animation: 300ms openDetails forwards;
   padding-bottom: var(--default-padding);
+}
+
+.lh-audit, .lh-audit details, .lh-audit details summary {
+  display: contents;
+  
+}
+.lh-expandable-details summary {
+  display: contents;
+}
+.lh-expandable-details__content {
+  display: contents;
+}
+.lh-expandable-details__contentwrapper {
+  grid-column: 1/-1;
 }
 
 @keyframes openDetails {

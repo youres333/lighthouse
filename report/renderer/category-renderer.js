@@ -99,11 +99,12 @@ export class CategoryRenderer {
     }
 
     const header = this.dom.find('details', auditEl);
+    const contents = this.dom.find('.lh-expandable-details__contentwrapper', header);
     if (audit.result.details) {
       const elem = this.detailsRenderer.render(audit.result.details);
       if (elem) {
         elem.classList.add('lh-details');
-        header.append(elem);
+        contents.append(elem);
       }
     }
 

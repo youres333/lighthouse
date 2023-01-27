@@ -257,15 +257,15 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
       const maxWaste = Math.max(...wastedMsValues);
       const scale = Math.max(Math.ceil(maxWaste / 1000) * 1000, minimumScale);
       const [groupEl, footerEl] = this.renderAuditGroup(groups['load-opportunities']);
-      const tmpl = this.dom.createComponent('opportunityHeader');
 
-      this.dom.find('.lh-load-opportunity__col--one', tmpl).textContent =
-        strings.opportunityResourceColumnLabel;
-      this.dom.find('.lh-load-opportunity__col--two', tmpl).textContent =
-        strings.opportunitySavingsColumnLabel;
+      // TODO !
+      // this.dom.find('.lh-load-opportunity__col--one', tmpl).textContent =
+      //   strings.opportunityResourceColumnLabel;
+      // this.dom.find('.lh-load-opportunity__col--two', tmpl).textContent =
+      //   strings.opportunitySavingsColumnLabel;
 
-      const headerEl = this.dom.find('.lh-load-opportunity__header', tmpl);
-      groupEl.insertBefore(headerEl, footerEl);
+      // const headerEl = this.dom.find('.lh-load-opportunity__header', tmpl);
+      // groupEl.insertBefore(headerEl, footerEl);
       opportunityAudits.forEach(item =>
         groupEl.insertBefore(this._renderOpportunity(item, scale), footerEl));
       groupEl.classList.add('lh-audit-group--load-opportunities');
