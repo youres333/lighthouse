@@ -37,13 +37,13 @@ export class DetailsRenderer {
    * @param {DOM} dom
    * @param {{
    *  fullPageScreenshot?: LH.Result.FullPageScreenshot,
-   *  entityClassification?: LH.Result.EntityClassification,
+   *  entities?: LH.Result.Entities,
    * }} [options]
    */
   constructor(dom, options = {}) {
     this._dom = dom;
     this._fullPageScreenshot = options.fullPageScreenshot;
-    this._entityClassification = options.entityClassification;
+    this._entities = options.entities;
   }
 
   /**
@@ -390,11 +390,11 @@ export class DetailsRenderer {
     renderedRows[0]?.classList.add('lh-row--group');
 
     const entityName = group.entity?.toString() || '';
-    const entityIndex = this._entityClassification?.nameLUT[entityName];
-    /** @type {LH.Result.Entity|undefined} */
+    const entityIndex = this._entities?.entityIndexByName[entityName];
+    /** @type {LH.Result.LhrEntity|undefined} */
     let matchedEntity;
     if (typeof entityIndex !== 'undefined') {
-      matchedEntity = this._entityClassification?.entities[entityIndex];
+      matchedEntity = this._entities?.list[entityIndex];
     }
 
     if (matchedEntity?.category) {

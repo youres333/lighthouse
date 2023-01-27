@@ -268,7 +268,7 @@ export class ReportRenderer {
 
     const detailsRenderer = new DetailsRenderer(this._dom, {
       fullPageScreenshot: report.fullPageScreenshot ?? undefined,
-      entityClassification: report.entityClassification,
+      entities: report.entities,
     });
 
     const categoryRenderer = new CategoryRenderer(this._dom, detailsRenderer);
