@@ -289,6 +289,9 @@ describe('ReportUIFeatures', () => {
           dom.find('#unused-javascript', container);
           const filterCheckbox = dom.find('#unused-javascript .lh-3p-filter-input', container);
 
+          // ensure filter checkbox is visible
+          expect(dom.find('#unused-javascript .lh-3p-filter', container).hidden).toBeFalsy();
+
           function getRowIdentifiers() {
             return dom
               .findAll(
@@ -297,12 +300,15 @@ describe('ReportUIFeatures', () => {
           }
 
           const initialExpected = [
+            'cdn.com24.0 KiB8.8 KiB',
             '/script1.js(www.cdn.com)24.0 KiB8.8 KiB',
             '10.0 KiB0.0 KiB',
             '20.0 KiB0.0 KiB',
+            'example.com 1st party24.0 KiB8.8 KiB',
             '/script2.js(www.example.com)24.0 KiB8.8 KiB',
             '30.0 KiB0.0 KiB',
             '40.0 KiB0.0 KiB',
+            'notexample.com24.0 KiB8.8 KiB',
             '/script3.js(www.notexample.com)24.0 KiB8.8 KiB',
             '50.0 KiB0.0 KiB',
             '60.0 KiB0.0 KiB',
@@ -311,6 +317,7 @@ describe('ReportUIFeatures', () => {
           expect(getRowIdentifiers()).toEqual(initialExpected);
           filterCheckbox.click();
           expect(getRowIdentifiers()).toEqual([
+            'example.com 1st party24.0 KiB8.8 KiB',
             '/script2.js(www.example.com)24.0 KiB8.8 KiB',
             '30.0 KiB0.0 KiB',
             '40.0 KiB0.0 KiB',
@@ -368,6 +375,9 @@ describe('ReportUIFeatures', () => {
         it('filters out third party resources in on click', () => {
           const filterCheckbox = dom.find('#modern-image-formats .lh-3p-filter-input', container);
 
+          // ensure filter checkbox is visible
+          expect(dom.find('#modern-image-formats .lh-3p-filter', container).hidden).toBeFalsy();
+
           function getUrlsInTable() {
             return dom
               .findAll('#modern-image-formats tr:not(.lh-row--hidden) .lh-text__url a:first-child', container) // eslint-disable-line max-len
@@ -386,6 +396,9 @@ describe('ReportUIFeatures', () => {
         it('filters out sub-item rows of third party resources on click', () => {
           dom.find('#unused-javascript', container);
           const filterCheckbox = dom.find('#unused-javascript .lh-3p-filter-input', container);
+
+          // ensure filter checkbox is visible
+          expect(dom.find('#unused-javascript .lh-3p-filter', container).hidden).toBeFalsy();
 
           function getRowIdentifiers() {
             return dom
