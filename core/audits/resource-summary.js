@@ -33,7 +33,7 @@ class ResourceSummary extends Audit {
       title: str_(UIStrings.title),
       description: str_(UIStrings.description),
       scoreDisplayMode: Audit.SCORING_MODES.INFORMATIVE,
-      requiredArtifacts: ['devtoolsLogs', 'URL'],
+      requiredArtifacts: ['devtoolsLogs', 'URL', 'LinkElements'],
     };
   }
 
@@ -44,8 +44,12 @@ class ResourceSummary extends Audit {
    */
   static async audit(artifacts, context) {
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
-    const summary = await ComputedResourceSummary
-      .request({devtoolsLog, URL: artifacts.URL, budgets: context.settings.budgets}, context);
+    const summary = await ComputedResourceSummary.request({
+      devtoolsLog,
+      URL: artifacts.URL,
+      budgets: context.settings.budgets,
+      LinkElements: artifacts.LinkElements,
+    }, context);
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
@@ -53,7 +57,6 @@ class ResourceSummary extends Audit {
       {key: 'requestCount', valueType: 'numeric', label: str_(i18n.UIStrings.columnRequests)},
       {key: 'transferSize', valueType: 'bytes', label: str_(i18n.UIStrings.columnTransferSize)},
     ];
-
 
     /** @type {Record<LH.Budget.ResourceType, LH.IcuMessage>} */
     const strMappings = {

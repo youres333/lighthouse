@@ -10,6 +10,7 @@ import {networkRecordsToDevtoolsLog} from '../network-records-to-devtools-log.js
 describe('Performance: Resource summary audit', () => {
   let artifacts;
   let context;
+
   beforeEach(() => {
     context = {computedCache: new Map(), settings: {budgets: null}};
 
@@ -24,8 +25,10 @@ describe('Performance: Resource summary audit', () => {
         ]),
       },
       URL: {requestedUrl: 'http://example.com', mainDocumentUrl: 'http://example.com', finalDisplayedUrl: 'http://example.com'},
+      LinkElements: [],
     };
   });
+
   it('has three table columns', async () => {
     const result = await ResourceSummaryAudit.audit(artifacts, context);
     expect(result.details.headings).toHaveLength(3);
@@ -61,6 +64,7 @@ describe('Performance: Resource summary audit', () => {
     expect(fontItem.requestCount).toBe(0);
     expect(fontItem.transferSize).toBe(0);
   });
+
   describe('third-party resource identification', () => {
     it('is based on root domain if firstPartyHostnames is NOT set', async () => {
       const result = await ResourceSummaryAudit.audit(artifacts, context);

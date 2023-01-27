@@ -106,7 +106,7 @@ const expectations = {
             {
               resourceType: 'document',
               countOverBudget: '1 request',
-              sizeOverBudget: '1259±50',
+              sizeOverBudget: '1366±50',
             },
             {
               resourceType: 'stylesheet',

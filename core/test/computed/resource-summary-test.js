@@ -18,6 +18,7 @@ function mockArtifacts(networkRecords) {
       finalDisplayedUrl: networkRecords[0].url,
     },
     budgets: null,
+    LinkElements: [],
   };
 }
 
@@ -67,6 +68,22 @@ describe('Resource summary computed', () => {
       {url: 'http://example.com/file.html', resourceType: 'Document', transferSize: 30},
       {url: 'http://example.com/favicon.ico', resourceType: 'Other', transferSize: 10},
     ]);
+    const result = await ResourceSummary.request(artifacts, context);
+
+    assert.equal(result.total.count, 1);
+    assert.equal(result.total.transferSize, 30);
+  });
+
+  it('ignores favicons defined via link', async () => {
+    artifacts = mockArtifacts([
+      {url: 'http://example.com/file.html', resourceType: 'Document', transferSize: 30},
+      {url: 'http://example.com/favicon1.png', resourceType: 'Other', transferSize: 10},
+      {url: 'http://example.com/favicon2.png', resourceType: 'Other', transferSize: 10},
+    ]);
+    artifacts.LinkElements = [
+      {rel: 'icon', href: 'favicon1.png'},
+      {rel: 'shortcut icon', href: 'http://example.com/favicon2.png'},
+    ];
     const result = await ResourceSummary.request(artifacts, context);
 
     assert.equal(result.total.count, 1);
