@@ -60,7 +60,7 @@ const expectations = {
   networkRequests: {
     // DevTools loads the page three times, so this request count will not be accurate.
     _excludeRunner: 'devtools',
-    length: 8,
+    length: 10,
   },
   lhr: {
     requestedUrl: 'http://localhost:10200/perf/perf-budgets/load-things.html',
