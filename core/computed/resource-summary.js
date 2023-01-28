@@ -43,11 +43,11 @@ class ResourceSummary {
    * @return {string[]}
    */
   static determineFaviconUrls(LinkElements, mainDocumentUrl) {
-    if (!mainDocumentUrl) return [];
-
     const iconLinkElements =
       LinkElements.filter(e => e.rel === 'icon' || e.rel === 'shortcut icon');
-    if (!iconLinkElements.length) return [new URL('/favicon.ico', mainDocumentUrl).href];
+    if (!iconLinkElements.length && mainDocumentUrl) {
+      return [new URL('/favicon.ico', mainDocumentUrl).href];
+    }
 
     const urls = [];
     for (const linkElement of iconLinkElements) {
