@@ -52,7 +52,7 @@ class ResourceSummary {
     const urls = [];
     for (const linkElement of iconLinkElements) {
       if (linkElement.href) {
-        urls.push(new URL(linkElement.href, mainDocumentUrl).href);
+        urls.push(linkElement.href);
       }
     }
 

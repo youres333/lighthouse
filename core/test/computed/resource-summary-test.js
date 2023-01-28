@@ -81,7 +81,7 @@ describe('Resource summary computed', () => {
       {url: 'http://example.com/favicon2.png', resourceType: 'Other', transferSize: 10},
     ]);
     artifacts.LinkElements = [
-      {rel: 'icon', href: 'favicon1.png'},
+      {rel: 'icon', href: 'http://example.com/favicon1.png'},
       {rel: 'shortcut icon', href: 'http://example.com/favicon2.png'},
     ];
     const result = await ResourceSummary.request(artifacts, context);
