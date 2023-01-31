@@ -53,6 +53,7 @@ describe('Performance: prioritize-lcp-image audit', () => {
         networkEndTime: 500,
         timing: {receiveHeadersEnd: 500},
         url: rootNodeUrl,
+        frameId: 'ROOT_FRAME',
       },
       {
         requestId: '2:redirect',
@@ -63,6 +64,7 @@ describe('Performance: prioritize-lcp-image audit', () => {
         networkEndTime: 1000,
         timing: {receiveHeadersEnd: 500},
         url: mainDocumentNodeUrl,
+        frameId: 'ROOT_FRAME',
       },
       {
         requestId: '3',
@@ -74,6 +76,7 @@ describe('Performance: prioritize-lcp-image audit', () => {
         timing: {receiveHeadersEnd: 4000},
         url: scriptNodeUrl,
         initiator: {type: 'parser', url: mainDocumentNodeUrl},
+        frameId: 'ROOT_FRAME',
       },
       {
         requestId: '4',
@@ -85,6 +88,7 @@ describe('Performance: prioritize-lcp-image audit', () => {
         timing: {receiveHeadersEnd: 2500},
         url: imageUrl,
         initiator: {type: 'script', url: scriptNodeUrl},
+        frameId: 'ROOT_FRAME',
       },
     ];
   };
