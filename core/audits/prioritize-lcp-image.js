@@ -291,10 +291,16 @@ class PrioritizeLcpImage extends Audit {
     const {lcpNodeToPreload, initiatorPath} = PrioritizeLcpImage.getLCPNodeToPreload(mainResource, graph, lcpUrl);
 
     try {
+      assert.notEqual(lcpUrl, undefined, 'lcpUrl undefined');
+      assert.strictEqual(betterInitiatorPath?.at(-1)?.url, URL.requestedUrl, 'did not make it to the root request'); // eslint-disable-line max-len
       assert.deepStrictEqual(betterInitiatorPath, initiatorPath);
+      console.error('lcpUrl', lcpUrl);
       console.error('*** betterInitiatorPath', betterInitiatorPath);
     } catch (e) {
       console.error(e);
+      console.error('lantern path:', initiatorPath);
+      console.error('new path:', betterInitiatorPath);
+      console.error('error on', artifacts.URL.requestedUrl);
       debugger;
     }
 
