@@ -141,14 +141,28 @@ class PrioritizeLcpImage extends Audit {
     const candidates = networkRecords.filter(record => {
       return record.url === lcpUrl &&
           record.finished &&
-          // Don't select if also loaded by some other means (xhr, etc).
-          record.resourceType === 'Image' &&
           // Same frame as LCP trace event.
           record.frameId === lcpImagePaintEvent.args.frame &&
           record.networkRequestTime < (processedNavigation.timestamps.largestContentfulPaint || 0);
-    });
+    }).map(record => {
+      // Follow any redirects to find the real image request.
+      while (record.redirectDestination) {
+        record = record.redirectDestination;
+      }
+      return record;
+    })
+      // Don't select if also loaded by some other means (xhr, etc).
+      // `resourceType` isn't set on redirect _sources_, so have to check here.
+      .filter(record => record.resourceType === 'Image');
 
-    // TODO(bckenny): break tie somehow.
+    // TODO(bckenny): are multipe results ever bad?
+    if (candidates.length > 1) {
+      debugger;
+    }
+
+    // If there are still multiple candidates, at this point it appears the page
+    // simply made multiple requests for the image. The first is therefore the
+    // request that made the image available for use.
     return candidates[0];
   }
 
