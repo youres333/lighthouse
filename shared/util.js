@@ -154,11 +154,19 @@ class Util {
   }
 
   /**
+   * Get a human-friendly presentation for this URL
+   * TODO: This would benefit from memoization.
    * @param {URL} parsedUrl
    * @param {{numPathParts?: number, preserveQuery?: boolean, preserveHost?: boolean}=} options
    * @return {string}
    */
   static getURLDisplayName(parsedUrl, options) {
+    // console.log(parsedUrl.pathname.length, parsedUrl.pathname);
+    globalThis.urls = globalThis.urls ?? new Map();
+    let count = globalThis.urls.get(parsedUrl.href) ?? 0;
+    count++;
+    globalThis.urls.set(parsedUrl.href, count);
+
     // Closure optional properties aren't optional in tsc, so fallback needs undefined  values.
     options = options || {numPathParts: undefined, preserveQuery: undefined,
       preserveHost: undefined};
@@ -186,10 +194,17 @@ class Util {
       }
     }
 
+    // console.log(name.length, name);
+
     const MAX_LENGTH = 64;
     if (parsedUrl.protocol !== 'data:') {
-      // Even non-data uris can be 10k characters long.
-      name = name.slice(0, 200);
+      // if (name.length > 300) {
+      //   console.log(name);
+      //   const dotIndex = name.lastIndexOf('.');
+      //   name =
+      // }
+      // Even non-data uris can be 10k characters long, which are
+      // name = name.slice(0, 200);
       // Always elide hexadecimal hash
       name = name.replace(/([a-f0-9]{7})[a-f0-9]{13}[a-f0-9]*/g, `$1${ELLIPSIS}`);
       // Also elide other hash-like mixed-case strings
@@ -223,7 +238,8 @@ class Util {
         name = name.slice(0, MAX_LENGTH - 1) + ELLIPSIS;
       }
     }
-
+    // console.log(name.length, name);
+    // console.log('');
     return name;
   }
 
