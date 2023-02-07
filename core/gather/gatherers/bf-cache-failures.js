@@ -9,7 +9,7 @@ import {waitForFrameNavigated, waitForLoadEvent} from '../driver/wait-for-condit
 import DevtoolsLog from './devtools-log.js';
 
 const FAILURE_EVENT_TIMEOUT = 100;
-const TEMP_PAGE_PAUSE_TIMEOUT = 100;
+const TEMP_PAGE_PAUSE_TIMEOUT = 200;
 
 class BFCacheFailures extends FRGatherer {
   /** @type {LH.Gatherer.GathererMeta<'DevtoolsLog'>} */
