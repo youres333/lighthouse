@@ -9,24 +9,25 @@ We expect this release to ship in the DevTools of [Chrome XX](https://chromiumda
 
 ## Notable Changes
 
-TODO: most things here should get some details
+### Performance Score Changes
 
-* Types TODO say more.
-* Lighthouse documentation now lives on [developer.chrome.com](developer.chrome.com).
-* [BREAKING] Scoring
-* [BREAKING] Node API
-* [BREAKING] Use new Fraggle Rock runner by default, deprecate legacy runner. <TODO note: this just links to the Node change> ([#13783](https://github.com/GoogleChrome/lighthouse/pull/13783))
-* [BREAKING] convert to ES modules ([#12689](https://github.com/GoogleChrome/lighthouse/issues/12689))
-* [BREAKING] drop support for node 14 ([#14413](https://github.com/GoogleChrome/lighthouse/pull/14413))
-* [BREAKING] rename lighthouse-(core,cli) folders ([#14242](https://github.com/GoogleChrome/lighthouse/pull/14242))
-* [BREAKING] add `finalDisplayedUrl`, `mainDocumentUrl` to LHR. deprecate `finalUrl` ([#14149](https://github.com/GoogleChrome/lighthouse/pull/14149))
+#14667
+
+Time to Interactive (TTI) no longer contributes to the performance score and is not displayed in the report. However, it is still accessible in the Lighthouse result JSON.
+
+Without TTI, the weighting of Cumulative Layout Shift (CLS) has increased from 15% to 25%. See the docs for a complete breakdown of [how the Performance score is calculated in 10.0](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/#lighthouse-10), or [play with the scoring calculator](https://googlechrome.github.io/lighthouse/scorecalc/#FCP=3000&SI=5800&FMP=4000&TTI=7300&FCI=6500&LCP=4000&TBT=600&CLS=0.25&device=mobile&version=10&version=8).
+
+## Types for the Node package
+
+#14441
+
+Lighthouse now includes type declarations! Our [example TypeScript recipe](https://github.com/GoogleChrome/lighthouse/tree/10-changelog/docs/recipes/type-checking) demonstrates how to achieve proper type safety with Lighthouse.
 
 ### Entity classification
 
-TODO
+Since Lighthouse 5.3, the [`third-party-web`](https://github.com/patrickhulce/third-party-web) dataset has been used to summarize how every third-party found on a page contributes to the total JavaScript blocking time, via the `third-party-summary` audit. With Lighthouse 10.0, we are adding a new property to the JSON result (`entities`) to make further use of this dataset. Every origin encountered on a page is now classified as first-party or third-party within `entities`. This classification is used to power the existing third-party filter checkbox.
 
-- mention new value in LHR
-- mention changes to report
+In a future version of Lighthouse, this will be used to group the table items of every audit based on the entity it originated from, and aggregate the impact of items from that specific entity.
 
 ## New Audits
 
@@ -34,33 +35,99 @@ TODO
 
 * bf-cache ([#14465](https://github.com/GoogleChrome/lighthouse/pull/14465))
 
-The Back/forward cache (bfcache for short) is a browser optimization that serves pages from fully serialized snapshots when navigating back or fowards in your session history. There are over 100 different reasons why a page may not be eligible for this optimization, so to assist developers Lighthouse now attempts to trigger a bfcache response and will list anything that prevented the browser from using the bfcache.
+The Back/forward cache (bfcache for short) is a browser optimization that serves pages from fully serialized snapshots when navigating back or forwards in session history. There are over 100 different reasons why a page may not be eligible for this optimization, so to assist developers Lighthouse now attempts to trigger a bfcache response and will list anything that prevented the browser from using the bfcache.
 
 For more on bfcache, see [the web.dev article](https://web.dev/bfcache/).
 
 ### Prioritize LCP image with Fetch Priority
 
-TODO
+TODO just a rename
 
 ### Preventing pasting to inputs
 
 * paste-preventing-inputs ([#14313](https://github.com/GoogleChrome/lighthouse/pull/14313))
 
-TODO
+The audit `password-inputs-can-be-pasted-into` is now `paste-preventing-inputs`. This audit works just as before, but now fails if any non-readonly input element prevents the user from pasting.
+
+## Lighthouse documentation has been moved to developer.chrome.com
+
+#14581
+
+Our documentation is no longer hosted on web.dev. For the most up to date audit docs please go to [developer.chrome.com/docs/lighthouse/](https://developer.chrome.com/docs/lighthouse/)
+
+## Breaking changes
+
+### For programmatic users
+
+Under the hood, Lighthouse now uses the new user-flow supporting infrastructure by default, even for traditional navigation runs. You can opt out of this by: in the CLI, use `--legacy-navigation`; in DevTools: check “Legacy Navigation” in the settings menu. If you have a use case that necessitates this escape hatch, please file an issue. We plan to remove the legacy runner for 11.0.
+
+### For Lighthouse result JSON (LHR) users
+
+#### Page URLs on the Lighthouse Result
+
+#13706
+
+Until now, there were two URL fields to describe a Lighthouse run:
+
+- `requestedUrl`: the url given by the users, which Lighthouse instructs Chrome to navigate to
+- `finalUrl`: the url after any server-initiated HTTP and JS-initiated redirects
+
+This taxonomy cannot account for more complex scenarios, such as JS-initiated redirects, usage of the History API or soft-navigations. They were also ill-defined for timespan and snapshot modes. To account for that, Lighthouse 10.0 now has these URL fields:
+
+- (changed) `requestedUrl`: The URL that Lighthouse initially navigated to before redirects. This is the same as it was before for navigation mode, but now it will be `undefined` in timespan/snapshot.
+- (new) `mainDocumentUrl`: The URL of the last document requested during a navigation. It does not account for soft navigations or history API events made after the page loads. It is only available in navigation mode, and will be undefined in timespan and snapshot modes.
+- (new) `finalDisplayedUrl`: The URL displayed in the browser combobox at the end of a Lighthouse run. It accounts for soft navigations and history API events. Available in navigation, timespan, and snapshot modes.
+- (deprecated) `finalUrl`: Same value as `mainDocumentUrl`.
+
+
+#### Audit changes
+
+- `password-inputs-can-be-pasted-into` -> `paste-preventing-inputs`
+- `preload-lcp-image` -> `prioritize-lcp-image`
+- `third-party-summary` no longer uses a `link` value for `item.entity`, instead uses a raw `text` value
+
+### For Node users
+
+- Node 14 is no longer supported, the minimum is now Node 16
+- In case you import paths within the lighthouse node package: `lighthouse-core/` and `lighthouse-cli/` folders are now simply `core/` and `cli/`
+- Converted from CommonJS to ES modules. For access to just the `lighthouse` function in CommonJS, you can use `require(‘lighthouse/core/index.cjs’)`
+- The CSV output for Lighthouse is much more useful now. Consult the PR for [an example of the new format](https://github.com/GoogleChrome/lighthouse/pull/13558)
+- `LHError` is now `LighthouseError`. If you are attempting to catch an error thrown by Lighthouse, be sure to account for this!
+
+#### Node API changes
+
+The `lighthouse` function now has [better integration with Puppeteer](https://github.com/GoogleChrome/lighthouse/blob/main/docs/puppeteer.md). Use `lighthouse(url, flags, config, page)` to run Lighthouse in an existing Puppeteer environment.
+
+The user flow api has moved to the top level node entrypoint and can be imported with `import {startFlow} from ‘lighthouse’`.
+
+New `flow.startNavigation()` and `flow.endNavigation()` functions let you define a user triggered navigation without any callback function. See the user flow docs for [an example usage](https://github.com/GoogleChrome/lighthouse/blob/main/docs/user-flows.md#triggering-a-navigation-via-user-interactions).
+
+To change settings for a single user flow step, define the settings overrides on the toplevel flags options `flow.snapshot({skipAduits: [‘uses-http2’’]})` instead of on the `settingsOverride` property.
+
+To give a flow step a custom name, use `flow.snapshot({name: ‘Custom name’})`. Previously this was done via `stepName`.
+
+### For Lighthouse customization (custom config, gatherers, audits)
+
+- To work in Lighthouse 10.0, custom gatherers will need to implement the [new Gatherer interface](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-gatherer-puppeteer/custom-gatherer.js). Otherwise, they will only work in [legacy navigation mode](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#using-legacy-configs-in-100) and older versions of Lighthouse
+- Lighthouse cannot use `passes` to load the page multiple times in navigation mode anymore. If you need to load the page multiple times, we recommend using a user flow. See our config docs for instructions on [how to convert to the new config format](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#legacy-configs)
+- The `ScriptElements` artifact is now `Scripts`, with a [slightly different shape](https://github.com/GoogleChrome/lighthouse/blob/955586c4e05d501d69a79d4ef0297991b6805690/types/artifacts.d.ts#L317)
+
+
+# Detailed changelog
 
 ## Removed Audits
 
 * [BREAKING] apple-touch-icon: remove audit ([#14243](https://github.com/GoogleChrome/lighthouse/pull/14243))
 * [BREAKING] vulnerable-libraries: remove audit ([#14194](https://github.com/GoogleChrome/lighthouse/pull/14194))
+* [BREAKING] full-page-screenshot: remove audit, move to top-level ([#14657](https://github.com/GoogleChrome/lighthouse/pull/14657))
 
 ## Core
 
 * [BREAKING] scoring: rebalance perf metric weightings for v10 ([#14667](https://github.com/GoogleChrome/lighthouse/pull/14667))
-* [BREAKING] full-page-screenshot: remove audit, move to top-level ([#14657](https://github.com/GoogleChrome/lighthouse/pull/14657))
 * [BREAKING] third-party-summary: change item.entity from link to text ([#14749](https://github.com/GoogleChrome/lighthouse/pull/14749))
 * [BREAKING] refactor csv output ([#13558](https://github.com/GoogleChrome/lighthouse/pull/13558))
-* emulation: retire moto g4, use moto g power ([#14674](https://github.com/GoogleChrome/lighthouse/pull/14674))
-* emulation: bump chrome UA to m109 and drop LH identifier ([#14384](https://github.com/GoogleChrome/lighthouse/pull/14384))
+* [BREAKING] emulation: retire moto g4, use moto g power ([#14674](https://github.com/GoogleChrome/lighthouse/pull/14674))
+* [BREAKING] emulation: bump chrome UA to m109 and drop LH identifier ([#14384](https://github.com/GoogleChrome/lighthouse/pull/14384))
 * restructure types for direct import and publishing ([#14441](https://github.com/GoogleChrome/lighthouse/pull/14441))
 * add entity classification of origins to the LHR ([#14622](https://github.com/GoogleChrome/lighthouse/pull/14622), [#14744](https://github.com/GoogleChrome/lighthouse/pull/14744))
 * no-unload-listeners: move to best practices ([#14668](https://github.com/GoogleChrome/lighthouse/pull/14668))
@@ -429,7 +496,6 @@ TODO
 * fix issues found in some strings from localizers ([#14740](https://github.com/GoogleChrome/lighthouse/pull/14740))
 * exclude core/util.cjs from code coverage ([#14688](https://github.com/GoogleChrome/lighthouse/pull/14688))
 * github: mark styles.css as not generated ([#14754](https://github.com/GoogleChrome/lighthouse/pull/14754))
-
 * add brendan back to triage rotation ([#13838](https://github.com/GoogleChrome/lighthouse/pull/13838))
 
 <a name="9.6.8"></a>
