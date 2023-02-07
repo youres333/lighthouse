@@ -11,15 +11,11 @@ We expect this release to ship in the DevTools of [Chrome XX](https://chromiumda
 
 ### Performance Score Changes
 
-#14667
-
 Time to Interactive (TTI) no longer contributes to the performance score and is not displayed in the report. However, it is still accessible in the Lighthouse result JSON.
 
 Without TTI, the weighting of Cumulative Layout Shift (CLS) has increased from 15% to 25%. See the docs for a complete breakdown of [how the Performance score is calculated in 10.0](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/#lighthouse-10), or [play with the scoring calculator](https://googlechrome.github.io/lighthouse/scorecalc/#FCP=3000&SI=5800&FMP=4000&TTI=7300&FCI=6500&LCP=4000&TBT=600&CLS=0.25&device=mobile&version=10&version=8).
 
 ## Types for the Node package
-
-#14441
 
 Lighthouse now includes type declarations! Our [example TypeScript recipe](https://github.com/GoogleChrome/lighthouse/tree/10-changelog/docs/recipes/type-checking) demonstrates how to achieve proper type safety with Lighthouse.
 
@@ -39,10 +35,6 @@ The Back/forward cache (bfcache for short) is a browser optimization that serves
 
 For more on bfcache, see [the web.dev article](https://web.dev/bfcache/).
 
-### Prioritize LCP image with Fetch Priority
-
-TODO just a rename
-
 ### Preventing pasting to inputs
 
 * paste-preventing-inputs ([#14313](https://github.com/GoogleChrome/lighthouse/pull/14313))
@@ -50,8 +42,6 @@ TODO just a rename
 The audit `password-inputs-can-be-pasted-into` is now `paste-preventing-inputs`. This audit works just as before, but now fails if any non-readonly input element prevents the user from pasting.
 
 ## Lighthouse documentation has been moved to developer.chrome.com
-
-#14581
 
 Our documentation is no longer hosted on web.dev. For the most up to date audit docs please go to [developer.chrome.com/docs/lighthouse/](https://developer.chrome.com/docs/lighthouse/)
 
@@ -64,8 +54,6 @@ Under the hood, Lighthouse now uses the new user-flow supporting infrastructure 
 ### For Lighthouse result JSON (LHR) users
 
 #### Page URLs on the Lighthouse Result
-
-#13706
 
 Until now, there were two URL fields to describe a Lighthouse run:
 
@@ -90,7 +78,7 @@ This taxonomy cannot account for more complex scenarios, such as JS-initiated re
 
 - Node 14 is no longer supported, the minimum is now Node 16
 - In case you import paths within the lighthouse node package: `lighthouse-core/` and `lighthouse-cli/` folders are now simply `core/` and `cli/`
-- Converted from CommonJS to ES modules. For access to just the `lighthouse` function in CommonJS, you can use `require(‘lighthouse/core/index.cjs’)`
+- Converted from CommonJS to ES modules. For access to just the `lighthouse` function in CommonJS, you can use `require('lighthouse/core/index.cjs')`
 - The CSV output for Lighthouse is much more useful now. Consult the PR for [an example of the new format](https://github.com/GoogleChrome/lighthouse/pull/13558)
 - `LHError` is now `LighthouseError`. If you are attempting to catch an error thrown by Lighthouse, be sure to account for this!
 
@@ -98,13 +86,13 @@ This taxonomy cannot account for more complex scenarios, such as JS-initiated re
 
 The `lighthouse` function now has [better integration with Puppeteer](https://github.com/GoogleChrome/lighthouse/blob/main/docs/puppeteer.md). Use `lighthouse(url, flags, config, page)` to run Lighthouse in an existing Puppeteer environment.
 
-The user flow api has moved to the top level node entrypoint and can be imported with `import {startFlow} from ‘lighthouse’`.
+The user flow api has moved to the top level node entrypoint and can be imported with `import {startFlow} from 'lighthouse'`.
 
 New `flow.startNavigation()` and `flow.endNavigation()` functions let you define a user triggered navigation without any callback function. See the user flow docs for [an example usage](https://github.com/GoogleChrome/lighthouse/blob/main/docs/user-flows.md#triggering-a-navigation-via-user-interactions).
 
-To change settings for a single user flow step, define the settings overrides on the toplevel flags options `flow.snapshot({skipAduits: [‘uses-http2’’]})` instead of on the `settingsOverride` property.
+To change settings for a single user flow step, define the settings overrides on the toplevel flags options `flow.snapshot({skipAduits: ['uses-http2']})` instead of on the `settingsOverride` property.
 
-To give a flow step a custom name, use `flow.snapshot({name: ‘Custom name’})`. Previously this was done via `stepName`.
+To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. Previously this was done via `stepName`.
 
 ### For Lighthouse customization (custom config, gatherers, audits)
 
