@@ -6,11 +6,10 @@
 
 import {Audit} from 'lighthouse';
 
-const MAX_MEMORY_USAGE = 1000;
+const MAX_MEMORY_USAGE = 1_000_000;
 
 /**
- * @fileoverview Tests that animation lengths are below the
- * test threshold value.
+ * @fileoverview Tests that the memory usage is below a certain threshold.
  */
 
 class MemoryUsage extends Audit {
@@ -19,7 +18,7 @@ class MemoryUsage extends Audit {
       id: 'memory-audit',
       title: 'Did not find any large memory usage',
       failureTitle: 'Found large memory usage',
-      description: 'Used to find any memory samples larger than 1kb',
+      description: 'Detects if any memory sample was larger than 1 MB',
 
       // The name of the custom gatherer class that provides input to this audit.
       requiredArtifacts: ['MemoryProfile'],
