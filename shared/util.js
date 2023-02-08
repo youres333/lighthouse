@@ -198,11 +198,14 @@ class Util {
 
     const MAX_LENGTH = 64;
     if (parsedUrl.protocol !== 'data:') {
-      // if (name.length > 300) {
-      //   console.log(name);
-      //   const dotIndex = name.lastIndexOf('.');
-      //   name =
-      // }
+      if (name.length > 100) {
+        const dotIndex = name.lastIndexOf('.');
+        if (dotIndex >= 0) {
+          name = name.slice(0, 100 - 1 - (name.length - dotIndex)) +
+          // Show file extension
+          `${ELLIPSIS}${name.slice(dotIndex)}`;
+        }
+      }
       // Even non-data uris can be 10k characters long, which are
       // name = name.slice(0, 200);
       // Always elide hexadecimal hash
