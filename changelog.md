@@ -1,11 +1,8 @@
-<!-- TODO ! updated as of 89d9fb5f1eb9307c18e856f8b6863bdee221b0e5 #14591 -->
-
 <a name="10.0.0"></a>
-# 10.0.0 (2023-02-01) TODO ! update me
+# 10.0.0 (2023-02-09) TODO ! update me
 [Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.5.0...860d7bf)
 
-~~ TODO: https://chromiumdash.appspot.com/schedule ~~
-We expect this release to ship in the DevTools of [Chrome XX](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
+We expect this release to ship in the DevTools of [Chrome 112](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
 
 ## Notable Changes
 
