@@ -94,9 +94,7 @@ describe('Navigation', async function() {
           assert.strictEqual(numNavigations, 6);
         }
 
-        // TODO: Reenable this for 10.0
-        // 9.6.x is forked so Lighthouse ToT is still using 9.5.0 as the version.
-        // assert.strictEqual(lhr.lighthouseVersion, '9.6.6');
+        assert.strictEqual(lhr.lighthouseVersion, '10.0.0');
         assert.match(lhr.finalUrl, /^https:\/\/localhost:[0-9]+\/test\/e2e\/resources\/lighthouse\/hello.html/);
 
         assert.strictEqual(lhr.configSettings.throttlingMethod, 'simulate');
@@ -105,13 +103,7 @@ describe('Navigation', async function() {
         assert.strictEqual(lhr.configSettings.throttling.rttMs, 150);
         assert.strictEqual(lhr.configSettings.screenEmulation.disabled, true);
         assert.include(lhr.configSettings.emulatedUserAgent, 'Mobile');
-
-        // A bug in FR caused `networkUserAgent` to be excluded from the LHR.
-        // https://github.com/GoogleChrome/lighthouse/pull/14392
-        // TODO: Reenable once the fix lands in DT.
-        if (mode === 'legacy') {
-          assert.include(lhr.environment.networkUserAgent, 'Mobile');
-        }
+        assert.include(lhr.environment.networkUserAgent, 'Mobile');
 
         assert.deepStrictEqual(artifacts.ViewportDimensions, {
           innerHeight: 823,
@@ -257,13 +249,7 @@ describe('Navigation', async function() {
         assert.strictEqual(lhr.configSettings.throttling.rttMs, 40);
         assert.strictEqual(lhr.configSettings.screenEmulation.disabled, true);
         assert.notInclude(lhr.configSettings.emulatedUserAgent, 'Mobile');
-
-        // A bug in FR caused `networkUserAgent` to be excluded from the LHR.
-        // https://github.com/GoogleChrome/lighthouse/pull/14392
-        // TODO: Reenable once the fix lands in DT.
-        if (mode === 'legacy') {
-          assert.notInclude(lhr.environment.networkUserAgent, 'Mobile');
-        }
+        assert.notInclude(lhr.environment.networkUserAgent, 'Mobile');
 
         const viewTraceButton = await $textContent('Ver rastro original', reportEl);
         assert.ok(viewTraceButton);
