@@ -1,8 +1,28 @@
 <a name="10.0.0"></a>
-# 10.0.0 (2023-02-09) TODO ! update me
-[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.5.0...860d7bf)
+# 10.0.0 (2023-02-09)
+[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.5.0...v10.0.0)
 
 We expect this release to ship in the DevTools of [Chrome 112](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
+
+## New Contributors
+
+Thanks to our new contributors 👽🐷🐰🐯🐻! 
+
+- Alex N. Jose @alexnj
+- Alexandra White @heyawhite
+- Amanda @apettenati
+- Andrew Gutekanst @Andoryuuta
+- Christopher Holder @ChristopherPHolder
+- Dongkyun Yu (Steve) @hackurity01
+- Floris @FMJansen
+- Gabe @MrBrain295
+- ghost_32 @k99sharma
+- Littleton Riggins @TripleEquals
+- lowkeyAngry @lowkeyAngry
+- Michael McMahon @TechnologyClassroom
+- Shogo Hida @shogohida
+- Stoyan @stoyan
+- Yang Guo @hashseed
 
 ## Notable Changes
 
@@ -18,7 +38,7 @@ Lighthouse now includes type declarations! Our [example TypeScript recipe](https
 
 ### Entity classification
 
-Since Lighthouse 5.3, the [`third-party-web`](https://github.com/patrickhulce/third-party-web) dataset has been used to summarize how every third-party found on a page contributes to the total JavaScript blocking time, via the `third-party-summary` audit. With Lighthouse 10.0, we are adding a new property to the JSON result (`entities`) to make further use of this dataset. Every origin encountered on a page is now classified as first-party or third-party within `entities`. This classification is used to power the existing third-party filter checkbox.
+Since Lighthouse 5.3, the [`third-party-web`](https://github.com/patrickhulce/third-party-web) dataset has been used to summarize how every third-party found on a page contributes to the total JavaScript blocking time, via the `third-party-summary` audit. With Lighthouse 10.0, we are adding a new property to the JSON result (`entities`) to make further use of this dataset. Every origin encountered on a page is now classified as first-party or third-party within `entities`. In 10.0, this classification is used to power the existing third-party filter checkbox.
 
 In a future version of Lighthouse, this will be used to group the table items of every audit based on the entity it originated from, and aggregate the impact of items from that specific entity.
 
