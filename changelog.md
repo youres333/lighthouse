@@ -32,9 +32,9 @@ Time to Interactive (TTI) no longer contributes to the performance score and is 
 
 Without TTI, the weighting of Cumulative Layout Shift (CLS) has increased from 15% to 25%. See the docs for a complete breakdown of [how the Performance score is calculated in 10.0](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/#lighthouse-10), or [play with the scoring calculator](https://googlechrome.github.io/lighthouse/scorecalc/#FCP=3000&SI=5800&FMP=4000&TTI=7300&FCI=6500&LCP=4000&TBT=600&CLS=0.25&device=mobile&version=10&version=8).
 
-## Types for the Node package
+### Types for the Node package
 
-Lighthouse now includes type declarations! Our [example TypeScript recipe](https://github.com/GoogleChrome/lighthouse/tree/10-changelog/docs/recipes/type-checking) demonstrates how to achieve proper type safety with Lighthouse.
+Lighthouse now includes type declarations! Our [example TypeScript recipe](https://github.com/GoogleChrome/lighthouse/tree/main/docs/recipes/type-checking) demonstrates how to achieve proper type safety with Lighthouse.
 
 ### Entity classification
 
@@ -116,7 +116,7 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 
 ### For Lighthouse customization (custom config, gatherers, audits)
 
-- To work in Lighthouse 10.0, custom gatherers will need to implement the [new Gatherer interface](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-gatherer-puppeteer/custom-gatherer.js) ([an example](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-audit/memory-gatherer.js )). Otherwise, they will only work in [legacy navigation mode](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#using-legacy-configs-in-100) and older versions of Lighthouse
+- To work in Lighthouse 10.0, custom gatherers will need to implement the new Gatherer interface ([an example](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-audit/memory-gatherer.js)). Otherwise, they will only work in [legacy navigation mode](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#using-legacy-configs-in-100) and older versions of Lighthouse
 - Lighthouse cannot use `passes` to load the page multiple times in navigation mode anymore. If you need to load the page multiple times, we recommend using a user flow. See our config docs for instructions on [how to convert to the new config format](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#legacy-configs)
 - The `ScriptElements` artifact is now `Scripts`, with a [slightly different shape](https://github.com/GoogleChrome/lighthouse/blob/955586c4e05d501d69a79d4ef0297991b6805690/types/artifacts.d.ts#L317)
 - `Audit.makeOpportunityDetails` and `Audit.makeTableDetails` now accept an options object as the third parameter. This ends up being a breaking change for just `Audit.makeOpportunityDetails`.
