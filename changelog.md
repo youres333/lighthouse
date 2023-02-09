@@ -92,22 +92,23 @@ This taxonomy cannot account for more complex scenarios, such as JS-initiated re
 - `password-inputs-can-be-pasted-into` -> `paste-preventing-inputs`
 - `preload-lcp-image` -> `prioritize-lcp-image`
 - `third-party-summary` no longer uses a `link` value for `item.entity`, instead uses a raw `text` value
+- `full-page-screenshot` is no longer an audit, instead it is stored at `lhr.fullPageScreenshot`. To suppress collection of the full-page screenshot, you must now use `--disable-full-page-screenshot` in the CLI.
 
 ### For Node users
 
 - Node 14 is no longer supported, the minimum is now Node 16
 - In case you import paths within the lighthouse node package: `lighthouse-core/` and `lighthouse-cli/` folders are now simply `core/` and `cli/`
-- Converted from CommonJS to ES modules. For access to just the `lighthouse` function in CommonJS, you can use `require('lighthouse/core/index.cjs')`
+- Converted from CommonJS to ES modules. You can still use lighthouse in CommonJS by using an dynamic import: `await import('lighthouse')`. For access to just the `lighthouse` function in CommonJS, you can also use `require('lighthouse/core/index.cjs')`
 - The CSV output for Lighthouse is much more useful now. Consult the PR for [an example of the new format](https://github.com/GoogleChrome/lighthouse/pull/13558)
 - `LHError` is now `LighthouseError`. If you are attempting to catch an error thrown by Lighthouse, be sure to account for this!
 
 #### Node API changes
 
-The `lighthouse` function now has [better integration with Puppeteer](https://github.com/GoogleChrome/lighthouse/blob/main/docs/puppeteer.md). Use `lighthouse(url, flags, config, page)` to run Lighthouse in an existing Puppeteer environment.
+The `lighthouse` function now has [better integration with Puppeteer](https://github.com/GoogleChrome/lighthouse/blob/main/docs/puppeteer.md). Use `lighthouse(url, flags, config, page)` to run Lighthouse, passing an existing `Puppeteer.Page` handle as `page`.
 
 The user flow api has moved to the top level node entrypoint and can be imported with `import {startFlow} from 'lighthouse'`.
 
-New `flow.startNavigation()` and `flow.endNavigation()` functions let you define a user triggered navigation without any callback function. See the user flow docs for [an example usage](https://github.com/GoogleChrome/lighthouse/blob/main/docs/user-flows.md#triggering-a-navigation-via-user-interactions).
+New `flow.startNavigation()` and `flow.endNavigation()` functions let you define a user triggered navigation without any callback function. See the user flow docs for [an example](https://github.com/GoogleChrome/lighthouse/blob/main/docs/user-flows.md#triggering-a-navigation-via-user-interactions).
 
 To change settings for a single user flow step, define the settings overrides on the toplevel flags options `flow.snapshot({skipAduits: ['uses-http2']})` instead of on the `settingsOverride` property.
 
@@ -115,7 +116,7 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 
 ### For Lighthouse customization (custom config, gatherers, audits)
 
-- To work in Lighthouse 10.0, custom gatherers will need to implement the [new Gatherer interface](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-gatherer-puppeteer/custom-gatherer.js). Otherwise, they will only work in [legacy navigation mode](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#using-legacy-configs-in-100) and older versions of Lighthouse
+- To work in Lighthouse 10.0, custom gatherers will need to implement the [new Gatherer interface](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-gatherer-puppeteer/custom-gatherer.js) ([an example](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-audit/memory-gatherer.js )). Otherwise, they will only work in [legacy navigation mode](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#using-legacy-configs-in-100) and older versions of Lighthouse
 - Lighthouse cannot use `passes` to load the page multiple times in navigation mode anymore. If you need to load the page multiple times, we recommend using a user flow. See our config docs for instructions on [how to convert to the new config format](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#legacy-configs)
 - The `ScriptElements` artifact is now `Scripts`, with a [slightly different shape](https://github.com/GoogleChrome/lighthouse/blob/955586c4e05d501d69a79d4ef0297991b6805690/types/artifacts.d.ts#L317)
 
@@ -127,8 +128,6 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * [BREAKING] apple-touch-icon: remove audit ([#14243](https://github.com/GoogleChrome/lighthouse/pull/14243))
 * [BREAKING] vulnerable-libraries: remove audit ([#14194](https://github.com/GoogleChrome/lighthouse/pull/14194))
 * [BREAKING] full-page-screenshot: remove audit, move to top-level ([#14657](https://github.com/GoogleChrome/lighthouse/pull/14657))
-
-Note: To suppress collection of the full-page screenshot, you must now use `--disable-full-page-screenshot` in the CLI.
 
 ## Core
 
@@ -273,13 +272,11 @@ Note: To suppress collection of the full-page screenshot, you must now use `--di
 * remove trace-of-tab references ([#14590](https://github.com/GoogleChrome/lighthouse/pull/14590))
 * disable bf-cache in lr/psi ([#14774](https://github.com/GoogleChrome/lighthouse/pull/14774))
 
-## ⛏️👷 Fraggle Rock
+## User Flows
 
-  Support for auditing user flows ([#11313](https://github.com/GoogleChrome/lighthouse/issues/11313))
-
+* [BREAKING] update flow API for 10.0 ([#14388](https://github.com/GoogleChrome/lighthouse/pull/14388))
 * [BREAKING] replace `configContext` with `flags` ([#14050](https://github.com/GoogleChrome/lighthouse/pull/14050))
 * add page to context ([#14359](https://github.com/GoogleChrome/lighthouse/pull/14359))
-* update flow API for 10.0 ([#14388](https://github.com/GoogleChrome/lighthouse/pull/14388))
 * always run NetworkUserAgent gatherer ([#14392](https://github.com/GoogleChrome/lighthouse/pull/14392))
 * index test parity ([#13867](https://github.com/GoogleChrome/lighthouse/pull/13867))
 * do not monkey patch puppeteer session.emit ([#14087](https://github.com/GoogleChrome/lighthouse/pull/14087))
@@ -287,10 +284,10 @@ Note: To suppress collection of the full-page screenshot, you must now use `--di
 
 ## CLI
 
-* remove --print-config ([#14585](https://github.com/GoogleChrome/lighthouse/pull/14585))
+* [BREAKING] use fraggle rock (user flow) runner by default, deprecate legacy navigation runner ([#13860](https://github.com/GoogleChrome/lighthouse/pull/13860))
+* [BREAKING] remove --print-config ([#14585](https://github.com/GoogleChrome/lighthouse/pull/14585))
 * error early if --output-path is invalid ([#14367](https://github.com/GoogleChrome/lighthouse/pull/14367))
 * throw error if running x64 node on mac arm64 ([#14288](https://github.com/GoogleChrome/lighthouse/pull/14288))
-* use fraggle rock runner by default, deprecate legacy navigation runner ([#13860](https://github.com/GoogleChrome/lighthouse/pull/13860))
 
 ## Report
 
