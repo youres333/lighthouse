@@ -153,6 +153,22 @@ const metrics = {
 };
 
 const curves = {
+  v10: {
+    mobile: {
+      FCP: {weight: 0.10, median: 3000, p10: 1800},
+      SI: {weight: 0.10, median: 5800, p10: 3387},
+      LCP: {weight: 0.25, median: 4000, p10: 2500},
+      TBT: {weight: 0.30, median: 600,  p10: 200},
+      CLS: {weight: 0.25, median: 0.25, p10: 0.1},
+    },
+    desktop: {
+      FCP: {weight: 0.10, median: 1600, p10: 934},
+      SI: {weight: 0.10, median: 2300, p10: 1311},
+      LCP: {weight: 0.25, median: 2400, p10: 1200},
+      TBT: {weight: 0.30, median: 350, p10: 150},
+      CLS: {weight: 0.25, median: 0.25, p10: 0.1},
+    },
+  },
   v8: {
     mobile: {
       FCP: {weight: 0.10, median: 3000, p10: 1800},
@@ -211,6 +227,10 @@ function makeScoringGuide(curves) {
 
 const scoringGuides = {
   // v9 => v8 and v7 => v6 is handled in normalizeVersions()
+  v10: {
+    mobile: makeScoringGuide(curves.v10.mobile),
+    desktop: makeScoringGuide(curves.v10.desktop),
+  },
   v8: {
     mobile: makeScoringGuide(curves.v8.mobile),
     desktop: makeScoringGuide(curves.v8.desktop),
@@ -642,8 +662,10 @@ class ScoringGuide extends m {
     const score = arithmeticMean(auditRefs);
 
     let title = h( 'h2', null, name );
-    if (name === 'v8') {
-      title = h( 'h2', null, "latest", h( 'br', null ), h( 'i', null, h( 'a', { href: "https://github.com/GoogleChrome/lighthouse/releases/tag/v8.0.0" }, "v8, v9") ) );
+    if (name === 'v10') {
+      title = h( 'h2', null, "latest", h( 'br', null ), h( 'i', null, h( 'a', { href: "https://github.com/GoogleChrome/lighthouse/releases/tag/v10.0.0" }, "v10") ) );
+    } else if (name === 'v8') {
+      title = h( 'h2', null, h( 'i', null, h( 'a', { href: "https://github.com/GoogleChrome/lighthouse/releases/tag/v8.0.0" }, "v8, v9") ) );
     } else if (name === 'v6') {
       title = h( 'h2', null, h( 'i', null, h( 'a', { href: "https://github.com/GoogleChrome/lighthouse/releases/tag/v6.0.0" }, "v6, v7") ) );
     }
@@ -724,9 +746,9 @@ class App extends m {
       }
       if (version === 5) { return 5; }
       // Odd-number major versions are identical (score-wise to the previous one)
-      if (version % 2 === 1) { return (version - 1).toString(); }
-      return version.toString();
-    }).sort().reverse();
+      if (version % 2 === 1) { return (version - 1); }
+      return version;
+    });
   }
 
   render() {
@@ -747,7 +769,8 @@ class App extends m {
           )
         ),
         h( 'label', null, "Versions: ", h( 'select', { name: "versions", value: normalizedVersions.join(','), onChange: this.onVersionsChange },
-            h( 'option', { value: "8,6,5" }, "show all"),
+            h( 'option', { value: "10,8,6,5" }, "show all"),
+            h( 'option', { value: "10" }, "v10"),
             h( 'option', { value: "8" }, "v8, v9"),
             h( 'option', { value: "6" }, "v6, v7"),
             h( 'option', { value: "5" }, "v5")
