@@ -119,6 +119,7 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 - To work in Lighthouse 10.0, custom gatherers will need to implement the [new Gatherer interface](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-gatherer-puppeteer/custom-gatherer.js) ([an example](https://github.com/GoogleChrome/lighthouse/blob/main/docs/recipes/custom-audit/memory-gatherer.js )). Otherwise, they will only work in [legacy navigation mode](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#using-legacy-configs-in-100) and older versions of Lighthouse
 - Lighthouse cannot use `passes` to load the page multiple times in navigation mode anymore. If you need to load the page multiple times, we recommend using a user flow. See our config docs for instructions on [how to convert to the new config format](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#legacy-configs)
 - The `ScriptElements` artifact is now `Scripts`, with a [slightly different shape](https://github.com/GoogleChrome/lighthouse/blob/955586c4e05d501d69a79d4ef0297991b6805690/types/artifacts.d.ts#L317)
+- `Audit.makeOpportunityDetails` and `Audit.makeTableDetails` now accept an options object as the third parameter. This ends up being a breaking change for just `Audit.makeOpportunityDetails`.
 
 
 # Detailed changelog
@@ -137,7 +138,7 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * [BREAKING] emulation: retire moto g4, use moto g power ([#14674](https://github.com/GoogleChrome/lighthouse/pull/14674))
 * [BREAKING] emulation: bump chrome UA to m109 and drop LH identifier ([#14384](https://github.com/GoogleChrome/lighthouse/pull/14384))
 * [BREAKING] rename preload-lcp-image to prioritize-lcp-image ([#14761](https://github.com/GoogleChrome/lighthouse/pull/14761))
-* audit: add options param to make{Table,Opportunity}Details ([#14753](https://github.com/GoogleChrome/lighthouse/pull/14753))
+* [BREAKING] audit: add options param to make{Table,Opportunity}Details ([#14753](https://github.com/GoogleChrome/lighthouse/pull/14753))
 * restructure types for direct import and publishing ([#14441](https://github.com/GoogleChrome/lighthouse/pull/14441))
 * add entity classification of origins to the LHR ([#14622](https://github.com/GoogleChrome/lighthouse/pull/14622), [#14744](https://github.com/GoogleChrome/lighthouse/pull/14744))
 * no-unload-listeners: move to best practices ([#14668](https://github.com/GoogleChrome/lighthouse/pull/14668))
