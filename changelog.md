@@ -1,4 +1,4 @@
-<!-- TODO ! updated as of 860d7bfcae2d1ead5f4a495743512317270b82cb #14591 -->
+<!-- TODO ! updated as of 89d9fb5f1eb9307c18e856f8b6863bdee221b0e5 #14591 -->
 
 <a name="10.0.0"></a>
 # 10.0.0 (2023-02-01) TODO ! update me
@@ -109,6 +109,8 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * [BREAKING] vulnerable-libraries: remove audit ([#14194](https://github.com/GoogleChrome/lighthouse/pull/14194))
 * [BREAKING] full-page-screenshot: remove audit, move to top-level ([#14657](https://github.com/GoogleChrome/lighthouse/pull/14657))
 
+Note: To suppress collection of the full-page screenshot, you must now use `--disable-full-page-screenshot` in the CLI.
+
 ## Core
 
 * [BREAKING] scoring: rebalance perf metric weightings for v10 ([#14667](https://github.com/GoogleChrome/lighthouse/pull/14667))
@@ -116,6 +118,8 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * [BREAKING] refactor csv output ([#13558](https://github.com/GoogleChrome/lighthouse/pull/13558))
 * [BREAKING] emulation: retire moto g4, use moto g power ([#14674](https://github.com/GoogleChrome/lighthouse/pull/14674))
 * [BREAKING] emulation: bump chrome UA to m109 and drop LH identifier ([#14384](https://github.com/GoogleChrome/lighthouse/pull/14384))
+* [BREAKING] rename preload-lcp-image to prioritize-lcp-image ([#14761](https://github.com/GoogleChrome/lighthouse/pull/14761))
+* audit: add options param to make{Table,Opportunity}Details ([#14753](https://github.com/GoogleChrome/lighthouse/pull/14753))
 * restructure types for direct import and publishing ([#14441](https://github.com/GoogleChrome/lighthouse/pull/14441))
 * add entity classification of origins to the LHR ([#14622](https://github.com/GoogleChrome/lighthouse/pull/14622), [#14744](https://github.com/GoogleChrome/lighthouse/pull/14744))
 * no-unload-listeners: move to best practices ([#14668](https://github.com/GoogleChrome/lighthouse/pull/14668))
@@ -240,6 +244,11 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * asset-saver: save flow artifacts in separate files ([#14599](https://github.com/GoogleChrome/lighthouse/pull/14599))
 * replace `Page.getResourceTree` with `Page.getFrameTree` ([#14663](https://github.com/GoogleChrome/lighthouse/pull/14663))
 * js-usage: ignore __puppeteer_evaluation_script__ ([#13952](https://github.com/GoogleChrome/lighthouse/pull/13952))
+* use main-frame LCP trace element ([#14760](https://github.com/GoogleChrome/lighthouse/pull/14760))
+* full-page-screenshot: get screenshot, nodes concurrently ([#14763](https://github.com/GoogleChrome/lighthouse/pull/14763))
+* config: prevent custom gatherer interference ([#14756](https://github.com/GoogleChrome/lighthouse/pull/14756))
+* valid-source-maps: validate url in first-party check ([#14758](https://github.com/GoogleChrome/lighthouse/pull/14758))
+* disconnect Puppeteer when started by Lighthouse ([#14770](https://github.com/GoogleChrome/lighthouse/pull/14770))
 * use `resolvedConfig` to name every resolved config ([#14600](https://github.com/GoogleChrome/lighthouse/pull/14600))
 * rename resolved config types ([#14647](https://github.com/GoogleChrome/lighthouse/pull/14647))
 * remove trace-of-tab references ([#14590](https://github.com/GoogleChrome/lighthouse/pull/14590))
@@ -268,7 +277,7 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * thumbnails: increase res and display, reduce number ([#14679](https://github.com/GoogleChrome/lighthouse/pull/14679))
 * use entity classification to filter third-parties ([#14697](https://github.com/GoogleChrome/lighthouse/pull/14697))
 * fix compat for older lighthouse reports ([#14617](https://github.com/GoogleChrome/lighthouse/pull/14617))
-* sticky table headers ([#14508](https://github.com/GoogleChrome/lighthouse/pull/14508), [#14748](https://github.com/GoogleChrome/lighthouse/pull/14748))
+* sticky table headers ([#14508](https://github.com/GoogleChrome/lighthouse/pull/14508), [#14748](https://github.com/GoogleChrome/lighthouse/pull/14748), [#14766](https://github.com/GoogleChrome/lighthouse/pull/14766))
 * reuse numberFormatters for ~50% performance gains ([#14493](https://github.com/GoogleChrome/lighthouse/pull/14493))
 * expand on "learn more" links ([#14091](https://github.com/GoogleChrome/lighthouse/pull/14091))
 * prevent opportunity savings from wrapping ([#14619](https://github.com/GoogleChrome/lighthouse/pull/14619))
@@ -331,6 +340,7 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * fix collect-strings on windows with pathToFileURL ([#14201](https://github.com/GoogleChrome/lighthouse/pull/14201))
 * handle string placeholder collisions ([#14432](https://github.com/GoogleChrome/lighthouse/pull/14432))
 * reduce unnecessary message formats ([#14030](https://github.com/GoogleChrome/lighthouse/pull/14030))
+* import strings ([#14768](https://github.com/GoogleChrome/lighthouse/pull/14768))
 
 ## Docs
 
@@ -356,6 +366,15 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * config: add plugins property ([#14645](https://github.com/GoogleChrome/lighthouse/pull/14645))
 * fix outdated code and command line in hacking tips ([#14720](https://github.com/GoogleChrome/lighthouse/pull/14720))
 * changelog: add 9.6.x release notes ([f03850a](https://github.com/GoogleChrome/lighthouse/commit/f03850a))
+* update custom gatherer recipe for 10.0 ([#14765](https://github.com/GoogleChrome/lighthouse/pull/14765))
+* reintroduce changes to flows for 10.0 ([#14710](https://github.com/GoogleChrome/lighthouse/pull/14710))
+* update docs/readme.md for 10.0 ([#14457](https://github.com/GoogleChrome/lighthouse/pull/14457))
+* update puppeteer auth example for 10.0 ([#14195](https://github.com/GoogleChrome/lighthouse/pull/14195))
+* config: update to reflect changes in FR ([#14324](https://github.com/GoogleChrome/lighthouse/pull/14324))
+* plugins: update to reflect changes in 10.0 ([#14322](https://github.com/GoogleChrome/lighthouse/pull/14322))
+* puppeteer: update to reflect FR changes ([#14319](https://github.com/GoogleChrome/lighthouse/pull/14319))
+* recipes: update custom-gatherer-puppeteer to use FR ([#13940](https://github.com/GoogleChrome/lighthouse/pull/13940))
+* user-flows: use new api location ([#14533](https://github.com/GoogleChrome/lighthouse/pull/14533))
 
 ## Tests
 
@@ -441,6 +460,7 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * smoke: run bundle smokes in a worker ([#13947](https://github.com/GoogleChrome/lighthouse/pull/13947))
 * smoke: realign byte ranges ([#13920](https://github.com/GoogleChrome/lighthouse/pull/13920))
 * smoke: disable `lantern-idle-callback-short` ([#14670](https://github.com/GoogleChrome/lighthouse/pull/14670))
+* smoke: disable metrics-tricky-tti for M112 ([#14762](https://github.com/GoogleChrome/lighthouse/pull/14762))
 * topbar: replace module mock with dependency injection ([#14057](https://github.com/GoogleChrome/lighthouse/pull/14057))
 * unit: fix node to 16.16 ([#14333](https://github.com/GoogleChrome/lighthouse/pull/14333))
 * rewrite fake timer usage to reduce isolation ([#14595](https://github.com/GoogleChrome/lighthouse/pull/14595))
@@ -484,6 +504,8 @@ To give a flow step a custom name, use `flow.snapshot({name: 'Custom name'})`. P
 * fix issues found in some strings from localizers ([#14740](https://github.com/GoogleChrome/lighthouse/pull/14740))
 * exclude core/util.cjs from code coverage ([#14688](https://github.com/GoogleChrome/lighthouse/pull/14688))
 * github: mark styles.css as not generated ([#14754](https://github.com/GoogleChrome/lighthouse/pull/14754))
+* allow multiple nightlies to be published in a day ([#14767](https://github.com/GoogleChrome/lighthouse/pull/14767))
+* lint: enable no-conditional-assignment rule ([#14757](https://github.com/GoogleChrome/lighthouse/pull/14757))
 * add brendan back to triage rotation ([#13838](https://github.com/GoogleChrome/lighthouse/pull/13838))
 
 <a name="9.6.8"></a>
