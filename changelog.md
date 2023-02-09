@@ -1,6 +1,6 @@
 <a name="10.0.0"></a>
 # 10.0.0 (2023-02-09)
-[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.5.0...v10.0.0)
+[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.6.8...v10.0.0)
 
 We expect this release to ship in the DevTools of [Chrome 112](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
 
@@ -51,6 +51,8 @@ In a future version of Lighthouse, this will be used to group the table items of
 The Back/forward cache (bfcache for short) is a browser optimization that serves pages from fully serialized snapshots when navigating back or forwards in session history. There are over 100 different reasons why a page may not be eligible for this optimization, so to assist developers Lighthouse now attempts to trigger a bfcache response and will list anything that prevented the browser from using the bfcache.
 
 For more on bfcache, see [the web.dev article](https://web.dev/bfcache/).
+
+Note: This audit initially will not be available for PageSpeed Insights.
 
 ### Preventing pasting to inputs
 
@@ -269,6 +271,7 @@ Note: To suppress collection of the full-page screenshot, you must now use `--di
 * use `resolvedConfig` to name every resolved config ([#14600](https://github.com/GoogleChrome/lighthouse/pull/14600))
 * rename resolved config types ([#14647](https://github.com/GoogleChrome/lighthouse/pull/14647))
 * remove trace-of-tab references ([#14590](https://github.com/GoogleChrome/lighthouse/pull/14590))
+* disable bf-cache in lr/psi ([#14774](https://github.com/GoogleChrome/lighthouse/pull/14774))
 
 ## ⛏️👷 Fraggle Rock
 
@@ -509,6 +512,7 @@ Note: To suppress collection of the full-page screenshot, you must now use `--di
 * build: extract bfcache strings from devtools ([#14452](https://github.com/GoogleChrome/lighthouse/pull/14452))
 * build: use git-describe for build bundle version header ([#14347](https://github.com/GoogleChrome/lighthouse/pull/14347))
 * build: fix smokerider bundles ([#14267](https://github.com/GoogleChrome/lighthouse/pull/14267))
+* build: shim unneeded deps in lr report generator ([#14773](https://github.com/GoogleChrome/lighthouse/pull/14773))
 * change default build folder for devtools gn ([#14492](https://github.com/GoogleChrome/lighthouse/pull/14492))
 * fix broken links in changelog ([#14130](https://github.com/GoogleChrome/lighthouse/pull/14130))
 * mark build folder as not generated for GitHub UI ([#14192](https://github.com/GoogleChrome/lighthouse/pull/14192))
