@@ -150,15 +150,11 @@ class PrioritizeLcpImage extends Audit {
         record = record.redirectDestination;
       }
       return record;
-    })
-      // Don't select if also loaded by some other means (xhr, etc).
-      // `resourceType` isn't set on redirect _sources_, so have to check here.
-      .filter(record => record.resourceType === 'Image');
-
-    // TODO(bckenny): are multipe results ever bad?
-    if (candidates.length > 1) {
-      debugger;
-    }
+    }).filter(record => {
+      // Don't select if also loaded by some other means (xhr, etc). `resourceType`
+      // isn't set on redirect _sources_, so have to check after following redirects.
+      return record.resourceType === 'Image';
+    });
 
     // If there are still multiple candidates, at this point it appears the page
     // simply made multiple requests for the image. The first is therefore the
@@ -287,7 +283,6 @@ class PrioritizeLcpImage extends Audit {
       .find(element => element.traceEventType === 'largest-contentful-paint');
 
     if (!lcpElement || lcpElement.type !== 'image') {
-      console.error('*** NOT AN IMAGE LCP');
       return {score: null, notApplicable: true};
     }
 
