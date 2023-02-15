@@ -27,7 +27,8 @@ const UIStrings = {
 const str_ = i18n.createIcuMessageFn(import.meta.url, UIStrings);
 
 /**
- * @typedef {Array<{url: string, initiatorType: string}>} InitiatorPath
+ * @typedef {LH.Crdp.Network.Initiator['type']|'redirect'|'fallbackToMain'} InitiatorType
+ * @typedef {Array<{url: string, initiatorType: InitiatorType}>} InitiatorPath
  */
 
 class PrioritizeLcpImage extends Audit {
@@ -73,14 +74,39 @@ class PrioritizeLcpImage extends Audit {
   static findLCPNode(graph, imageUrl) {
     let lcpNode;
     let path;
-    graph.traverse((node, traversalPath) => {
-      if (node.type !== 'network') return;
+    // graph.traverse((node, traversalPath) => {
+    //   if (node.type !== 'network') return;
+    //   if (node.record.url === imageUrl) {
+    //     lcpNode = node;
+    //     path =
+    //       traversalPath.slice(1).filter(initiator => initiator.type === 'network');
+    //   }
+    // });
+    // return {
+    //   lcpNode,
+    //   path,
+    // };
+
+    // By default `traverse` will discover nodes in BFS-order regardless of dependencies, but
+    // here we need traversal in a topological sort order. We'll visit a node only when its
+    // dependencies have been met.
+    const seenNodes = new Set();
+    /** @param {LH.Gatherer.Simulation.GraphNode} node */
+    function getNextNodes(node) {
+      return node.getDependents().filter(n => n.getDependencies().every(d => seenNodes.has(d)));
+    }
+
+    for (const {node, traversalPath} of graph.traverseGenerator(getNextNodes)) {
+      seenNodes.add(node);
+      if (node.type !== 'network') continue;
       if (node.record.url === imageUrl) {
         lcpNode = node;
-        path =
-          traversalPath.slice(1).filter(initiator => initiator.type === 'network');
+        path = traversalPath.slice(1)
+          .filter(/** @return {n is LH.Gatherer.Simulation.GraphNetworkNode} */
+            n => n.type === 'network');
       }
-    });
+    }
+
     return {
       lcpNode,
       path,
@@ -164,14 +190,36 @@ class PrioritizeLcpImage extends Audit {
 
   /**
    * @param {NetworkRequest|undefined} lcpRecord
+   * @param {NetworkRequest} mainResource
    * @return {InitiatorPath|undefined}
    */
-  static getLcpInitiatorPath(lcpRecord) {
-    const initiatorPath = [];
+  static getLcpInitiatorPath(lcpRecord, mainResource) {
     let request = lcpRecord;
+    if (!lcpRecord) return;
+
+    const initiatorPath = [];
+    let mainResourceVisited = false;
     while (request) {
-      initiatorPath.push({url: request.url, initiatorType: request.initiator?.type});
-      request = request.initiatorRequest;
+      // Note: if moving to LCPAllFrames, this would need to be the LCP's frame main resource.
+      mainResourceVisited ||= request.requestId === mainResource.requestId;
+
+      /** @type {InitiatorType} */
+      let initiatorType = request.initiator?.type ?? 'other';
+      // Initiator type is inherited from redirect, but 'redirect' is more informative here.
+      if (request.initiatorRequest && request.initiatorRequest === request.redirectSource) {
+        initiatorType = 'redirect';
+      }
+
+      // Sometimes the initiator chain is broken and the best that can be done is stitch
+      // back to the main resource (but note it in the initiatorType).
+      let nextRequest = request.initiatorRequest;
+      if (!nextRequest && !mainResourceVisited) {
+        nextRequest = mainResource;
+        initiatorType = 'fallbackToMain';
+      }
+
+      initiatorPath.push({url: request.url, initiatorType});
+      request = nextRequest;
     }
 
     if (initiatorPath.length === 0) return;
@@ -293,7 +341,7 @@ class PrioritizeLcpImage extends Audit {
     const simulator = await LoadSimulator.request({devtoolsLog, settings}, context);
 
     const lcpRecord = PrioritizeLcpImage.getLcpRecord(trace, processedNavigation, networkRecords);
-    const betterInitiatorPath = PrioritizeLcpImage.getLcpInitiatorPath(lcpRecord);
+    const betterInitiatorPath = PrioritizeLcpImage.getLcpInitiatorPath(lcpRecord, mainResource);
     const lcpUrl = lcpRecord?.url;
     const graph = lanternLCP.pessimisticGraph;
     // eslint-disable-next-line max-len
