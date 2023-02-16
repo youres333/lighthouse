@@ -19,7 +19,7 @@ import {pageFunctions} from '../../../lib/page-functions.js';
  * Calculates the maximum tree depth of the DOM.
  * @param {HTMLElement} element Root of the tree to look in.
  * @param {boolean=} deep True to include shadow roots. Defaults to true.
- * @return {LH.Artifacts.DOMStats}
+ * @return {Pick<LH.Artifacts.DOMStats, 'totalBodyElements' | 'width' | 'depth'>}
  */
 /* c8 ignore start */
 function getDOMStats(element = document.body, deep = true) {
@@ -82,6 +82,43 @@ class DOMStats extends FRGatherer {
   };
 
   /**
+   * @param {LH.Crdp.Page.FrameTree} rootFrameTree
+   * @return {Pick<LH.Artifacts.DOMStats, "totalFrames" | "framesDepth">}
+   */
+  static determineFrameStats(rootFrameTree) {
+    let maxDepth = 0;
+    let maxFrameUrl = '';
+    let totalFrames = 0;
+
+    /**
+     * @param {LH.Crdp.Page.FrameTree} frameTree
+     */
+    function walk(frameTree, depth = 1) {
+      // When Chrome comes across an iframe for a URL already framed above in the hierarchy,
+      // it will load as an empty document and its URL in the frame tree will be just `:`.
+      // Best to just ignore.
+      if (frameTree.frame.url === ':' || frameTree.frame.domainAndRegistry === '') {
+        return;
+      }
+
+      if (depth > maxDepth) {
+        maxDepth = depth;
+        maxFrameUrl = frameTree.frame.url;
+      }
+      totalFrames += 1;
+      for (const childFrameTree of frameTree.childFrames || []) {
+        walk(childFrameTree, depth + 1);
+      }
+    }
+
+    walk(rootFrameTree);
+    return {
+      totalFrames,
+      framesDepth: {max: maxDepth, url: maxFrameUrl},
+    };
+  }
+
+  /**
    * @param {LH.Gatherer.FRTransitionalContext} passContext
    * @return {Promise<LH.Artifacts['DOMStats']>}
    */
@@ -89,13 +126,17 @@ class DOMStats extends FRGatherer {
     const driver = passContext.driver;
 
     await driver.defaultSession.sendCommand('DOM.enable');
-    const results = await driver.executionContext.evaluate(getDOMStats, {
+    const elementsResult = await driver.executionContext.evaluate(getDOMStats, {
       args: [],
       useIsolation: true,
       deps: [pageFunctions.getNodeDetails],
     });
     await driver.defaultSession.sendCommand('DOM.disable');
-    return results;
+
+    const {frameTree} = await driver.defaultSession.sendCommand('Page.getFrameTree');
+    const framesResult = DOMStats.determineFrameStats(frameTree);
+
+    return {...elementsResult, ...framesResult};
   }
 }
 

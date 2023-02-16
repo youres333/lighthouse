@@ -1378,14 +1378,14 @@
   "DOMStats": {
     "depth": {
       "max": 9,
-      "lhId": "1-12-path",
+      "lhId": "1-11-path",
       "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,2,HEADER,0,DIV,2,DIV,0,DIV,0,svg,0,path",
       "selector": "div.flex > div.inline-block > svg.h-6 > path",
       "boundingRect": {
         "top": 20,
         "bottom": 44,
-        "left": 315,
-        "right": 336,
+        "left": 367,
+        "right": 388,
         "width": 21,
         "height": 24
       },
@@ -1394,21 +1394,26 @@
     },
     "width": {
       "max": 14,
-      "lhId": "1-13-BODY",
+      "lhId": "1-12-BODY",
       "devtoolsNodePath": "1,HTML,1,BODY",
       "selector": "body",
       "boundingRect": {
         "top": 0,
-        "bottom": 640,
+        "bottom": 823,
         "left": 0,
-        "right": 360,
-        "width": 360,
-        "height": 640
+        "right": 412,
+        "width": 412,
+        "height": 823
       },
       "snippet": "<body>",
       "nodeLabel": "body"
     },
-    "totalBodyElements": 70
+    "totalBodyElements": 70,
+    "totalFrames": 1,
+    "framesDepth": {
+      "max": 1,
+      "url": "https://www.mikescerealshack.co/"
+    }
   },
   "EmbeddedContent": [],
   "FontSize": {

@@ -1950,7 +1950,7 @@
   "DOMStats": {
     "depth": {
       "max": 11,
-      "lhId": "1-52-SPAN",
+      "lhId": "1-54-SPAN",
       "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,2,A,0,DIV,1,DIV,1,DIV,0,DIV,0,DIV,0,SPAN",
       "selector": "div.hidden > div > div.text-sm > span.text-gray-400",
       "boundingRect": {
@@ -1966,21 +1966,26 @@
     },
     "width": {
       "max": 17,
-      "lhId": "1-53-BODY",
+      "lhId": "1-55-BODY",
       "devtoolsNodePath": "1,HTML,1,BODY",
       "selector": "body",
       "boundingRect": {
         "top": 0,
-        "bottom": 1668,
+        "bottom": 1664,
         "left": 0,
-        "right": 360,
-        "width": 360,
-        "height": 1668
+        "right": 397,
+        "width": 397,
+        "height": 1664
       },
       "snippet": "<body>",
       "nodeLabel": "body"
     },
-    "totalBodyElements": 361
+    "totalBodyElements": 361,
+    "totalFrames": 1,
+    "framesDepth": {
+      "max": 1,
+      "url": "https://www.mikescerealshack.co/search?q=call+of+duty"
+    }
   },
   "EmbeddedContent": [],
   "FontSize": {

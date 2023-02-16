@@ -704,6 +704,12 @@
   "core/audits/dobetterweb/dom-size.js | statisticDOMElements": {
     "message": "T̂ót̂ál̂ D́ÔḾ Êĺêḿêńt̂ś"
   },
+  "core/audits/dobetterweb/dom-size.js | statisticDOMFramesDepth": {
+    "message": "M̂áx̂ím̂úm̂ F́r̂ám̂é D̂ép̂t́ĥ"
+  },
+  "core/audits/dobetterweb/dom-size.js | statisticDOMTotalFrames": {
+    "message": "T̂ót̂ál̂ F́r̂ám̂éŝ"
+  },
   "core/audits/dobetterweb/dom-size.js | statisticDOMWidth": {
     "message": "M̂áx̂ím̂úm̂ Ćĥíl̂d́ Êĺêḿêńt̂ś"
   },

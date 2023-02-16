@@ -1303,14 +1303,14 @@
   "DOMStats": {
     "depth": {
       "max": 9,
-      "lhId": "1-13-path",
+      "lhId": "1-12-path",
       "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,2,HEADER,0,DIV,2,DIV,0,DIV,0,svg,0,path",
       "selector": "div.flex > div.inline-block > svg.h-6 > path",
       "boundingRect": {
         "top": 20,
         "bottom": 44,
-        "left": 315,
-        "right": 336,
+        "left": 367,
+        "right": 388,
         "width": 21,
         "height": 24
       },
@@ -1318,22 +1318,27 @@
       "nodeLabel": "div.flex > div.inline-block > svg.h-6 > path"
     },
     "width": {
-      "max": 13,
-      "lhId": "1-14-BODY",
+      "max": 15,
+      "lhId": "1-13-BODY",
       "devtoolsNodePath": "1,HTML,1,BODY",
       "selector": "body",
       "boundingRect": {
         "top": 0,
         "bottom": 887,
         "left": 0,
-        "right": 360,
-        "width": 360,
+        "right": 412,
+        "width": 412,
         "height": 887
       },
       "snippet": "<body>",
       "nodeLabel": "body"
     },
-    "totalBodyElements": 81
+    "totalBodyElements": 83,
+    "totalFrames": 1,
+    "framesDepth": {
+      "max": 1,
+      "url": "https://www.mikescerealshack.co/corrections"
+    }
   },
   "EmbeddedContent": [],
   "FontSize": {

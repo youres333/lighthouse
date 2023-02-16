@@ -38,6 +38,10 @@ const UIStrings = {
   statisticDOMDepth: 'Maximum DOM Depth',
   /** Label for the numeric value of the maximum number of children any DOM element in the page has. The element described will have the most children in the page. */
   statisticDOMWidth: 'Maximum Child Elements',
+  /** Label for the total number of frame elements found in the page. */
+  statisticDOMTotalFrames: 'Total Frames',
+  /** Label for the numeric value of the maximum depth in the page's frame tree. */
+  statisticDOMFramesDepth: 'Maximum Frame Depth',
 };
 
 const str_ = i18n.createIcuMessageFn(import.meta.url, UIStrings);
@@ -68,7 +72,6 @@ class DOMSize extends Audit {
       median: 1400,
     };
   }
-
 
   /**
    * @param {LH.Artifacts} artifacts
@@ -116,6 +119,23 @@ class DOMSize extends Audit {
           type: 'numeric',
           granularity: 1,
           value: stats.width.max,
+        },
+      },
+      {
+        statistic: str_(UIStrings.statisticDOMTotalFrames),
+        value: {
+          type: 'numeric',
+          granularity: 1,
+          value: stats.totalFrames,
+        },
+      },
+      {
+        node: {type: 'url', value: stats.framesDepth.url},
+        statistic: str_(UIStrings.statisticDOMFramesDepth),
+        value: {
+          type: 'numeric',
+          granularity: 1,
+          value: stats.framesDepth.max,
         },
       },
     ];

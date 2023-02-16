@@ -704,6 +704,12 @@
   "core/audits/dobetterweb/dom-size.js | statisticDOMElements": {
     "message": "Total DOM Elements"
   },
+  "core/audits/dobetterweb/dom-size.js | statisticDOMFramesDepth": {
+    "message": "Maximum Frame Depth"
+  },
+  "core/audits/dobetterweb/dom-size.js | statisticDOMTotalFrames": {
+    "message": "Total Frames"
+  },
   "core/audits/dobetterweb/dom-size.js | statisticDOMWidth": {
     "message": "Maximum Child Elements"
   },

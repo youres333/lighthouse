@@ -2882,14 +2882,14 @@
                 {
                   "node": {
                     "type": "node",
-                    "lhId": "1-12-path",
+                    "lhId": "1-11-path",
                     "path": "1,HTML,1,BODY,0,DIV,0,DIV,2,HEADER,0,DIV,2,DIV,0,DIV,0,svg,0,path",
                     "selector": "div.flex > div.inline-block > svg.h-6 > path",
                     "boundingRect": {
                       "top": 20,
                       "bottom": 44,
-                      "left": 315,
-                      "right": 336,
+                      "left": 367,
+                      "right": 388,
                       "width": 21,
                       "height": 24
                     },
@@ -2906,16 +2906,16 @@
                 {
                   "node": {
                     "type": "node",
-                    "lhId": "1-13-BODY",
+                    "lhId": "1-12-BODY",
                     "path": "1,HTML,1,BODY",
                     "selector": "body",
                     "boundingRect": {
                       "top": 0,
-                      "bottom": 640,
+                      "bottom": 823,
                       "left": 0,
-                      "right": 360,
-                      "width": 360,
-                      "height": 640
+                      "right": 412,
+                      "width": 412,
+                      "height": 823
                     },
                     "snippet": "<body>",
                     "nodeLabel": "body"
@@ -2925,6 +2925,26 @@
                     "type": "numeric",
                     "granularity": 1,
                     "value": 14
+                  }
+                },
+                {
+                  "statistic": "Total Frames",
+                  "value": {
+                    "type": "numeric",
+                    "granularity": 1,
+                    "value": 1
+                  }
+                },
+                {
+                  "node": {
+                    "type": "url",
+                    "value": "https://www.mikescerealshack.co/"
+                  },
+                  "statistic": "Maximum Frame Depth",
+                  "value": {
+                    "type": "numeric",
+                    "granularity": 1,
+                    "value": 1
                   }
                 }
               ]
@@ -7092,6 +7112,12 @@
             ],
             "core/audits/dobetterweb/dom-size.js | statisticDOMWidth": [
               "audits[dom-size].details.items[2].statistic"
+            ],
+            "core/audits/dobetterweb/dom-size.js | statisticDOMTotalFrames": [
+              "audits[dom-size].details.items[3].statistic"
+            ],
+            "core/audits/dobetterweb/dom-size.js | statisticDOMFramesDepth": [
+              "audits[dom-size].details.items[4].statistic"
             ],
             "core/audits/dobetterweb/geolocation-on-start.js | title": [
               "audits[geolocation-on-start].title"
@@ -13034,7 +13060,7 @@
                 {
                   "node": {
                     "type": "node",
-                    "lhId": "1-52-SPAN",
+                    "lhId": "1-54-SPAN",
                     "path": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,2,A,0,DIV,1,DIV,1,DIV,0,DIV,0,DIV,0,SPAN",
                     "selector": "div.hidden > div > div.text-sm > span.text-gray-400",
                     "boundingRect": {
@@ -13058,16 +13084,16 @@
                 {
                   "node": {
                     "type": "node",
-                    "lhId": "1-53-BODY",
+                    "lhId": "1-55-BODY",
                     "path": "1,HTML,1,BODY",
                     "selector": "body",
                     "boundingRect": {
                       "top": 0,
-                      "bottom": 1668,
+                      "bottom": 1664,
                       "left": 0,
-                      "right": 360,
-                      "width": 360,
-                      "height": 1668
+                      "right": 397,
+                      "width": 397,
+                      "height": 1664
                     },
                     "snippet": "<body>",
                     "nodeLabel": "body"
@@ -13077,6 +13103,26 @@
                     "type": "numeric",
                     "granularity": 1,
                     "value": 17
+                  }
+                },
+                {
+                  "statistic": "Total Frames",
+                  "value": {
+                    "type": "numeric",
+                    "granularity": 1,
+                    "value": 1
+                  }
+                },
+                {
+                  "node": {
+                    "type": "url",
+                    "value": "https://www.mikescerealshack.co/search?q=call+of+duty"
+                  },
+                  "statistic": "Maximum Frame Depth",
+                  "value": {
+                    "type": "numeric",
+                    "granularity": 1,
+                    "value": 1
                   }
                 }
               ]
@@ -15498,6 +15544,12 @@
             ],
             "core/audits/dobetterweb/dom-size.js | statisticDOMWidth": [
               "audits[dom-size].details.items[2].statistic"
+            ],
+            "core/audits/dobetterweb/dom-size.js | statisticDOMTotalFrames": [
+              "audits[dom-size].details.items[3].statistic"
+            ],
+            "core/audits/dobetterweb/dom-size.js | statisticDOMFramesDepth": [
+              "audits[dom-size].details.items[4].statistic"
             ],
             "core/audits/dobetterweb/js-libraries.js | title": [
               "audits[js-libraries].title"
@@ -18607,9 +18659,9 @@
             "description": "A large DOM will increase memory usage, cause longer [style calculations](https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations), and produce costly [layout reflows](https://developers.google.com/speed/articles/reflow). [Learn how to avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/).",
             "score": 1,
             "scoreDisplayMode": "numeric",
-            "numericValue": 81,
+            "numericValue": 83,
             "numericUnit": "element",
-            "displayValue": "81 elements",
+            "displayValue": "83 elements",
             "details": {
               "type": "table",
               "headings": [
@@ -18635,20 +18687,20 @@
                   "value": {
                     "type": "numeric",
                     "granularity": 1,
-                    "value": 81
+                    "value": 83
                   }
                 },
                 {
                   "node": {
                     "type": "node",
-                    "lhId": "1-13-path",
+                    "lhId": "1-12-path",
                     "path": "1,HTML,1,BODY,0,DIV,0,DIV,2,HEADER,0,DIV,2,DIV,0,DIV,0,svg,0,path",
                     "selector": "div.flex > div.inline-block > svg.h-6 > path",
                     "boundingRect": {
                       "top": 20,
                       "bottom": 44,
-                      "left": 315,
-                      "right": 336,
+                      "left": 367,
+                      "right": 388,
                       "width": 21,
                       "height": 24
                     },
@@ -18665,15 +18717,15 @@
                 {
                   "node": {
                     "type": "node",
-                    "lhId": "1-14-BODY",
+                    "lhId": "1-13-BODY",
                     "path": "1,HTML,1,BODY",
                     "selector": "body",
                     "boundingRect": {
                       "top": 0,
                       "bottom": 887,
                       "left": 0,
-                      "right": 360,
-                      "width": 360,
+                      "right": 412,
+                      "width": 412,
                       "height": 887
                     },
                     "snippet": "<body>",
@@ -18683,7 +18735,27 @@
                   "value": {
                     "type": "numeric",
                     "granularity": 1,
-                    "value": 13
+                    "value": 15
+                  }
+                },
+                {
+                  "statistic": "Total Frames",
+                  "value": {
+                    "type": "numeric",
+                    "granularity": 1,
+                    "value": 1
+                  }
+                },
+                {
+                  "node": {
+                    "type": "url",
+                    "value": "https://www.mikescerealshack.co/corrections"
+                  },
+                  "statistic": "Maximum Frame Depth",
+                  "value": {
+                    "type": "numeric",
+                    "granularity": 1,
+                    "value": 1
                   }
                 }
               ]
@@ -22870,7 +22942,7 @@
             "core/audits/dobetterweb/dom-size.js | displayValue": [
               {
                 "values": {
-                  "itemCount": 81
+                  "itemCount": 83
                 },
                 "path": "audits[dom-size].displayValue"
               }
@@ -22889,6 +22961,12 @@
             ],
             "core/audits/dobetterweb/dom-size.js | statisticDOMWidth": [
               "audits[dom-size].details.items[2].statistic"
+            ],
+            "core/audits/dobetterweb/dom-size.js | statisticDOMTotalFrames": [
+              "audits[dom-size].details.items[3].statistic"
+            ],
+            "core/audits/dobetterweb/dom-size.js | statisticDOMFramesDepth": [
+              "audits[dom-size].details.items[4].statistic"
             ],
             "core/audits/dobetterweb/geolocation-on-start.js | title": [
               "audits[geolocation-on-start].title"

@@ -259,6 +259,9 @@ declare module Artifacts {
     totalBodyElements: number;
     width: NodeDetails & {max: number;};
     depth: NodeDetails & {max: number;};
+
+    totalFrames: number;
+    framesDepth: {max: number; url: string};
   }
 
   interface EmbeddedContentInfo {

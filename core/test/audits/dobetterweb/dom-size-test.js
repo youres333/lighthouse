@@ -17,6 +17,8 @@ describe('DOMSize audit', () => {
       totalBodyElements: numElements,
       depth: {max: 1},
       width: {max: 2},
+      totalFrames: 3,
+      framesDepth: {max: 2, url: 'http://www.example.com'},
     },
   };
   const context = {options, settings: {locale: 'en'}};
