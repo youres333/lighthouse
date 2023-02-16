@@ -464,6 +464,26 @@ const expectations = {
               },
               node: {snippet: '<div id="shadow-root-container">'},
             },
+            {
+              statistic: 'Total Frames',
+              value: {
+                type: 'numeric',
+                granularity: 1,
+                value: 1,
+              },
+            },
+            {
+              node: {
+                type: 'url',
+                value: 'http://localhost:10200/dobetterweb/dbw_tester.html',
+              },
+              statistic: 'Maximum Frame Depth',
+              value: {
+                type: 'numeric',
+                granularity: 1,
+                value: 1,
+              },
+            },
           ],
         },
       },

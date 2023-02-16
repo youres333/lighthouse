@@ -97,7 +97,7 @@ class DOMStats extends FRGatherer {
       // When Chrome comes across an iframe for a URL already framed above in the hierarchy,
       // it will load as an empty document and its URL in the frame tree will be just `:`.
       // Best to just ignore.
-      if (frameTree.frame.url === ':' || frameTree.frame.domainAndRegistry === '') {
+      if (frameTree.frame.url === ':') {
         return;
       }
 
