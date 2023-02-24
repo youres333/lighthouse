@@ -28,7 +28,7 @@
 import {Util} from '../../shared/util.js';
 import {CriticalRequestChainRenderer} from './crc-details-renderer.js';
 import {ElementScreenshotRenderer} from './element-screenshot-renderer.js';
-import {FrameTreeRenderer} from './frame-tree-details-renderer.js';
+import {TreeRenderer} from './tree-details-renderer.js';
 import {Globals} from './report-globals.js';
 
 const URL_PREFIXES = ['http://', 'https://', 'data:'];
@@ -59,7 +59,7 @@ export class DetailsRenderer {
       case 'criticalrequestchain':
         return CriticalRequestChainRenderer.render(this._dom, details, this);
       case 'tree':
-        return FrameTreeRenderer.render(this._dom, details, this);
+        return TreeRenderer.render(this._dom, details, this);
 
       // Internal-only details, not for rendering.
       case 'screenshot':

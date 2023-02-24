@@ -1,18 +1,7 @@
 /**
- * @license
- * Copyright 2023 The Lighthouse Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS-IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * @license Copyright 2023 The Lighthouse Authors. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
 /**
@@ -29,9 +18,9 @@
  * @property {boolean[]} treeMarkers
  */
 
-class FrameTreeRenderer {
+class TreeRenderer {
   /**
-   * Helper to create context for each critical-request-chain node based on its
+   * Helper to create context for each node based on its
    * parent. Calculates if this node is the last child, whether it has any
    * children itself and what the tree looks like all the way back up to the root,
    * so the tree markers can be drawn correctly.
@@ -71,17 +60,17 @@ class FrameTreeRenderer {
    * @return {Node}
    */
   static createTreeNode(dom, segment, details, detailsRenderer) {
-    const chainEl = dom.createComponent('treeNode');
+    const nodeEl = dom.createComponent('treeNode');
 
     // Hovering over request shows full URL.
     if (details.nodeHeadings[0].valueType === 'url') {
       const url = segment.node.values[details.nodeHeadings[0].key];
       if (typeof url === 'object' && url.type === 'url') {
-        dom.find('.lh-crc-node', chainEl).setAttribute('title', url.value);
+        dom.find('.lh-crc-node', nodeEl).setAttribute('title', url.value);
       }
     }
 
-    const treeMarkeEl = dom.find('.lh-crc-node__tree-marker', chainEl);
+    const treeMarkeEl = dom.find('.lh-crc-node__tree-marker', nodeEl);
 
     // Construct lines and add spacers for sub requests.
     segment.treeMarkers.forEach(separator => {
@@ -107,7 +96,7 @@ class FrameTreeRenderer {
       dom.createElement('span', classHasChildren)
     );
 
-    const treevalEl = dom.find('.lh-crc-node__tree-value', chainEl);
+    const treevalEl = dom.find('.lh-crc-node__tree-value', nodeEl);
 
     let numValuesRenderered = 0;
     let spanEl = null;
@@ -131,7 +120,7 @@ class FrameTreeRenderer {
       numValuesRenderered += 1;
     }
 
-    return chainEl;
+    return nodeEl;
   }
 
   /**
@@ -139,16 +128,16 @@ class FrameTreeRenderer {
    * @param {DOM} dom
    * @param {DocumentFragment} tmpl
    * @param {Segment} segment
-   * @param {Element} elem Parent element.
+   * @param {Element} parentEl
    * @param {LH.FormattedIcu<LH.Audit.Details.Tree>} details
    * @param {DetailsRenderer} detailsRenderer
    */
-  static buildTree(dom, tmpl, segment, elem, details, detailsRenderer) {
-    elem.append(FrameTreeRenderer.createTreeNode(dom, segment, details, detailsRenderer));
+  static buildTree(dom, tmpl, segment, parentEl, details, detailsRenderer) {
+    parentEl.append(TreeRenderer.createTreeNode(dom, segment, details, detailsRenderer));
     for (const child of segment.node.children) {
-      const childSegment = FrameTreeRenderer.createSegment(child, segment.node,
+      const childSegment = TreeRenderer.createSegment(child, segment.node,
         segment.treeMarkers, segment.isLastChild);
-      FrameTreeRenderer.buildTree(dom, tmpl, childSegment, elem, details, detailsRenderer);
+      TreeRenderer.buildTree(dom, tmpl, childSegment, parentEl, details, detailsRenderer);
     }
   }
 
@@ -177,13 +166,13 @@ class FrameTreeRenderer {
 
     // Construct visual tree.
     const segment =
-      FrameTreeRenderer.createSegment(details.root, {children: [details.root], values: {}});
-    FrameTreeRenderer.buildTree(dom, tmpl, segment, containerEl, details, detailsRenderer);
+      TreeRenderer.createSegment(details.root, {children: [details.root], values: {}});
+    TreeRenderer.buildTree(dom, tmpl, segment, containerEl, details, detailsRenderer);
 
     return dom.find('.lh-crc-container', tmpl);
   }
 }
 
 export {
-  FrameTreeRenderer,
+  TreeRenderer,
 };
