@@ -81,6 +81,64 @@ function upgradeLhrForCompatibility(lhr) {
         }
       }
 
+      if (audit.details.type === 'criticalrequestchain') {
+        /** @type {LH.Audit.Details.Tree} */
+        const treeDetails = {
+          type: 'tree',
+          notes: {
+            longestLength: audit.details.longestChain.length,
+            longestDuration: audit.details.longestChain.duration,
+            longestTransferSize: audit.details.longestChain.transferSize,
+          },
+          root: {
+            values: {
+              url: 'Initial Navigation',
+            },
+            children: [],
+          },
+          noteHeadings: [
+            {key: 'longestLength', valueType: 'numeric', label: 'Longest chain'},
+            {key: 'longestDuration', valueType: 'ms', label: 'Longest duration'},
+            {key: 'longestTransferSize', valueType: 'bytes', label: 'Longest transfer size'},
+          ],
+          nodeHeadings: [
+            {key: 'url', valueType: 'url', label: ''},
+            {key: 'duration', valueType: 'ms', label: ''},
+            {key: 'transferSize', valueType: 'bytes', label: ''},
+          ],
+        };
+        /**
+         * @param {LH.Audit.Details.SimpleCriticalRequestNode[string]} node
+         * @return {LH.Audit.Details.TreeNode}
+         */
+        // eslint-disable-next-line no-inner-declarations
+        function walk(node) {
+          /** @type {LH.Audit.Details.TreeNode} */
+          const treeNode = {
+            values: {
+              ...node.request,
+              duration: node.request.endTime - node.request.startTime,
+            },
+            children: [],
+          };
+          if (!node.children) {
+            return treeNode;
+          }
+
+          for (const child of Object.values(node.children)) {
+            walk(child);
+          }
+
+          return treeNode;
+        }
+
+        for (const child of Object.values(audit.details.chains)) {
+          treeDetails.root.children.push(walk(child));
+        }
+
+        audit.details = treeDetails;
+      }
+
       // TODO: convert printf-style displayValue.
       // Added:   #5099, v3
       // Removed: #6767, v4

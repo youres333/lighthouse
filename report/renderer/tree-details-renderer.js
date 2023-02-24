@@ -111,7 +111,9 @@ class TreeRenderer {
       if (numValuesRenderered > 0) {
         if (!spanEl) {
           spanEl = dom.createChildOf(treevalEl, 'span');
-          spanEl.textContent = ' - ';
+          spanEl.append(' - ');
+        } else {
+          spanEl.append(', ');
         }
         parentEl = spanEl;
       }
