@@ -11,7 +11,6 @@
 
 /* global getNodeDetails document */
 
-
 import FRGatherer from '../../base-gatherer.js';
 import {pageFunctions} from '../../../lib/page-functions.js';
 
@@ -19,7 +18,7 @@ import {pageFunctions} from '../../../lib/page-functions.js';
  * Calculates the maximum tree depth of the DOM.
  * @param {HTMLElement} element Root of the tree to look in.
  * @param {boolean=} deep True to include shadow roots. Defaults to true.
- * @return {LH.Artifacts.DOMStats}
+ * @return {Omit<LH.Artifacts.DOMStats, 'frames'>}
  */
 /* c8 ignore start */
 function getDOMStats(element = document.body, deep = true) {
@@ -75,6 +74,34 @@ function getDOMStats(element = document.body, deep = true) {
 }
 /* c8 ignore stop */
 
+/**
+ * @param {LH.Crdp.Page.FrameTree} rootFrameTree
+ * @return {Pick<LH.Artifacts.DOMStats['frames'], "total" | "maxDepth">}
+ */
+function determineFrameStats(rootFrameTree) {
+  let maxDepth = 0;
+  let total = 0;
+
+  /**
+   * @param {LH.Crdp.Page.FrameTree} frameTree
+   */
+  function walk(frameTree, depth = 1) {
+    if (depth > maxDepth) {
+      maxDepth = depth;
+    }
+    total += 1;
+    for (const childFrameTree of frameTree.childFrames || []) {
+      walk(childFrameTree, depth + 1);
+    }
+  }
+
+  walk(rootFrameTree);
+  return {
+    total,
+    maxDepth,
+  };
+}
+
 class DOMStats extends FRGatherer {
   /** @type {LH.Gatherer.GathererMeta} */
   meta = {
@@ -95,7 +122,14 @@ class DOMStats extends FRGatherer {
       deps: [pageFunctions.getNodeDetails],
     });
     await driver.defaultSession.sendCommand('DOM.disable');
-    return results;
+    const {frameTree} = await driver.defaultSession.sendCommand('Page.getFrameTree');
+    return {
+      ...results,
+      frames: {
+        tree: frameTree,
+        ...determineFrameStats(frameTree),
+      },
+    };
   }
 }
 

@@ -69,7 +69,6 @@ class DOMSize extends Audit {
     };
   }
 
-
   /**
    * @param {LH.Artifacts} artifacts
    * @param {LH.Audit.Context} context

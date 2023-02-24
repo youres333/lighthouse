@@ -8,6 +8,7 @@ import {IcuMessage} from './i18n.js';
 import Treemap from './treemap.js';
 
 type Details =
+  Details.FrameTree |
   Details.CriticalRequestChain |
   Details.DebugData |
   Details.TreemapData |
@@ -19,6 +20,19 @@ type Details =
 
 // Details namespace.
 declare module Details {
+  interface FrameTree {
+    type: 'frametree';
+    root: FrameTreeNode;
+    total: number;
+    maxDepth: number;
+  }
+
+  interface FrameTreeNode {
+    url: string;
+    name?: string;
+    children: FrameTreeNode[];
+  }
+
   interface CriticalRequestChain {
     type: 'criticalrequestchain';
     longestChain: {

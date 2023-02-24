@@ -357,6 +357,9 @@ const UIStrings = {
   /** Label of value shown in the summary of critical request chains. Refers to the total amount of time (milliseconds) of the longest critical path chain/sequence of network requests. Example value: 2310 ms */
   crcLongestDurationLabel: 'Maximum critical path latency:',
 
+  /** Label of value shown in the summary of frames on a page. Refers to the total amount of frames. Example value: 5 frames */
+  totalFramesLabel: 'Total frames:',
+
   /** Label for button that shows all lines of the snippet when clicked */
   snippetExpandButtonLabel: 'Expand snippet',
   /** Label for button that only shows a few lines of the snippet when clicked */

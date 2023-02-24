@@ -259,6 +259,7 @@ declare module Artifacts {
     totalBodyElements: number;
     width: NodeDetails & {max: number;};
     depth: NodeDetails & {max: number;};
+    frames: {tree: Crdp.Page.FrameTree, total: number, maxDepth: number};
   }
 
   interface EmbeddedContentInfo {
