@@ -65,12 +65,12 @@ class TreeRenderer {
     // Hovering over request shows full URL.
     if (details.nodeHeadings[0].valueType === 'url') {
       const url = segment.node.values[details.nodeHeadings[0].key];
-      if (typeof url === 'object' && url.type === 'url') {
-        dom.find('.lh-crc-node', nodeEl).setAttribute('title', url.value);
+      if (typeof url === 'string') {
+        dom.find('.lh-tree-node', nodeEl).setAttribute('title', url);
       }
     }
 
-    const treeMarkeEl = dom.find('.lh-crc-node__tree-marker', nodeEl);
+    const treeMarkeEl = dom.find('.lh-tree-node__tree-marker', nodeEl);
 
     // Construct lines and add spacers for sub requests.
     segment.treeMarkers.forEach(separator => {
@@ -96,7 +96,7 @@ class TreeRenderer {
       dom.createElement('span', classHasChildren)
     );
 
-    const treevalEl = dom.find('.lh-crc-node__tree-value', nodeEl);
+    const treevalEl = dom.find('.lh-tree-node__tree-value', nodeEl);
 
     let numValuesRenderered = 0;
     let spanEl = null;
@@ -107,15 +107,17 @@ class TreeRenderer {
       const valueEl = detailsRenderer._renderTableValue(value, heading);
       if (!valueEl) continue;
 
-      if (numValuesRenderered === 0) {
-        treevalEl.append(valueEl);
-      } else {
+      let parentEl = treevalEl;
+      if (numValuesRenderered > 0) {
         if (!spanEl) {
-          spanEl = dom.createChildOf(treevalEl, 'span', 'lh-crc-node__chain-duration');
+          spanEl = dom.createChildOf(treevalEl, 'span');
           spanEl.textContent = ' - ';
         }
-        spanEl.append(valueEl);
+        parentEl = spanEl;
       }
+
+      if (heading.label) parentEl.append(heading.label, ':', '\xa0');
+      parentEl.append(valueEl);
 
       numValuesRenderered += 1;
     }
@@ -149,7 +151,7 @@ class TreeRenderer {
    */
   static render(dom, details, detailsRenderer) {
     const tmpl = dom.createComponent('tree');
-    const containerEl = dom.find('.lh-crc', tmpl);
+    const containerEl = dom.find('.lh-tree', tmpl);
 
     // Fill in top summary.
     for (const heading of details.noteHeadings) {
@@ -159,9 +161,8 @@ class TreeRenderer {
       const valueEl = detailsRenderer._renderTableValue(value, heading);
       if (!valueEl) continue;
 
-      const noteEl = dom.createChildOf(containerEl, 'div');
-      noteEl.append(heading.label);
-      noteEl.append(valueEl);
+      const noteEl = dom.createChildOf(containerEl, 'div', 'lh-tree-note');
+      noteEl.append(heading.label, ':', '\xa0', valueEl);
     }
 
     // Construct visual tree.
@@ -169,7 +170,7 @@ class TreeRenderer {
       TreeRenderer.createSegment(details.root, {children: [details.root], values: {}});
     TreeRenderer.buildTree(dom, tmpl, segment, containerEl, details, detailsRenderer);
 
-    return dom.find('.lh-crc-container', tmpl);
+    return dom.find('.lh-tree-container', tmpl);
   }
 }
 

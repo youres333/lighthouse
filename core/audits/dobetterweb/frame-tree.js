@@ -90,7 +90,7 @@ class FrameTree extends Audit {
       ],
       nodeHeadings: [
         {key: 'url', valueType: 'url', label: ''},
-        {key: 'name', valueType: 'text', label: ''},
+        {key: 'name', valueType: 'text', label: i18n.UIStrings.columnName},
       ],
     };
 

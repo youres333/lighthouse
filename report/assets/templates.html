@@ -704,76 +704,75 @@ limitations under the License.
 
 <!-- Lighthouse details tree component -->
 <template id="tree">
-  <div class="lh-crc-container">
+  <div class="lh-tree-container">
     <style>
-      .lh-crc .lh-tree-marker {
+      .lh-tree .lh-tree-note {
+        display: flex;
+      }
+      .lh-tree .lh-tree-marker {
         width: 12px;
         height: 26px;
         display: block;
         float: left;
         background-position: top left;
       }
-      .lh-crc .lh-horiz-down {
+      .lh-tree .lh-horiz-down {
         background: url('data:image/svg+xml;utf8,<svg width="16" height="26" viewBox="0 0 16 26" xmlns="http://www.w3.org/2000/svg"><g fill="%23D8D8D8" fill-rule="evenodd"><path d="M16 12v2H-2v-2z"/><path d="M9 12v14H7V12z"/></g></svg>');
       }
-      .lh-crc .lh-right {
+      .lh-tree .lh-right {
         background: url('data:image/svg+xml;utf8,<svg width="16" height="26" viewBox="0 0 16 26" xmlns="http://www.w3.org/2000/svg"><path d="M16 12v2H0v-2z" fill="%23D8D8D8" fill-rule="evenodd"/></svg>');
       }
-      .lh-crc .lh-up-right {
+      .lh-tree .lh-up-right {
         background: url('data:image/svg+xml;utf8,<svg width="16" height="26" viewBox="0 0 16 26" xmlns="http://www.w3.org/2000/svg"><path d="M7 0h2v14H7zm2 12h7v2H9z" fill="%23D8D8D8" fill-rule="evenodd"/></svg>');
       }
-      .lh-crc .lh-vert-right {
+      .lh-tree .lh-vert-right {
         background: url('data:image/svg+xml;utf8,<svg width="16" height="26" viewBox="0 0 16 26" xmlns="http://www.w3.org/2000/svg"><path d="M7 0h2v27H7zm2 12h7v2H9z" fill="%23D8D8D8" fill-rule="evenodd"/></svg>');
       }
-      .lh-crc .lh-vert {
+      .lh-tree .lh-vert {
         background: url('data:image/svg+xml;utf8,<svg width="16" height="26" viewBox="0 0 16 26" xmlns="http://www.w3.org/2000/svg"><path d="M7 0h2v26H7z" fill="%23D8D8D8" fill-rule="evenodd"/></svg>');
       }
-      .lh-crc .lh-crc-tree {
+      .lh-tree .lh-tree-tree {
         font-size: 14px;
         width: 100%;
         overflow-x: auto;
       }
-      .lh-crc .lh-crc-node {
+      .lh-tree .lh-tree-node {
         height: 26px;
         line-height: 26px;
         white-space: nowrap;
       }
-      .lh-crc .lh-crc-node__tree-value {
+      .lh-tree .lh-tree-node__tree-value {
         margin-left: 10px;
       }
-      .lh-crc .lh-crc-node__tree-value div {
+      .lh-tree .lh-tree-node__tree-value div {
         display: inline;
       }
-      .lh-crc .lh-crc-node__chain-duration {
-        font-weight: 700;
-      }
-      .lh-crc .lh-crc-initial-nav {
+      .lh-tree .lh-tree-initial-nav {
         color: #595959;
         font-style: italic;
       }
-      .lh-crc__summary-value {
+      .lh-tree__summary-value {
         margin-bottom: 10px;
       }
 
-      .lh-crc-node__tree-value pre {
+      .lh-tree-node__tree-value pre {
         display: inline;
       }
     </style>
     <div>
-      <div class="lh-crc__summary-value"></div>
+      <div class="lh-tree__summary-value"></div>
     </div>
-    <div class="lh-crc">
-      <div class="lh-crc-initial-nav"></div>
-      <!-- crcChain -->
+    <div class="lh-tree">
+      <!-- treeNode -->
     </div>
   </div>
 </template>
 
 <!-- Lighthouse details tree component, single node -->
 <template id="treeNode">
-  <div class="lh-crc-node">
-    <span class="lh-crc-node__tree-marker"></span>
-    <span class="lh-crc-node__tree-value"></span>
+  <div class="lh-tree-node">
+    <span class="lh-tree-node__tree-marker"></span>
+    <span class="lh-tree-node__tree-value"></span>
   </div>
 </template>
 
