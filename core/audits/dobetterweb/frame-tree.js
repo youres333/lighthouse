@@ -59,13 +59,15 @@ class FrameTree extends Audit {
 
     /**
      * @param {LH.Crdp.Page.FrameTree} currentFrame
-     * @return {LH.Audit.Details.FrameTreeNode}
+     * @return {LH.Audit.Details.TreeNode}
      */
     function walk(currentFrame) {
-      /** @type {LH.Audit.Details.FrameTreeNode} */
+      /** @type {LH.Audit.Details.TreeNode} */
       const node = {
-        url: currentFrame.frame.url,
-        name: currentFrame.frame.name,
+        values: {
+          url: currentFrame.frame.url,
+          name: currentFrame.frame.name,
+        },
         children: [],
       };
       for (const childFrame of currentFrame.childFrames || []) {
@@ -74,20 +76,22 @@ class FrameTree extends Audit {
       return node;
     }
 
-    /** @type {LH.Audit.Details.FrameTree} */
+    /** @type {LH.Audit.Details.Tree} */
     const details = {
-      type: 'frametree',
+      type: 'tree',
       root: walk(frames.tree),
-      total: frames.total,
-      maxDepth: frames.maxDepth,
-      // notes: [
-      //   {type: 'number', key: 'total', label: ''},
-      //   {type: 'number', key: 'maxDepth', label: ''},
-      // ],
-      // nodeComponents: [
-      //   {type: 'url', key: 'url'},
-      //   {type: 'text', value: 'name'},
-      // ],
+      notes: {
+        total: frames.total,
+        maxDepth: frames.maxDepth,
+      },
+      noteHeadings: [
+        {key: 'total', valueType: 'numeric', label: 'Total frames'},
+        {key: 'maxDepth', valueType: 'numeric', label: 'Max frame depth'},
+      ],
+      nodeHeadings: [
+        {key: 'url', valueType: 'url', label: ''},
+        {key: 'name', valueType: 'text', label: ''},
+      ],
     };
 
     return {

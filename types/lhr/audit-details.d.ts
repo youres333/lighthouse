@@ -8,7 +8,7 @@ import {IcuMessage} from './i18n.js';
 import Treemap from './treemap.js';
 
 type Details =
-  Details.FrameTree |
+  Details.Tree |
   Details.CriticalRequestChain |
   Details.DebugData |
   Details.TreemapData |
@@ -20,17 +20,17 @@ type Details =
 
 // Details namespace.
 declare module Details {
-  interface FrameTree {
-    type: 'frametree';
-    root: FrameTreeNode;
-    total: number;
-    maxDepth: number;
+  interface Tree {
+    type: 'tree';
+    root: TreeNode;
+    notes: {[p: string]: undefined | ItemValue};
+    noteHeadings: Array<{key: string, valueType: ItemValueType, label: IcuMessage | string}>;
+    nodeHeadings: Array<{key: string, valueType: ItemValueType, label: IcuMessage | string}>;
   }
 
-  interface FrameTreeNode {
-    url: string;
-    name?: string;
-    children: FrameTreeNode[];
+  interface TreeNode {
+    values: {[p: string]: undefined | ItemValue};
+    children: TreeNode[];
   }
 
   interface CriticalRequestChain {
