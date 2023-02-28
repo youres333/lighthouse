@@ -107,9 +107,13 @@ describe('Performance: Redirects audit', () => {
     const devtoolsLog = networkRecordsToDevtoolsLog(networkRecords);
     const frameUrl = networkRecords[0].url;
 
+    const trace = createTestTrace({frameUrl, traceEnd: 5000});
+    const navStart = trace.traceEvents.find(e => e.name === 'navigationStart');
+    navStart.args.data.navigationId = '1';
+
     return {
       GatherContext: {gatherMode: 'navigation'},
-      traces: {defaultPass: createTestTrace({frameUrl, traceEnd: 5000})},
+      traces: {defaultPass: trace},
       devtoolsLogs: {defaultPass: devtoolsLog},
       URL: {
         requestedUrl: networkRecords[0].url,
@@ -132,6 +136,7 @@ describe('Performance: Redirects audit', () => {
     secondNavStart.ts++;
     secondNavStart.args.data.isLoadingMainFrame = true;
     secondNavStart.args.data.documentLoaderURL = 'https://www.lisairish.com/';
+    secondNavStart.args.data.navigationId = '2';
 
     const output = await RedirectsAudit.audit(artifacts, context);
     expect(output.details.items).toHaveLength(3);

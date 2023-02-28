@@ -20,6 +20,14 @@ const expectations = {
     requestedUrl: 'http://localhost:10200/redirects-self.html',
     finalDisplayedUrl: 'http://localhost:10200/redirects-self.html',
     audits: {
+      redirects: {
+        details: {
+          items: [
+            {url: /redirects-self\.html$/, wastedMs: '>0'},
+            {url: /redirects-self\.html\?done=$/, wastedMs: 0},
+          ],
+        },
+      },
     },
     runWarnings: [
       'The page may not be loading as expected because your test URL (http://localhost:10200/redirects-self.html) was redirected to http://localhost:10200/redirects-self.html?done=. Try testing the second URL directly.',

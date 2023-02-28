@@ -7,9 +7,7 @@
 import {Audit} from './audit.js';
 import {ByteEfficiencyAudit} from './byte-efficiency/byte-efficiency-audit.js';
 import * as i18n from '../lib/i18n/i18n.js';
-import {ProcessedTrace} from '../computed/processed-trace.js';
-import {NetworkRecords} from '../computed/network-records.js';
-import {MainResource} from '../computed/main-resource.js';
+import {DocumentRedirects} from '../computed/document-redirects.js';
 import {LanternInteractive} from '../computed/metrics/lantern-interactive.js';
 
 const UIStrings = {
@@ -37,89 +35,41 @@ class Redirects extends Audit {
   }
 
   /**
-   * This method generates the document request chain including client-side and server-side redirects.
-   *
-   * Example:
-   *    GET /initialUrl => 302 /firstRedirect
-   *    GET /firstRedirect => 200 /firstRedirect, window.location = '/secondRedirect'
-   *    GET /secondRedirect => 302 /thirdRedirect
-   *    GET /thirdRedirect => 200 /mainDocumentUrl
-   *
-   * Returns network records [/initialUrl, /firstRedirect, /secondRedirect, /thirdRedirect, /mainDocumentUrl]
-   *
-   * @param {LH.Artifacts.NetworkRequest} mainResource
-   * @param {Array<LH.Artifacts.NetworkRequest>} networkRecords
-   * @param {LH.Artifacts.ProcessedTrace} processedTrace
-   * @return {Array<LH.Artifacts.NetworkRequest>}
-   */
-  static getDocumentRequestChain(mainResource, networkRecords, processedTrace) {
-    /** @type {Array<LH.Artifacts.NetworkRequest>} */
-    const documentRequests = [];
-
-    // Find all the document requests by examining navigation events and their redirects
-    for (const event of processedTrace.processEvents) {
-      if (event.name !== 'navigationStart') continue;
-
-      const data = event.args.data || {};
-      if (!data.documentLoaderURL || !data.isLoadingMainFrame) continue;
-
-      let networkRecord = networkRecords.find(record => record.url === data.documentLoaderURL);
-      while (networkRecord) {
-        documentRequests.push(networkRecord);
-        networkRecord = networkRecord.redirectDestination;
-      }
-    }
-
-    // If we found documents in the trace, just use this directly.
-    if (documentRequests.length) return documentRequests;
-
-    // Use the main resource as a backup if we didn't find any modern navigationStart events
-    return (mainResource.redirects || []).concat(mainResource);
-  }
-
-  /**
    * @param {LH.Artifacts} artifacts
    * @param {LH.Audit.Context} context
    * @return {Promise<LH.Audit.Product>}
    */
   static async audit(artifacts, context) {
-    const settings = context.settings;
     const trace = artifacts.traces[Audit.DEFAULT_PASS];
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
     const gatherContext = artifacts.GatherContext;
-
-    const processedTrace = await ProcessedTrace.request(trace, context);
-    const networkRecords = await NetworkRecords.request(devtoolsLog, context);
-    const mainResource = await MainResource.request({URL: artifacts.URL, devtoolsLog}, context);
-
+    const settings = context.settings;
     const metricComputationData = {trace, devtoolsLog, gatherContext, settings, URL: artifacts.URL};
     const metricResult = await LanternInteractive.request(metricComputationData, context);
 
     /** @type {Map<string, LH.Gatherer.Simulation.NodeTiming>} */
-    const nodeTimingsByUrl = new Map();
+    const nodeTimingsById = new Map();
     for (const [node, timing] of metricResult.pessimisticEstimate.nodeTimings.entries()) {
       if (node.type === 'network') {
-        nodeTimingsByUrl.set(node.record.url, timing);
+        nodeTimingsById.set(node.record.requestId, timing);
       }
     }
-
-    const documentRequests = Redirects.getDocumentRequestChain(
-      mainResource, networkRecords, processedTrace);
 
     let totalWastedMs = 0;
     const tableRows = [];
 
     // Iterate through all the document requests and report how much time was wasted until the
     // next document request was issued. The final document request will have a `wastedMs` of 0.
-    for (let i = 0; i < documentRequests.length; i++) {
+    const documentRedirects = await DocumentRedirects.request({devtoolsLog, trace}, context);
+    for (let i = 0; i < documentRedirects.length; i++) {
       // If we didn't have enough documents for at least 1 redirect, just skip this loop.
-      if (documentRequests.length < 2) break;
+      if (documentRedirects.length < 2) break;
 
-      const initialRequest = documentRequests[i];
-      const redirectedRequest = documentRequests[i + 1] || initialRequest;
+      const initialRequest = documentRedirects[i];
+      const redirectedRequest = documentRedirects[i + 1] || initialRequest;
 
-      const initialTiming = nodeTimingsByUrl.get(initialRequest.url);
-      const redirectedTiming = nodeTimingsByUrl.get(redirectedRequest.url);
+      const initialTiming = nodeTimingsById.get(initialRequest.requestId);
+      const redirectedTiming = nodeTimingsById.get(redirectedRequest.requestId);
       if (!initialTiming || !redirectedTiming) {
         throw new Error('Could not find redirects in graph');
       }
@@ -149,7 +99,8 @@ class Redirects extends Audit {
       // We award a passing grade if you only have 1 redirect
       // TODO(phulce): reconsider if cases like the example in https://github.com/GoogleChrome/lighthouse/issues/8984
       // should fail this audit.
-      score: documentRequests.length <= 2 ? 1 : ByteEfficiencyAudit.scoreForWastedMs(totalWastedMs),
+      score: documentRedirects.length <= 2 ? 1 :
+          ByteEfficiencyAudit.scoreForWastedMs(totalWastedMs),
       numericValue: totalWastedMs,
       numericUnit: 'millisecond',
       displayValue: totalWastedMs ?
