@@ -7,7 +7,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/accesskeys)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/accesskeys)"
       }
     }
   },
@@ -51,7 +51,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-allowed-attr)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-allowed-attr)"
       }
     }
   },
@@ -83,7 +83,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-command-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-command-name)"
       }
     }
   },
@@ -143,7 +143,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-hidden-body)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-hidden-body)"
       }
     }
   },
@@ -191,7 +191,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-hidden-focus)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-hidden-focus)"
       }
     }
   },
@@ -223,7 +223,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-input-field-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-input-field-name)"
       }
     }
   },
@@ -247,7 +247,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-meter-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-meter-name)"
       }
     }
   },
@@ -287,7 +287,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-progressbar-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-progressbar-name)"
       }
     }
   },
@@ -319,7 +319,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-required-attr)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-required-attr)"
       }
     }
   },
@@ -359,7 +359,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-required-children)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-required-children)"
       }
     }
   },
@@ -399,7 +399,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-required-parent)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-required-parent)"
       }
     }
   },
@@ -431,7 +431,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-roles)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-roles)"
       }
     }
   },
@@ -463,7 +463,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-toggle-field-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-toggle-field-name)"
       }
     }
   },
@@ -487,7 +487,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-tooltip-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-tooltip-name)"
       }
     }
   },
@@ -527,7 +527,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-treeitem-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-treeitem-name)"
       }
     }
   },
@@ -559,7 +559,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-valid-attr-value)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-valid-attr-value)"
       }
     }
   },
@@ -591,7 +591,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/aria-valid-attr)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/aria-valid-attr)"
       }
     }
   },
@@ -627,7 +627,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/button-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/button-name)"
       }
     }
   },
@@ -647,7 +647,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/bypass)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/bypass)"
       }
     }
   },
@@ -667,7 +667,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/color-contrast)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/color-contrast)"
       }
     }
   },
@@ -687,7 +687,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/definition-list)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/definition-list)"
       }
     }
   },
@@ -771,7 +771,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/dlitem)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/dlitem)"
       }
     }
   },
@@ -803,7 +803,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/document-title)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/document-title)"
       }
     }
   },
@@ -843,7 +843,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/duplicate-id-active)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/duplicate-id-active)"
       }
     }
   },
@@ -875,7 +875,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/duplicate-id-aria)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/duplicate-id-aria)"
       }
     }
   },
@@ -895,7 +895,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/form-field-multiple-labels)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/form-field-multiple-labels)"
       }
     }
   },
@@ -915,7 +915,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/frame-title)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/frame-title)"
       }
     }
   },
@@ -955,7 +955,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/heading-order)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/heading-order)"
       }
     }
   },
@@ -983,7 +983,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/html-has-lang)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/html-has-lang)"
       }
     }
   },
@@ -1033,7 +1033,7 @@
         "content": "["
       },
       "LINK_END_1": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/html-lang-valid)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/html-lang-valid)"
       }
     }
   },
@@ -1077,7 +1077,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/image-alt)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/image-alt)"
       }
     }
   },
@@ -1113,7 +1113,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/input-image-alt)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/input-image-alt)"
       }
     }
   },
@@ -1153,7 +1153,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/label)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/label)"
       }
     }
   },
@@ -1173,7 +1173,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/link-name)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/link-name)"
       }
     }
   },
@@ -1193,7 +1193,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/list)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/list)"
       }
     }
   },
@@ -1257,7 +1257,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/listitem)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/listitem)"
       }
     }
   },
@@ -1313,7 +1313,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/meta-refresh)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/meta-refresh)"
       }
     }
   },
@@ -1345,7 +1345,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/meta-viewport)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/meta-viewport)"
       }
     }
   },
@@ -1401,7 +1401,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/object-alt)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/object-alt)"
       }
     }
   },
@@ -1437,7 +1437,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/tabindex)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/tabindex)"
       }
     }
   },
@@ -1481,7 +1481,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/td-headers-attr)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/td-headers-attr)"
       }
     }
   },
@@ -1525,7 +1525,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/th-has-data-cells)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/th-has-data-cells)"
       }
     }
   },
@@ -1575,7 +1575,7 @@
         "content": "["
       },
       "LINK_END_1": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/valid-lang)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/valid-lang)"
       }
     }
   },
@@ -1607,7 +1607,7 @@
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://dequeuniversity.com/rules/axe/4.6/video-caption)"
+        "content": "](https://dequeuniversity.com/rules/axe/4.4/video-caption)"
       }
     }
   },
@@ -1746,50 +1746,6 @@
         "example": "<autocomplete=\"mobile section-red cc-name\">"
       }
     }
-  },
-  "core/audits/bf-cache.js | actionableFailureType": {
-    "message": "Âćt̂íôńâb́l̂é",
-    "description": "Failure type for an error that the user should be able to address themselves. Shown in a table column with other failure types."
-  },
-  "core/audits/bf-cache.js | description": {
-    "message": "M̂án̂ý n̂áv̂íĝát̂íôńŝ ár̂é p̂ér̂f́ôŕm̂éd̂ b́ŷ ǵôín̂ǵ b̂áĉḱ t̂ó â ṕr̂év̂íôúŝ ṕâǵê, ór̂ f́ôŕŵár̂d́ŝ áĝáîń. T̂h́ê b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê (b́f̂ćâćĥé) ĉán̂ śp̂éêd́ ûṕ t̂h́êśê ŕêt́ûŕn̂ ńâv́îǵât́îón̂ś. $LINK_START_0$L̂éâŕn̂ ḿôŕê áb̂óût́ t̂h́ê b́f̂ćâćĥé$LINK_END_0$",
-    "description": "Description of a diagnostic Lighthouse audit that identifies when the back/forward cache is being used. \"back/forward\" refers to the back and forward buttons found in modern browsers.",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://developer.chrome.com/docs/lighthouse/performance/bf-cache/)"
-      }
-    }
-  },
-  "core/audits/bf-cache.js | displayValue": {
-    "message": "{itemCount, plural,\n    =1 {1 f̂áîĺûŕê ŕêáŝón̂}\n    other {# f́âíl̂úr̂é r̂éâśôńŝ}\n    }",
-    "description": "[ICU Syntax] Label for an audit identifying the number of back/forward cache failure reasons found in the page."
-  },
-  "core/audits/bf-cache.js | failureReasonColumn": {
-    "message": "F̂áîĺûŕê ŕêáŝón̂",
-    "description": "Label for a column in a data table; entries in the column will be a string explaining why a failure occurred."
-  },
-  "core/audits/bf-cache.js | failureTitle": {
-    "message": "P̂áĝé p̂ŕêv́êńt̂éd̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê ŕêśt̂ór̂át̂íôń",
-    "description": "Title of a diagnostic Lighthouse audit that identifies when the back/forward cache is being used. \"back/forward\" refers to the back and forward buttons found in modern browsers. This title is shown to users if the page attempted to restore from the back/forward cache but the back/forward cache was not used."
-  },
-  "core/audits/bf-cache.js | failureTypeColumn": {
-    "message": "F̂áîĺûŕê t́ŷṕê",
-    "description": "Label for a column in a data table; entries in the column will be a string representing the type of failure preventing the back/forward cache from being used."
-  },
-  "core/audits/bf-cache.js | notActionableFailureType": {
-    "message": "N̂ót̂ áĉt́îón̂áb̂ĺê",
-    "description": "Failure type for an error that the user cannot address in the page's code. Shown in a table column with other failure types."
-  },
-  "core/audits/bf-cache.js | supportPendingFailureType": {
-    "message": "P̂én̂d́îńĝ b́r̂óŵśêŕ ŝúp̂ṕôŕt̂",
-    "description": "Failure type for an error caused by missing browser support. Shown in a table column with other failure types."
-  },
-  "core/audits/bf-cache.js | title": {
-    "message": "P̂áĝé d̂íd̂ń't̂ ṕr̂év̂én̂t́ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé r̂éŝt́ôŕât́îón̂",
-    "description": "Title of a diagnostic Lighthouse audit that identifies when the back/forward cache is being used. \"back/forward\" refers to the back and forward buttons found in modern browsers. This title is shown to users if the back/forward cache was used, or if the there was no attempt to restore the page from the back/forward cache."
   },
   "core/audits/bootup-time.js | chromeExtensionsWarning": {
     "message": "Ĉh́r̂óm̂é êx́t̂én̂śîón̂ś n̂éĝát̂ív̂él̂ý âf́f̂éĉt́êd́ t̂h́îś p̂áĝé'ŝ ĺôád̂ ṕêŕf̂ór̂ḿâńĉé. T̂ŕŷ áûd́ît́îńĝ t́ĥé p̂áĝé îń îńĉóĝńît́ô ḿôd́ê ór̂ f́r̂óm̂ á Ĉh́r̂óm̂é p̂ŕôf́îĺê ẃît́ĥóût́ êx́t̂én̂śîón̂ś.",
@@ -2266,18 +2222,8 @@
     }
   },
   "core/audits/dobetterweb/doctype.js | explanationLimitedQuirks": {
-    "message": "D̂óĉúm̂én̂t́ ĉón̂t́âín̂ś â $MARKDOWN_SNIPPET_0$ t́ĥát̂ t́r̂íĝǵêŕŝ $MARKDOWN_SNIPPET_1$",
-    "description": "Explanatory message stating that the document has wrong doctype that triggers `limited-quirks-mode`",
-    "placeholders": {
-      "MARKDOWN_SNIPPET_0": {
-        "content": "`doctype`",
-        "example": "doctype"
-      },
-      "MARKDOWN_SNIPPET_1": {
-        "content": "`limited-quirks-mode`",
-        "example": "limited-quirks-mode"
-      }
-    }
+    "message": "D̂óĉúm̂én̂t́ ĉón̂t́âín̂ś â d́ôćt̂ýp̂é t̂h́ât́ t̂ŕîǵĝér̂ś l̂ím̂ít̂éd̂-q́ûír̂ḱŝ-ḿôd́ê",
+    "description": "Explanatory message stating that the document has wrong doctype"
   },
   "core/audits/dobetterweb/doctype.js | explanationNoDoctype": {
     "message": "D̂óĉúm̂én̂t́ m̂úŝt́ ĉón̂t́âín̂ á d̂óĉt́ŷṕê",
@@ -2292,18 +2238,8 @@
     "description": "Explanatory message stating that the systemId field is not empty."
   },
   "core/audits/dobetterweb/doctype.js | explanationWrongDoctype": {
-    "message": "D̂óĉúm̂én̂t́ ĉón̂t́âín̂ś â $MARKDOWN_SNIPPET_0$ t́ĥát̂ t́r̂íĝǵêŕŝ $MARKDOWN_SNIPPET_1$",
-    "description": "Explanatory message stating that the document has wrong doctype that triggers `quirks-mode`",
-    "placeholders": {
-      "MARKDOWN_SNIPPET_0": {
-        "content": "`doctype`",
-        "example": "doctype"
-      },
-      "MARKDOWN_SNIPPET_1": {
-        "content": "`quirks-mode`",
-        "example": "quirks-mode"
-      }
-    }
+    "message": "D̂óĉúm̂én̂t́ ĉón̂t́âín̂ś â d́ôćt̂ýp̂é t̂h́ât́ t̂ŕîǵĝér̂ś q̂úîŕk̂ś-m̂ód̂é",
+    "description": "Explanatory message stating that the document has wrong doctype"
   },
   "core/audits/dobetterweb/doctype.js | failureTitle": {
     "message": "P̂áĝé l̂áĉḱŝ t́ĥé ĤT́M̂Ĺ d̂óĉt́ŷṕê, t́ĥúŝ t́r̂íĝǵêŕîńĝ q́ûír̂ḱŝ-ḿôd́ê",
@@ -2507,25 +2443,25 @@
     "message": "Âv́ôíd̂ś r̂éq̂úêśt̂ín̂ǵ t̂h́ê ńôt́îf́îćât́îón̂ ṕêŕm̂íŝśîón̂ ón̂ ṕâǵê ĺôád̂",
     "description": "Title of a Lighthouse audit that provides detail on the page's notification permission requests. This descriptive title is shown to users when the page does not ask for notification permission on load."
   },
-  "core/audits/dobetterweb/paste-preventing-inputs.js | description": {
-    "message": "P̂ŕêv́êńt̂ín̂ǵ îńp̂út̂ ṕâśt̂ín̂ǵ îś â ÚX̂ án̂t́î-ṕât́t̂ér̂ń, âńd̂ ún̂d́êŕm̂ín̂éŝ ǵôód̂ śêćûŕît́ŷ ṕôĺîćŷ. $LINK_START_0$Ĺêár̂ń m̂ór̂é âb́ôút̂ úŝér̂-f́r̂íêńd̂ĺŷ ín̂ṕût́ f̂íêĺd̂ś$LINK_END_0$.",
-    "description": "Description of a Lighthouse audit that tells the user why they should allow pasting of content into input fields. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation.",
+  "core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | description": {
+    "message": "P̂ŕêv́êńt̂ín̂ǵ p̂áŝśŵór̂d́ p̂áŝt́îńĝ ún̂d́êŕm̂ín̂éŝ ǵôód̂ śêćûŕît́ŷ ṕôĺîćŷ. $LINK_START_0$Ĺêár̂ń m̂ór̂é âb́ôút̂ úŝér̂-f́r̂íêńd̂ĺŷ ṕâśŝẃôŕd̂ f́îél̂d́ŝ$LINK_END_0$.",
+    "description": "Description of a Lighthouse audit that tells the user why they should allow pasting of content into password fields. This is displayed after a user expands the section to see more. No character length limits. The last sentence starting with 'Learn' becomes link text to additional documentation.",
     "placeholders": {
       "LINK_START_0": {
         "content": "["
       },
       "LINK_END_0": {
-        "content": "](https://developer.chrome.com/docs/lighthouse/best-practices/paste-preventing-inputs/)"
+        "content": "](https://developer.chrome.com/docs/lighthouse/best-practices/password-inputs-can-be-pasted-into/)"
       }
     }
   },
-  "core/audits/dobetterweb/paste-preventing-inputs.js | failureTitle": {
-    "message": "P̂ŕêv́êńt̂ś ûśêŕŝ f́r̂óm̂ ṕâśt̂ín̂ǵ îńt̂ó îńp̂út̂ f́îél̂d́ŝ",
-    "description": "Title of a Lighthouse audit that provides detail on the ability to paste into input fields. This descriptive title is shown to users when the page does not allow pasting of content into input fields."
+  "core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | failureTitle": {
+    "message": "P̂ŕêv́êńt̂ś ûśêŕŝ t́ô ṕâśt̂é îńt̂ó p̂áŝśŵór̂d́ f̂íêĺd̂ś",
+    "description": "Title of a Lighthouse audit that provides detail on the ability to paste into password fields. This descriptive title is shown to users when the page does not allow pasting of content into password fields."
   },
-  "core/audits/dobetterweb/paste-preventing-inputs.js | title": {
-    "message": "Âĺl̂óŵś ûśêŕŝ t́ô ṕâśt̂é îńt̂ó îńp̂út̂ f́îél̂d́ŝ",
-    "description": "Title of a Lighthouse audit that provides detail on the ability to paste into input fields. This descriptive title is shown to users when the page allows pasting of content into input fields."
+  "core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | title": {
+    "message": "Âĺl̂óŵś ûśêŕŝ t́ô ṕâśt̂é îńt̂ó p̂áŝśŵór̂d́ f̂íêĺd̂ś",
+    "description": "Title of a Lighthouse audit that provides detail on the ability to paste into password fields. This descriptive title is shown to users when the page allows pasting of content into password fields."
   },
   "core/audits/dobetterweb/uses-http2.js | columnProtocol": {
     "message": "P̂ŕôt́ôćôĺ",
@@ -2711,7 +2647,7 @@
   },
   "core/audits/installable-manifest.js | columnValue": {
     "message": "F̂áîĺûŕê ŕêáŝón̂",
-    "description": "Label for a column in a data table; entries in the column will be a string explaining why a failure occurred."
+    "description": "Description Table column header for the observed value of the Installability failure reason statistic."
   },
   "core/audits/installable-manifest.js | description": {
     "message": "Ŝér̂v́îćê ẃôŕk̂ér̂ íŝ t́ĥé t̂éĉh́n̂ól̂óĝý t̂h́ât́ êńâb́l̂éŝ ýôúr̂ áp̂ṕ t̂ó ûśê ḿâńŷ Ṕr̂óĝŕêśŝív̂é Ŵéb̂ Áp̂ṕ f̂éât́ûŕêś, ŝúĉh́ âś ôf́f̂ĺîńê, ád̂d́ t̂ó ĥóm̂éŝćr̂éêń, âńd̂ ṕûśĥ ńôt́îf́îćât́îón̂ś. Ŵít̂h́ p̂ŕôṕêŕ ŝér̂v́îćê ẃôŕk̂ér̂ án̂d́ m̂án̂íf̂éŝt́ îḿp̂ĺêḿêńt̂át̂íôńŝ, b́r̂óŵśêŕŝ ćâń p̂ŕôáĉt́îv́êĺŷ ṕr̂óm̂ṕt̂ úŝér̂ś t̂ó âd́d̂ ýôúr̂ áp̂ṕ t̂ó t̂h́êír̂ h́ôḿêśĉŕêén̂, ẃĥíĉh́ ĉán̂ ĺêád̂ t́ô h́îǵĥér̂ én̂ǵâǵêḿêńt̂. $LINK_START_0$Ĺêár̂ń m̂ór̂é âb́ôút̂ ḿâńîf́êśt̂ ín̂śt̂ál̂ĺâb́îĺît́ŷ ŕêq́ûír̂ém̂én̂t́ŝ$LINK_END_0$.",
@@ -3381,7 +3317,7 @@
       }
     }
   },
-  "core/audits/prioritize-lcp-image.js | description": {
+  "core/audits/preload-lcp-image.js | description": {
     "message": "Îf́ t̂h́ê ĹĈṔ êĺêḿêńt̂ íŝ d́ŷńâḿîćâĺl̂ý âd́d̂éd̂ t́ô t́ĥé p̂áĝé, ŷóû śĥóûĺd̂ ṕr̂él̂óâd́ t̂h́ê ím̂áĝé îń ôŕd̂ér̂ t́ô ím̂ṕr̂óv̂é L̂ĆP̂. $LINK_START_0$Ĺêár̂ń m̂ór̂é âb́ôút̂ ṕr̂él̂óâd́îńĝ ĹĈṔ êĺêḿêńt̂ś$LINK_END_0$.",
     "description": "Description of a lighthouse audit that tells a user to preload an image in order to improve their LCP time.",
     "placeholders": {
@@ -3393,7 +3329,7 @@
       }
     }
   },
-  "core/audits/prioritize-lcp-image.js | title": {
+  "core/audits/preload-lcp-image.js | title": {
     "message": "P̂ŕêĺôád̂ Ĺâŕĝéŝt́ Ĉón̂t́êńt̂f́ûĺ P̂áîńt̂ ím̂áĝé",
     "description": "Title of a lighthouse audit that tells a user to preload an image in order to improve their LCP time."
   },
@@ -4795,311 +4731,311 @@
     "message": "Ĉĺêár̂ín̂ǵ t̂h́ê ór̂íĝín̂ d́ât́â t́îḿêd́ ôút̂. T́r̂ý âúd̂ít̂ín̂ǵ t̂h́îś p̂áĝé âǵâín̂ án̂d́ f̂íl̂é â b́ûǵ îf́ t̂h́ê íŝśûé p̂ér̂śîśt̂ś.",
     "description": "A warning that the data on the page's origin may have affected the measured performance because the operation to clear the origin data timed out."
   },
-  "core/lib/bf-cache-strings.js | appBanner": {
+  "core/lib/bfcache-strings.js | appBanner": {
     "message": "P̂áĝéŝ t́ĥát̂ ŕêq́ûéŝt́êd́ âń Âṕp̂B́âńn̂ér̂ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason AppBanner."
   },
-  "core/lib/bf-cache-strings.js | backForwardCacheDisabled": {
+  "core/lib/bfcache-strings.js | backForwardCacheDisabled": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ b̂ý f̂ĺâǵŝ. V́îśît́ ĉh́r̂óm̂é://f̂ĺâǵŝ/#b́âćk̂-f́ôŕŵár̂d́-ĉáĉh́ê t́ô én̂áb̂ĺê ít̂ ĺôćâĺl̂ý ôń t̂h́îś d̂év̂íĉé.",
     "description": "Description text for not restored reason BackForwardCacheDisabled."
   },
-  "core/lib/bf-cache-strings.js | backForwardCacheDisabledByCommandLine": {
+  "core/lib/bfcache-strings.js | backForwardCacheDisabledByCommandLine": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ b̂ý t̂h́ê ćôḿm̂án̂d́ l̂ín̂é.",
     "description": "Description text for not restored reason BackForwardcCacheDisabledByCommandLine."
   },
-  "core/lib/bf-cache-strings.js | backForwardCacheDisabledByLowMemory": {
+  "core/lib/bfcache-strings.js | backForwardCacheDisabledByLowMemory": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ d̂úê t́ô ín̂śûf́f̂íĉíêńt̂ ḿêḿôŕŷ.",
     "description": "Description text for not restored reason BackForwardCacheDisabledByLowMemory."
   },
-  "core/lib/bf-cache-strings.js | backForwardCacheDisabledForDelegate": {
+  "core/lib/bfcache-strings.js | backForwardCacheDisabledForDelegate": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś n̂ót̂ śûṕp̂ór̂t́êd́ b̂ý d̂él̂éĝát̂é.",
     "description": "Description text for not restored reason BackForwardCacheDisabledForDelegate."
   },
-  "core/lib/bf-cache-strings.js | backForwardCacheDisabledForPrerender": {
+  "core/lib/bfcache-strings.js | backForwardCacheDisabledForPrerender": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ f̂ór̂ ṕr̂ér̂én̂d́êŕêŕ.",
     "description": "Description text for not restored reason BackForwardCacheDisabledForPrerender."
   },
-  "core/lib/bf-cache-strings.js | broadcastChannel": {
+  "core/lib/bfcache-strings.js | broadcastChannel": {
     "message": "T̂h́ê ṕâǵê ćâńn̂ót̂ b́ê ćâćĥéd̂ b́êćâúŝé ît́ ĥáŝ á B̂ŕôád̂ćâśt̂Ćĥán̂ńêĺ îńŝt́âńĉé ŵít̂h́ r̂éĝíŝt́êŕêd́ l̂íŝt́êńêŕŝ.",
     "description": "Description text for not restored reason BroadcastChannel."
   },
-  "core/lib/bf-cache-strings.js | cacheControlNoStore": {
+  "core/lib/bfcache-strings.js | cacheControlNoStore": {
     "message": "P̂áĝéŝ ẃît́ĥ ćâćĥé-ĉón̂t́r̂ól̂:ńô-śt̂ór̂é ĥéâd́êŕ ĉán̂ńôt́ êńt̂ér̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason CacheControlNoStore."
   },
-  "core/lib/bf-cache-strings.js | cacheFlushed": {
+  "core/lib/bfcache-strings.js | cacheFlushed": {
     "message": "T̂h́ê ćâćĥé ŵáŝ ín̂t́êńt̂íôńâĺl̂ý ĉĺêár̂éd̂.",
     "description": "Description text for not restored reason CacheFlushed."
   },
-  "core/lib/bf-cache-strings.js | cacheLimit": {
+  "core/lib/bfcache-strings.js | cacheLimit": {
     "message": "T̂h́ê ṕâǵê ẃâś êv́îćt̂éd̂ f́r̂óm̂ t́ĥé ĉáĉh́ê t́ô ál̂ĺôẃ âńôt́ĥér̂ ṕâǵê t́ô b́ê ćâćĥéd̂.",
     "description": "Description text for not restored reason CacheLimit."
   },
-  "core/lib/bf-cache-strings.js | containsPlugins": {
+  "core/lib/bfcache-strings.js | containsPlugins": {
     "message": "P̂áĝéŝ ćôńt̂áîńîńĝ ṕl̂úĝín̂ś âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason ContainsPlugins."
   },
-  "core/lib/bf-cache-strings.js | contentFileChooser": {
+  "core/lib/bfcache-strings.js | contentFileChooser": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé F̂íl̂éĈh́ôóŝér̂ ÁP̂Í âŕê ńôt́ êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason NotMainFrame."
   },
-  "core/lib/bf-cache-strings.js | contentFileSystemAccess": {
+  "core/lib/bfcache-strings.js | contentFileSystemAccess": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé F̂íl̂é Ŝýŝt́êḿ Âćĉéŝś ÂṔÎ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason NotMainFrame."
   },
-  "core/lib/bf-cache-strings.js | contentMediaDevicesDispatcherHost": {
+  "core/lib/bfcache-strings.js | contentMediaDevicesDispatcherHost": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé M̂éd̂íâ D́êv́îćê D́îśp̂át̂ćĥér̂ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason NotMainFrame."
   },
-  "core/lib/bf-cache-strings.js | contentMediaPlay": {
+  "core/lib/bfcache-strings.js | contentMediaPlay": {
     "message": "Â ḿêd́îá p̂ĺâýêŕ ŵáŝ ṕl̂áŷín̂ǵ ûṕôń n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason ContentMediaPlay."
   },
-  "core/lib/bf-cache-strings.js | contentMediaSession": {
+  "core/lib/bfcache-strings.js | contentMediaSession": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé M̂éd̂íâŚêśŝíôń ÂṔÎ án̂d́ ŝét̂ á p̂ĺâýb̂áĉḱ ŝt́ât́ê ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason ContentMediaSession."
   },
-  "core/lib/bf-cache-strings.js | contentMediaSessionService": {
+  "core/lib/bfcache-strings.js | contentMediaSessionService": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé M̂éd̂íâŚêśŝíôń ÂṔÎ án̂d́ ŝét̂ áĉt́îón̂ h́âńd̂ĺêŕŝ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason ContentMediaSessionService."
   },
-  "core/lib/bf-cache-strings.js | contentScreenReader": {
+  "core/lib/bfcache-strings.js | contentScreenReader": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ d̂úê t́ô śĉŕêén̂ ŕêád̂ér̂.",
     "description": "Description text for not restored reason ContentScreenReader."
   },
-  "core/lib/bf-cache-strings.js | contentSecurityHandler": {
+  "core/lib/bfcache-strings.js | contentSecurityHandler": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŝéĉúr̂ít̂ýĤán̂d́l̂ér̂ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason ContentSecurityHandler."
   },
-  "core/lib/bf-cache-strings.js | contentSerial": {
+  "core/lib/bfcache-strings.js | contentSerial": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŝér̂íâĺ ÂṔÎ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason NotMainFrame."
   },
-  "core/lib/bf-cache-strings.js | contentWebAuthenticationAPI": {
+  "core/lib/bfcache-strings.js | contentWebAuthenticationAPI": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂Áût́ĥét̂íĉát̂íôń ÂṔÎ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason NotMainFrame."
   },
-  "core/lib/bf-cache-strings.js | contentWebBluetooth": {
+  "core/lib/bfcache-strings.js | contentWebBluetooth": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂B́l̂úêt́ôót̂h́ ÂṔÎ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason NotMainFrame."
   },
-  "core/lib/bf-cache-strings.js | contentWebUSB": {
+  "core/lib/bfcache-strings.js | contentWebUSB": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂ÚŜB́ ÂṔÎ ár̂é n̂ót̂ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason ContentWebUSB."
   },
-  "core/lib/bf-cache-strings.js | dedicatedWorkerOrWorklet": {
+  "core/lib/bfcache-strings.js | dedicatedWorkerOrWorklet": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé â d́êd́îćât́êd́ ŵór̂ḱêŕ ôŕ ŵór̂ḱl̂ét̂ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason DedicatedWorkerOrWorklet."
   },
-  "core/lib/bf-cache-strings.js | documentLoaded": {
+  "core/lib/bfcache-strings.js | documentLoaded": {
     "message": "T̂h́ê d́ôćûḿêńt̂ d́îd́ n̂ót̂ f́îńîśĥ ĺôád̂ín̂ǵ b̂éf̂ór̂é n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason DocumentLoaded."
   },
-  "core/lib/bf-cache-strings.js | embedderAppBannerManager": {
+  "core/lib/bfcache-strings.js | embedderAppBannerManager": {
     "message": "Âṕp̂ B́âńn̂ér̂ ẃâś p̂ŕêśêńt̂ úp̂ón̂ ńâv́îǵât́îńĝ áŵáŷ.",
     "description": "Description text for not restored reason EmbedderAppBannerManager."
   },
-  "core/lib/bf-cache-strings.js | embedderChromePasswordManagerClientBindCredentialManager": {
+  "core/lib/bfcache-strings.js | embedderChromePasswordManagerClientBindCredentialManager": {
     "message": "Ĉh́r̂óm̂é P̂áŝśŵór̂d́ M̂án̂áĝér̂ ẃâś p̂ŕêśêńt̂ úp̂ón̂ ńâv́îǵât́îńĝ áŵáŷ.",
     "description": "Description text for not restored reason EmbedderChromePasswordManagerClientBindCredentialManager."
   },
-  "core/lib/bf-cache-strings.js | embedderDomDistillerSelfDeletingRequestDelegate": {
+  "core/lib/bfcache-strings.js | embedderDomDistillerSelfDeletingRequestDelegate": {
     "message": "D̂ÓM̂ d́îśt̂íl̂ĺât́îón̂ ẃâś îń p̂ŕôǵr̂éŝś ûṕôń n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason EmbedderDomDistillerSelfDeletingRequestDelegate."
   },
-  "core/lib/bf-cache-strings.js | embedderDomDistillerViewerSource": {
+  "core/lib/bfcache-strings.js | embedderDomDistillerViewerSource": {
     "message": "D̂ÓM̂ D́îśt̂íl̂ĺêŕ V̂íêẃêŕ ŵáŝ ṕr̂éŝén̂t́ ûṕôń n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason EmbedderDomDistillerViewerSource."
   },
-  "core/lib/bf-cache-strings.js | embedderExtensionMessaging": {
+  "core/lib/bfcache-strings.js | embedderExtensionMessaging": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ d̂úê t́ô éx̂t́êńŝíôńŝ úŝín̂ǵ m̂éŝśâǵîńĝ ÁP̂Í.",
     "description": "Description text for not restored reason EmbedderExtensionMessaging."
   },
-  "core/lib/bf-cache-strings.js | embedderExtensionMessagingForOpenPort": {
+  "core/lib/bfcache-strings.js | embedderExtensionMessagingForOpenPort": {
     "message": "Êx́t̂én̂śîón̂ś ŵít̂h́ l̂ón̂ǵ-l̂ív̂éd̂ ćôńn̂éĉt́îón̂ śĥóûĺd̂ ćl̂óŝé t̂h́ê ćôńn̂éĉt́îón̂ b́êf́ôŕê én̂t́êŕîńĝ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason EmbedderExtensionMessagingForOpenPort."
   },
-  "core/lib/bf-cache-strings.js | embedderExtensions": {
+  "core/lib/bfcache-strings.js | embedderExtensions": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ d̂úê t́ô éx̂t́êńŝíôńŝ.",
     "description": "Description text for not restored reason EmbedderExtensions."
   },
-  "core/lib/bf-cache-strings.js | embedderExtensionSentMessageToCachedFrame": {
+  "core/lib/bfcache-strings.js | embedderExtensionSentMessageToCachedFrame": {
     "message": "Êx́t̂én̂śîón̂ś ŵít̂h́ l̂ón̂ǵ-l̂ív̂éd̂ ćôńn̂éĉt́îón̂ át̂t́êḿp̂t́êd́ t̂ó ŝén̂d́ m̂éŝśâǵêś t̂ó f̂ŕâḿêś îń b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason EmbedderExtensionSentMessageToCachedFrame."
   },
-  "core/lib/bf-cache-strings.js | embedderModalDialog": {
+  "core/lib/bfcache-strings.js | embedderModalDialog": {
     "message": "M̂ód̂ál̂ d́îál̂óĝ śûćĥ áŝ f́ôŕm̂ ŕêśûb́m̂íŝśîón̂ ór̂ h́t̂t́p̂ ṕâśŝẃôŕd̂ d́îál̂óĝ ẃâś ŝh́ôẃn̂ f́ôŕ t̂h́ê ṕâǵê úp̂ón̂ ńâv́îǵât́îńĝ áŵáŷ.",
     "description": "Description text for not restored reason EmbedderModalDialog."
   },
-  "core/lib/bf-cache-strings.js | embedderOfflinePage": {
+  "core/lib/bfcache-strings.js | embedderOfflinePage": {
     "message": "T̂h́ê óf̂f́l̂ín̂é p̂áĝé ŵáŝ śĥóŵń ûṕôń n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason EmbedderOfflinePage."
   },
-  "core/lib/bf-cache-strings.js | embedderOomInterventionTabHelper": {
+  "core/lib/bfcache-strings.js | embedderOomInterventionTabHelper": {
     "message": "Ôút̂-Óf̂-Ḿêḿôŕŷ Ín̂t́êŕv̂én̂t́îón̂ b́âŕ ŵáŝ ṕr̂éŝén̂t́ ûṕôń n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason EmbedderOomInterventionTabHelper."
   },
-  "core/lib/bf-cache-strings.js | embedderPermissionRequestManager": {
+  "core/lib/bfcache-strings.js | embedderPermissionRequestManager": {
     "message": "T̂h́êŕê ẃêŕê ṕêŕm̂íŝśîón̂ ŕêq́ûéŝt́ŝ úp̂ón̂ ńâv́îǵât́îńĝ áŵáŷ.",
     "description": "Description text for not restored reason EmbedderPermissionRequestManager."
   },
-  "core/lib/bf-cache-strings.js | embedderPopupBlockerTabHelper": {
+  "core/lib/bfcache-strings.js | embedderPopupBlockerTabHelper": {
     "message": "P̂óp̂úp̂ b́l̂óĉḱêŕ ŵáŝ ṕr̂éŝén̂t́ ûṕôń n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason EmbedderPopupBlockerTabHelper."
   },
-  "core/lib/bf-cache-strings.js | embedderSafeBrowsingThreatDetails": {
+  "core/lib/bfcache-strings.js | embedderSafeBrowsingThreatDetails": {
     "message": "Ŝáf̂é B̂ŕôẃŝín̂ǵ d̂ét̂áîĺŝ ẃêŕê śĥóŵń ûṕôń n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason EmbedderSafeBrowsingThreatDetails."
   },
-  "core/lib/bf-cache-strings.js | embedderSafeBrowsingTriggeredPopupBlocker": {
+  "core/lib/bfcache-strings.js | embedderSafeBrowsingTriggeredPopupBlocker": {
     "message": "Ŝáf̂é B̂ŕôẃŝín̂ǵ ĉón̂śîd́êŕêd́ t̂h́îś p̂áĝé t̂ó b̂é âb́ûśîv́ê án̂d́ b̂ĺôćk̂éd̂ ṕôṕûṕ.",
     "description": "Description text for not restored reason EmbedderSafeBrowsingTriggeredPopupBlocker."
   },
-  "core/lib/bf-cache-strings.js | enteredBackForwardCacheBeforeServiceWorkerHostAdded": {
+  "core/lib/bfcache-strings.js | enteredBackForwardCacheBeforeServiceWorkerHostAdded": {
     "message": "Â śêŕv̂íĉé ŵór̂ḱêŕ ŵáŝ áĉt́îv́ât́êd́ ŵh́îĺê t́ĥé p̂áĝé ŵáŝ ín̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason EnteredBackForwardCacheBeforeServiceWorkerHostAdded."
   },
-  "core/lib/bf-cache-strings.js | errorDocument": {
+  "core/lib/bfcache-strings.js | errorDocument": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ d̂úê t́ô á d̂óĉúm̂én̂t́ êŕr̂ór̂.",
     "description": "Description text for not restored reason ErrorDocument."
   },
-  "core/lib/bf-cache-strings.js | fencedFramesEmbedder": {
+  "core/lib/bfcache-strings.js | fencedFramesEmbedder": {
     "message": "P̂áĝéŝ úŝín̂ǵ F̂én̂ćêd́F̂ŕâḿêś ĉán̂ńôt́ b̂é ŝt́ôŕêd́ îń b̂f́ĉáĉh́ê.",
     "description": "Description text for not restored reason FencedFramesEmbedder."
   },
-  "core/lib/bf-cache-strings.js | foregroundCacheLimit": {
+  "core/lib/bfcache-strings.js | foregroundCacheLimit": {
     "message": "T̂h́ê ṕâǵê ẃâś êv́îćt̂éd̂ f́r̂óm̂ t́ĥé ĉáĉh́ê t́ô ál̂ĺôẃ âńôt́ĥér̂ ṕâǵê t́ô b́ê ćâćĥéd̂.",
     "description": "Description text for not restored reason ForegroundCacheLimit."
   },
-  "core/lib/bf-cache-strings.js | grantedMediaStreamAccess": {
+  "core/lib/bfcache-strings.js | grantedMediaStreamAccess": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ǵr̂án̂t́êd́ m̂éd̂íâ śt̂ŕêám̂ áĉćêśŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason GrantedMediaStreamAccess."
   },
-  "core/lib/bf-cache-strings.js | haveInnerContents": {
+  "core/lib/bfcache-strings.js | haveInnerContents": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé p̂ór̂t́âĺŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason HaveInnerContents."
   },
-  "core/lib/bf-cache-strings.js | HTTPMethodNotGET": {
+  "core/lib/bfcache-strings.js | HTTPMethodNotGET": {
     "message": "Ôńl̂ý p̂áĝéŝ ĺôád̂éd̂ v́îá â ǴÊT́ r̂éq̂úêśt̂ ár̂é êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason HTTPMethodNotGET."
   },
-  "core/lib/bf-cache-strings.js | HTTPStatusNotOK": {
+  "core/lib/bfcache-strings.js | HTTPStatusNotOK": {
     "message": "Ôńl̂ý p̂áĝéŝ ẃît́ĥ á ŝt́ât́ûś ĉód̂é ôf́ 2X̂X́ ĉán̂ b́ê ćâćĥéd̂.",
     "description": "Description text for not restored reason HTTPStatusNotOK."
   },
-  "core/lib/bf-cache-strings.js | idleManager": {
+  "core/lib/bfcache-strings.js | idleManager": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Îd́l̂éM̂án̂áĝér̂ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason IdleManager."
   },
-  "core/lib/bf-cache-strings.js | indexedDBConnection": {
+  "core/lib/bfcache-strings.js | indexedDBConnection": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê án̂ óp̂én̂ Ín̂d́êx́êd́D̂B́ ĉón̂ńêćt̂íôń âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason IndexedDBConnection."
   },
-  "core/lib/bf-cache-strings.js | ineligibleAPI": {
+  "core/lib/bfcache-strings.js | ineligibleAPI": {
     "message": "Îńêĺîǵîb́l̂é ÂṔÎś ŵér̂é ûśêd́.",
     "description": "Description text for not restored reason IneligibleAPI."
   },
-  "core/lib/bf-cache-strings.js | injectedJavascript": {
-    "message": "P̂áĝéŝ t́ĥát̂ J́âv́âŚĉŕîṕt̂ íŝ ín̂j́êćt̂éd̂ ín̂t́ô b́ŷ éx̂t́êńŝíôńŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
+  "core/lib/bfcache-strings.js | injectedJavascript": {
+    "message": "ÎṔâǵêś t̂h́ât́ Ĵáv̂áŜćr̂íp̂t́ îś îńĵéĉt́êd́ îńt̂ó b̂ý êx́t̂én̂śîón̂ś âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason InjectedJavascript."
   },
-  "core/lib/bf-cache-strings.js | injectedStyleSheet": {
+  "core/lib/bfcache-strings.js | injectedStyleSheet": {
     "message": "P̂áĝéŝ t́ĥát̂ Śt̂ýl̂éŜh́êét̂ íŝ ín̂j́êćt̂éd̂ ín̂t́ô b́ŷ éx̂t́êńŝíôńŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason InjectedStyleSheet."
   },
-  "core/lib/bf-cache-strings.js | internalError": {
+  "core/lib/bfcache-strings.js | internalError": {
     "message": "Îńt̂ér̂ńâĺ êŕr̂ór̂.",
     "description": "Description text for not restored reason InternalError."
   },
-  "core/lib/bf-cache-strings.js | JavaScriptExecution": {
+  "core/lib/bfcache-strings.js | JavaScriptExecution": {
     "message": "Ĉh́r̂óm̂é d̂ét̂éĉt́êd́ âń ât́t̂ém̂ṕt̂ t́ô éx̂éĉút̂é Ĵáv̂áŜćr̂íp̂t́ ŵh́îĺê ín̂ t́ĥé ĉáĉh́ê.",
     "description": "Description text for not restored reason JavaScriptExecution."
   },
-  "core/lib/bf-cache-strings.js | keepaliveRequest": {
+  "core/lib/bfcache-strings.js | keepaliveRequest": {
     "message": "B̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé îś d̂íŝáb̂ĺêd́ d̂úê t́ô á k̂éêṕâĺîv́ê ŕêq́ûéŝt́.",
     "description": "Description text for not restored reason KeepaliveRequest."
   },
-  "core/lib/bf-cache-strings.js | keyboardLock": {
+  "core/lib/bfcache-strings.js | keyboardLock": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé K̂éŷb́ôár̂d́ l̂óĉḱ âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason KeyboardLock."
   },
-  "core/lib/bf-cache-strings.js | loading": {
+  "core/lib/bfcache-strings.js | loading": {
     "message": "T̂h́ê ṕâǵê d́îd́ n̂ót̂ f́îńîśĥ ĺôád̂ín̂ǵ b̂éf̂ór̂é n̂áv̂íĝát̂ín̂ǵ âẃâý.",
     "description": "Description text for not restored reason Loading."
   },
-  "core/lib/bf-cache-strings.js | mainResourceHasCacheControlNoCache": {
+  "core/lib/bfcache-strings.js | mainResourceHasCacheControlNoCache": {
     "message": "P̂áĝéŝ ẃĥóŝé m̂áîń r̂éŝóûŕĉé ĥáŝ ćâćĥé-ĉón̂t́r̂ól̂:ńô-ćâćĥé ĉán̂ńôt́ êńt̂ér̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason MainResourceHasCacheControlNoCache."
   },
-  "core/lib/bf-cache-strings.js | mainResourceHasCacheControlNoStore": {
+  "core/lib/bfcache-strings.js | mainResourceHasCacheControlNoStore": {
     "message": "P̂áĝéŝ ẃĥóŝé m̂áîń r̂éŝóûŕĉé ĥáŝ ćâćĥé-ĉón̂t́r̂ól̂:ńô-śt̂ór̂é ĉán̂ńôt́ êńt̂ér̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason MainResourceHasCacheControlNoStore."
   },
-  "core/lib/bf-cache-strings.js | navigationCancelledWhileRestoring": {
+  "core/lib/bfcache-strings.js | navigationCancelledWhileRestoring": {
     "message": "N̂áv̂íĝát̂íôń ŵáŝ ćâńĉél̂ĺêd́ b̂éf̂ór̂é t̂h́ê ṕâǵê ćôúl̂d́ b̂é r̂éŝt́ôŕêd́ f̂ŕôḿ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason NavigationCancelledWhileRestoring."
   },
-  "core/lib/bf-cache-strings.js | networkExceedsBufferLimit": {
+  "core/lib/bfcache-strings.js | networkExceedsBufferLimit": {
     "message": "T̂h́ê ṕâǵê ẃâś êv́îćt̂éd̂ f́r̂óm̂ t́ĥé ĉáĉh́ê b́êćâúŝé âń âćt̂ív̂é n̂ét̂ẃôŕk̂ ćôńn̂éĉt́îón̂ ŕêćêív̂éd̂ t́ôó m̂úĉh́ d̂át̂á. Ĉh́r̂óm̂é l̂ím̂ít̂ś t̂h́ê ám̂óûńt̂ óf̂ d́ât́â t́ĥát̂ á p̂áĝé m̂áŷ ŕêćêív̂é ŵh́îĺê ćâćĥéd̂.",
     "description": "Description text for not restored reason NetworkExceedsBufferLimit."
   },
-  "core/lib/bf-cache-strings.js | networkRequestDatapipeDrainedAsBytesConsumer": {
+  "core/lib/bfcache-strings.js | networkRequestDatapipeDrainedAsBytesConsumer": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ín̂f́l̂íĝh́t̂ f́êt́ĉh́() ôŕ X̂H́R̂ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason NetworkRequestDatapipeDrainedAsBytesConsumer."
   },
-  "core/lib/bf-cache-strings.js | networkRequestRedirected": {
+  "core/lib/bfcache-strings.js | networkRequestRedirected": {
     "message": "T̂h́ê ṕâǵê ẃâś êv́îćt̂éd̂ f́r̂óm̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê b́êćâúŝé âń âćt̂ív̂é n̂ét̂ẃôŕk̂ ŕêq́ûéŝt́ îńv̂ól̂v́êd́ â ŕêd́îŕêćt̂.",
     "description": "Description text for not restored reason NetworkRequestRedirected."
   },
-  "core/lib/bf-cache-strings.js | networkRequestTimeout": {
+  "core/lib/bfcache-strings.js | networkRequestTimeout": {
     "message": "T̂h́ê ṕâǵê ẃâś êv́îćt̂éd̂ f́r̂óm̂ t́ĥé ĉáĉh́ê b́êćâúŝé â ńêt́ŵór̂ḱ ĉón̂ńêćt̂íôń ŵáŝ óp̂én̂ t́ôó l̂ón̂ǵ. Ĉh́r̂óm̂é l̂ím̂ít̂ś t̂h́ê ám̂óûńt̂ óf̂ t́îḿê t́ĥát̂ á p̂áĝé m̂áŷ ŕêćêív̂é d̂át̂á ŵh́îĺê ćâćĥéd̂.",
     "description": "Description text for not restored reason NetworkRequestTimeout."
   },
-  "core/lib/bf-cache-strings.js | noResponseHead": {
+  "core/lib/bfcache-strings.js | noResponseHead": {
     "message": "P̂áĝéŝ t́ĥát̂ d́ô ńôt́ ĥáv̂é â v́âĺîd́ r̂éŝṕôńŝé ĥéâd́ ĉán̂ńôt́ êńt̂ér̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason NoResponseHead."
   },
-  "core/lib/bf-cache-strings.js | notMainFrame": {
+  "core/lib/bfcache-strings.js | notMainFrame": {
     "message": "N̂áv̂íĝát̂íôń ĥáp̂ṕêńêd́ îń â f́r̂ám̂é ôt́ĥér̂ t́ĥán̂ t́ĥé m̂áîń f̂ŕâḿê.",
     "description": "Description text for not restored reason NotMainFrame."
   },
-  "core/lib/bf-cache-strings.js | outstandingIndexedDBTransaction": {
+  "core/lib/bfcache-strings.js | outstandingIndexedDBTransaction": {
     "message": "P̂áĝé ŵít̂h́ ôńĝóîńĝ ín̂d́êx́êd́ D̂B́ t̂ŕâńŝáĉt́îón̂ś âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason OutstandingIndexedDBTransaction."
   },
-  "core/lib/bf-cache-strings.js | outstandingNetworkRequestDirectSocket": {
+  "core/lib/bfcache-strings.js | outstandingNetworkRequestDirectSocket": {
     "message": "P̂áĝéŝ ẃît́ĥ án̂ ín̂-f́l̂íĝh́t̂ ńêt́ŵór̂ḱ r̂éq̂úêśt̂ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason OutstandingNetworkRequestDirectSocket."
   },
-  "core/lib/bf-cache-strings.js | outstandingNetworkRequestFetch": {
+  "core/lib/bfcache-strings.js | outstandingNetworkRequestFetch": {
     "message": "P̂áĝéŝ ẃît́ĥ án̂ ín̂-f́l̂íĝh́t̂ f́êt́ĉh́ n̂ét̂ẃôŕk̂ ŕêq́ûéŝt́ âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason OutstandingNetworkRequestFetch."
   },
-  "core/lib/bf-cache-strings.js | outstandingNetworkRequestOthers": {
+  "core/lib/bfcache-strings.js | outstandingNetworkRequestOthers": {
     "message": "P̂áĝéŝ ẃît́ĥ án̂ ín̂-f́l̂íĝh́t̂ ńêt́ŵór̂ḱ r̂éq̂úêśt̂ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason OutstandingNetworkRequestOthers."
   },
-  "core/lib/bf-cache-strings.js | outstandingNetworkRequestXHR": {
+  "core/lib/bfcache-strings.js | outstandingNetworkRequestXHR": {
     "message": "P̂áĝéŝ ẃît́ĥ án̂ ín̂-f́l̂íĝh́t̂ X́ĤŔ n̂ét̂ẃôŕk̂ ŕêq́ûéŝt́ âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason OutstandingNetworkRequestXHR."
   },
-  "core/lib/bf-cache-strings.js | paymentManager": {
+  "core/lib/bfcache-strings.js | paymentManager": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé P̂áŷḿêńt̂Ḿâńâǵêŕ âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason PaymentManager."
   },
-  "core/lib/bf-cache-strings.js | pictureInPicture": {
+  "core/lib/bfcache-strings.js | pictureInPicture": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé P̂íĉt́ûŕê-ín̂-Ṕîćt̂úr̂é âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason PictureInPicture."
   },
-  "core/lib/bf-cache-strings.js | portal": {
+  "core/lib/bfcache-strings.js | portal": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé p̂ór̂t́âĺŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason Portal."
   },
-  "core/lib/bf-cache-strings.js | printing": {
+  "core/lib/bfcache-strings.js | printing": {
     "message": "P̂áĝéŝ t́ĥát̂ śĥóŵ Ṕr̂ín̂t́îńĝ ÚÎ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason Printing."
   },
-  "core/lib/bf-cache-strings.js | relatedActiveContentsExist": {
+  "core/lib/bfcache-strings.js | relatedActiveContentsExist": {
     "message": "T̂h́ê ṕâǵê ẃâś ôṕêńêd́ ûśîńĝ '$MARKDOWN_SNIPPET_0$' án̂d́ âńôt́ĥér̂ t́âb́ ĥáŝ á r̂éf̂ér̂én̂ćê t́ô ít̂, ór̂ t́ĥé p̂áĝé ôṕêńêd́ â ẃîńd̂óŵ.",
     "description": "Description text for not restored reason RelatedActiveContentsExist. Note: \"window.open()\" is the name of a JavaScript method and should not be translated.",
     "placeholders": {
@@ -5109,51 +5045,51 @@
       }
     }
   },
-  "core/lib/bf-cache-strings.js | rendererProcessCrashed": {
+  "core/lib/bfcache-strings.js | rendererProcessCrashed": {
     "message": "T̂h́ê ŕêńd̂ér̂ér̂ ṕr̂óĉéŝś f̂ór̂ t́ĥé p̂áĝé îń b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé ĉŕâśĥéd̂.",
     "description": "Description text for not restored reason RendererProcessCrashed."
   },
-  "core/lib/bf-cache-strings.js | rendererProcessKilled": {
+  "core/lib/bfcache-strings.js | rendererProcessKilled": {
     "message": "T̂h́ê ŕêńd̂ér̂ér̂ ṕr̂óĉéŝś f̂ór̂ t́ĥé p̂áĝé îń b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé ŵáŝ ḱîĺl̂éd̂.",
     "description": "Description text for not restored reason RendererProcessKilled."
   },
-  "core/lib/bf-cache-strings.js | requestedAudioCapturePermission": {
+  "core/lib/bfcache-strings.js | requestedAudioCapturePermission": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ŕêq́ûéŝt́êd́ âúd̂íô ćâṕt̂úr̂é p̂ér̂ḿîśŝíôńŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason RequestedAudioCapturePermission."
   },
-  "core/lib/bf-cache-strings.js | requestedBackForwardCacheBlockedSensors": {
+  "core/lib/bfcache-strings.js | requestedBackForwardCacheBlockedSensors": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ŕêq́ûéŝt́êd́ ŝén̂śôŕ p̂ér̂ḿîśŝíôńŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason RequestedBackForwardCacheBlockedSensors."
   },
-  "core/lib/bf-cache-strings.js | requestedBackgroundWorkPermission": {
+  "core/lib/bfcache-strings.js | requestedBackgroundWorkPermission": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ŕêq́ûéŝt́êd́ b̂áĉḱĝŕôún̂d́ ŝýn̂ć ôŕ f̂ét̂ćĥ ṕêŕm̂íŝśîón̂ś âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason RequestedBackgroundWorkPermission."
   },
-  "core/lib/bf-cache-strings.js | requestedMIDIPermission": {
+  "core/lib/bfcache-strings.js | requestedMIDIPermission": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ŕêq́ûéŝt́êd́ M̂ÍD̂Í p̂ér̂ḿîśŝíôńŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason RequestedMIDIPermission."
   },
-  "core/lib/bf-cache-strings.js | requestedNotificationsPermission": {
+  "core/lib/bfcache-strings.js | requestedNotificationsPermission": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ŕêq́ûéŝt́êd́ n̂ót̂íf̂íĉát̂íôńŝ ṕêŕm̂íŝśîón̂ś âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason RequestedNotificationsPermission."
   },
-  "core/lib/bf-cache-strings.js | requestedStorageAccessGrant": {
+  "core/lib/bfcache-strings.js | requestedStorageAccessGrant": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ŕêq́ûéŝt́êd́ ŝt́ôŕâǵê áĉćêśŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason RequestedStorageAccessGrant."
   },
-  "core/lib/bf-cache-strings.js | requestedVideoCapturePermission": {
+  "core/lib/bfcache-strings.js | requestedVideoCapturePermission": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ŕêq́ûéŝt́êd́ v̂íd̂éô ćâṕt̂úr̂é p̂ér̂ḿîśŝíôńŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason RequestedVideoCapturePermission."
   },
-  "core/lib/bf-cache-strings.js | schemeNotHTTPOrHTTPS": {
+  "core/lib/bfcache-strings.js | schemeNotHTTPOrHTTPS": {
     "message": "Ôńl̂ý p̂áĝéŝ ẃĥóŝé ÛŔL̂ śĉh́êḿê íŝ H́T̂T́P̂ / H́T̂T́P̂Ś ĉán̂ b́ê ćâćĥéd̂.",
     "description": "Description text for not restored reason SchemeNotHTTPOrHTTPS."
   },
-  "core/lib/bf-cache-strings.js | serviceWorkerClaim": {
+  "core/lib/bfcache-strings.js | serviceWorkerClaim": {
     "message": "T̂h́ê ṕâǵê ẃâś ĉĺâím̂éd̂ b́ŷ á ŝér̂v́îćê ẃôŕk̂ér̂ ẃĥíl̂é ît́ îś îń b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason ServiceWorkerClaim."
   },
-  "core/lib/bf-cache-strings.js | serviceWorkerPostMessage": {
+  "core/lib/bfcache-strings.js | serviceWorkerPostMessage": {
     "message": "Â śêŕv̂íĉé ŵór̂ḱêŕ ât́t̂ém̂ṕt̂éd̂ t́ô śêńd̂ t́ĥé p̂áĝé îń b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé â $MARKDOWN_SNIPPET_0$.",
     "description": "Description text for not restored reason ServiceWorkerPostMessage. Note: \"MessageEvent\" should not be translated.",
     "placeholders": {
@@ -5163,103 +5099,103 @@
       }
     }
   },
-  "core/lib/bf-cache-strings.js | serviceWorkerUnregistration": {
+  "core/lib/bfcache-strings.js | serviceWorkerUnregistration": {
     "message": "Ŝér̂v́îćêẂôŕk̂ér̂ ẃâś ûńr̂éĝíŝt́êŕêd́ ŵh́îĺê á p̂áĝé ŵáŝ ín̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason ServiceWorkerUnregistration."
   },
-  "core/lib/bf-cache-strings.js | serviceWorkerVersionActivation": {
+  "core/lib/bfcache-strings.js | serviceWorkerVersionActivation": {
     "message": "T̂h́ê ṕâǵê ẃâś êv́îćt̂éd̂ f́r̂óm̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê d́ûé t̂ó â śêŕv̂íĉé ŵór̂ḱêŕ âćt̂ív̂át̂íôń.",
     "description": "Description text for not restored reason ServiceWorkerVersionActivation."
   },
-  "core/lib/bf-cache-strings.js | sessionRestored": {
+  "core/lib/bfcache-strings.js | sessionRestored": {
     "message": "Ĉh́r̂óm̂é r̂éŝt́âŕt̂éd̂ án̂d́ ĉĺêár̂éd̂ t́ĥé b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé êńt̂ŕîéŝ.",
     "description": "Description text for not restored reason SessionRestored."
   },
-  "core/lib/bf-cache-strings.js | sharedWorker": {
+  "core/lib/bfcache-strings.js | sharedWorker": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŝh́âŕêd́Ŵór̂ḱêŕ âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason SharedWorker."
   },
-  "core/lib/bf-cache-strings.js | speechRecognizer": {
+  "core/lib/bfcache-strings.js | speechRecognizer": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŝṕêéĉh́R̂éĉóĝńîźêŕ âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason SpeechRecognizer."
   },
-  "core/lib/bf-cache-strings.js | speechSynthesis": {
+  "core/lib/bfcache-strings.js | speechSynthesis": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŝṕêéĉh́Ŝýn̂t́ĥéŝíŝ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason SpeechSynthesis."
   },
-  "core/lib/bf-cache-strings.js | subframeIsNavigating": {
+  "core/lib/bfcache-strings.js | subframeIsNavigating": {
     "message": "Âń îf́r̂ám̂é ôń t̂h́ê ṕâǵê śt̂ár̂t́êd́ â ńâv́îǵât́îón̂ t́ĥát̂ d́îd́ n̂ót̂ ćôḿp̂ĺêt́ê.",
     "description": "Description text for not restored reason SubframeIsNavigating."
   },
-  "core/lib/bf-cache-strings.js | subresourceHasCacheControlNoCache": {
+  "core/lib/bfcache-strings.js | subresourceHasCacheControlNoCache": {
     "message": "P̂áĝéŝ ẃĥóŝé ŝúb̂ŕêśôúr̂ćê h́âś ĉáĉh́ê-ćôńt̂ŕôĺ:n̂ó-ĉáĉh́ê ćâńn̂ót̂ én̂t́êŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason SubresourceHasCacheControlNoCache."
   },
-  "core/lib/bf-cache-strings.js | subresourceHasCacheControlNoStore": {
+  "core/lib/bfcache-strings.js | subresourceHasCacheControlNoStore": {
     "message": "P̂áĝéŝ ẃĥóŝé ŝúb̂ŕêśôúr̂ćê h́âś ĉáĉh́ê-ćôńt̂ŕôĺ:n̂ó-ŝt́ôŕê ćâńn̂ót̂ én̂t́êŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason SubresourceHasCacheControlNoStore."
   },
-  "core/lib/bf-cache-strings.js | timeout": {
+  "core/lib/bfcache-strings.js | timeout": {
     "message": "T̂h́ê ṕâǵê éx̂ćêéd̂éd̂ t́ĥé m̂áx̂ím̂úm̂ t́îḿê ín̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê án̂d́ ŵáŝ éx̂ṕîŕêd́.",
     "description": "Description text for not restored reason Timeout."
   },
-  "core/lib/bf-cache-strings.js | timeoutPuttingInCache": {
+  "core/lib/bfcache-strings.js | timeoutPuttingInCache": {
     "message": "T̂h́ê ṕâǵê t́îḿêd́ ôút̂ én̂t́êŕîńĝ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê (ĺîḱêĺŷ d́ûé t̂ó l̂ón̂ǵ-r̂ún̂ńîńĝ ṕâǵêh́îd́ê h́âńd̂ĺêŕŝ).",
     "description": "Description text for not restored reason TimeoutPuttingInCache."
   },
-  "core/lib/bf-cache-strings.js | unloadHandlerExistsInMainFrame": {
+  "core/lib/bfcache-strings.js | unloadHandlerExistsInMainFrame": {
     "message": "T̂h́ê ṕâǵê h́âś âń ûńl̂óâd́ ĥán̂d́l̂ér̂ ín̂ t́ĥé m̂áîń f̂ŕâḿê.",
     "description": "Description text for not restored reason UnloadHandlerExistsInMainFrame."
   },
-  "core/lib/bf-cache-strings.js | unloadHandlerExistsInSubFrame": {
+  "core/lib/bfcache-strings.js | unloadHandlerExistsInSubFrame": {
     "message": "T̂h́ê ṕâǵê h́âś âń ûńl̂óâd́ ĥán̂d́l̂ér̂ ín̂ á ŝúb̂ f́r̂ám̂é.",
     "description": "Description text for not restored reason UnloadHandlerExistsInSubFrame."
   },
-  "core/lib/bf-cache-strings.js | userAgentOverrideDiffers": {
+  "core/lib/bfcache-strings.js | userAgentOverrideDiffers": {
     "message": "B̂ŕôẃŝér̂ h́âś ĉh́âńĝéd̂ t́ĥé ûśêŕ âǵêńt̂ óv̂ér̂ŕîd́ê h́êád̂ér̂.",
     "description": "Description text for not restored reason userAgentOverrideDiffers."
   },
-  "core/lib/bf-cache-strings.js | wasGrantedMediaAccess": {
+  "core/lib/bfcache-strings.js | wasGrantedMediaAccess": {
     "message": "P̂áĝéŝ t́ĥát̂ h́âv́ê ǵr̂án̂t́êd́ âćĉéŝś t̂ó r̂éĉór̂d́ v̂íd̂éô ór̂ áûd́îó âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason WasGrantedMediaAccess."
   },
-  "core/lib/bf-cache-strings.js | webDatabase": {
+  "core/lib/bfcache-strings.js | webDatabase": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂D́ât́âb́âśê ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason WebDatabase."
   },
-  "core/lib/bf-cache-strings.js | webHID": {
+  "core/lib/bfcache-strings.js | webHID": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂H́ÎD́ âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason WebHID."
   },
-  "core/lib/bf-cache-strings.js | webLocks": {
+  "core/lib/bfcache-strings.js | webLocks": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂Ĺôćk̂ś âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason WebLocks."
   },
-  "core/lib/bf-cache-strings.js | webNfc": {
+  "core/lib/bfcache-strings.js | webNfc": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂Ńf̂ć âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâd́ ĉáĉh́ê.",
     "description": "Description text for not restored reason WebNfc."
   },
-  "core/lib/bf-cache-strings.js | webOTPService": {
+  "core/lib/bfcache-strings.js | webOTPService": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂ÓT̂ṔŜér̂v́îćê ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́f̂ćâćĥé.",
     "description": "Description text for not restored reason WebOTPService."
   },
-  "core/lib/bf-cache-strings.js | webRTC": {
+  "core/lib/bfcache-strings.js | webRTC": {
     "message": "P̂áĝéŝ ẃît́ĥ Ẃêb́R̂T́Ĉ ćâńn̂ót̂ én̂t́êŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason WebRTC."
   },
-  "core/lib/bf-cache-strings.js | webShare": {
+  "core/lib/bfcache-strings.js | webShare": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂Śĥár̂é âŕê ńôt́ ĉúr̂ŕêńt̂ĺŷ él̂íĝíb̂ĺê f́ôŕ b̂áĉḱ/f̂ór̂ẃâd́ ĉáĉh́ê.",
     "description": "Description text for not restored reason WebShare."
   },
-  "core/lib/bf-cache-strings.js | webSocket": {
+  "core/lib/bfcache-strings.js | webSocket": {
     "message": "P̂áĝéŝ ẃît́ĥ Ẃêb́Ŝóĉḱêt́ ĉán̂ńôt́ êńt̂ér̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason WebSocket."
   },
-  "core/lib/bf-cache-strings.js | webTransport": {
+  "core/lib/bfcache-strings.js | webTransport": {
     "message": "P̂áĝéŝ ẃît́ĥ Ẃêb́T̂ŕâńŝṕôŕt̂ ćâńn̂ót̂ én̂t́êŕ b̂áĉḱ/f̂ór̂ẃâŕd̂ ćâćĥé.",
     "description": "Description text for not restored reason WebTransport."
   },
-  "core/lib/bf-cache-strings.js | webXR": {
+  "core/lib/bfcache-strings.js | webXR": {
     "message": "P̂áĝéŝ t́ĥát̂ úŝé Ŵéb̂X́R̂ ár̂é n̂ót̂ ćûŕr̂én̂t́l̂ý êĺîǵîb́l̂é f̂ór̂ b́âćk̂/f́ôŕŵár̂d́ ĉáĉh́ê.",
     "description": "Description text for not restored reason WebXR."
   },
@@ -7587,7 +7523,7 @@
       }
     }
   },
-  "node_modules/lighthouse-stack-packs/packs/next.js | prioritize-lcp-image": {
+  "node_modules/lighthouse-stack-packs/packs/next.js | preload-lcp-image": {
     "message": "Ûśê t́ĥé $MARKDOWN_SNIPPET_0$ ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ \"ṕr̂íôŕît́ŷ\" t́ô t́r̂úê t́ô ṕr̂él̂óâd́ L̂ĆP̂ ím̂áĝé. $LINK_START_0$L̂éâŕn̂ ḿôŕê$LINK_END_0$.",
     "description": "Additional description of a Lighthouse audit that tells the user to use the next/image component to automatically preload LCP images.",
     "placeholders": {
@@ -7795,7 +7731,7 @@
       }
     }
   },
-  "node_modules/lighthouse-stack-packs/packs/nuxt.js | prioritize-lcp-image": {
+  "node_modules/lighthouse-stack-packs/packs/nuxt.js | preload-lcp-image": {
     "message": "Ûśê t́ĥé $MARKDOWN_SNIPPET_0$ ĉóm̂ṕôńêńt̂ án̂d́ ŝṕêćîf́ŷ $MARKDOWN_SNIPPET_1$ f́ôŕ L̂ĆP̂ ím̂áĝé. $LINK_START_0$L̂éâŕn̂ ḿôŕê$LINK_END_0$.",
     "description": "Additional description of a Lighthouse audit that tells the user to use the nuxt/image component to prioritize the loading of the image that is part of the Largest Contentful Paint (LCP).",
     "placeholders": {
@@ -8415,213 +8351,79 @@
     "message": "Ŷóû ćâń êńâb́l̂é t̂éx̂t́ ĉóm̂ṕr̂éŝśîón̂ ín̂ ýôúr̂ ẃêb́ ŝér̂v́êŕ ĉón̂f́îǵûŕât́îón̂.",
     "description": "Additional description of a Lighthouse audit that tells the user how they can improve performance via enabling text compression in the context of the Wordpress CMS platform. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation."
   },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | modern-image-formats": {
-    "message": "Êńâb́l̂é 'Îḿâǵîf́ŷ' f́r̂óm̂ t́ĥé Îḿâǵê Óp̂t́îḿîźât́îón̂ t́âb́ îń 'ŴṔ R̂óĉḱêt́' t̂ó ĉón̂v́êŕt̂ ýôúr̂ ím̂áĝéŝ t́ô Ẃêb́P̂.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. `Imagify` is an image optimization add-on"
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | offscreen-images": {
-    "message": "Êńâb́l̂é $LINK_START_0$L̂áẑýL̂óâd́$LINK_END_0$ îń ŴṔ R̂óĉḱêt́ t̂ó f̂íx̂ t́ĥíŝ ŕêćôḿm̂én̂d́ât́îón̂. T́ĥíŝ f́êát̂úr̂é d̂él̂áŷś t̂h́ê ĺôád̂ín̂ǵ ôf́ t̂h́ê ím̂áĝéŝ ún̂t́îĺ t̂h́ê v́îśît́ôŕ ŝćr̂ól̂ĺŝ d́ôẃn̂ t́ĥé p̂áĝé âńd̂ áĉt́ûál̂ĺŷ ńêéd̂ś t̂ó ŝéê t́ĥém̂.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. LazyLoad for images is a name of the feature",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1141-lazyload-for-images)"
-      }
-    }
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | render-blocking-resources": {
-    "message": "Êńâb́l̂é $LINK_START_0$R̂ém̂óv̂é Ûńûśêd́ ĈŚŜ$LINK_END_0$ án̂d́ $LINK_START_1$L̂óâd́ Ĵáv̂áŜćr̂íp̂t́ d̂éf̂ér̂ŕêd́$LINK_END_1$ îń 'ŴṔ R̂óĉḱêt́' t̂ó âd́d̂ŕêśŝ t́ĥíŝ ŕêćôḿm̂én̂d́ât́îón̂. T́ĥéŝé f̂éât́ûŕêś ŵíl̂ĺ r̂éŝṕêćt̂ív̂él̂ý ôṕt̂ím̂íẑé t̂h́ê ĆŜŚ âńd̂ J́âv́âŚĉŕîṕt̂ f́îĺêś ŝó t̂h́ât́ t̂h́êý d̂ón̂'t́ b̂ĺôćk̂ t́ĥé r̂én̂d́êŕîńĝ óf̂ ýôúr̂ ṕâǵê.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. Remove Unused CSS, Load JavaScript deferred are names of the features",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1529-remove-unused-css)"
-      },
-      "LINK_START_1": {
-        "content": "["
-      },
-      "LINK_END_1": {
-        "content": "](https://docs.wp-rocket.me/article/1265-load-javascript-deferred)"
-      }
-    }
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | unminified-css": {
-    "message": "Êńâb́l̂é $LINK_START_0$M̂ín̂íf̂ý ĈŚŜ f́îĺêś$LINK_END_0$ îń 'ŴṔ R̂óĉḱêt́' t̂ó f̂íx̂ t́ĥíŝ íŝśûé. Âńŷ śp̂áĉéŝ án̂d́ ĉóm̂ḿêńt̂ś îń ŷóûŕ ŝít̂é'ŝ ĆŜŚ f̂íl̂éŝ ẃîĺl̂ b́ê ŕêḿôv́êd́ t̂ó m̂ák̂é t̂h́ê f́îĺê śîźê śm̂ál̂ĺêŕ âńd̂ f́âśt̂ér̂ t́ô d́ôẃn̂ĺôád̂.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. Minify CSS Files is a name of the feature",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1350-css-minify-combine)"
-      }
-    }
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | unminified-javascript": {
-    "message": "Êńâb́l̂é $LINK_START_0$M̂ín̂íf̂ý Ĵáv̂áŜćr̂íp̂t́ f̂íl̂éŝ$LINK_END_0$ ín̂ 'ẂP̂ Ŕôćk̂ét̂' t́ô f́îx́ t̂h́îś îśŝúê. Ém̂ṕt̂ý ŝṕâćêś âńd̂ ćôḿm̂én̂t́ŝ ẃîĺl̂ b́ê ŕêḿôv́êd́ f̂ŕôḿ Ĵáv̂áŜćr̂íp̂t́ f̂íl̂éŝ t́ô ḿâḱê t́ĥéîŕ ŝíẑé ŝḿâĺl̂ér̂ án̂d́ f̂áŝt́êŕ t̂ó d̂óŵńl̂óâd́.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. Minify JavaScript Files is a name of the feature",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1351-javascript-minify-combine)"
-      }
-    }
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | unused-css-rules": {
-    "message": "Êńâb́l̂é $LINK_START_0$R̂ém̂óv̂é Ûńûśêd́ ĈŚŜ$LINK_END_0$ ín̂ 'ẂP̂ Ŕôćk̂ét̂' t́ô f́îx́ t̂h́îś îśŝúê. Ít̂ ŕêd́ûćêś p̂áĝé ŝíẑé b̂ý r̂ém̂óv̂ín̂ǵ âĺl̂ ĆŜŚ âńd̂ śt̂ýl̂éŝh́êét̂ś t̂h́ât́ âŕê ńôt́ ûśêd́ ŵh́îĺê ḱêép̂ín̂ǵ ôńl̂ý t̂h́ê úŝéd̂ ĆŜŚ f̂ór̂ éâćĥ ṕâǵê.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. Remove Unused CSS is a name of the feature",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1529-remove-unused-css)"
-      }
-    }
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | unused-javascript": {
-    "message": "Êńâb́l̂é $LINK_START_0$D̂él̂áŷ J́âv́âŚĉŕîṕt̂ éx̂éĉút̂íôń$LINK_END_0$ îń 'ŴṔ R̂óĉḱêt́' t̂ó f̂íx̂ t́ĥíŝ ṕr̂ób̂ĺêḿ. Ît́ ŵíl̂ĺ îḿp̂ŕôv́ê t́ĥé l̂óâd́îńĝ óf̂ ýôúr̂ ṕâǵê b́ŷ d́êĺâýîńĝ t́ĥé êx́êćût́îón̂ óf̂ śĉŕîṕt̂ś ûńt̂íl̂ úŝér̂ ín̂t́êŕâćt̂íôń. Îf́ ŷóûŕ ŝít̂é ĥáŝ íf̂ŕâḿêś, ŷóû ćâń ûśê ẂP̂ Ŕôćk̂ét̂'ś $LINK_START_1$L̂áẑýL̂óâd́ f̂ór̂ íf̂ŕâḿêś âńd̂ v́îd́êóŝ$LINK_END_1$ án̂d́ $LINK_START_2$R̂ép̂ĺâćê ÝôúT̂úb̂é îf́r̂ám̂é ŵít̂h́ p̂ŕêv́îéŵ ím̂áĝé$LINK_END_2$ âś ŵél̂ĺ.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. Delay JavaScript, LazyLoad for iframes and videos and Replace YouTube iframe with preview image are names of the features",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1349-delay-javascript-execution)"
-      },
-      "LINK_START_1": {
-        "content": "["
-      },
-      "LINK_END_1": {
-        "content": "](https://docs.wp-rocket.me/article/1674-lazyload-for-iframes-and-videos)"
-      },
-      "LINK_START_2": {
-        "content": "["
-      },
-      "LINK_END_2": {
-        "content": "](https://docs.wp-rocket.me/article/1488-replace-youtube-iframe-with-preview-image)"
-      }
-    }
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | uses-optimized-images": {
-    "message": "Êńâb́l̂é 'Îḿâǵîf́ŷ' f́r̂óm̂ t́ĥé Îḿâǵê Óp̂t́îḿîźât́îón̂ t́âb́ îń 'ŴṔ R̂óĉḱêt́' âńd̂ ŕûń B̂úl̂ḱ Ôṕt̂ím̂íẑát̂íôń t̂ó ĉóm̂ṕr̂éŝś ŷóûŕ îḿâǵêś.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. `Imagify` is an image optimization add-on"
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | uses-rel-preconnect": {
-    "message": "Ûśê $LINK_START_0$Ṕr̂éf̂ét̂ćĥ D́N̂Ś R̂éq̂úêśt̂ś$LINK_END_0$ îń 'ŴṔ R̂óĉḱêt́' t̂ó âd́d̂ \"d́n̂ś-p̂ŕêf́êt́ĉh́\" âńd̂ śp̂éêd́ ûṕ t̂h́ê ćôńn̂éĉt́îón̂ ẃît́ĥ éx̂t́êŕn̂ál̂ d́ôḿâín̂ś. Âĺŝó, 'ŴṔ R̂óĉḱêt́' âút̂óm̂át̂íĉál̂ĺŷ ád̂d́ŝ \"ṕr̂éĉón̂ńêćt̂\" t́ô $LINK_START_1$Ǵôóĝĺê F́ôńt̂ś d̂óm̂áîń$LINK_END_1$ âńd̂ án̂ý ĈŃÂḾÊ(Ś) âd́d̂éd̂ v́îá t̂h́ê $LINK_START_2$Én̂áb̂ĺê ĆD̂Ń$LINK_END_2$ f̂éât́ûŕê.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. Prefetch DNS Requests, Enable CDN are names of the features",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1302-prefetch-dns-requests)"
-      },
-      "LINK_START_1": {
-        "content": "["
-      },
-      "LINK_END_1": {
-        "content": "](https://docs.wp-rocket.me/article/1312-optimize-google-fonts)"
-      },
-      "LINK_START_2": {
-        "content": "["
-      },
-      "LINK_END_2": {
-        "content": "](https://docs.wp-rocket.me/article/42-using-wp-rocket-with-a-cdn)"
-      }
-    }
-  },
-  "node_modules/lighthouse-stack-packs/packs/wp-rocket.js | uses-rel-preload": {
-    "message": "T̂ó f̂íx̂ t́ĥíŝ íŝśûé f̂ór̂ f́ôńt̂ś, êńâb́l̂é $LINK_START_0$R̂ém̂óv̂é Ûńûśêd́ ĈŚŜ$LINK_END_0$ ín̂ 'ẂP̂ Ŕôćk̂ét̂'. Ýôúr̂ śît́ê'ś ĉŕît́îćâĺ f̂ón̂t́ŝ ẃîĺl̂ b́ê ṕr̂él̂óâd́êd́ ŵít̂h́ p̂ŕîór̂ít̂ý.",
-    "description": "Additional description of a Lighthouse audit for a third-party framework called 'WP Rocket'. This is displayed after a user expands the section to see more. No character length limits. Remove Unused CSS is a name of the feature",
-    "placeholders": {
-      "LINK_START_0": {
-        "content": "["
-      },
-      "LINK_END_0": {
-        "content": "](https://docs.wp-rocket.me/article/1529-remove-unused-css)"
-      }
-    }
-  },
-  "report/renderer/report-utils.js | calculatorLink": {
+  "report/renderer/util.js | calculatorLink": {
     "message": "Ŝéê ćâĺĉúl̂át̂ór̂.",
     "description": "Text link pointing to an interactive calculator that explains Lighthouse scoring. The link text should be fairly short."
   },
-  "report/renderer/report-utils.js | collapseView": {
+  "report/renderer/util.js | collapseView": {
     "message": "Ĉól̂ĺâṕŝé v̂íêẃ",
     "description": "Label for an interactive control that will reveal or hide a group of content. This control toggles between the text 'Expand view' and 'Collapse view'."
   },
-  "report/renderer/report-utils.js | crcInitialNavigation": {
+  "report/renderer/util.js | crcInitialNavigation": {
     "message": "Îńît́îál̂ Ńâv́îǵât́îón̂",
     "description": "String of text shown in a graphical representation of the flow of network requests for the web page. This label represents the initial network request that fetches an HTML page. This navigation may be redirected (eg. Initial navigation to http://example.com redirects to https://www.example.com)."
   },
-  "report/renderer/report-utils.js | crcLongestDurationLabel": {
+  "report/renderer/util.js | crcLongestDurationLabel": {
     "message": "M̂áx̂ím̂úm̂ ćr̂ít̂íĉál̂ ṕât́ĥ ĺât́êńĉý:",
     "description": "Label of value shown in the summary of critical request chains. Refers to the total amount of time (milliseconds) of the longest critical path chain/sequence of network requests. Example value: 2310 ms"
   },
-  "report/renderer/report-utils.js | dropdownCopyJSON": {
+  "report/renderer/util.js | dropdownCopyJSON": {
     "message": "Ĉóp̂ý ĴŚÔŃ",
     "description": "Option in a dropdown menu that copies the Lighthouse JSON object to the system clipboard."
   },
-  "report/renderer/report-utils.js | dropdownDarkTheme": {
+  "report/renderer/util.js | dropdownDarkTheme": {
     "message": "T̂óĝǵl̂é D̂ár̂ḱ T̂h́êḿê",
     "description": "Option in a dropdown menu that toggles the themeing of the report between Light(default) and Dark themes."
   },
-  "report/renderer/report-utils.js | dropdownPrintExpanded": {
+  "report/renderer/util.js | dropdownPrintExpanded": {
     "message": "P̂ŕîńt̂ Éx̂ṕâńd̂éd̂",
     "description": "Option in a dropdown menu that opens a full Lighthouse report in a print dialog."
   },
-  "report/renderer/report-utils.js | dropdownPrintSummary": {
+  "report/renderer/util.js | dropdownPrintSummary": {
     "message": "P̂ŕîńt̂ Śûḿm̂ár̂ý",
     "description": "Option in a dropdown menu that opens a small, summary report in a print dialog."
   },
-  "report/renderer/report-utils.js | dropdownSaveGist": {
+  "report/renderer/util.js | dropdownSaveGist": {
     "message": "Ŝáv̂é âś Ĝíŝt́",
     "description": "Option in a dropdown menu that saves the current report as a new GitHub Gist."
   },
-  "report/renderer/report-utils.js | dropdownSaveHTML": {
+  "report/renderer/util.js | dropdownSaveHTML": {
     "message": "Ŝáv̂é âś ĤT́M̂Ĺ",
     "description": "Option in a dropdown menu that saves the Lighthouse report HTML locally to the system as a '.html' file."
   },
-  "report/renderer/report-utils.js | dropdownSaveJSON": {
+  "report/renderer/util.js | dropdownSaveJSON": {
     "message": "Ŝáv̂é âś ĴŚÔŃ",
     "description": "Option in a dropdown menu that saves the Lighthouse JSON object to the local system as a '.json' file."
   },
-  "report/renderer/report-utils.js | dropdownViewer": {
+  "report/renderer/util.js | dropdownViewer": {
     "message": "Ôṕêń îń V̂íêẃêŕ",
     "description": "Option in a dropdown menu that opens the current report in the Lighthouse Viewer Application."
   },
-  "report/renderer/report-utils.js | errorLabel": {
+  "report/renderer/util.js | errorLabel": {
     "message": "Êŕr̂ór̂!",
     "description": "A label, shown next to an audit title or metric title, indicating that there was an error computing it. The user can hover on the label to reveal a tooltip with the extended error message. Translation should be short (< 20 characters)."
   },
-  "report/renderer/report-utils.js | errorMissingAuditInfo": {
+  "report/renderer/util.js | errorMissingAuditInfo": {
     "message": "R̂ép̂ór̂t́ êŕr̂ór̂: ńô áûd́ît́ îńf̂ór̂ḿât́îón̂",
     "description": "An error string displayed next to a particular audit when it has errored, but not provided any specific error message."
   },
-  "report/renderer/report-utils.js | expandView": {
+  "report/renderer/util.js | expandView": {
     "message": "Êx́p̂án̂d́ v̂íêẃ",
     "description": "Label for an interactive control that will reveal or hide a group of content. This control toggles between the text 'Expand view' and 'Collapse view'."
   },
-  "report/renderer/report-utils.js | footerIssue": {
+  "report/renderer/util.js | footerIssue": {
     "message": "F̂íl̂é âń îśŝúê",
     "description": "Label for button to create an issue against the Lighthouse GitHub project."
   },
-  "report/renderer/report-utils.js | hide": {
+  "report/renderer/util.js | hide": {
     "message": "Ĥíd̂é",
     "description": "Label for an interactive control that will reveal or hide a group of content. This control toggles between the text 'Show' and 'Hide'."
   },
-  "report/renderer/report-utils.js | labDataTitle": {
+  "report/renderer/util.js | labDataTitle": {
     "message": "L̂áb̂ D́ât́â",
     "description": "Title of the lab data section of the Performance category. Within this section are various speed metrics which quantify the pageload performance into values presented in seconds and milliseconds. \"Lab\" is an abbreviated form of \"laboratory\", and refers to the fact that the data is from a controlled test of a website, not measurements from real users visiting that site."
   },
-  "report/renderer/report-utils.js | lsPerformanceCategoryDescription": {
+  "report/renderer/util.js | lsPerformanceCategoryDescription": {
     "message": "$LINK_START_0$L̂íĝh́t̂h́ôúŝé$LINK_END_0$ âńâĺŷśîś ôf́ t̂h́ê ćûŕr̂én̂t́ p̂áĝé ôń âń êḿûĺât́êd́ m̂ób̂íl̂é n̂ét̂ẃôŕk̂. V́âĺûéŝ ár̂é êśt̂ím̂át̂éd̂ án̂d́ m̂áŷ v́âŕŷ.",
     "description": "Explanation shown to users below performance results to inform them that the test was done with a 4G network connection and to warn them that the numbers they see will likely change slightly the next time they run Lighthouse. 'Lighthouse' becomes link text to additional documentation.",
     "placeholders": {
@@ -8633,119 +8435,119 @@
       }
     }
   },
-  "report/renderer/report-utils.js | manualAuditsGroupTitle": {
+  "report/renderer/util.js | manualAuditsGroupTitle": {
     "message": "Âd́d̂ít̂íôńâĺ ît́êḿŝ t́ô ḿâńûál̂ĺŷ ćĥéĉḱ",
     "description": "Section heading shown above a list of audits that were not computed by Lighthouse. They serve as a list of suggestions for the user to go and manually check. For example, Lighthouse can't automate testing cross-browser compatibility, so that is listed within this section, so the user is reminded to test it themselves. This section is collapsed by default, as the user should be focusing on the failed audits instead. Users can click this heading to reveal the list."
   },
-  "report/renderer/report-utils.js | notApplicableAuditsGroupTitle": {
+  "report/renderer/util.js | notApplicableAuditsGroupTitle": {
     "message": "N̂ót̂ áp̂ṕl̂íĉáb̂ĺê",
     "description": "Section heading shown above a list of audits that do not apply to the page. For example, if an audit is 'Are images optimized?', but the page has no images on it, the audit will be marked as not applicable. This is neither passing or failing. This section is collapsed by default, as the user should be focusing on the failed audits instead. Users can click this heading to reveal the list."
   },
-  "report/renderer/report-utils.js | opportunityResourceColumnLabel": {
+  "report/renderer/util.js | opportunityResourceColumnLabel": {
     "message": "Ôṕp̂ór̂t́ûńît́ŷ",
     "description": "Column heading label for the listing of opportunity audits. Each audit title represents an opportunity. There are only 2 columns, so no strict character limit."
   },
-  "report/renderer/report-utils.js | opportunitySavingsColumnLabel": {
+  "report/renderer/util.js | opportunitySavingsColumnLabel": {
     "message": "Êśt̂ím̂át̂éd̂ Śâv́îńĝś",
     "description": "Column heading label for the estimated page load savings of opportunity audits. Estimated Savings is the total amount of time (in seconds) that Lighthouse computed could be reduced from the total page load time, if the suggested action is taken. There are only 2 columns, so no strict character limit."
   },
-  "report/renderer/report-utils.js | passedAuditsGroupTitle": {
+  "report/renderer/util.js | passedAuditsGroupTitle": {
     "message": "P̂áŝśêd́ âúd̂ít̂ś",
     "description": "Section heading shown above a list of audits that are passing. 'Passed' here refers to a passing grade. This section is collapsed by default, as the user should be focusing on the failed audits instead. Users can click this heading to reveal the list."
   },
-  "report/renderer/report-utils.js | runtimeAnalysisWindow": {
+  "report/renderer/util.js | runtimeAnalysisWindow": {
     "message": "Îńît́îál̂ ṕâǵê ĺôád̂",
     "description": "Descriptive label that this analysis only considers the initial load of the page, and no interaction beyond when the page had \"fully loaded\""
   },
-  "report/renderer/report-utils.js | runtimeCustom": {
+  "report/renderer/util.js | runtimeCustom": {
     "message": "Ĉúŝt́ôḿ t̂h́r̂ót̂t́l̂ín̂ǵ",
     "description": "Label indicating that Lighthouse throttled the page using custom throttling settings."
   },
-  "report/renderer/report-utils.js | runtimeDesktopEmulation": {
+  "report/renderer/util.js | runtimeDesktopEmulation": {
     "message": "Êḿûĺât́êd́ D̂éŝḱt̂óp̂",
     "description": "Descriptive explanation for emulation setting when emulating a generic desktop form factor, as opposed to a mobile-device like form factor."
   },
-  "report/renderer/report-utils.js | runtimeMobileEmulation": {
-    "message": "Êḿûĺât́êd́ M̂ót̂ó Ĝ Ṕôẃêŕ",
-    "description": "Descriptive explanation for emulation setting when emulating a Moto G Power mobile device."
+  "report/renderer/util.js | runtimeMobileEmulation": {
+    "message": "Êḿûĺât́êd́ M̂ót̂ó Ĝ4",
+    "description": "Descriptive explanation for emulation setting when emulating a Moto G4 mobile device."
   },
-  "report/renderer/report-utils.js | runtimeNoEmulation": {
+  "report/renderer/util.js | runtimeNoEmulation": {
     "message": "N̂ó êḿûĺât́îón̂",
     "description": "Descriptive explanation for emulation setting when no device emulation is set."
   },
-  "report/renderer/report-utils.js | runtimeSettingsAxeVersion": {
+  "report/renderer/util.js | runtimeSettingsAxeVersion": {
     "message": "Âx́ê v́êŕŝíôń",
     "description": "Label for a row in a table that shows the version of the Axe library used. Example row values: 2.1.0, 3.2.3"
   },
-  "report/renderer/report-utils.js | runtimeSettingsBenchmark": {
-    "message": "Ûńt̂h́r̂ót̂t́l̂éd̂ ĆP̂Ú/M̂ém̂ór̂ý P̂óŵér̂",
+  "report/renderer/util.js | runtimeSettingsBenchmark": {
+    "message": "ĈṔÛ/Ḿêḿôŕŷ Ṕôẃêŕ",
     "description": "Label for a row in a table that shows the estimated CPU power of the machine running Lighthouse. Example row values: 532, 1492, 783."
   },
-  "report/renderer/report-utils.js | runtimeSettingsCPUThrottling": {
+  "report/renderer/util.js | runtimeSettingsCPUThrottling": {
     "message": "ĈṔÛ t́ĥŕôt́t̂ĺîńĝ",
     "description": "Label for a row in a table that describes the CPU throttling conditions that were used during a Lighthouse run, if any."
   },
-  "report/renderer/report-utils.js | runtimeSettingsDevice": {
+  "report/renderer/util.js | runtimeSettingsDevice": {
     "message": "D̂év̂íĉé",
     "description": "Label for a row in a table that describes the kind of device that was emulated for the Lighthouse run.  Example values for row elements: 'No Emulation', 'Emulated Desktop', etc."
   },
-  "report/renderer/report-utils.js | runtimeSettingsNetworkThrottling": {
+  "report/renderer/util.js | runtimeSettingsNetworkThrottling": {
     "message": "N̂ét̂ẃôŕk̂ t́ĥŕôt́t̂ĺîńĝ",
     "description": "Label for a row in a table that describes the network throttling conditions that were used during a Lighthouse run, if any."
   },
-  "report/renderer/report-utils.js | runtimeSettingsScreenEmulation": {
+  "report/renderer/util.js | runtimeSettingsScreenEmulation": {
     "message": "Ŝćr̂éêń êḿûĺât́îón̂",
     "description": "Label for a row in a table that shows the screen resolution and DPR that was emulated for the Lighthouse run. Example values: '800x600, DPR: 3'"
   },
-  "report/renderer/report-utils.js | runtimeSettingsUANetwork": {
+  "report/renderer/util.js | runtimeSettingsUANetwork": {
     "message": "Ûśêŕ âǵêńt̂ (ńêt́ŵór̂ḱ)",
     "description": "Label for a row in a table that shows the User Agent that was used to send out all network requests during the Lighthouse run."
   },
-  "report/renderer/report-utils.js | runtimeSingleLoad": {
+  "report/renderer/util.js | runtimeSingleLoad": {
     "message": "Ŝín̂ǵl̂é p̂áĝé l̂óâd́",
     "description": "Descriptive label that this analysis run was from a single pageload of a browser (not a summary of hundreds of loads)"
   },
-  "report/renderer/report-utils.js | runtimeSingleLoadTooltip": {
+  "report/renderer/util.js | runtimeSingleLoadTooltip": {
     "message": "T̂h́îś d̂át̂á îś t̂ák̂én̂ f́r̂óm̂ á ŝín̂ǵl̂é p̂áĝé l̂óâd́, âś ôṕp̂óŝéd̂ t́ô f́îél̂d́ d̂át̂á ŝúm̂ḿâŕîźîńĝ ḿâńŷ śêśŝíôńŝ.",
     "description": "Descriptive explanation that this analysis run was from a single pageload of a browser, whereas field data often summarizes hundreds+ of page loads"
   },
-  "report/renderer/report-utils.js | runtimeSlow4g": {
+  "report/renderer/util.js | runtimeSlow4g": {
     "message": "Ŝĺôẃ 4Ĝ t́ĥŕôt́t̂ĺîńĝ",
     "description": "Label indicating that Lighthouse throttled the page to emulate a slow 4G network connection."
   },
-  "report/renderer/report-utils.js | runtimeUnknown": {
+  "report/renderer/util.js | runtimeUnknown": {
     "message": "Ûńk̂ńôẃn̂",
     "description": "Descriptive explanation for a runtime setting that is set to an unknown value."
   },
-  "report/renderer/report-utils.js | show": {
+  "report/renderer/util.js | show": {
     "message": "Ŝh́ôẃ",
     "description": "Label for an interactive control that will reveal or hide a group of content. This control toggles between the text 'Show' and 'Hide'."
   },
-  "report/renderer/report-utils.js | showRelevantAudits": {
+  "report/renderer/util.js | showRelevantAudits": {
     "message": "Ŝh́ôẃ âúd̂ít̂ś r̂él̂év̂án̂t́ t̂ó:",
     "description": "Label preceding a radio control for filtering the list of audits. The radio choices are various performance metrics (FCP, LCP, TBT), and if chosen, the audits in the report are hidden if they are not relevant to the selected metric."
   },
-  "report/renderer/report-utils.js | snippetCollapseButtonLabel": {
+  "report/renderer/util.js | snippetCollapseButtonLabel": {
     "message": "Ĉól̂ĺâṕŝé ŝńîṕp̂ét̂",
     "description": "Label for button that only shows a few lines of the snippet when clicked"
   },
-  "report/renderer/report-utils.js | snippetExpandButtonLabel": {
+  "report/renderer/util.js | snippetExpandButtonLabel": {
     "message": "Êx́p̂án̂d́ ŝńîṕp̂ét̂",
     "description": "Label for button that shows all lines of the snippet when clicked"
   },
-  "report/renderer/report-utils.js | thirdPartyResourcesLabel": {
+  "report/renderer/util.js | thirdPartyResourcesLabel": {
     "message": "Ŝh́ôẃ 3r̂d́-p̂ár̂t́ŷ ŕêśôúr̂ćêś",
     "description": "This label is for a checkbox above a table of items loaded by a web page. The checkbox is used to show or hide third-party (or \"3rd-party\") resources in the table, where \"third-party resources\" refers to items loaded by a web page from URLs that aren't controlled by the owner of the web page."
   },
-  "report/renderer/report-utils.js | throttlingProvided": {
+  "report/renderer/util.js | throttlingProvided": {
     "message": "P̂ŕôv́îd́êd́ b̂ý êńv̂ír̂ón̂ḿêńt̂",
     "description": "Descriptive explanation for environment throttling that was provided by the runtime environment instead of provided by Lighthouse throttling."
   },
-  "report/renderer/report-utils.js | toplevelWarningsMessage": {
+  "report/renderer/util.js | toplevelWarningsMessage": {
     "message": "T̂h́êŕê ẃêŕê íŝśûéŝ áf̂f́êćt̂ín̂ǵ t̂h́îś r̂ún̂ óf̂ Ĺîǵĥt́ĥóûśê:",
     "description": "Label shown preceding any important warnings that may have invalidated the entire report. For example, if the user has Chrome extensions installed, they may add enough performance overhead that Lighthouse's performance metrics are unreliable. If shown, this will be displayed at the top of the report UI."
   },
-  "report/renderer/report-utils.js | varianceDisclaimer": {
+  "report/renderer/util.js | varianceDisclaimer": {
     "message": "V̂ál̂úêś âŕê éŝt́îḿât́êd́ âńd̂ ḿâý v̂ár̂ý. T̂h́ê $LINK_START_0$ṕêŕf̂ór̂ḿâńĉé ŝćôŕê íŝ ćâĺĉúl̂át̂éd̂$LINK_END_0$ d́îŕêćt̂ĺŷ f́r̂óm̂ t́ĥéŝé m̂ét̂ŕîćŝ.",
     "description": "Disclaimer shown to users below the metric values (First Contentful Paint, Time to Interactive, etc) to warn them that the numbers they see will likely change slightly the next time they run Lighthouse.",
     "placeholders": {
@@ -8757,23 +8559,23 @@
       }
     }
   },
-  "report/renderer/report-utils.js | viewOriginalTraceLabel": {
+  "report/renderer/util.js | viewOriginalTraceLabel": {
     "message": "V̂íêẃ Ôŕîǵîńâĺ T̂ŕâćê",
     "description": "This label is for a button that will show the user a trace of the page."
   },
-  "report/renderer/report-utils.js | viewTraceLabel": {
+  "report/renderer/util.js | viewTraceLabel": {
     "message": "V̂íêẃ T̂ŕâćê",
     "description": "This label is for a button that will show the user a trace of the page."
   },
-  "report/renderer/report-utils.js | viewTreemapLabel": {
+  "report/renderer/util.js | viewTreemapLabel": {
     "message": "V̂íêẃ T̂ŕêém̂áp̂",
     "description": "This label is for a button that opens a new tab to a webapp called \"Treemap\", which is a nested visual representation of a heierarchy of data related to the reports (script bytes and coverage, resource breakdown, etc.)"
   },
-  "report/renderer/report-utils.js | warningAuditsGroupTitle": {
+  "report/renderer/util.js | warningAuditsGroupTitle": {
     "message": "P̂áŝśêd́ âúd̂ít̂ś b̂út̂ ẃît́ĥ ẃâŕn̂ín̂ǵŝ",
     "description": "Section heading shown above a list of passed audits that contain warnings. Audits under this section do not negatively impact the score, but Lighthouse has generated some potentially actionable suggestions that should be reviewed. This section is expanded by default and displays after the failing audits."
   },
-  "report/renderer/report-utils.js | warningHeader": {
+  "report/renderer/util.js | warningHeader": {
     "message": "Ŵár̂ńîńĝś: ",
     "description": "This label is shown above a bulleted list of warnings. It is shown directly below an audit that produced warnings. Warnings describe situations the user should be aware of, as Lighthouse was unable to complete all the work required on this audit. For example, The 'Unable to decode image (biglogo.jpg)' warning may show up below an image encoding audit."
   },
