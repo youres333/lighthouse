@@ -2744,7 +2744,7 @@
     "csp-inline": {
       "id": "csp-inline",
       "title": "Does not define any CSPs in an inline `<meta>` tag",
-      "description": "A CSP defined in an inline `<meta>` tag will delay the preload scanner from loading resources early. Consider defining all CSPs in http headers if you can.",
+      "description": "A CSP defined in an inline `<meta>` tag will delay the preload scanner from loading resources early. Consider defining all CSPs in http headers if you can. [Learn more about defining a CSP in an inline meta tag]()",
       "score": 1,
       "scoreDisplayMode": "binary"
     },

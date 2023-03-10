@@ -8,13 +8,14 @@ import {Audit} from './audit.js';
 import * as i18n from '../lib/i18n/i18n.js';
 
 const UIStrings = {
-  /** TODO */
+  /** Title of a Lighthouse audit that advises users to avoid putting a CSP in an inline html meta tag. This descriptive title is shown to users when a CSP is not found in the page's html document. */
   title: 'Does not define any CSPs in an inline `<meta>` tag',
-  /** TODO */
+  /** Title of a Lighthouse audit that advises users to avoid putting a CSP in an inline html meta tag. This descriptive title is shown to users when a CSP is found in the page's html document. */
   failureTitle: 'Defines a CSP in an inline `<meta>` tag',
-  /** TODO */
+  /** Description of a Lighthouse audit that advises users to avoid putting a CSP in an inline html meta tag. This is displayed after a user expands the section to see more. No character length limits. The last sentence starting with 'Learn' becomes link text to additional documentation. */
   description: 'A CSP defined in an inline `<meta>` tag will delay the preload scanner from ' +
-    'loading resources early. Consider defining all CSPs in http headers if you can.',
+    'loading resources early. Consider defining all CSPs in http headers if you can. ' +
+    '[Learn more about defining a CSP in an inline meta tag]()',
 };
 
 const str_ = i18n.createIcuMessageFn(import.meta.url, UIStrings);
