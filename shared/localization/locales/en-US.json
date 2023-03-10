@@ -615,7 +615,7 @@
     "message": "Defines a CSP in an inline `<meta>` tag"
   },
   "core/audits/csp-inline.js | title": {
-    "message": "Does not define any CSPs in an inline `<meta>` tag"
+    "message": "Does not define any CSPs in inline `<meta>` tags"
   },
   "core/audits/csp-xss.js | columnDirective": {
     "message": "Directive"

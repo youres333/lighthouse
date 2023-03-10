@@ -9,7 +9,7 @@ import * as i18n from '../lib/i18n/i18n.js';
 
 const UIStrings = {
   /** Title of a Lighthouse audit that advises users to avoid putting a CSP in an inline html meta tag. This descriptive title is shown to users when a CSP is not found in the page's html document. */
-  title: 'Does not define any CSPs in an inline `<meta>` tag',
+  title: 'Does not define any CSPs in inline `<meta>` tags',
   /** Title of a Lighthouse audit that advises users to avoid putting a CSP in an inline html meta tag. This descriptive title is shown to users when a CSP is found in the page's html document. */
   failureTitle: 'Defines a CSP in an inline `<meta>` tag',
   /** Description of a Lighthouse audit that advises users to avoid putting a CSP in an inline html meta tag. This is displayed after a user expands the section to see more. No character length limits. The last sentence starting with 'Learn' becomes link text to additional documentation. */
