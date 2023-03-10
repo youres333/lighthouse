@@ -146,6 +146,10 @@ const expectations = {
         content: 'Open Graph smoke test description',
         property: 'og:description',
       },
+      {
+        httpEquiv: 'content-security-policy',
+        content: 'style-src * \'unsafe-inline\'',
+      },
     ],
     TagsBlockingFirstPaint: [
       {
@@ -565,6 +569,19 @@ const expectations = {
             pathLength: 4,
           },
         },
+      },
+      'csp-xss': {
+        details: {
+          items: {
+            _includes: [{
+              description: /The page contains a CSP defined in a <meta> tag/,
+              severity: 'Medium',
+            }],
+          },
+        },
+      },
+      'csp-inline': {
+        score: 0,
       },
     },
     fullPageScreenshot: {

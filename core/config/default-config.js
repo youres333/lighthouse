@@ -229,6 +229,7 @@ const defaultConfig = {
     'valid-source-maps',
     'prioritize-lcp-image',
     'csp-xss',
+    'csp-inline',
     'script-treemap-data',
     'manual/pwa-cross-browser',
     'manual/pwa-page-transitions',
@@ -470,6 +471,7 @@ const defaultConfig = {
         {id: 'uses-responsive-images-snapshot', weight: 0},
         {id: 'work-during-interaction', weight: 0},
         {id: 'bf-cache', weight: 0},
+        {id: 'csp-inline', weight: 0},
 
         // Budget audits.
         {id: 'performance-budget', weight: 0, group: 'budgets'},

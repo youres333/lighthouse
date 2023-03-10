@@ -608,6 +608,15 @@
   "core/audits/critical-request-chains.js | title": {
     "message": "Avoid chaining critical requests"
   },
+  "core/audits/csp-inline.js | description": {
+    "message": "A CSP defined in an inline `<meta>` tag will delay the preload scanner from loading resources early. Consider defining all CSPs in http headers if you can."
+  },
+  "core/audits/csp-inline.js | failureTitle": {
+    "message": "Defines a CSP in an inline `<meta>` tag"
+  },
+  "core/audits/csp-inline.js | title": {
+    "message": "Does not define any CSPs in an inline `<meta>` tag"
+  },
   "core/audits/csp-xss.js | columnDirective": {
     "message": "Directive"
   },

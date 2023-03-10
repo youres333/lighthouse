@@ -2741,6 +2741,13 @@
         ]
       }
     },
+    "csp-inline": {
+      "id": "csp-inline",
+      "title": "Does not define any CSPs in an inline `<meta>` tag",
+      "description": "A CSP defined in an inline `<meta>` tag will delay the preload scanner from loading resources early. Consider defining all CSPs in http headers if you can.",
+      "score": 1,
+      "scoreDisplayMode": "binary"
+    },
     "script-treemap-data": {
       "id": "script-treemap-data",
       "title": "Script Treemap Data",
@@ -5661,6 +5668,10 @@
           "weight": 0
         },
         {
+          "id": "csp-inline",
+          "weight": 0
+        },
+        {
           "id": "performance-budget",
           "weight": 0,
           "group": "budgets"
@@ -7661,6 +7672,12 @@
       },
       {
         "startTime": 0,
+        "name": "lh:audit:csp-inline",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:script-treemap-data",
         "duration": 100,
         "entryType": "measure"
@@ -9120,6 +9137,12 @@
       ],
       "core/audits/csp-xss.js | noCsp": [
         "audits[csp-xss].details.items[0].description"
+      ],
+      "core/audits/csp-inline.js | title": [
+        "audits[csp-inline].title"
+      ],
+      "core/audits/csp-inline.js | description": [
+        "audits[csp-inline].description"
       ],
       "core/audits/manual/pwa-cross-browser.js | title": [
         "audits[pwa-cross-browser].title"
