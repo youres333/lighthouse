@@ -39,9 +39,9 @@ class CSPInline extends Audit {
 
   /**
    * @param {LH.Artifacts} artifacts
-   * @return {Promise<LH.Audit.Product>}
+   * @return {LH.Audit.Product}
    */
-  static async audit(artifacts) {
+  static audit(artifacts) {
     const hasCspMetaTag = !!artifacts.MetaElements.find(m => {
       return m.httpEquiv && m.httpEquiv.toLowerCase() === 'content-security-policy';
     });
