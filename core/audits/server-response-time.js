@@ -64,13 +64,13 @@ class ServerResponseTime extends Audit {
     const passed = responseTime < TOO_SLOW_THRESHOLD_MS;
     const displayValue = str_(UIStrings.displayValue, {timeInMs: responseTime});
 
-    /** @type {LH.Audit.Details.Opportunity['headings']} */
+    /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'url', valueType: 'url', label: str_(i18n.UIStrings.columnURL)},
       {key: 'responseTime', valueType: 'timespanMs', label: str_(i18n.UIStrings.columnTimeSpent)},
     ];
 
-    const details = Audit.makeOpportunityDetails(
+    const details = Audit.makeTableDetails(
       headings,
       [{url: mainResource.url, responseTime}],
       {overallSavingsMs: responseTime - TARGET_MS}

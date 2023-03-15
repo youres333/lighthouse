@@ -234,12 +234,12 @@ class UsesRelPreloadAudit extends Audit {
         .map(preloadURL => str_(UIStrings.crossoriginWarning, {preloadURL}));
     }
 
-    /** @type {LH.Audit.Details.Opportunity['headings']} */
+    /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'url', valueType: 'url', label: str_(i18n.UIStrings.columnURL)},
       {key: 'wastedMs', valueType: 'timespanMs', label: str_(i18n.UIStrings.columnWastedMs)},
     ];
-    const details = Audit.makeOpportunityDetails(headings, results,
+    const details = Audit.makeTableDetails(headings, results,
       {overallSavingsMs: wastedMs, sortedBy: ['wastedMs']});
 
     return {
@@ -261,7 +261,7 @@ class UsesRelPreloadAudit extends Audit {
     // Preload advice is on hold until https://github.com/GoogleChrome/lighthouse/issues/11960
     // is resolved.
     return {score: 1, notApplicable: true,
-      details: Audit.makeOpportunityDetails([], [], {overallSavingsMs: 0})};
+      details: Audit.makeTableDetails([], [], {overallSavingsMs: 0})};
   }
 }
 

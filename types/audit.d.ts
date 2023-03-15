@@ -55,11 +55,12 @@ declare module Audit {
     supportedModes?: Gatherer.GatherMode[],
   }
 
-  interface ByteEfficiencyItem extends AuditDetails.OpportunityItem {
+  interface ByteEfficiencyItem extends AuditDetails.TableItem {
     url: string;
     wastedBytes: number;
     totalBytes: number;
     wastedPercent?: number;
+    wastedMs?: number;
   }
 
   // TODO: consider making some of the `string | IcuMessage` into just `IcuMessage` to require i18n.

@@ -7,19 +7,27 @@
 import {IcuMessage} from './i18n.js';
 import Treemap from './treemap.js';
 
+interface BaseDetails {
+  /** If present and part of the performance category, audit is treated as an Opportunity. */
+  overallSavingsMs?: number;
+  /** Optional additional Opportunity information. */
+  overallSavingsBytes?: number;
+  /** Additional information, usually used for including debug or meta information in the LHR */
+  debugData?: Details.DebugData;
+}
+
 type Details =
   Details.CriticalRequestChain |
   Details.DebugData |
   Details.TreemapData |
   Details.Filmstrip |
   Details.List |
-  Details.Opportunity |
   Details.Screenshot |
   Details.Table;
 
 // Details namespace.
 declare module Details {
-  interface CriticalRequestChain {
+  interface CriticalRequestChain extends BaseDetails {
     type: 'criticalrequestchain';
     longestChain: {
       duration: number;
@@ -42,7 +50,7 @@ declare module Details {
     }
   }
 
-  interface Filmstrip {
+  interface Filmstrip extends BaseDetails {
     type: 'filmstrip';
     scale: number;
     items: {
@@ -55,32 +63,14 @@ declare module Details {
     }[];
   }
 
-  interface List {
+  interface List extends BaseDetails {
     type: 'list';
     // NOTE: any `Details` type *should* be usable in `items`, but check
     // styles/report-ui-features are good before adding.
     items: Array<Table | DebugData>;
   }
 
-  interface Opportunity {
-    type: 'opportunity';
-    overallSavingsMs: number;
-    overallSavingsBytes?: number;
-    headings: TableColumnHeading[];
-    items: OpportunityItem[];
-    debugData?: DebugData;
-    /**
-     * Columns to sort the items by, during grouping.
-     * If omitted, entity groups will be sorted by the audit ordering vs. the new totals.
-     */
-    sortedBy?: Array<string>;
-    /** Will be true if the table is already grouped by entities. */
-    isEntityGrouped?: boolean;
-    /** Column keys to skip summing. If omitted, all column types supported are summed. */
-    skipSumming?: Array<string>;
-  }
-
-  interface Screenshot {
+  interface Screenshot extends BaseDetails {
     type: 'screenshot';
     timing: number;
     timestamp: number;
@@ -96,7 +86,7 @@ declare module Details {
     left: number;
   }
 
-  interface Table {
+  interface Table extends BaseDetails {
     type: 'table';
     headings: TableColumnHeading[];
     items: TableItem[];
@@ -104,7 +94,6 @@ declare module Details {
       wastedMs?: number;
       wastedBytes?: number;
     };
-    debugData?: DebugData;
     /**
      * Columns to sort the items by, during grouping.
      * If omitted, entity groups will be sorted by the audit ordering vs. the new totals.
@@ -131,7 +120,7 @@ declare module Details {
     [p: string]: any;
   }
 
-  interface TreemapData {
+  interface TreemapData extends BaseDetails {
     type: 'treemap-data';
     nodes: Treemap.Node[];
   }
@@ -171,16 +160,6 @@ declare module Details {
   interface TableItem {
     debugData?: DebugData;
     subItems?: TableSubItems;
-    [p: string]: undefined | ItemValue;
-  }
-
-  /** A more specific table element used for `opportunity` tables. */
-  interface OpportunityItem extends TableItem {
-    url: string;
-    wastedBytes?: number;
-    totalBytes?: number;
-    wastedMs?: number;
-    debugData?: DebugData;
     [p: string]: undefined | ItemValue;
   }
 

@@ -25,7 +25,7 @@ const WASTED_MS_FOR_SCORE_OF_ZERO = 5000;
  * @typedef {object} ByteEfficiencyProduct
  * @property {Array<LH.Audit.ByteEfficiencyItem>} items
  * @property {Map<string, number>=} wastedBytesByUrl
- * @property {LH.Audit.Details.Opportunity['headings']} headings
+ * @property {LH.Audit.Details.Table['headings']} headings
  * @property {LH.IcuMessage} [displayValue]
  * @property {LH.IcuMessage} [explanation]
  * @property {Array<string | LH.IcuMessage>} [warnings]
@@ -230,7 +230,7 @@ class ByteEfficiencyAudit extends Audit {
     }
 
     const sortedBy = result.sortedBy || ['wastedBytes'];
-    const details = Audit.makeOpportunityDetails(result.headings, results,
+    const details = Audit.makeTableDetails(result.headings, results,
       {overallSavingsMs: wastedMs, overallSavingsBytes: wastedBytes, sortedBy});
 
     return {

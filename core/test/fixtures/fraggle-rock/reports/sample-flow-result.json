@@ -214,7 +214,7 @@
             "numericUnit": "millisecond",
             "displayValue": "Root document took 20 ms",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [
                 {
                   "key": "url",
@@ -342,7 +342,7 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0
@@ -610,7 +610,7 @@
             "score": null,
             "scoreDisplayMode": "notApplicable",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0
@@ -627,13 +627,10 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
-              "overallSavingsMs": 0,
-              "sortedBy": [
-                "wastedMs"
-              ]
+              "overallSavingsMs": 0
             }
           },
           "font-display": {
@@ -1819,13 +1816,10 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "sortedBy": [
-                "wastedMs"
-              ],
               "debugData": {
                 "type": "debugdata",
                 "initiatorPath": [
@@ -2563,14 +2557,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "render-blocking-resources": {
@@ -2582,7 +2573,7 @@
             "numericValue": 0,
             "numericUnit": "millisecond",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0
@@ -2598,14 +2589,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unminified-javascript": {
@@ -2619,14 +2607,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unused-css-rules": {
@@ -2639,14 +2624,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unused-javascript": {
@@ -2659,14 +2641,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "modern-image-formats": {
@@ -2680,14 +2659,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-optimized-images": {
@@ -2701,14 +2677,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-text-compression": {
@@ -2721,14 +2694,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-responsive-images": {
@@ -2741,14 +2711,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "efficient-animated-content": {
@@ -2761,14 +2728,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "duplicated-javascript": {
@@ -2781,14 +2745,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "legacy-javascript": {
@@ -2801,7 +2762,7 @@
             "numericUnit": "millisecond",
             "displayValue": "Potential savings of 0 KiB",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [
                 {
                   "key": "url",
@@ -2848,11 +2809,11 @@
                   "totalBytes": 0
                 }
               ],
-              "overallSavingsMs": 0,
-              "overallSavingsBytes": 57,
               "sortedBy": [
                 "wastedBytes"
-              ]
+              ],
+              "overallSavingsMs": 0,
+              "overallSavingsBytes": 57
             }
           },
           "doctype": {
@@ -9102,14 +9063,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unminified-javascript": {
@@ -9123,14 +9081,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unused-css-rules": {
@@ -9143,14 +9098,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unused-javascript": {
@@ -9163,14 +9115,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "modern-image-formats": {
@@ -9184,14 +9133,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-optimized-images": {
@@ -9205,14 +9151,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-text-compression": {
@@ -9225,14 +9168,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-responsive-images": {
@@ -9245,14 +9185,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "efficient-animated-content": {
@@ -9265,14 +9202,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "duplicated-javascript": {
@@ -9285,14 +9219,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "legacy-javascript": {
@@ -9305,14 +9236,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "inspector-issues": {
@@ -16110,7 +16038,7 @@
             "numericUnit": "millisecond",
             "displayValue": "Root document took 10 ms",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [
                 {
                   "key": "url",
@@ -16238,7 +16166,7 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0
@@ -16512,7 +16440,7 @@
             "score": null,
             "scoreDisplayMode": "notApplicable",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0
@@ -16529,13 +16457,10 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
-              "overallSavingsMs": 0,
-              "sortedBy": [
-                "wastedMs"
-              ]
+              "overallSavingsMs": 0
             }
           },
           "font-display": {
@@ -17571,13 +17496,10 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "sortedBy": [
-                "wastedMs"
-              ],
               "debugData": {
                 "type": "debugdata",
                 "initiatorPath": [
@@ -18332,14 +18254,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "render-blocking-resources": {
@@ -18351,7 +18270,7 @@
             "numericValue": 0,
             "numericUnit": "millisecond",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0
@@ -18367,14 +18286,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unminified-javascript": {
@@ -18388,14 +18304,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unused-css-rules": {
@@ -18408,14 +18321,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "unused-javascript": {
@@ -18428,14 +18338,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "modern-image-formats": {
@@ -18449,7 +18356,7 @@
             "displayValue": "Potential savings of 67 KiB",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [
                 {
                   "key": "node",
@@ -18498,11 +18405,11 @@
                   "wastedWebpBytes": 65184
                 }
               ],
-              "overallSavingsMs": 300,
-              "overallSavingsBytes": 68889.75,
               "sortedBy": [
                 "wastedBytes"
-              ]
+              ],
+              "overallSavingsMs": 300,
+              "overallSavingsBytes": 68889.75
             }
           },
           "uses-optimized-images": {
@@ -18516,14 +18423,11 @@
             "displayValue": "",
             "warnings": [],
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-text-compression": {
@@ -18536,14 +18440,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "uses-responsive-images": {
@@ -18556,7 +18457,7 @@
             "numericUnit": "millisecond",
             "displayValue": "Potential savings of 51 KiB",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [
                 {
                   "key": "node",
@@ -18603,11 +18504,11 @@
                   "wastedPercent": 42.666446934739625
                 }
               ],
-              "overallSavingsMs": 300,
-              "overallSavingsBytes": 52102,
               "sortedBy": [
                 "wastedBytes"
-              ]
+              ],
+              "overallSavingsMs": 300,
+              "overallSavingsBytes": 52102
             }
           },
           "efficient-animated-content": {
@@ -18620,14 +18521,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "duplicated-javascript": {
@@ -18640,14 +18538,11 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [],
               "items": [],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
-              "sortedBy": [
-                "wastedBytes"
-              ]
+              "overallSavingsBytes": 0
             }
           },
           "legacy-javascript": {
@@ -18660,7 +18555,7 @@
             "numericUnit": "millisecond",
             "displayValue": "",
             "details": {
-              "type": "opportunity",
+              "type": "table",
               "headings": [
                 {
                   "key": "url",
@@ -18707,11 +18602,11 @@
                   "totalBytes": 0
                 }
               ],
-              "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
               "sortedBy": [
                 "wastedBytes"
-              ]
+              ],
+              "overallSavingsMs": 0,
+              "overallSavingsBytes": 0
             }
           },
           "doctype": {

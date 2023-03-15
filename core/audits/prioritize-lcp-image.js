@@ -312,13 +312,14 @@ class PrioritizeLcpImage extends Audit {
     const {results, wastedMs} =
       PrioritizeLcpImage.computeWasteWithGraph(lcpElement, lcpNodeToPreload, graph, simulator);
 
-    /** @type {LH.Audit.Details.Opportunity['headings']} */
+    /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'node', valueType: 'node', label: ''},
       {key: 'url', valueType: 'url', label: str_(i18n.UIStrings.columnURL)},
       {key: 'wastedMs', valueType: 'timespanMs', label: str_(i18n.UIStrings.columnWastedMs)},
     ];
-    const details = Audit.makeOpportunityDetails(headings, results,
+
+    const details = Audit.makeTableDetails(headings, results,
       {overallSavingsMs: wastedMs, sortedBy: ['wastedMs']});
 
     // If LCP element was an image and had valid network records (regardless of

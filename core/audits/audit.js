@@ -18,15 +18,8 @@ const DEFAULT_PASS = 'defaultPass';
  * @property {LH.Audit.Details.Table['sortedBy']=} sortedBy
  * @property {LH.Audit.Details.Table['skipSumming']=} skipSumming
  * @property {LH.Audit.Details.Table['isEntityGrouped']=} isEntityGrouped
- */
-
-/**
- * @typedef OpportunityOptions
- * @property {number} overallSavingsMs
- * @property {number=} overallSavingsBytes
- * @property {LH.Audit.Details.Opportunity['sortedBy']=} sortedBy
- * @property {LH.Audit.Details.Opportunity['skipSumming']=} skipSumming
- * @property {LH.Audit.Details.Opportunity['isEntityGrouped']=} isEntityGrouped
+ * @property {number=} overallSavingsMs Convenience option if table is intended to be an Opportunity.
+ * @property {number=} overallSavingsBytes Convenience option if table is intended to be an Opportunity.
  */
 
 /**
@@ -119,8 +112,8 @@ class Audit {
    * This catches typos in the `key` property of a heading definition of table/opportunity details.
    * Throws an error if any of keys referenced by headings don't exist in at least one of the items.
    *
-   * @param {LH.Audit.Details.Table['headings']|LH.Audit.Details.Opportunity['headings']} headings
-   * @param {LH.Audit.Details.Opportunity['items']|LH.Audit.Details.Table['items']} items
+   * @param {LH.Audit.Details.Table['headings']} headings
+   * @param {LH.Audit.Details.Table['items']} items
    */
   static assertHeadingKeysExist(headings, items) {
     // If there are no items, there's nothing to check.
@@ -145,7 +138,15 @@ class Audit {
    * @return {LH.Audit.Details.Table}
    */
   static makeTableDetails(headings, results, options = {}) {
-    const {wastedBytes, wastedMs, sortedBy, skipSumming, isEntityGrouped} = options;
+    const {
+      wastedBytes,
+      wastedMs,
+      sortedBy,
+      skipSumming,
+      isEntityGrouped,
+      overallSavingsMs,
+      overallSavingsBytes,
+    } = options;
     const summary = (wastedBytes || wastedMs) ? {wastedBytes, wastedMs} : undefined;
     if (results.length === 0) {
       return {
@@ -153,6 +154,8 @@ class Audit {
         headings: [],
         items: [],
         summary,
+        overallSavingsMs,
+        overallSavingsBytes,
       };
     }
 
@@ -166,6 +169,8 @@ class Audit {
       sortedBy,
       skipSumming,
       isEntityGrouped,
+      overallSavingsMs,
+      overallSavingsBytes,
     };
   }
 
@@ -233,28 +238,6 @@ class Audit {
       }
       return lineDetail;
     });
-  }
-
-  /**
-   * @param {LH.Audit.Details.Opportunity['headings']} headings
-   * @param {LH.Audit.Details.Opportunity['items']} items
-   * @param {OpportunityOptions} options
-   * @return {LH.Audit.Details.Opportunity}
-   */
-  static makeOpportunityDetails(headings, items, options) {
-    Audit.assertHeadingKeysExist(headings, items);
-    const {overallSavingsMs, overallSavingsBytes, sortedBy, skipSumming, isEntityGrouped} = options;
-
-    return {
-      type: 'opportunity',
-      headings: items.length === 0 ? [] : headings,
-      items,
-      overallSavingsMs,
-      overallSavingsBytes,
-      sortedBy,
-      skipSumming,
-      isEntityGrouped,
-    };
   }
 
   /**

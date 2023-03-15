@@ -135,12 +135,12 @@ class Redirects extends Audit {
       });
     }
 
-    /** @type {LH.Audit.Details.Opportunity['headings']} */
+    /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'url', valueType: 'url', label: str_(i18n.UIStrings.columnURL)},
       {key: 'wastedMs', valueType: 'timespanMs', label: str_(i18n.UIStrings.columnTimeSpent)},
     ];
-    const details = Audit.makeOpportunityDetails(headings, tableRows,
+    const details = Audit.makeTableDetails(headings, tableRows,
       {overallSavingsMs: totalWastedMs});
 
     return {

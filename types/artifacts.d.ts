@@ -307,6 +307,7 @@ declare module Artifacts {
     crossOrigin: string | null
     /** Where the link was found, either in the DOM or in the headers of the main document */
     source: 'head'|'body'|'headers'
+    /** Node details if found in HTML, null otherwise. */
     node: NodeDetails | null
   }
 

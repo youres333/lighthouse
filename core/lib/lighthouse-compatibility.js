@@ -81,9 +81,16 @@ function upgradeLhrForCompatibility(lhr) {
         }
       }
 
+      // In 10.1, 'opportunity' details became just 'table'.
+      // @ts-expect-error type can no long be 'opportunity'.
+      if (audit.details.type === 'opportunity') {
+        // @ts-expect-error details is of type never.
+        audit.details.type = 'table';
+      }
+
       // In 10.0, third-party-summary deprecated entity: LinkValue and switched to entity name string
       if (audit.id === 'third-party-summary') {
-        if (audit.details.type === 'opportunity' || audit.details.type === 'table') {
+        if (audit.details.type === 'table') {
           const {headings, items} = audit.details;
           if (headings[0].valueType === 'link') {
             // Apply upgrade only if we are dealing with an older version (valueType=link marker).

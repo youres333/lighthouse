@@ -19,12 +19,10 @@
 
 // Convenience types for localized AuditDetails.
 /** @typedef {LH.FormattedIcu<LH.Audit.Details>} AuditDetails */
-/** @typedef {LH.FormattedIcu<LH.Audit.Details.Opportunity>} OpportunityTable */
 /** @typedef {LH.FormattedIcu<LH.Audit.Details.Table>} Table */
 /** @typedef {LH.FormattedIcu<LH.Audit.Details.TableItem>} TableItem */
 /** @typedef {LH.FormattedIcu<LH.Audit.Details.ItemValue>} TableItemValue */
 /** @typedef {LH.FormattedIcu<LH.Audit.Details.TableColumnHeading>} TableColumnHeading */
-/** @typedef {LH.FormattedIcu<LH.Audit.Details.Table | LH.Audit.Details.Opportunity>} TableLike */
 
 import {Util} from '../../shared/util.js';
 import {CriticalRequestChainRenderer} from './crc-details-renderer.js';
@@ -57,7 +55,6 @@ export class DetailsRenderer {
       case 'list':
         return this._renderList(details);
       case 'table':
-      case 'opportunity':
         return this._renderTable(details);
       case 'criticalrequestchain':
         return CriticalRequestChainRenderer.render(this._dom, details, this);
@@ -436,7 +433,7 @@ export class DetailsRenderer {
    * an grouped table. Each table item returned represents a unique entity, with every
    * applicable key that can be grouped as a property. Optionally, supported columns are
    * summed by entity, and sorted by specified keys.
-   * @param {TableLike} details
+   * @param {Table} details
    * @return {TableItem[]}
    */
   _getEntityGroupItems(details) {
@@ -483,7 +480,7 @@ export class DetailsRenderer {
   }
 
   /**
-   * @param {TableLike} details
+   * @param {Table} details
    * @return {Element}
    */
   _renderTable(details) {

@@ -317,7 +317,7 @@
       "numericUnit": "millisecond",
       "displayValue": "Root document took 570 ms",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "url",
@@ -764,7 +764,7 @@
       "numericUnit": "millisecond",
       "displayValue": "",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0
@@ -1131,7 +1131,7 @@
       "score": null,
       "scoreDisplayMode": "notApplicable",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0
@@ -1148,13 +1148,10 @@
       "displayValue": "",
       "warnings": [],
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
-        "overallSavingsMs": 0,
-        "sortedBy": [
-          "wastedMs"
-        ]
+        "overallSavingsMs": 0
       }
     },
     "font-display": {
@@ -2631,7 +2628,7 @@
       "numericUnit": "millisecond",
       "displayValue": "",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "node",
@@ -2671,10 +2668,10 @@
             "wastedMs": 0
           }
         ],
-        "overallSavingsMs": 0,
         "sortedBy": [
           "wastedMs"
         ],
+        "overallSavingsMs": 0,
         "debugData": {
           "type": "debugdata",
           "initiatorPath": [
@@ -4023,14 +4020,11 @@
       "displayValue": "",
       "warnings": [],
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0,
-        "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ]
+        "overallSavingsBytes": 0
       }
     },
     "render-blocking-resources": {
@@ -4043,7 +4037,7 @@
       "numericUnit": "millisecond",
       "displayValue": "Potential savings of 0 ms",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "url",
@@ -4106,14 +4100,11 @@
       "numericUnit": "millisecond",
       "displayValue": "",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0,
-        "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ]
+        "overallSavingsBytes": 0
       }
     },
     "unminified-javascript": {
@@ -4127,7 +4118,7 @@
       "displayValue": "Potential savings of 82 KiB",
       "warnings": [],
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "url",
@@ -4153,11 +4144,11 @@
             "wastedPercent": 50.176166426166425
           }
         ],
-        "overallSavingsMs": 1200,
-        "overallSavingsBytes": 83568,
         "sortedBy": [
           "wastedBytes"
-        ]
+        ],
+        "overallSavingsMs": 1200,
+        "overallSavingsBytes": 83568
       }
     },
     "unused-css-rules": {
@@ -4170,14 +4161,11 @@
       "numericUnit": "millisecond",
       "displayValue": "",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0,
-        "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ]
+        "overallSavingsBytes": 0
       }
     },
     "unused-javascript": {
@@ -4190,7 +4178,7 @@
       "numericUnit": "millisecond",
       "displayValue": "Potential savings of 64 KiB",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "url",
@@ -4232,11 +4220,11 @@
             "wastedPercent": 70.99531129443884
           }
         ],
-        "overallSavingsMs": 750,
-        "overallSavingsBytes": 65111,
         "sortedBy": [
           "wastedBytes"
-        ]
+        ],
+        "overallSavingsMs": 750,
+        "overallSavingsBytes": 65111
       }
     },
     "modern-image-formats": {
@@ -4250,7 +4238,7 @@
       "displayValue": "Potential savings of 76 KiB",
       "warnings": [],
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "node",
@@ -4339,11 +4327,11 @@
             "wastedWebpBytes": 9002
           }
         ],
-        "overallSavingsMs": 450,
-        "overallSavingsBytes": 77874.3,
         "sortedBy": [
           "wastedBytes"
-        ]
+        ],
+        "overallSavingsMs": 450,
+        "overallSavingsBytes": 77874.3
       }
     },
     "uses-optimized-images": {
@@ -4357,14 +4345,11 @@
       "displayValue": "",
       "warnings": [],
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0,
-        "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ]
+        "overallSavingsBytes": 0
       }
     },
     "uses-text-compression": {
@@ -4377,7 +4362,7 @@
       "numericUnit": "millisecond",
       "displayValue": "Potential savings of 143 KiB",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "url",
@@ -4407,11 +4392,11 @@
             "wastedBytes": 11647
           }
         ],
-        "overallSavingsMs": 2400,
-        "overallSavingsBytes": 146478,
         "sortedBy": [
           "wastedBytes"
-        ]
+        ],
+        "overallSavingsMs": 2400,
+        "overallSavingsBytes": 146478
       }
     },
     "uses-responsive-images": {
@@ -4424,14 +4409,11 @@
       "numericUnit": "millisecond",
       "displayValue": "",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0,
-        "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ]
+        "overallSavingsBytes": 0
       }
     },
     "efficient-animated-content": {
@@ -4444,7 +4426,7 @@
       "numericUnit": "millisecond",
       "displayValue": "Potential savings of 666 KiB",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "url",
@@ -4469,11 +4451,11 @@
             "wastedBytes": 682028
           }
         ],
-        "overallSavingsMs": 3450,
-        "overallSavingsBytes": 682028,
         "sortedBy": [
           "wastedBytes"
-        ]
+        ],
+        "overallSavingsMs": 3450,
+        "overallSavingsBytes": 682028
       }
     },
     "duplicated-javascript": {
@@ -4486,14 +4468,11 @@
       "numericUnit": "millisecond",
       "displayValue": "",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0,
-        "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ]
+        "overallSavingsBytes": 0
       }
     },
     "legacy-javascript": {
@@ -4506,7 +4485,7 @@
       "numericUnit": "millisecond",
       "displayValue": "Potential savings of 26 KiB",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [
           {
             "key": "url",
@@ -4563,11 +4542,11 @@
             "totalBytes": 0
           }
         ],
-        "overallSavingsMs": 450,
-        "overallSavingsBytes": 26622,
         "sortedBy": [
           "wastedBytes"
-        ]
+        ],
+        "overallSavingsMs": 450,
+        "overallSavingsBytes": 26622
       }
     },
     "doctype": {
@@ -4908,7 +4887,7 @@
       "numericValue": 0,
       "numericUnit": "millisecond",
       "details": {
-        "type": "opportunity",
+        "type": "table",
         "headings": [],
         "items": [],
         "overallSavingsMs": 0

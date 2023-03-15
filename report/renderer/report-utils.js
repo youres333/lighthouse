@@ -28,7 +28,7 @@ class ReportUtils {
     for (const audit of Object.values(clone.audits)) {
       // Attach table/opportunity items with entity information.
       if (audit.details) {
-        if (audit.details.type === 'opportunity' || audit.details.type === 'table') {
+        if (audit.details.type === 'table') {
           if (!audit.details.isEntityGrouped && clone.entities) {
             ReportUtils.classifyEntities(clone.entities, audit.details);
           }
@@ -116,7 +116,7 @@ class ReportUtils {
   /**
    * Mark TableItems/OpportunityItems with entity names.
    * @param {LH.Result.Entities} entities
-   * @param {LH.FormattedIcu<LH.Audit.Details.Opportunity|LH.Audit.Details.Table>} details
+   * @param {LH.FormattedIcu<LH.Audit.Details.Table>} details
    */
   static classifyEntities(entities, details) {
     // If details.items are already marked with entity attribute during an audit, nothing to do here.
