@@ -150,6 +150,29 @@ describe('PerfCategoryRenderer', () => {
     expect(matchingElements).toHaveLength(0);
   });
 
+  it('renders an audit as an opportunity if overallSavingMs is present', () => {
+    // Make a non-opportunity into an opportunity.
+    const cloneCategory = JSON.parse(JSON.stringify(category));
+    const crcAudit = cloneCategory.auditRefs.find(a => a.id === 'critical-request-chains');
+    expect(crcAudit.result.details.overallSavingsMs).toBe(undefined);
+    crcAudit.result.details.overallSavingsMs = 5555;
+    crcAudit.result.details.score = 0.5;
+
+    const categoryDOM = renderer.render(cloneCategory, sampleResults.categoryGroups);
+
+    const crcElem = categoryDOM.querySelector('.lh-audit-group--load-opportunities #critical-request-chains.lh-audit--load-opportunity'); // eslint-disable-line max-len
+
+    const crcSparklineBarElem = crcElem.querySelector('.lh-sparkline__bar');
+    expect(crcSparklineBarElem).toBeTruthy();
+
+    const crcWastedElem = crcElem.querySelector('.lh-audit__display-text');
+    expect(crcWastedElem.textContent).toBe('5.56s');
+    expect(crcWastedElem.title).toMatch(/\d+ chains found/);
+
+    const crcDetailsElem = crcElem.querySelector('.lh-crc-container.lh-details');
+    expect(crcDetailsElem.textContent).toMatch('Maximum critical path latency');
+  });
+
   it('renders the failing performance opportunities', () => {
     const categoryDOM = renderer.render(category, sampleResults.categoryGroups);
 

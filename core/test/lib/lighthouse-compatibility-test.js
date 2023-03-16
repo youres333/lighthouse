@@ -197,4 +197,23 @@ describe('backward compatibility', () => {
     assert.deepStrictEqual(preparedResult.audits, sampleResult.audits);
     assert.strictEqual(preparedResult.audits['third-party-summary'].details.isEntityGrouped, true);
   });
+
+  it('converts old opportunity tables to plain tables', () => {
+    const clonedSampleResult = cloneLhr(sampleResult);
+
+    let oppCount = 0;
+    for (const audit of Object.values(clonedSampleResult.audits)) {
+      if (audit.details?.headings && audit.details.overallSavingsMs !== undefined) {
+        audit.details.type = 'opportunity';
+        oppCount++;
+      }
+    }
+
+    assert.ok(oppCount > 10); // Make sure something's being tested.
+
+    // Original audit results should be restored.
+    const upgradedResult = upgradeLhr(clonedSampleResult);
+
+    assert.deepStrictEqual(upgradedResult.audits, sampleResult.audits);
+  });
 });
