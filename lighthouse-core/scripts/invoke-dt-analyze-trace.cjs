@@ -14,27 +14,39 @@ if (require.main !== module) {
   console.error('Must invoke as CLI');
 }
 
+
+const passedArg = process.argv[2];
+const filename = passedArg ? passedArg : (__dirname + '/../../latest-run/defaultPass.trace.json');
+
 /** @type {LH.Trace} */
-const trace = JSON.parse(
+const file = JSON.parse(
   // Gather with:
   //     lighthouse https://www.theverge.com/ --preset=desktop --only-categories=performance -GA --throttling-method=devtools
-    require('fs').readFileSync(__dirname + '/../../latest-run/defaultPass.trace.json', 'utf8')
+    require('fs').readFileSync(filename, 'utf8')
 );
+
+const traceEvents = file.traceEvents || file;
+
+const trace = {
+  traceEvents
+};
 
 /**
    * @param {LH.Trace} trace
    */
 const getInitialUrl = trace => {
   // TODO: this technique is wrong. it broke on the rv camping site.
-  const urls = trace.traceEvents.filter(e =>
+  const urls = traceEvents.filter(e =>
     (e.name === 'navigationStart' && e?.args?.data?.isLoadingMainFrame === true)
     // || e.name === 'NavigationBodyLoader::StartLoadingBody'
   )
   .map(e => e.args.data?.documentLoaderURL || e.args.url)
   .filter(Boolean);
   // find most common item: https://stackoverflow.com/a/20762713/89484
-  return urls.sort(
+  const mostCommon = urls.sort(
     (a, b) => urls.filter(v => v === a).length - urls.filter(v => v === b).length).pop();
+  console.log('initial url:', mostCommon);
+  return mostCommon;
 };
 
 // @ts-expect-error
