@@ -154,6 +154,38 @@ class Util {
   }
 
   /**
+   * @param {string} string
+   * @param {number} characterLimit
+   * @param {string} ellipseSuffix
+   */
+  static truncate(string, characterLimit, ellipseSuffix = '…') {
+    if (string.length <= characterLimit) {
+      return string;
+    }
+
+    const segmenter = new Intl.Segmenter(undefined, {granularity: 'grapheme'});
+    const iterator = segmenter.segment(string)[Symbol.iterator]();
+
+    let lastSegment;
+    for (let i = 0; i <= characterLimit - ellipseSuffix.length; i++) {
+      const result = iterator.next();
+      if (result.done) {
+        return string;
+      }
+
+      lastSegment = result.value;
+    }
+
+    for (let i = 0; i < ellipseSuffix.length; i++) {
+      if (iterator.next().done) {
+        return string;
+      }
+    }
+
+    return string.slice(0, lastSegment?.index) + ellipseSuffix;
+  }
+
+  /**
    * @param {URL} parsedUrl
    * @param {{numPathParts?: number, preserveQuery?: boolean, preserveHost?: boolean}=} options
    * @return {string}

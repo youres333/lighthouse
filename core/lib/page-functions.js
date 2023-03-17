@@ -4,6 +4,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+import {Util} from '../../shared/util.js';
+
 /**
  * @fileoverview
  * Helper functions that are passed by `toString()` by Driver to be evaluated in target page.
@@ -83,29 +85,7 @@ function getElementsInDocument(selector) {
  * @param {number} characterLimit
  */
 function truncate(string, characterLimit) {
-  if (string.length <= characterLimit) {
-    return string;
-  }
-
-  const segmenter = new Intl.Segmenter(undefined, {granularity: 'grapheme'});
-  const iterator = segmenter.segment(string)[Symbol.iterator]();
-
-  let lastSegment;
-  for (let i = 0; i < characterLimit; i++) {
-    const v = iterator.next();
-    if (v.done) {
-      return string;
-    }
-
-    lastSegment = v.value;
-  }
-
-  const isDone = iterator.next().done;
-  if (isDone) {
-    return string;
-  }
-
-  return string.slice(0, lastSegment?.index) + '…';
+  return Util.truncate(string, characterLimit);
 }
 
 /**

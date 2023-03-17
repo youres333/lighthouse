@@ -253,16 +253,4 @@ describe('Page Functions', () => {
       assert.equal(nodeLabel, 'div#parent');
     });
   });
-
-  describe('truncate', () => {
-    it('truncates based on visual characters', () => {
-      expect(pageFunctions.truncate('aaa', 30)).toEqual('aaa');
-      expect(pageFunctions.truncate('aaa', 3)).toEqual('aaa');
-      expect(pageFunctions.truncate('aaa', 2)).toEqual('a…');
-      expect(pageFunctions.truncate('aaa🥳', 4)).toEqual('aaa🥳');
-      expect(pageFunctions.truncate('aaa🥳', 3)).toEqual('aa…');
-      expect(pageFunctions.truncate('देवनागरी', 5)).toEqual('देवनागरी');
-      expect(pageFunctions.truncate('देवनागरी', 4)).toEqual('देवना…');
-    });
-  });
 });
