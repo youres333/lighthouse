@@ -224,6 +224,11 @@ describe('util helpers', () => {
 
       expect(Util.truncate('aaa', 3, '')).toEqual('aaa');
       expect(Util.truncate('aaa', 2, '')).toEqual('aa');
+
+      expect(Util.truncate('aaaaa', 5, '...')).toEqual('aaaaa');
+      expect(Util.truncate('aaaaa', 4, '...')).toEqual('a...');
+      expect(Util.truncate('aaaaa', 3, '...')).toEqual('...');
+      expect(Util.truncate('aaaaa', 1, '...')).toEqual('...');
     });
   });
 });

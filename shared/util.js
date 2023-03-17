@@ -176,13 +176,17 @@ class Util {
       lastSegment = result.value;
     }
 
+    if (!lastSegment) {
+      return ellipseSuffix;
+    }
+
     for (let i = 0; i < ellipseSuffix.length; i++) {
       if (iterator.next().done) {
         return string;
       }
     }
 
-    return string.slice(0, lastSegment?.index) + ellipseSuffix;
+    return string.slice(0, lastSegment.index) + ellipseSuffix;
   }
 
   /**
