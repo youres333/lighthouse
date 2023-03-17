@@ -79,6 +79,36 @@ function getElementsInDocument(selector) {
 }
 
 /**
+ * @param {string} string
+ * @param {number} characterLimit
+ */
+function truncate(string, characterLimit) {
+  if (string.length <= characterLimit) {
+    return string;
+  }
+
+  const segmenter = new Intl.Segmenter(undefined, {granularity: 'grapheme'});
+  const iterator = segmenter.segment(string)[Symbol.iterator]();
+
+  let lastSegment;
+  for (let i = 0; i < characterLimit; i++) {
+    const v = iterator.next();
+    if (v.done) {
+      return string;
+    }
+
+    lastSegment = v.value;
+  }
+
+  const isDone = iterator.next().done;
+  if (isDone) {
+    return string;
+  }
+
+  return string.slice(0, lastSegment?.index) + '…';
+}
+
+/**
  * Gets the opening tag text of the given node.
  * @param {Element|ShadowRoot} element
  * @param {Array<string>=} ignoreAttrs An optional array of attribute tags to not include in the HTML snippet.
@@ -132,10 +162,9 @@ function getOuterHTMLSnippet(element, ignoreAttrs = [], snippetCharacterLimit = 
       }
 
       // Elide attribute value if too long.
-      if (attributeValue.length > ATTRIBUTE_CHAR_LIMIT) {
-        attributeValue = attributeValue.slice(0, ATTRIBUTE_CHAR_LIMIT - 1) + '…';
-        dirty = true;
-      }
+      const truncatedString = truncate(attributeValue, ATTRIBUTE_CHAR_LIMIT);
+      dirty ||= truncatedString !== attributeValue;
+      attributeValue = truncatedString;
 
       if (dirty) {
         // Style attributes can be blocked by the CSP if they are set via `setAttribute`.
@@ -372,22 +401,6 @@ function isPositionFixed(element) {
  * @return {string | null}
  */
 function getNodeLabel(element) {
-  // Inline so that audits that import getNodeLabel don't
-  // also need to import truncate
-  /**
-   * @param {string} str
-   * @param {number} maxLength
-   * @return {string}
-   */
-  function truncate(str, maxLength) {
-    if (str.length <= maxLength) {
-      return str;
-    }
-    // Take advantage of string iterator multi-byte character awareness.
-    // Regular `.slice` will ignore unicode character boundaries and lead to malformed text.
-    return Array.from(str).slice(0, maxLength - 1).join('') + '…';
-  }
-
   const tagName = element.tagName.toLowerCase();
   // html and body content is too broad to be useful, since they contain all page content
   if (tagName !== 'html' && tagName !== 'body') {
@@ -519,13 +532,29 @@ function getNodeDetails(element) {
 }
 
 /** @type {string} */
+const getNodeLabelRawString = getNodeLabel.toString();
+getNodeLabel.toString = () => `function getNodeLabel(element) {
+  ${truncate};
+  return (${getNodeLabelRawString})(element);
+}`;
+
+/** @type {string} */
+const getOuterHTMLSnippetRawString = getOuterHTMLSnippet.toString();
+// eslint-disable-next-line max-len
+getOuterHTMLSnippet.toString = () => `function getOuterHTMLSnippet(element, ignoreAttrs = [], snippetCharacterLimit = 500) {
+  ${truncate};
+  return (${getOuterHTMLSnippetRawString})(element, ignoreAttrs, snippetCharacterLimit);
+}`;
+
+/** @type {string} */
 const getNodeDetailsRawString = getNodeDetails.toString();
 getNodeDetails.toString = () => `function getNodeDetails(element) {
+  ${truncate}
   ${getNodePath};
   ${getNodeSelector};
   ${getBoundingClientRect};
-  ${getOuterHTMLSnippet};
-  ${getNodeLabel};
+  ${getOuterHTMLSnippetRawString};
+  ${getNodeLabelRawString};
   return (${getNodeDetailsRawString})(element);
 }`;
 
@@ -541,4 +570,5 @@ export const pageFunctions = {
   isPositionFixed,
   wrapRequestIdleCallback,
   getBoundingClientRect,
+  truncate,
 };
