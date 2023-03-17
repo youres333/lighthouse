@@ -110,6 +110,7 @@ class NetworkRecordsMaker {
           url: evtBag.sendRequest.args.data?.url,
         },
         frameId: evtBag.receiveResponse.args.data?.frame,
+        type: NetworkRecordsMaker.fromMimeType(evtBag.receiveResponse.args.data?.mimeType)
       };
       request.onResponseReceived(responseReceivedEventData);
 
@@ -143,6 +144,44 @@ class NetworkRecordsMaker {
     records.sort((a, b) => a.startTime - b.startTime);
     return records;
   }
+
+  // from devtools frontend ResourceTypets
+  /**
+   * @param {string} mimeType
+   */
+  static fromMimeType(mimeType) {
+    if (!mimeType) {
+      return NetworkRequest.TYPES.Other;
+    }
+    if (mimeType.startsWith('text/html')) {
+      return NetworkRequest.TYPES.Document;
+    }
+    if (mimeType.startsWith('text/css')) {
+      return NetworkRequest.TYPES.Stylesheet;
+    }
+    if (mimeType.startsWith('image/')) {
+      return NetworkRequest.TYPES.Image;
+    }
+    if (mimeType.startsWith('text/')) {
+      return NetworkRequest.TYPES.Script;
+    }
+
+    if (mimeType.includes('font')) {
+      return NetworkRequest.TYPES.Font;
+    }
+    if (mimeType.includes('script')) {
+      return NetworkRequest.TYPES.Script;
+    }
+    if (mimeType.includes('octet')) {
+      return NetworkRequest.TYPES.Other;
+    }
+    if (mimeType.includes('application')) {
+      return NetworkRequest.TYPES.Script;
+    }
+
+    return NetworkRequest.TYPES.Other;
+  }
+
 }
 /**
  * @param {LH.Trace} trace
