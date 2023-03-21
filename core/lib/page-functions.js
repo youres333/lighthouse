@@ -6,6 +6,8 @@
 
 import {Util} from '../../shared/util.js';
 
+const truncate = Util.truncate;
+
 /**
  * @fileoverview
  * Helper functions that are passed by `toString()` by Driver to be evaluated in target page.
@@ -78,14 +80,6 @@ function getElementsInDocument(selector) {
   _findAllElements(document.querySelectorAll('*'));
 
   return results;
-}
-
-/**
- * @param {string} string
- * @param {number} characterLimit
- */
-function truncate(string, characterLimit) {
-  return Util.truncate(string, characterLimit);
 }
 
 /**
@@ -514,7 +508,7 @@ function getNodeDetails(element) {
 /** @type {string} */
 const getNodeLabelRawString = getNodeLabel.toString();
 getNodeLabel.toString = () => `function getNodeLabel(element) {
-  ${truncate};
+  function ${truncate};
   return (${getNodeLabelRawString})(element);
 }`;
 
@@ -522,14 +516,14 @@ getNodeLabel.toString = () => `function getNodeLabel(element) {
 const getOuterHTMLSnippetRawString = getOuterHTMLSnippet.toString();
 // eslint-disable-next-line max-len
 getOuterHTMLSnippet.toString = () => `function getOuterHTMLSnippet(element, ignoreAttrs = [], snippetCharacterLimit = 500) {
-  ${truncate};
+  function ${truncate};
   return (${getOuterHTMLSnippetRawString})(element, ignoreAttrs, snippetCharacterLimit);
 }`;
 
 /** @type {string} */
 const getNodeDetailsRawString = getNodeDetails.toString();
 getNodeDetails.toString = () => `function getNodeDetails(element) {
-  ${truncate}
+  function ${truncate};
   ${getNodePath};
   ${getNodeSelector};
   ${getBoundingClientRect};
