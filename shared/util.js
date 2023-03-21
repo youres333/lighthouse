@@ -164,29 +164,12 @@ class Util {
     }
 
     const segmenter = new Intl.Segmenter(undefined, {granularity: 'grapheme'});
-    const iterator = segmenter.segment(string)[Symbol.iterator]();
-
-    let lastSegment;
-    for (let i = 0; i <= characterLimit - ellipseSuffix.length; i++) {
-      const result = iterator.next();
-      if (result.done) {
-        return string;
-      }
-
-      lastSegment = result.value;
+    const graphemes = [...segmenter.segment(string)].map(e => e.segment);
+    if (graphemes.length <= characterLimit) {
+      return graphemes.join('');
     }
-
-    if (!lastSegment) {
-      return ellipseSuffix;
-    }
-
-    for (let i = 0; i < ellipseSuffix.length; i++) {
-      if (iterator.next().done) {
-        return string;
-      }
-    }
-
-    return string.slice(0, lastSegment.index) + ellipseSuffix;
+    const elided = graphemes.slice(0, Math.max(0, characterLimit - ellipseSuffix.length));
+    return elided.join('') + ellipseSuffix;
   }
 
   /**
