@@ -7,6 +7,8 @@
 import {Audit} from './audit.js';
 import {EntityClassification} from '../computed/entity-classification.js';
 import * as i18n from '../lib/i18n/i18n.js';
+import {Util} from '../../shared/util.js';
+import UrlUtils from '../lib/url-utils.js';
 
 const UIStrings = {
   /** Title of a Lighthouse audit that provides detail on HTTP to HTTPS redirects. This descriptive title is shown to users when HTTP traffic is redirected to HTTPS. */
@@ -17,7 +19,7 @@ const UIStrings = {
   description: 'Source maps translate minified code to the original source code. This helps ' +
     'developers debug in production. In addition, Lighthouse is able to provide further ' +
     'insights. Consider deploying source maps to take advantage of these benefits. ' +
-    '[Learn more about source maps](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps).',
+    '[Learn more about source maps](https://developer.chrome.com/docs/devtools/javascript/source-maps/).',
   /** Label for a column in a data table. Entries will be URLs to JavaScript source maps. */
   columnMapURL: 'Map URL',
   /** Label for a possible error message indicating that a source map for a large, first-party JavaScript script is missing. */
@@ -54,11 +56,13 @@ class ValidSourceMaps extends Audit {
    * @return {boolean}
    */
   static isLargeFirstPartyJS(script, classifiedEntities) {
-    if (!script.length) return false;
+    const url = script.url;
+    if (!script.length || !url) return false;
+    if (!UrlUtils.isValid(url)) return false;
+    if (!Util.createOrReturnURL(url).protocol.startsWith('http')) return false;
 
     const isLargeJS = script.length >= LARGE_JS_BYTE_THRESHOLD;
-    const isFirstPartyJS = script.url ? classifiedEntities.isFirstParty(script.url) : false;
-    return isLargeJS && isFirstPartyJS;
+    return classifiedEntities.isFirstParty(url) && isLargeJS;
   }
 
   /**

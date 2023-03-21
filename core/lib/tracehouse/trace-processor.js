@@ -488,29 +488,40 @@ class TraceProcessor {
    * @return {Map<number, number>} Map where keys are process IDs and their values are thread IDs
    */
   static findMainFramePidTids(mainFrameInfo, keyEvents) {
-    const frameCommittedEvts = keyEvents.filter(evt =>
-      evt.name === 'FrameCommittedInBrowser' &&
-      evt.args?.data?.frame === mainFrameInfo.frameId
+    const frameProcessEvts = keyEvents.filter(evt =>
+      // ProcessReadyInBrowser is used when a processID isn't available when the FrameCommittedInBrowser trace event is emitted.
+      // In that case. FrameCommittedInBrowser has no processId, but a processPseudoId. and the ProcessReadyInBrowser event declares the proper processId.
+      (evt.name === 'FrameCommittedInBrowser' || evt.name === 'ProcessReadyInBrowser') &&
+      evt.args?.data?.frame === mainFrameInfo.frameId &&
+      evt?.args?.data?.processId
     );
 
     // "Modern" traces with a navigation have a FrameCommittedInBrowser event
-    const mainFramePids = frameCommittedEvts.length
-      ? frameCommittedEvts.map(e => e?.args?.data?.processId)
+    const mainFramePids = frameProcessEvts.length
+      ? frameProcessEvts.map(e => e?.args?.data?.processId)
       // …But old traces and some timespan traces may not. In these situations, we'll assume the
       // primary process ID remains constant (as there were no navigations).
       : [mainFrameInfo.startingPid];
 
     const pidToTid = new Map();
 
-    mainFramePids.forEach(pid => {
-      // While renderer tids are generally predictable, we'll doublecheck it
-      const threadNameEvt = keyEvents.find(e =>
+    for (const pid of new Set(mainFramePids)) {
+      const threadEvents = keyEvents.filter(e =>
         e.cat === '__metadata' &&
         e.pid === pid &&
         e.ph === 'M' &&
-        e.name === 'thread_name' &&
-        e.args.name === 'CrRendererMain'
+        e.name === 'thread_name'
       );
+
+      // While renderer tids are generally predictable, we'll doublecheck it
+      let threadNameEvt = threadEvents.find(e => e.args.name === 'CrRendererMain');
+
+      // `CrRendererMain` can be missing if chrome is launched with the `--single-process` flag.
+      // In this case, page tasks will be run in the browser thread.
+      if (!threadNameEvt) {
+        threadNameEvt = threadEvents.find(e => e.args.name === 'CrBrowserMain');
+      }
+
       const tid = threadNameEvt?.tid;
 
       if (!tid) {
@@ -518,7 +529,7 @@ class TraceProcessor {
       }
 
       pidToTid.set(pid, tid);
-    });
+    }
     return pidToTid;
   }
 
@@ -712,7 +723,8 @@ class TraceProcessor {
     }
     const frameEvents = keyEvents.filter(e => associatedToMainFrame(e));
 
-    // Filter to just events matching the main frame ID or any child frame IDs.
+    // Filter to just events matching the main frame ID or any child frame IDs. The subframes
+    // are either in-process (same origin) or, potentially, out-of-process. (OOPIFs)
     let frameTreeEvents = [];
     if (frameIdToRootFrameId.has(mainFrameInfo.frameId)) {
       frameTreeEvents = keyEvents.filter(e => associatedToAllFrames(e));

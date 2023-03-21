@@ -244,7 +244,11 @@ export class ReportUIFeatures {
 
     tablesWithUrls.forEach((tableEl) => {
       const rowEls = getTableRows(tableEl);
-      const thirdPartyRows = this._getThirdPartyRows(rowEls, Util.getFinalDisplayedUrl(this.json));
+      const nonSubItemRows = rowEls.filter(rowEl => !rowEl.classList.contains('lh-sub-item-row'));
+      const thirdPartyRowEls = this._getThirdPartyRows(nonSubItemRows,
+        Util.getFinalDisplayedUrl(this.json));
+      // Entity-grouped tables don't have zebra lines.
+      const hasZebraStyle = rowEls.some(rowEl => rowEl.classList.contains('lh-row--even'));
 
       // create input box
       const filterTemplate = this._dom.createComponent('3pFilter');
@@ -253,16 +257,19 @@ export class ReportUIFeatures {
       filterInput.addEventListener('change', e => {
         const shouldHideThirdParty = e.target instanceof HTMLInputElement && !e.target.checked;
         let even = true;
-        let rowEl = rowEls[0];
+        let rowEl = nonSubItemRows[0];
         while (rowEl) {
-          const shouldHide = shouldHideThirdParty && thirdPartyRows.includes(rowEl);
+          const shouldHide = shouldHideThirdParty && thirdPartyRowEls.includes(rowEl);
 
           // Iterate subsequent associated sub item rows.
           do {
             rowEl.classList.toggle('lh-row--hidden', shouldHide);
-            // Adjust for zebra styling.
-            rowEl.classList.toggle('lh-row--even', !shouldHide && even);
-            rowEl.classList.toggle('lh-row--odd', !shouldHide && !even);
+
+            if (hasZebraStyle) {
+              // Adjust for zebra styling.
+              rowEl.classList.toggle('lh-row--even', !shouldHide && even);
+              rowEl.classList.toggle('lh-row--odd', !shouldHide && !even);
+            }
 
             rowEl = /** @type {HTMLElement} */ (rowEl.nextElementSibling);
           } while (rowEl && rowEl.classList.contains('lh-sub-item-row'));
@@ -271,13 +278,17 @@ export class ReportUIFeatures {
         }
       });
 
+      // thirdPartyRowEls contains both heading and item rows.
+      // Filter out heading rows to get third party resource count.
+      const thirdPartyResourceCount = thirdPartyRowEls.filter(
+        rowEl => !rowEl.classList.contains('lh-row--group')).length;
       this._dom.find('.lh-3p-filter-count', filterTemplate).textContent =
-          `${thirdPartyRows.length}`;
+        `${thirdPartyResourceCount}`;
       this._dom.find('.lh-3p-ui-string', filterTemplate).textContent =
           Globals.strings.thirdPartyResourcesLabel;
 
-      const allThirdParty = thirdPartyRows.length === rowEls.length;
-      const allFirstParty = !thirdPartyRows.length;
+      const allThirdParty = thirdPartyRowEls.length === nonSubItemRows.length;
+      const allFirstParty = !thirdPartyRowEls.length;
 
       // If all or none of the rows are 3rd party, hide the control.
       if (allThirdParty || allFirstParty) {
@@ -319,25 +330,29 @@ export class ReportUIFeatures {
    * @return {Array<HTMLElement>}
    */
   _getThirdPartyRows(rowEls, finalDisplayedUrl) {
-    /** @type {Array<HTMLElement>} */
-    const thirdPartyRows = [];
     const finalDisplayedUrlRootDomain = Util.getRootDomain(finalDisplayedUrl);
+    const firstPartyEntityName = this.json.entities?.find(e => e.isFirstParty === true)?.name;
 
+    /** @type {Array<HTMLElement>} */
+    const thirdPartyRowEls = [];
     for (const rowEl of rowEls) {
-      if (rowEl.classList.contains('lh-sub-item-row')) continue;
+      if (firstPartyEntityName) {
+        // We rely on entity-classification for new LHRs that support it.
+        if (!rowEl.dataset.entity || rowEl.dataset.entity === firstPartyEntityName) continue;
+      } else {
+        // Without 10.0's entity classification, fallback to the older root domain-based filtering.
+        const urlItem = rowEl.querySelector('div.lh-text__url');
+        if (!urlItem) continue;
+        const datasetUrl = urlItem.dataset.url;
+        if (!datasetUrl) continue;
+        const isThirdParty = Util.getRootDomain(datasetUrl) !== finalDisplayedUrlRootDomain;
+        if (!isThirdParty) continue;
+      }
 
-      const urlItem = rowEl.querySelector('div.lh-text__url');
-      if (!urlItem) continue;
-
-      const datasetUrl = urlItem.dataset.url;
-      if (!datasetUrl) continue;
-      const isThirdParty = Util.getRootDomain(datasetUrl) !== finalDisplayedUrlRootDomain;
-      if (!isThirdParty) continue;
-
-      thirdPartyRows.push(rowEl);
+      thirdPartyRowEls.push(rowEl);
     }
 
-    return thirdPartyRows;
+    return thirdPartyRowEls;
   }
 
   /**
