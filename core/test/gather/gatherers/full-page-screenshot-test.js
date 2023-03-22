@@ -147,7 +147,7 @@ describe('FullPageScreenshot gatherer', () => {
         mobile: true,
         deviceScaleFactor: 1,
         height: 1500,
-        width: 500,
+        width: 0,
       })
     );
 
@@ -158,7 +158,7 @@ describe('FullPageScreenshot gatherer', () => {
         mobile: true,
         deviceScaleFactor: 2,
         height: 500,
-        width: 500,
+        width: 0,
       })
     );
   });
@@ -166,7 +166,7 @@ describe('FullPageScreenshot gatherer', () => {
   it('limits the screenshot height to the max Chrome can capture', async () => {
     const fpsGatherer = new FullPageScreenshotGatherer();
 
-    contentSize = {width: 100000, height: 100000};
+    contentSize = {width: 412, height: 100000};
     screenSize = {width: 412, height: 412, dpr: 1};
     mockContext.settings = {
       ...mockContext.settings,
@@ -186,7 +186,7 @@ describe('FullPageScreenshot gatherer', () => {
       {
         mobile: true,
         deviceScaleFactor: 1,
-        width: 412, // Horizontal overflow will be clipped to screen size.
+        width: 0,
         height: 16383,
       }
     );

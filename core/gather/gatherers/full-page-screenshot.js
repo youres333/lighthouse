@@ -68,15 +68,14 @@ class FullPageScreenshot extends FRGatherer {
     const session = context.driver.defaultSession;
     const metrics = await session.sendCommand('Page.getLayoutMetrics');
 
-    // To obtain a full page screenshot, we resize the emulated viewport to
-    // (1) a height equal to the maximum between visual-viewport height and scaled document height.
-    // (2) a width equal to emulated visual-viewport width (we choose to clip overflow on x-axis).
-    // Finally, we cap the viewport to the maximum size allowance of WebP format.
-    const fullHeight = Math.max(
+    // To obtain a full page screenshot, we resize the emulated viewport height to
+    // the maximum between visual-viewport height and the scaled document height.
+    // Final height is capped to the maximum size allowance of WebP format.
+    // Height needs to be rounded to an integer for Emulation.setDeviceMetricOverrides.
+    const fullHeight = Math.round(Math.max(
       deviceMetrics.height, metrics.cssContentSize.height * metrics.cssVisualViewport.scale
-    );
+    ));
     const height = Math.min(fullHeight, MAX_WEBP_SIZE);
-    const width = Math.min(deviceMetrics.width, MAX_WEBP_SIZE);
 
     // Setup network monitor before we change the viewport.
     const networkMonitor = new NetworkMonitor(context.driver.targetManager);
@@ -93,7 +92,7 @@ class FullPageScreenshot extends FRGatherer {
       mobile: deviceMetrics.mobile,
       deviceScaleFactor: 1,
       height,
-      width,
+      width: 0, // Leave width unchanged
     });
 
     // Now that the viewport is taller, give the page some time to fetch new resources that
@@ -123,9 +122,9 @@ class FullPageScreenshot extends FRGatherer {
     return {
       data,
       // Since we resized emulated viewport to match the desired screenshot size,
-      // it is safe to rely on visual viewport css dimensions.
-      width: metrics.cssVisualViewport.clientWidth,
-      height: metrics.cssVisualViewport.clientHeight,
+      // it is safe to rely on scaled visual viewport css dimensions.
+      width: Math.round(metrics.cssVisualViewport.clientWidth * metrics.cssVisualViewport.scale),
+      height: Math.round(metrics.cssVisualViewport.clientHeight * metrics.cssVisualViewport.scale),
     };
   }
 
@@ -233,7 +232,7 @@ class FullPageScreenshot extends FRGatherer {
             mobile: deviceMetrics.mobile,
             deviceScaleFactor: deviceMetrics.deviceScaleFactor,
             height: deviceMetrics.height,
-            width: deviceMetrics.width,
+            width: 0, // Leave width unchanged
           });
         }
       }
