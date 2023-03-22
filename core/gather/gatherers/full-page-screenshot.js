@@ -46,17 +46,6 @@ function getObservedDeviceMetrics() {
   };
 }
 
-/**
- * The screenshot dimensions are sized to `window.outerHeight` / `window.outerWidth`,
- * however the bounding boxes of the elements are relative to `window.innerHeight` / `window.innerWidth`.
- */
-function getScreenshotAreaSize() {
-  return {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  };
-}
-
 function waitForDoubleRaf() {
   return new Promise((resolve) => {
     requestAnimationFrame(() => requestAnimationFrame(resolve));
@@ -79,14 +68,13 @@ class FullPageScreenshot extends FRGatherer {
     const session = context.driver.defaultSession;
     const metrics = await session.sendCommand('Page.getLayoutMetrics');
 
-    // Height should be as tall as the content.
-    // Scale the emulated height to reach the content height.
-    const fullHeight = Math.round(
-      deviceMetrics.height *
-      metrics.cssContentSize.height /
-      metrics.cssLayoutViewport.clientHeight
-    );
+    // To obtain a full page screenshot, we resize the emulated viewport to
+    // (1) a height equal to the maximum of visual-viewport height and document height.
+    // (2) a width equal to emulated visual-viewport width (we choose to clip overflow on x-axis).
+    // Finally, we cap the viewport to a maximum size allowance of WebP format.
+    const fullHeight = Math.max(deviceMetrics.height, metrics.cssContentSize.height);
     const height = Math.min(fullHeight, MAX_WEBP_SIZE);
+    const width = Math.min(deviceMetrics.width, MAX_WEBP_SIZE);
 
     // Setup network monitor before we change the viewport.
     const networkMonitor = new NetworkMonitor(context.driver.targetManager);
@@ -103,7 +91,7 @@ class FullPageScreenshot extends FRGatherer {
       mobile: deviceMetrics.mobile,
       deviceScaleFactor: 1,
       height,
-      width: 0, // Leave width unchanged
+      width,
     });
 
     // Now that the viewport is taller, give the page some time to fetch new resources that
@@ -128,18 +116,14 @@ class FullPageScreenshot extends FRGatherer {
       format: 'webp',
       quality: FULL_PAGE_SCREENSHOT_QUALITY,
     });
+    const metrics = await context.driver.defaultSession.sendCommand('Page.getLayoutMetrics');
     const data = 'data:image/webp;base64,' + result.data;
-
-    const screenshotAreaSize =
-      await context.driver.executionContext.evaluate(getScreenshotAreaSize, {
-        args: [],
-        useIsolation: true,
-      });
-
     return {
       data,
-      width: screenshotAreaSize.width,
-      height: screenshotAreaSize.height,
+      // Since we resized emulated viewport to match the desired screenshot size,
+      // it is safe to rely on visual viewport css dimensions.
+      width: metrics.cssVisualViewport.clientWidth,
+      height: metrics.cssVisualViewport.clientHeight,
     };
   }
 
@@ -247,7 +231,7 @@ class FullPageScreenshot extends FRGatherer {
             mobile: deviceMetrics.mobile,
             deviceScaleFactor: deviceMetrics.deviceScaleFactor,
             height: deviceMetrics.height,
-            width: 0, // Leave width unchanged
+            width: deviceMetrics.width,
           });
         }
       }
