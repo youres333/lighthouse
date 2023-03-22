@@ -25,7 +25,8 @@ beforeEach(() => {
       return {
         cssContentSize: contentSize,
         // See comment within _takeScreenshot() implementation
-        cssVisualViewport: {clientWidth: contentSize.width, clientHeight: contentSize.height},
+        cssVisualViewport: {clientWidth: contentSize.width, clientHeight: contentSize.height,
+          scale: 1.0},
       };
     }
     if (method === 'Page.captureScreenshot') {
