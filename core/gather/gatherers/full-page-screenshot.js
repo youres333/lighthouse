@@ -69,10 +69,12 @@ class FullPageScreenshot extends FRGatherer {
     const metrics = await session.sendCommand('Page.getLayoutMetrics');
 
     // To obtain a full page screenshot, we resize the emulated viewport to
-    // (1) a height equal to the maximum of visual-viewport height and document height.
+    // (1) a height equal to the maximum between visual-viewport height and scaled document height.
     // (2) a width equal to emulated visual-viewport width (we choose to clip overflow on x-axis).
-    // Finally, we cap the viewport to a maximum size allowance of WebP format.
-    const fullHeight = Math.max(deviceMetrics.height, metrics.cssContentSize.height);
+    // Finally, we cap the viewport to the maximum size allowance of WebP format.
+    const fullHeight = Math.max(
+      deviceMetrics.height, metrics.cssContentSize.height * metrics.cssVisualViewport.scale
+    );
     const height = Math.min(fullHeight, MAX_WEBP_SIZE);
     const width = Math.min(deviceMetrics.width, MAX_WEBP_SIZE);
 
