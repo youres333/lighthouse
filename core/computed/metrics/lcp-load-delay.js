@@ -37,7 +37,7 @@ class LCPLoadDelay extends NavigationMetric {
     const networkRecords = await NetworkRecords.request(data.devtoolsLog, context);
 
     const lcpRecord =
-      PrioritizeLcpImage.getLcpRecord(data.trace, processedNavigation, networkRecords);
+      PrioritizeLcpImage.getLcpRecord(processedNavigation, networkRecords);
 
     if (!lcpRecord) {
       throw new Error('LCP is not an image');

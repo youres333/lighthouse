@@ -864,7 +864,6 @@ class TraceProcessor {
       fmpFellBack: frameTimings.fmpFellBack,
       lcpInvalidated: frameTimings.lcpInvalidated,
       lcpImagePaintEvt,
-      processedTrace,
     };
   }
 

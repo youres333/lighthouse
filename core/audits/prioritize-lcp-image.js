@@ -144,21 +144,22 @@ class PrioritizeLcpImage extends Audit {
    * Match the LCP event with the paint event to get the request of the image actually painted.
    * This could differ from the `ImageElement` associated with the nodeId if e.g. the LCP
    * was a pseudo-element associated with a node containing a smaller background-image.
-   * @param {LH.Trace} trace
    * @param {LH.Artifacts.ProcessedNavigation} processedNavigation
    * @param {Array<NetworkRequest>} networkRecords
    * @return {NetworkRequest|undefined}
    */
-  static getLcpRecord(trace, processedNavigation, networkRecords) {
-    const frameId = processedNavigation.processedTrace.mainFrameInfo.frameId;
-    const lcpUrl = processedNavigation.lcpImagePaintEvt?.args.data?.imageUrl;
+  static getLcpRecord(processedNavigation, networkRecords) {
+    const lcpImagePaintEvt = processedNavigation.lcpImagePaintEvt;
+    if (!lcpImagePaintEvt) return;
+
+    const lcpUrl = lcpImagePaintEvt?.args.data?.imageUrl;
     if (!lcpUrl) return;
 
     const candidates = networkRecords.filter(record => {
       return record.url === lcpUrl &&
           record.finished &&
           // Same frame as LCP trace event.
-          record.frameId === frameId &&
+          record.frameId === lcpImagePaintEvt.args.frame &&
           record.networkRequestTime < (processedNavigation.timestamps.largestContentfulPaint || 0);
     }).map(record => {
       // Follow any redirects to find the real image request.
@@ -292,7 +293,7 @@ class PrioritizeLcpImage extends Audit {
     const lanternLCP = await LanternLargestContentfulPaint.request(metricData, context);
     const simulator = await LoadSimulator.request({devtoolsLog, settings}, context);
 
-    const lcpRecord = PrioritizeLcpImage.getLcpRecord(trace, processedNavigation, networkRecords);
+    const lcpRecord = PrioritizeLcpImage.getLcpRecord(processedNavigation, networkRecords);
     const graph = lanternLCP.pessimisticGraph;
     // Note: if moving to LCPAllFrames, mainResource would need to be the LCP frame's main resource.
     const {lcpNodeToPreload, initiatorPath} = PrioritizeLcpImage.getLCPNodeToPreload(mainResource,
