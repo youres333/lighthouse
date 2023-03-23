@@ -18,6 +18,7 @@ import {SpeedIndex} from './speed-index.js';
 import {MaxPotentialFID} from './max-potential-fid.js';
 import {TotalBlockingTime} from './total-blocking-time.js';
 import {makeComputedArtifact} from '../computed-artifact.js';
+import {LCPLoadDelay} from './lcp-load-delay.js';
 
 class TimingSummary {
   /**
@@ -57,6 +58,7 @@ class TimingSummary {
     const maxPotentialFID = await requestOrUndefined(MaxPotentialFID, metricComputationData);
     const speedIndex = await requestOrUndefined(SpeedIndex, metricComputationData);
     const totalBlockingTime = await requestOrUndefined(TotalBlockingTime, metricComputationData);
+    const lcpLoadDelay = await requestOrUndefined(LCPLoadDelay, metricComputationData);
 
     const {
       cumulativeLayoutShift,
@@ -86,6 +88,8 @@ class TimingSummary {
       cumulativeLayoutShift,
       cumulativeLayoutShiftMainFrame,
       totalCumulativeLayoutShift,
+      lcpLoadDelay: lcpLoadDelay?.timing,
+      lcpLoadDelayTs: lcpLoadDelay?.timestamp,
 
       // Include all timestamps of interest from the processed trace
       observedTimeOrigin: processedTrace.timings.timeOrigin,

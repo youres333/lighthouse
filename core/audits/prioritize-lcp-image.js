@@ -150,26 +150,15 @@ class PrioritizeLcpImage extends Audit {
    * @return {NetworkRequest|undefined}
    */
   static getLcpRecord(trace, processedNavigation, networkRecords) {
-    // Use main-frame-only LCP to match the metric value.
-    const lcpEvent = processedNavigation.largestContentfulPaintEvt;
-    if (!lcpEvent) return;
-
-    const lcpImagePaintEvent = trace.traceEvents.filter(e => {
-      return e.name === 'LargestImagePaint::Candidate' &&
-          e.args.frame === lcpEvent.args.frame &&
-          e.args.data?.DOMNodeId === lcpEvent.args.data?.nodeId &&
-          e.args.data?.size === lcpEvent.args.data?.size;
-    // Get last candidate, in case there was more than one.
-    }).sort((a, b) => b.ts - a.ts)[0];
-
-    const lcpUrl = lcpImagePaintEvent?.args.data?.imageUrl;
+    const frameId = processedNavigation.processedTrace.mainFrameInfo.frameId;
+    const lcpUrl = processedNavigation.lcpImagePaintEvt?.args.data?.imageUrl;
     if (!lcpUrl) return;
 
     const candidates = networkRecords.filter(record => {
       return record.url === lcpUrl &&
           record.finished &&
           // Same frame as LCP trace event.
-          record.frameId === lcpImagePaintEvent.args.frame &&
+          record.frameId === frameId &&
           record.networkRequestTime < (processedNavigation.timestamps.largestContentfulPaint || 0);
     }).map(record => {
       // Follow any redirects to find the real image request.

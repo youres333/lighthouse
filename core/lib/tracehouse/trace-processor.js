@@ -18,8 +18,8 @@
 /** @typedef {Omit<LH.Artifacts.NavigationTraceTimes, 'firstContentfulPaintAllFrames'|'traceEnd'>} TraceNavigationTimesForFrame */
 /** @typedef {'lastNavigationStart'|'firstResourceSendRequest'|'lighthouseMarker'|'auto'} TimeOriginDeterminationMethod */
 /** @typedef {Omit<LH.TraceEvent, 'name'|'args'> & {name: 'FrameCommittedInBrowser', args: {data: {frame: string, url: string, parent?: string}}}} FrameCommittedEvent */
-/** @typedef {Omit<LH.TraceEvent, 'name'|'args'> & {name: 'largestContentfulPaint::Invalidate'|'largestContentfulPaint::Candidate', args: {data?: {size?: number}, frame: string}}} LCPEvent */
-/** @typedef {Omit<LH.TraceEvent, 'name'|'args'> & {name: 'largestContentfulPaint::Candidate', args: {data: {size: number}, frame: string}}} LCPCandidateEvent */
+/** @typedef {Omit<LH.TraceEvent, 'name'|'args'> & {name: 'largestContentfulPaint::Invalidate'|'largestContentfulPaint::Candidate', args: {data?: {size?: number, nodeId?: number}, frame: string}}} LCPEvent */
+/** @typedef {Omit<LH.TraceEvent, 'name'|'args'> & {name: 'largestContentfulPaint::Candidate', args: {data: {size: number, nodeId: number}, frame: string}}} LCPCandidateEvent */
 
 import log from 'lighthouse-logger';
 
@@ -589,7 +589,7 @@ class TraceProcessor {
    *
    * @param {LH.TraceEvent[]} events
    * @param {LH.TraceEvent} timeOriginEvent
-   * @return {{lcp: LCPEvent | undefined, invalidated: boolean}}
+   * @return {{lcp: LCPCandidateEvent | undefined, invalidated: boolean}}
    */
   static computeValidLCPAllFrames(events, timeOriginEvent) {
     const lcpEvents = events.filter(this.isLCPEvent).reverse();
@@ -799,6 +799,18 @@ class TraceProcessor {
     // Compute the key frame timings for the main frame.
     const frameTimings = this.computeNavigationTimingsForFrame(frameEvents, {timeOriginEvt});
 
+    // Get LCP image paint event if present
+    let lcpImagePaintEvt;
+    const lcpEvent = frameTimings.largestContentfulPaintEvt;
+    if (lcpEvent) {
+      lcpImagePaintEvt = frameEvents.filter(e => {
+        return e.name === 'LargestImagePaint::Candidate' &&
+            e.args.data?.DOMNodeId === lcpEvent.args.data.nodeId &&
+            e.args.data?.size === lcpEvent.args.data.size;
+      // Get last candidate, in case there was more than one.
+      }).sort((a, b) => b.ts - a.ts)[0];
+    }
+
     // Compute FCP for all frames.
     const fcpAllFramesEvt = frameTreeEvents.find(
       e => e.name === 'firstContentfulPaint' && e.ts > timeOriginEvt.ts
@@ -845,12 +857,14 @@ class TraceProcessor {
       firstContentfulPaintEvt: frameTimings.firstContentfulPaintEvt,
       firstContentfulPaintAllFramesEvt: fcpAllFramesEvt,
       firstMeaningfulPaintEvt: frameTimings.firstMeaningfulPaintEvt,
-      largestContentfulPaintEvt: frameTimings.largestContentfulPaintEvt,
+      largestContentfulPaintEvt: lcpEvent,
       largestContentfulPaintAllFramesEvt: lcpAllFramesEvt,
       loadEvt: frameTimings.loadEvt,
       domContentLoadedEvt: frameTimings.domContentLoadedEvt,
       fmpFellBack: frameTimings.fmpFellBack,
       lcpInvalidated: frameTimings.lcpInvalidated,
+      lcpImagePaintEvt,
+      processedTrace,
     };
   }
 

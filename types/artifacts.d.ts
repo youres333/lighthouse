@@ -746,6 +746,7 @@ declare module Artifacts {
     largestContentfulPaintEvt?: TraceEvent;
     /** The trace event marking largestContentfulPaint from all frames, if it was found. */
     largestContentfulPaintAllFramesEvt?: TraceEvent;
+    lcpImagePaintEvt?: TraceEvent;
     /** The trace event marking loadEventEnd, if it was found. */
     loadEvt?: TraceEvent;
     /** The trace event marking domContentLoadedEventEnd, if it was found. */
@@ -757,6 +758,7 @@ declare module Artifacts {
     fmpFellBack: boolean;
     /** Whether LCP was invalidated without a new candidate. */
     lcpInvalidated: boolean;
+    processedTrace: ProcessedTrace;
   }
 
   /** Information on a tech stack (e.g. a JS library) used by the page. */
@@ -784,6 +786,8 @@ declare module Artifacts {
     largestContentfulPaintTs: number | undefined;
     largestContentfulPaintAllFrames: number | undefined;
     largestContentfulPaintAllFramesTs: number | undefined;
+    lcpLoadDelay: number | undefined;
+    lcpLoadDelayTs: number | undefined;
     interactive: number | undefined;
     interactiveTs: number | undefined;
     speedIndex: number | undefined;
