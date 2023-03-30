@@ -17,6 +17,7 @@ const fcpRelevantAudits = [
   'unminified-javascript',
   'unminified-css',
   'unused-css-rules',
+  'no-document-write',
 ];
 
 const lcpRelevantAudits = [
@@ -27,6 +28,11 @@ const lcpRelevantAudits = [
   'efficient-animated-content',
   'total-byte-weight',
   'lcp-lazy-loaded',
+  'uses-responsive-images',
+  'uses-optimized-images',
+  'modern-image-formats',
+  'offscreen-images',
+  'uses-http2',
 ];
 
 const tbtRelevantAudits = [
@@ -50,6 +56,8 @@ const clsRelevantAudits = [
 
 const inpRelevantAudits = [
   'work-during-interaction',
+  'uses-passive-event-listeners',
+  'viewport',
 ];
 
 export const metricsToAudits = {
