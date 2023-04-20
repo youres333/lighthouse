@@ -38,7 +38,7 @@ mkdir -p "$fe_lh_dir"
 
 lh_bg_js="dist/lighthouse-dt-bundle.js"
 
-yarn build-report --esm
+# yarn build-report --esm
 node ./build/build-dt-report-resources.js
 
 # copy lighthouse-dt-bundle

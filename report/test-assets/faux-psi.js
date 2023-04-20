@@ -57,24 +57,32 @@ async function renderLHReport(lhr, container) {
     for (const el of container.childNodes) el.remove();
 
     const reportRootEl = lighthouseRenderer.renderReport(lhr, {
-      omitTopbar: true,
-      disableFireworks: true,
-      disableDarkMode: true,
+      // These properties must remain quoted to avoid minification in jsmode=o
+      'omitTopbar': true,
+      'disableFireworks': true,
+      'disableDarkMode': true,
     });
-    // TODO: display warnings if appropriate.
-    for (const el of reportRootEl.querySelectorAll('.lh-warnings--toplevel')) {
-      el.setAttribute('hidden', 'true');
-    }
+
+    // TODO(paulirish): make api to set location
+    const el =
+        reportRootEl.querySelector('.lh-report-icon--networkspeed .lh-tooltip');
+    if (el !== null) el.append(`\n Server Location`);
 
     // Move env block
     const metaItemsEl = reportRootEl.querySelector('.lh-meta__items');
     if (metaItemsEl) {
-      reportRootEl.querySelector('.lh-metrics-container')?.parentNode?.insertBefore(
-        metaItemsEl,
-        reportRootEl.querySelector('.lh-buttons')
-      );
-      reportRootEl.querySelector('.lh-metrics-container')?.closest('.lh-category')?.classList
-          .add('lh--hoisted-meta');
+      reportRootEl.querySelector('.lh-metrics-container')
+          ?.parentNode?.insertBefore(
+              metaItemsEl, reportRootEl.querySelector('.lh-buttons'));
+
+      reportRootEl.querySelector('.lh-metrics-container')
+          ?.closest('.lh-category')
+          ?.classList.add('lh--hoisted-meta');
+    }
+
+    // Hide footer
+    for (const el of reportRootEl.querySelectorAll('footer.lh-footer')) {
+      el.style.display = 'none';
     }
 
     container.append(reportRootEl);
@@ -85,8 +93,21 @@ async function renderLHReport(lhr, container) {
       el.style.setProperty('--report-content-max-width', '100%');
       el.style.setProperty('--edge-gap-padding', '0');
     }
-    for (const el of reportRootEl.querySelectorAll('footer.lh-footer')) {
-      el.style.display = 'none';
+
+    // This enables scrolling to the relevant category using TAB + ENTER.
+    // Otherwise, ENTER will navigate back home and add the hash to the home
+    // view url. Note that clicking the categories works out of the box.
+    for (const el of container.querySelectorAll('.lh-gauge__wrapper')) {
+      el.addEventListener('keydown', /** @type {KeyboardEvent} */ (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const selector = el.getAttribute('href');
+          if (!selector) return;
+          const destEl = container.querySelector(selector);
+          if (!destEl) return;
+          destEl.scrollIntoView();
+        }
+      });
     }
   } catch (e) {
     console.error(e);
@@ -106,7 +127,7 @@ async function swapLhrLocale(locale) {
 
   if (!lighthouseRenderer.format.hasLocale(locale)) {
     // Requires running a server in LH root and viewing localhost:XXXX/dist/sample-reports/⌣.psi.english/index.html
-    const response = await fetch(`/shared/localization/locales/${locale}.json`);
+    const response = await fetch(`https://www.gstatic.com/pagespeed/insights/ui/locales/${locale}.json`);
     /** @type {import('../../shared/localization/locales').LhlMessages} */
     const lhlMessages = await response.json();
     if (!lhlMessages) throw new Error(`could not fetch data for locale: ${locale}`);

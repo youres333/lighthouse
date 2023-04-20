@@ -119,7 +119,7 @@ function addPluginCategory(sampleLhr) {
 }
 
 /**
- * Drops the LHR to only one, solo category (performance), and removes budgets.
+ * Removes budgets.
  * @param {LH.Result} sampleLhr
  */
 function tweakLhrForPsi(sampleLhr) {
@@ -127,6 +127,9 @@ function tweakLhrForPsi(sampleLhr) {
   const clone = JSON.parse(JSON.stringify(sampleLhr));
   clone.categories = {
     'performance': clone.categories.performance,
+    'accessibility': clone.categories.accessibility,
+    'best-practices': clone.categories['best-practices'],
+    'seo': clone.categories.seo,
   };
   // no budgets in PSI
   delete clone.audits['performance-budget'];

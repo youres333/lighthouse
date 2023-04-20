@@ -27,7 +27,7 @@
     "build-lr": "yarn reset-link && node ./build/build-lightrider-bundles.js",
     "build-pack": "bash build/build-pack.sh",
     "build-report": "node build/build-report-components.js && node build/build-report.js",
-    "build-sample-reports": "yarn build-report && node build/build-sample-reports.js",
+    "build-sample-reports": "yarn build-report --esm --umd && node build/build-sample-reports.js",
     "build-treemap": "node ./build/build-treemap.js",
     "build-viewer": "node ./build/build-viewer.js",
     "build-types": "yarn type-check && rsync -a .tmp/tsbuildinfo/ ./ --include='*.d.ts' --include='*.d.cts' --exclude='*.map' --exclude='*.tsbuildinfo'",

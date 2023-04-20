@@ -83,6 +83,8 @@ async function runA11yChecks() {
   };
 }
 
+const wait = (ms = 100) => new Promise(resolve => setTimeout(resolve, ms));
+
 async function runA11yChecksAndResetScroll() {
   const originalScrollPosition = {
     x: window.scrollX,
