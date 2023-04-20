@@ -32,6 +32,12 @@
   {intensity} is the Material Design tag - 700, A700, etc.
 */
 .lh-vars {
+  font-family: var(--report-font-family);
+  font-size: var(--report-font-size);
+  line-height: var(--report-line-height);
+  background: var(--report-background-color);
+  color: var(--report-text-color);
+
   /* Palette using Material Design Colors
    * https://www.materialui.co/colors */
   --color-amber-50: #FFF8E1;
@@ -293,32 +299,25 @@
   --sticky-header-buffer: 0;
 }
 
-/* TODO figure out tjese lh-devtools cases. */
-.lh-devtools.lh-root {
-  height: 100%;
-}
-.lh-devtools.lh-root img {
+.lh-vars--devtools img {
   /* Override devtools default 'min-width: 0' so svg without size in a flexbox isn't collapsed. */
   min-width: auto;
 }
-.lh-devtools .lh-container {
+.lh-vars--devtools.lh-container {
   overflow-y: scroll;
   height: calc(100% - var(--topbar-height));
   /** The .lh-container is the scroll parent in DevTools so we exclude the topbar from the sticky header buffer. */
   --sticky-header-buffer: calc(var(--sticky-header-height));
 }
 @media print {
-  .lh-devtools .lh-container {
+  .lh-vars--devtools.lh-container {
     overflow: unset;
   }
 }
-.lh-devtools .lh-sticky-header {
-  /* This is normally the height of the topbar, but we want it to stick to the top of our scroll container .lh-container` */
-  top: 0;
-}
-.lh-devtools .lh-element-screenshot__overlay {
+.lh-vars--devtools  .lh-element-screenshot__overlay {
   position: absolute;
 }
+
 
 @keyframes fadeIn {
   0% { opacity: 0;}
@@ -330,13 +329,9 @@
 }
 
 .lh-root {
-  font-family: var(--report-font-family);
-  font-size: var(--report-font-size);
   margin: 0;
-  line-height: var(--report-line-height);
-  background: var(--report-background-color);
-  color: var(--report-text-color);
   container-type: inline-size;
+  height: 100%; /* very important for appropriate overflow/scrolling in devtools. Probably fine everywhere else? */
 }
 
 .lh-root :focus-visible {

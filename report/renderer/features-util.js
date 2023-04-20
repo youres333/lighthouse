@@ -13,13 +13,14 @@
  * @param {boolean} [force]
  */
 export function toggleDarkTheme(dom, force) {
-  const el = dom.rootEl;
-  // This seems unnecessary, but in DevTools, passing "undefined" as the second
-  // parameter acts like passing "false".
-  // https://github.com/ChromeDevTools/devtools-frontend/blob/dd6a6d4153647c2a4203c327c595692c5e0a4256/front_end/dom_extension/DOMExtension.js#L809-L819
-  if (typeof force === 'undefined') {
-    el.classList.toggle('lh-vars--dark');
-  } else {
-    el.classList.toggle('lh-vars--dark', force);
+  for (const el of dom.rootEl.querySelectorAll('.lh-vars')) {
+    // This seems unnecessary, but in DevTools, passing "undefined" as the second
+    // parameter acts like passing "false".
+    // https://github.com/ChromeDevTools/devtools-frontend/blob/dd6a6d4153647c2a4203c327c595692c5e0a4256/front_end/dom_extension/DOMExtension.js#L809-L819
+    if (typeof force === 'undefined') {
+      el.classList.toggle('lh-vars--dark');
+    } else {
+      el.classList.toggle('lh-vars--dark', force);
+    }
   }
 }
