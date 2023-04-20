@@ -181,7 +181,7 @@
 }
 
 @media not print {
-  .lh-dark {
+  .lh-vars--dark {
     /* Pallete */
     --color-gray-200: var(--color-gray-800);
     --color-gray-300: #616161;
@@ -223,7 +223,7 @@
   }
 }
 
-@media only screen and (max-width: 480px) {
+@container (max-width: 480px) {
   .lh-vars {
     --audit-group-margin-bottom: 20px;
     --edge-gap-padding: var(--default-padding);
@@ -255,7 +255,7 @@
   }
 }
 
-.lh-vars.lh-devtools {
+.lh-vars.lh-vars--devtools {
   --audit-explanation-line-height: 14px;
   --audit-group-margin-bottom: 20px;
   --audit-group-padding-vertical: 12px;
@@ -293,6 +293,7 @@
   --sticky-header-buffer: 0;
 }
 
+/* TODO figure out tjese lh-devtools cases. */
 .lh-devtools.lh-root {
   height: 100%;
 }
@@ -335,6 +336,7 @@
   line-height: var(--report-line-height);
   background: var(--report-background-color);
   color: var(--report-text-color);
+  container-type: inline-size;
 }
 
 .lh-root :focus-visible {
@@ -448,7 +450,7 @@
 .lh-report-icon:hover::before {
   opacity: 1;
 }
-.lh-dark .lh-report-icon::before {
+.lh-vars--dark .lh-report-icon::before {
   filter: invert(1);
 }
 .lh-report-icon--print::before {
@@ -762,7 +764,7 @@
 }
 
 
-@media screen and (max-width: 535px) {
+@container (max-width: 535px) {
   .lh-metrics-container {
     display: block;
   }
@@ -1480,7 +1482,7 @@
   height: var(--gauge-circle-size-big);
 }
 
-@media screen and (max-width: 780px) {
+@container (max-width: 780px) {
   .lh-category-header__finalscreenshot {
     grid-template: 1fr 1fr / none
   }
@@ -1491,7 +1493,7 @@
 
 
 /* 964 fits the min-width of the filmstrip */
-@media screen and (max-width: 964px) {
+@container (max-width: 964px) {
   .lh-report {
     margin-left: 0;
     width: 100%;
@@ -1588,7 +1590,7 @@
   display: inline-block;
 }
 
-.lh-dark .lh-report-icon--external::before {
+.lh-vars--dark .lh-report-icon--external::before {
   filter: invert(1);
 }
 
@@ -1766,7 +1768,7 @@
   }
 }
 
-@media screen and (max-width: 780px) {
+@container (max-width: 780px) {
   /* no black outline if we're not confident the entire table can be displayed within bounds */
   .lh-expandable-details[open] {
     animation: none;
@@ -1808,10 +1810,10 @@ details[open] .lh-clump-toggletext--hide { display: block;}
 /* shrink tooltips to not be cutoff on left edge of narrow viewports
    45vw is chosen to be ~= width of the left column of metrics
 */
-@media screen and (max-width: 535px) {
+@container (max-width: 535px) {
   .lh-tooltip {
-    min-width: 45vw;
-    padding: 3vw;
+    min-width: 45cqw;
+    padding: 3cqw;
   }
 }
 
@@ -1948,12 +1950,12 @@ details[open] .lh-clump-toggletext--hide { display: block;}
 }
 
 /* Change the grid for narrow viewport. */
-@media screen and (max-width: 640px) {
+@container (max-width: 640px) {
   .lh-meta__items {
     grid-template-columns: 1fr 1fr;
   }
 }
-@media screen and (max-width: 535px) {
+@container (max-width: 535px) {
   .lh-meta__items {
     display: block;
   }

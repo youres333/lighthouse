@@ -17,7 +17,7 @@ import {DetailsRenderer} from './details-renderer.js';
  */
 function renderReport(lhr, opts = {}) {
   const rootEl = document.createElement('article');
-  rootEl.classList.add('lh-root', 'lh-vars');
+  rootEl.classList.add('lh-root');
 
   const dom = new DOM(rootEl.ownerDocument, rootEl);
   const renderer = new ReportRenderer(dom);

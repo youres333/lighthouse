@@ -13,7 +13,7 @@ declare module Renderer {
   interface Options {
     /**
      * Disables automatically applying dark mode based on `prefers-color-scheme: dark`. Dark mode can still
-     * be manually applied by assigning the class `lh-dark` to the report element.
+     * be manually applied by adding `lh-vars--dark` to any `lh-vars` elements
      */
     disableDarkMode?: boolean;
     /** Disables the fireworks animation that plays when all core categories have a 100 score. */

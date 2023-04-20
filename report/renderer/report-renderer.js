@@ -54,7 +54,7 @@ export class ReportRenderer {
       if (closestRoot) {
         this._dom.rootEl = /** @type {HTMLElement} */ (closestRoot);
       } else {
-        rootEl.classList.add('lh-root', 'lh-vars');
+        rootEl.classList.add('lh-root');
         this._dom.rootEl = rootEl;
       }
     } else if (this._dom.rootEl && rootEl) {
@@ -282,7 +282,7 @@ export class ReportRenderer {
     const headerContainer = this._dom.createElement('div');
     headerContainer.append(this._renderReportHeader());
 
-    const reportContainer = this._dom.createElement('div', 'lh-container');
+    const reportContainer = this._dom.createElement('div', 'lh-container lh-vars');
     const reportSection = this._dom.createElement('div', 'lh-report');
     reportSection.append(this._renderReportWarnings(report));
 

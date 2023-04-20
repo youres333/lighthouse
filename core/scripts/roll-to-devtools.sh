@@ -38,15 +38,15 @@ mkdir -p "$fe_lh_dir"
 
 lh_bg_js="dist/lighthouse-dt-bundle.js"
 
-yarn build-report
-yarn build-devtools
+yarn build-report --esm
+node ./build/build-dt-report-resources.js
 
 # copy lighthouse-dt-bundle
-cp -pPR "$lh_bg_js" "$fe_lh_dir/lighthouse-dt-bundle.js"
+# cp -pPR "$lh_bg_js" "$fe_lh_dir/lighthouse-dt-bundle.js"
 echo -e "$check lighthouse-dt-bundle copied."
 
 # generate bundle.d.ts
-npx tsc --allowJs --declaration --emitDeclarationOnly dist/report/bundle.esm.js
+# npx tsc --allowJs --declaration --emitDeclarationOnly dist/report/bundle.esm.js
 
 # Exports of report/clients/bundle.js can possibly be mistakenly overridden by tsc.
 # Funky sed inplace command so we support both GNU sed and BSD sed (used by GHA devtools runner on macos)
@@ -74,12 +74,12 @@ rsync -avh "$lh_locales_dir" "$fe_locales_dir" --exclude="*.ctc.json" --delete
 echo -e "$check Locale JSON files copied."
 
 # copy e2e tests
-lh_e2e_dir="third-party/devtools-tests/e2e/lighthouse/"
-fe_e2e_dir="$dt_dir/test/e2e/lighthouse"
-rsync -avh "$lh_e2e_dir" "$fe_e2e_dir" --exclude="OWNERS" --delete
-lh_e2e_res_dir="third-party/devtools-tests/e2e/resources/lighthouse/"
-fe_e2e_res_dir="$dt_dir/test/e2e/resources/lighthouse"
-rsync -avh "$lh_e2e_res_dir" "$fe_e2e_res_dir" --exclude="OWNERS" --delete
+# lh_e2e_dir="third-party/devtools-tests/e2e/lighthouse/"
+# fe_e2e_dir="$dt_dir/test/e2e/lighthouse"
+# rsync -avh "$lh_e2e_dir" "$fe_e2e_dir" --exclude="OWNERS" --delete
+# lh_e2e_res_dir="third-party/devtools-tests/e2e/resources/lighthouse/"
+# fe_e2e_res_dir="$dt_dir/test/e2e/resources/lighthouse"
+# rsync -avh "$lh_e2e_res_dir" "$fe_e2e_res_dir" --exclude="OWNERS" --delete
 
 echo ""
 echo "Done. To run the e2e tests: "
