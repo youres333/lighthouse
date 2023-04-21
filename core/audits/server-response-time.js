@@ -37,7 +37,7 @@ class ServerResponseTime extends Audit {
       failureTitle: str_(UIStrings.failureTitle),
       description: str_(UIStrings.description),
       supportedModes: ['navigation'],
-      requiredArtifacts: ['devtoolsLogs', 'URL', 'GatherContext'],
+      requiredArtifacts: ['devtoolsLogs', 'traces', 'GatherContext'],
     };
   }
 
@@ -56,9 +56,9 @@ class ServerResponseTime extends Audit {
    */
   static async audit(artifacts, context) {
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
+    const trace = artifacts.traces[Audit.DEFAULT_PASS];
 
-    /** @type {LH.Artifacts.NetworkRequest} */
-    const mainResource = await MainResource.request({devtoolsLog, URL: artifacts.URL}, context);
+    const mainResource = await MainResource.request({devtoolsLog, trace}, context);
 
     const responseTime = ServerResponseTime.calculateResponseTime(mainResource);
     const passed = responseTime < TOO_SLOW_THRESHOLD_MS;

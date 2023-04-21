@@ -9,6 +9,7 @@ import LinkHeader from 'http-link-header';
 import FRGatherer from '../base-gatherer.js';
 import {pageFunctions} from '../../lib/page-functions.js';
 import DevtoolsLog from './devtools-log.js';
+import Trace from './trace.js';
 import {MainResource} from '../../computed/main-resource.js';
 import {Util} from '../../../shared/util.js';
 import * as i18n from '../../lib/i18n/i18n.js';
@@ -99,11 +100,11 @@ class LinkElements extends FRGatherer {
     /**
      * This needs to be in the constructor.
      * https://github.com/GoogleChrome/lighthouse/issues/12134
-     * @type {LH.Gatherer.GathererMeta<'DevtoolsLog'>}
+     * @type {LH.Gatherer.GathererMeta<'DevtoolsLog'|'Trace'>}
      */
     this.meta = {
       supportedModes: ['timespan', 'navigation'],
-      dependencies: {DevtoolsLog: DevtoolsLog.symbol},
+      dependencies: {DevtoolsLog: DevtoolsLog.symbol, Trace: Trace.symbol},
     };
   }
 
@@ -127,11 +128,12 @@ class LinkElements extends FRGatherer {
   /**
    * @param {LH.Gatherer.FRTransitionalContext} context
    * @param {LH.Artifacts['DevtoolsLog']} devtoolsLog
+   * @param {LH.Artifacts['Trace']} trace
    * @return {Promise<LH.Artifacts['LinkElements']>}
    */
-  static async getLinkElementsInHeaders(context, devtoolsLog) {
+  static async getLinkElementsInHeaders(context, devtoolsLog, trace) {
     const mainDocument =
-      await MainResource.request({devtoolsLog, URL: context.baseArtifacts.URL}, context);
+      await MainResource.request({devtoolsLog, trace}, context);
 
     /** @type {LH.Artifacts['LinkElements']} */
     const linkElements = [];
@@ -174,11 +176,12 @@ class LinkElements extends FRGatherer {
   /**
    * @param {LH.Gatherer.FRTransitionalContext} context
    * @param {LH.Artifacts['DevtoolsLog']} devtoolsLog
+   * @param {LH.Artifacts['Trace']} trace
    * @return {Promise<LH.Artifacts['LinkElements']>}
    */
-  async _getArtifact(context, devtoolsLog) {
+  async _getArtifact(context, devtoolsLog, trace) {
     const fromDOM = await LinkElements.getLinkElementsInDOM(context);
-    const fromHeaders = await LinkElements.getLinkElementsInHeaders(context, devtoolsLog);
+    const fromHeaders = await LinkElements.getLinkElementsInHeaders(context, devtoolsLog, trace);
     const linkElements = fromDOM.concat(fromHeaders);
 
     for (const link of linkElements) {
@@ -195,15 +198,16 @@ class LinkElements extends FRGatherer {
    * @return {Promise<LH.Artifacts['LinkElements']>}
    */
   async afterPass(context, loadData) {
-    return this._getArtifact({...context, dependencies: {}}, loadData.devtoolsLog);
+    if (!loadData.trace) throw new Error('trace required for LinkElements');
+    return this._getArtifact({...context, dependencies: {}}, loadData.devtoolsLog, loadData.trace);
   }
 
   /**
-   * @param {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'>} context
+   * @param {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'|'Trace'>} context
    * @return {Promise<LH.Artifacts['LinkElements']>}
    */
   async getArtifact(context) {
-    return this._getArtifact(context, context.dependencies.DevtoolsLog);
+    return this._getArtifact(context, context.dependencies.DevtoolsLog, context.dependencies.Trace);
   }
 }
 

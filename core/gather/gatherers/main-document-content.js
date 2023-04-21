@@ -6,6 +6,7 @@
 
 import FRGatherer from '../base-gatherer.js';
 import DevtoolsLog from './devtools-log.js';
+import Trace from './trace.js';
 import {fetchResponseBodyFromCache} from '../driver/network.js';
 import {MainResource} from '../../computed/main-resource.js';
 
@@ -13,31 +14,33 @@ import {MainResource} from '../../computed/main-resource.js';
  * Collects the content of the main html document.
  */
 class MainDocumentContent extends FRGatherer {
-  /** @type {LH.Gatherer.GathererMeta<'DevtoolsLog'>} */
+  /** @type {LH.Gatherer.GathererMeta<'DevtoolsLog'|'Trace'>} */
   meta = {
     supportedModes: ['navigation'],
-    dependencies: {DevtoolsLog: DevtoolsLog.symbol},
+    dependencies: {DevtoolsLog: DevtoolsLog.symbol, Trace: Trace.symbol},
   };
 
   /**
    * @param {LH.Gatherer.FRTransitionalContext} context
    * @param {LH.Artifacts['DevtoolsLog']} devtoolsLog
+   * @param {LH.Artifacts['Trace']} trace
    * @return {Promise<LH.Artifacts['MainDocumentContent']>}
    */
-  async _getArtifact(context, devtoolsLog) {
+  async _getArtifact(context, devtoolsLog, trace) {
     const mainResource =
-      await MainResource.request({devtoolsLog, URL: context.baseArtifacts.URL}, context);
+      await MainResource.request({devtoolsLog, trace}, context);
     const session = context.driver.defaultSession;
     return fetchResponseBodyFromCache(session, mainResource.requestId);
   }
 
   /**
-   * @param {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'>} context
+   * @param {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'|'Trace'>} context
    * @return {Promise<LH.Artifacts['MainDocumentContent']>}
    */
   async getArtifact(context) {
     const devtoolsLog = context.dependencies.DevtoolsLog;
-    return this._getArtifact(context, devtoolsLog);
+    const trace = context.dependencies.Trace;
+    return this._getArtifact(context, devtoolsLog, trace);
   }
 
   /**
@@ -46,7 +49,9 @@ class MainDocumentContent extends FRGatherer {
    * @return {Promise<LH.Artifacts['MainDocumentContent']>}
    */
   async afterPass(passContext, loadData) {
-    return this._getArtifact({...passContext, dependencies: {}}, loadData.devtoolsLog);
+    if (!loadData.trace) throw new Error('trace required for LinkElements');
+    return this._getArtifact({...passContext, dependencies: {}}, loadData.devtoolsLog,
+        loadData.trace);
   }
 }
 

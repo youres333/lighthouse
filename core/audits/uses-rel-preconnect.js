@@ -116,7 +116,7 @@ class UsesRelPreconnectAudit extends Audit {
     const [networkRecords, mainResource, loadSimulator, processedNavigation, pageGraph] =
       await Promise.all([
         NetworkRecords.request(devtoolsLog, context),
-        MainResource.request({devtoolsLog, URL: artifacts.URL}, context),
+        MainResource.request({devtoolsLog, trace}, context),
         LoadSimulator.request({devtoolsLog, settings}, context),
         ProcessedNavigation.request(trace, context),
         PageDependencyGraph.request({trace, devtoolsLog, URL: artifacts.URL}, context),
@@ -139,7 +139,7 @@ class UsesRelPreconnectAudit extends Audit {
           // Filter out all resources where timing info was invalid.
           !UsesRelPreconnectAudit.hasValidTiming(record) ||
           // Filter out all resources that are loaded by the document. Connections are already early.
-          record.initiator.url === mainResource.url ||
+          record.initiator.requestId === mainResource.requestId ||
           // Filter out urls that do not have an origin (data, file, etc).
           !record.parsedURL || !record.parsedURL.securityOrigin ||
           // Filter out all resources that have the same origin. We're already connected.

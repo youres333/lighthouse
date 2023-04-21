@@ -5,31 +5,41 @@
  */
 
 import {makeComputedArtifact} from './computed-artifact.js';
-import {NetworkAnalyzer} from '../lib/dependency-graph/simulator/network-analyzer.js';
 import {NetworkRecords} from './network-records.js';
+import {ProcessedNavigation} from './processed-navigation.js';
 
 /**
- * @fileoverview This artifact identifies the main resource on the page. Current solution assumes
- * that the main resource is the first non-rediected one.
+ * @fileoverview This artifact identifies the main resource on the page by using
+ * the requestId associated with the last navigation in the trace.
+ *
+ * If there were redirects, this returns the final request in the redirect
+ * chain. Follow the chain back (through `redirectSource` or `redirects`) if the
+ * original request is needed instead.
  */
 class MainResource {
   /**
-   * @param {{URL: LH.Artifacts['URL'], devtoolsLog: LH.DevtoolsLog}} data
+   * @param {{trace: LH.Trace, devtoolsLog: LH.DevtoolsLog}} data
    * @param {LH.Artifacts.ComputedContext} context
    * @return {Promise<LH.Artifacts.NetworkRequest>}
    */
   static async compute_(data, context) {
-    const {mainDocumentUrl} = data.URL;
-    if (!mainDocumentUrl) throw new Error('mainDocumentUrl must exist to get the main resource');
-    const requests = await NetworkRecords.request(data.devtoolsLog, context);
-    const mainResource = NetworkAnalyzer.findResourceForUrl(requests, mainDocumentUrl);
+    const networkRecords = await NetworkRecords.request(data.devtoolsLog, context);
+    const {lastNavigationStartEvt} = await ProcessedNavigation.request(data.trace, context);
+    const navigationId = lastNavigationStartEvt.args.data?.navigationId;
+
+    let mainResource = networkRecords.find(record => record.requestId === navigationId);
     if (!mainResource) {
       throw new Error('Unable to identify the main resource');
+    }
+
+    // HTTP redirects won't have separate navStarts, so find through the redirect chain.
+    while (mainResource.redirectDestination) {
+      mainResource = mainResource.redirectDestination;
     }
 
     return mainResource;
   }
 }
 
-const MainResourceComputed = makeComputedArtifact(MainResource, ['URL', 'devtoolsLog']);
+const MainResourceComputed = makeComputedArtifact(MainResource, ['trace', 'devtoolsLog']);
 export {MainResourceComputed as MainResource};

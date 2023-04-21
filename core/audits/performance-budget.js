@@ -6,7 +6,6 @@
 
 import {Audit} from './audit.js';
 import {ResourceSummary} from '../computed/resource-summary.js';
-import {MainResource} from '../computed/main-resource.js';
 import {Budget} from '../config/budget.js';
 import * as i18n from '../lib/i18n/i18n.js';
 
@@ -123,8 +122,8 @@ class ResourceBudget extends Audit {
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
     const data = {devtoolsLog, URL: artifacts.URL, budgets: context.settings.budgets};
     const summary = await ResourceSummary.request(data, context);
-    const mainResource = await MainResource.request({URL: artifacts.URL, devtoolsLog}, context);
-    const budget = Budget.getMatchingBudget(context.settings.budgets, mainResource.url);
+    const budget = Budget.getMatchingBudget(context.settings.budgets,
+        artifacts.URL.mainDocumentUrl);
 
     if (!budget) {
       return {

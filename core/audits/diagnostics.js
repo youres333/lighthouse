@@ -21,7 +21,7 @@ class Diagnostics extends Audit {
       title: 'Diagnostics',
       description: 'Collection of useful page vitals.',
       supportedModes: ['navigation'],
-      requiredArtifacts: ['URL', 'traces', 'devtoolsLogs'],
+      requiredArtifacts: ['traces', 'devtoolsLogs'],
     };
   }
 
@@ -36,7 +36,7 @@ class Diagnostics extends Audit {
     const tasks = await MainThreadTasks.request(trace, context);
     const records = await NetworkRecords.request(devtoolsLog, context);
     const analysis = await NetworkAnalysis.request(devtoolsLog, context);
-    const mainResource = await MainResource.request({devtoolsLog, URL: artifacts.URL}, context);
+    const mainResource = await MainResource.request({devtoolsLog, trace}, context);
 
     const toplevelTasks = tasks.filter(t => !t.parent);
     const mainDocumentTransferSize = mainResource.transferSize;

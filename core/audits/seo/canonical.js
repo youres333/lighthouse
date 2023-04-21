@@ -6,7 +6,6 @@
 
 import {Audit} from '../audit.js';
 import UrlUtils from '../../lib/url-utils.js';
-import {MainResource} from '../../computed/main-resource.js';
 import * as i18n from '../../lib/i18n/i18n.js';
 
 const UIStrings = {
@@ -183,14 +182,10 @@ class Canonical extends Audit {
 
   /**
    * @param {LH.Artifacts} artifacts
-   * @param {LH.Audit.Context} context
    * @return {Promise<LH.Audit.Product>}
    */
-  static async audit(artifacts, context) {
-    const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
-
-    const mainResource = await MainResource.request({devtoolsLog, URL: artifacts.URL}, context);
-    const baseURL = new URL(mainResource.url);
+  static async audit(artifacts) {
+    const baseURL = new URL(artifacts.URL.finalDisplayedUrl);
     const canonicalURLData = Canonical.collectCanonicalURLs(artifacts.LinkElements);
 
     // First we'll check that there was a single valid canonical URL.

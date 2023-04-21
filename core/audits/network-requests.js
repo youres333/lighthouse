@@ -7,7 +7,7 @@
 import {Audit} from './audit.js';
 import UrlUtils from '../lib/url-utils.js';
 import {NetworkRecords} from '../computed/network-records.js';
-import {MainResource} from '../computed/main-resource.js';
+import {ProcessedTrace} from '../computed/processed-trace.js';
 
 class NetworkRequests extends Audit {
   /**
@@ -19,7 +19,7 @@ class NetworkRequests extends Audit {
       scoreDisplayMode: Audit.SCORING_MODES.INFORMATIVE,
       title: 'Network Requests',
       description: 'Lists the network requests that were made during page load.',
-      requiredArtifacts: ['devtoolsLogs', 'URL', 'GatherContext'],
+      requiredArtifacts: ['devtoolsLogs', 'GatherContext', 'traces'],
     };
   }
 
@@ -36,15 +36,12 @@ class NetworkRequests extends Audit {
       Infinity
     );
 
-    // Optional mainFrameId check because the main resource is only available for
-    // navigations. TODO: https://github.com/GoogleChrome/lighthouse/issues/14157
-    // for the general solution to this.
-    /** @type {string|undefined} */
-    let mainFrameId;
-    if (artifacts.GatherContext.gatherMode === 'navigation') {
-      const mainResource = await MainResource.request({devtoolsLog, URL: artifacts.URL}, context);
-      mainFrameId = mainResource.frameId;
-    }
+    // Find the mainFrameId from the trace.
+    // TODO: https://github.com/GoogleChrome/lighthouse/issues/14157 for the
+    // more straightforward solution to this.
+    const trace = artifacts.traces[Audit.DEFAULT_PASS];
+    const processedTrace = await ProcessedTrace.request(trace, context);
+    const mainFrameId = processedTrace.mainFrameInfo.frameId;
 
     /** @param {number} time */
     const normalizeTime = time => time < earliestRendererStartTime || !Number.isFinite(time) ?

@@ -6,7 +6,6 @@
 
 import {Audit} from './audit.js';
 import {TimingSummary} from '../computed/metrics/timing-summary.js';
-import {MainResource} from '../computed/main-resource.js';
 import {Budget} from '../config/budget.js';
 import * as i18n from '../lib/i18n/i18n.js';
 
@@ -140,10 +139,9 @@ class TimingBudget extends Audit {
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
     const trace = artifacts.traces[Audit.DEFAULT_PASS];
     const URL = artifacts.URL;
-    const mainResource = await MainResource.request({URL, devtoolsLog}, context);
     const data = {trace, devtoolsLog, gatherContext, settings: context.settings, URL};
     const summary = (await TimingSummary.request(data, context)).metrics;
-    const budget = Budget.getMatchingBudget(context.settings.budgets, mainResource.url);
+    const budget = Budget.getMatchingBudget(context.settings.budgets, URL.mainDocumentUrl);
 
     if (!budget) {
       return {

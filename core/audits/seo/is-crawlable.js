@@ -91,7 +91,7 @@ class IsCrawlable extends Audit {
       failureTitle: str_(UIStrings.failureTitle),
       description: str_(UIStrings.description),
       supportedModes: ['navigation'],
-      requiredArtifacts: ['MetaElements', 'RobotsTxt', 'URL', 'devtoolsLogs'],
+      requiredArtifacts: ['MetaElements', 'RobotsTxt', 'traces', 'devtoolsLogs'],
     };
   }
 
@@ -170,7 +170,8 @@ class IsCrawlable extends Audit {
    */
   static async audit(artifacts, context) {
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
-    const mainResource = await MainResource.request({devtoolsLog, URL: artifacts.URL}, context);
+    const trace = artifacts.traces[Audit.DEFAULT_PASS];
+    const mainResource = await MainResource.request({devtoolsLog, trace}, context);
 
     const robotsTxtUrl = new URL('/robots.txt', mainResource.url);
     const parsedRobotsTxt = artifacts.RobotsTxt.content ?

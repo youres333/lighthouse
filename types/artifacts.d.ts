@@ -739,6 +739,8 @@ declare module Artifacts {
     timestamps: NavigationTraceTimes;
     /** The relative times from navigationStart to key metric events, in milliseconds. */
     timings: NavigationTraceTimes;
+    /** The last (real) navigationStart event in the trace. */
+    lastNavigationStartEvt: TraceEvent;
     /** The trace event marking firstPaint, if it was found. */
     firstPaintEvt?: TraceEvent;
     /** The trace event marking firstContentfulPaint, if it was found. */

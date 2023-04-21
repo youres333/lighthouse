@@ -247,7 +247,7 @@ class PrioritizeLcpImage extends Audit {
       return {score: null, notApplicable: true};
     }
 
-    const mainResource = await MainResource.request({devtoolsLog, URL}, context);
+    const mainResource = await MainResource.request({devtoolsLog, trace}, context);
     const lanternLCP = await LanternLargestContentfulPaint.request(metricData, context);
     const simulator = await LoadSimulator.request({devtoolsLog, settings}, context);
 

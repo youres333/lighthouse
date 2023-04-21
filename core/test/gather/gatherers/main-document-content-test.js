@@ -7,24 +7,22 @@
 import MainDocumentContent from '../../../gather/gatherers/main-document-content.js';
 import {NetworkRecorder} from '../../../lib/network-recorder.js';
 import {createMockContext} from '../mock-driver.js';
-import {getURLArtifactFromDevtoolsLog, readJson} from '../../test-utils.js';
+import {readJson} from '../../test-utils.js';
 
 const devtoolsLog = readJson('../../fixtures/traces/lcp-m78.devtools.log.json', import.meta);
-
-const URL = getURLArtifactFromDevtoolsLog(devtoolsLog);
+const trace = readJson('../../fixtures/traces/lcp-m78.json', import.meta);
 
 describe('FR compat (main-document-content)', () => {
   it('uses loadData in legacy mode', async () => {
     const gatherer = new MainDocumentContent();
     const networkRecords = NetworkRecorder.recordsFromLogs(devtoolsLog);
     const mockContext = createMockContext();
-    mockContext.baseArtifacts.URL = URL;
     mockContext.driver.defaultSession.sendCommand
       .mockResponse('Network.getResponseBody', {body: 'RESPONSE'});
 
     const artifact = await gatherer.afterPass(
       mockContext.asLegacyContext(),
-      {devtoolsLog, networkRecords}
+      {devtoolsLog, networkRecords, trace}
     );
 
     expect(artifact).toEqual('RESPONSE');
@@ -33,14 +31,13 @@ describe('FR compat (main-document-content)', () => {
   it('uses dependencies for FR', async () => {
     const gatherer = new MainDocumentContent();
     const mockContext = createMockContext();
-    mockContext.baseArtifacts.URL = URL;
     mockContext.driver.defaultSession.sendCommand
       .mockResponse('Network.getResponseBody', {body: 'RESPONSE'});
 
-    /** @type {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'>} */
+    /** @type {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'|'Trace'>} */
     const context = {
       ...mockContext.asContext(),
-      dependencies: {DevtoolsLog: devtoolsLog},
+      dependencies: {DevtoolsLog: devtoolsLog, Trace: trace},
     };
 
     const artifact = await gatherer.getArtifact(context);
