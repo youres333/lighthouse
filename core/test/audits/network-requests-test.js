@@ -7,8 +7,10 @@
 import NetworkRequests from '../../audits/network-requests.js';
 import {networkRecordsToDevtoolsLog} from '../network-records-to-devtools-log.js';
 import {readJson} from '../test-utils.js';
+import {createTestTrace} from '../create-test-trace.js';
 
 const cutoffLoadDevtoolsLog = readJson('../fixtures/traces/cutoff-load-m83.devtoolslog.json', import.meta);
+const cutoffLoadTrace = readJson('../fixtures/traces/cutoff-load-m83.trace.json', import.meta);
 
 const GatherContext = {
   gatherMode: 'navigation',
@@ -20,7 +22,9 @@ describe('Network requests audit', () => {
       devtoolsLogs: {
         [NetworkRequests.DEFAULT_PASS]: cutoffLoadDevtoolsLog,
       },
-      URL: {mainDocumentUrl: 'https://googlechrome.github.io/lighthouse/viewer/'},
+      traces: {
+        [NetworkRequests.DEFAULT_PASS]: cutoffLoadTrace,
+      },
       GatherContext,
     };
 
@@ -79,7 +83,9 @@ describe('Network requests audit', () => {
       devtoolsLogs: {
         [NetworkRequests.DEFAULT_PASS]: networkRecordsToDevtoolsLog(records),
       },
-      URL: {mainDocumentUrl: 'https://example.com/0'},
+      traces: {
+        [NetworkRequests.DEFAULT_PASS]: createTestTrace({frameUrl: 'https://example.com/0'}),
+      },
       GatherContext,
     };
     const output = await NetworkRequests.audit(artifacts, {computedCache: new Map()});
@@ -107,7 +113,9 @@ describe('Network requests audit', () => {
       devtoolsLogs: {
         [NetworkRequests.DEFAULT_PASS]: networkRecordsToDevtoolsLog(records),
       },
-      URL: {mainDocumentUrl: 'https://example.com/'},
+      traces: {
+        [NetworkRequests.DEFAULT_PASS]: createTestTrace({frameUrl: 'https://example.com/'}),
+      },
       GatherContext,
     };
     const output = await NetworkRequests.audit(artifacts, {computedCache: new Map()});
@@ -121,7 +129,7 @@ describe('Network requests audit', () => {
     }]);
   });
 
-  it('should not include main frame information outside of navigations', async () => {
+  it('should not include main frame information for timespans navigations', async () => {
     const records = [
       {url: 'https://example.com/'},
       {url: 'https://iframed.local/', frameId: '71D866EC199B90A2E0B2D9CF88DCBC4E'},
@@ -131,14 +139,16 @@ describe('Network requests audit', () => {
       devtoolsLogs: {
         [NetworkRequests.DEFAULT_PASS]: networkRecordsToDevtoolsLog(records),
       },
-      URL: {mainDocumentUrl: 'https://example.com/'},
+      traces: {
+        [NetworkRequests.DEFAULT_PASS]: createTestTrace({frameUrl: 'https://example.com/'}),
+      },
       GatherContext: {gatherMode: 'timespan'},
     };
     const output = await NetworkRequests.audit(artifacts, {computedCache: new Map()});
 
     expect(output.details.items).toMatchObject([{
       url: 'https://example.com/',
-      experimentalFromMainFrame: undefined,
+      experimentalFromMainFrame: true,
     }, {
       url: 'https://iframed.local/',
       experimentalFromMainFrame: undefined,
@@ -155,7 +165,9 @@ describe('Network requests audit', () => {
       devtoolsLogs: {
         [NetworkRequests.DEFAULT_PASS]: networkRecordsToDevtoolsLog(records),
       },
-      URL: {mainDocumentUrl: 'https://example.com/'},
+      traces: {
+        [NetworkRequests.DEFAULT_PASS]: createTestTrace({frameUrl: 'https://example.com/'}),
+      },
       GatherContext,
     };
     const output = await NetworkRequests.audit(artifacts, {computedCache: new Map()});

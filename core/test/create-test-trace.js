@@ -11,6 +11,7 @@ const rootFrame = 'ROOT_FRAME';
 const defaultUrl = 'https://example.com/';
 const lcpNodeId = 16;
 const lcpImageUrl = 'http://www.example.com/image.png';
+const defaultNavigationId = '127122.0';
 
 /** @typedef {{ts: number, duration: number, children?: Array<ChildTaskDef>}} TopLevelTaskDef */
 /** @typedef {{ts: number, duration: number, url: string | undefined}} ChildTaskDef */
@@ -21,6 +22,7 @@ const lcpImageUrl = 'http://www.example.com/image.png';
  * @property {number} [timeOrigin]
  * @property {number} [largestContentfulPaint]
  * @property {number} [traceEnd]
+ * @property {string} [navigationId]
  * @property {Array<TopLevelTaskDef>} [topLevelTasks]
  * @property {Array<ChildFrame>} [childFrames] Add a child frame with a known `frame` id for easy insertion of child frame events.
  */
@@ -99,6 +101,7 @@ function createTestTrace(options) {
       data: {
         documentLoaderURL: frameUrl,
         isLoadingMainFrame: true,
+        navigationId: options.navigationId ?? defaultNavigationId,
       },
     },
   }, {

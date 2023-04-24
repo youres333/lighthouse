@@ -7,6 +7,7 @@
 import {Type} from 'csp_evaluator/dist/finding.js';
 
 import CspXss from '../../audits/csp-xss.js';
+import {createTestTrace} from '../create-test-trace.js';
 import {networkRecordsToDevtoolsLog} from '../network-records-to-devtools-log.js';
 
 const SEVERITY = {
@@ -75,10 +76,10 @@ it('audit basic header', async () => {
         },
       ]),
     },
-    URL: {
-      requestedUrl: 'https://example.com',
-      mainDocumentUrl: 'https://example.com',
-      finalDisplayedUrl: 'https://example.com',
+    traces: {
+      defaultPass: createTestTrace({
+        frameUrl: 'https://example.com',
+      }),
     },
   };
   const results = await CspXss.audit(artifacts, {computedCache: new Map()});
@@ -112,11 +113,6 @@ it('audit basic header', async () => {
 
 it('marked N/A if no warnings found', async () => {
   const artifacts = {
-    URL: {
-      requestedUrl: 'https://example.com',
-      mainDocumentUrl: 'https://example.com',
-      finalDisplayedUrl: 'https://example.com',
-    },
     MetaElements: [],
     devtoolsLogs: {
       defaultPass: networkRecordsToDevtoolsLog([
@@ -130,6 +126,11 @@ it('marked N/A if no warnings found', async () => {
         },
       ]),
     },
+    traces: {
+      defaultPass: createTestTrace({
+        frameUrl: 'https://example.com',
+      }),
+    },
   };
   const results = await CspXss.audit(artifacts, {computedCache: new Map()});
   expect(results.details.items).toHaveLength(0);
@@ -139,11 +140,6 @@ it('marked N/A if no warnings found', async () => {
 describe('getRawCsps', () => {
   it('basic case', async () => {
     const artifacts = {
-      URL: {
-        requestedUrl: 'https://example.com',
-        mainDocumentUrl: 'https://example.com',
-        finalDisplayedUrl: 'https://example.com',
-      },
       MetaElements: [
         {
           httpEquiv: 'Content-Security-Policy',
@@ -167,6 +163,11 @@ describe('getRawCsps', () => {
           },
         ]),
       },
+      traces: {
+        defaultPass: createTestTrace({
+          frameUrl: 'https://example.com',
+        }),
+      },
     };
     const {cspHeaders, cspMetaTags} =
       await CspXss.getRawCsps(artifacts, {computedCache: new Map()});
@@ -181,11 +182,6 @@ describe('getRawCsps', () => {
 
   it('split on comma', async () => {
     const artifacts = {
-      URL: {
-        requestedUrl: 'https://example.com',
-        mainDocumentUrl: 'https://example.com',
-        finalDisplayedUrl: 'https://example.com',
-      },
       MetaElements: [],
       devtoolsLogs: {
         defaultPass: networkRecordsToDevtoolsLog([
@@ -204,6 +200,11 @@ describe('getRawCsps', () => {
           },
         ]),
       },
+      traces: {
+        defaultPass: createTestTrace({
+          frameUrl: 'https://example.com',
+        }),
+      },
     };
     const {cspHeaders, cspMetaTags} =
       await CspXss.getRawCsps(artifacts, {computedCache: new Map()});
@@ -217,11 +218,6 @@ describe('getRawCsps', () => {
 
   it('ignore if empty', async () => {
     const artifacts = {
-      URL: {
-        requestedUrl: 'https://example.com',
-        mainDocumentUrl: 'https://example.com',
-        finalDisplayedUrl: 'https://example.com',
-      },
       MetaElements: [],
       devtoolsLogs: {
         defaultPass: networkRecordsToDevtoolsLog([
@@ -240,6 +236,11 @@ describe('getRawCsps', () => {
           },
         ]),
       },
+      traces: {
+        defaultPass: createTestTrace({
+          frameUrl: 'https://example.com',
+        }),
+      },
     };
     const {cspHeaders, cspMetaTags} =
       await CspXss.getRawCsps(artifacts, {computedCache: new Map()});
@@ -251,11 +252,6 @@ describe('getRawCsps', () => {
 
   it('ignore if only whitespace', async () => {
     const artifacts = {
-      URL: {
-        requestedUrl: 'https://example.com',
-        mainDocumentUrl: 'https://example.com',
-        finalDisplayedUrl: 'https://example.com',
-      },
       MetaElements: [],
       devtoolsLogs: {
         defaultPass: networkRecordsToDevtoolsLog([
@@ -273,6 +269,11 @@ describe('getRawCsps', () => {
             ],
           },
         ]),
+      },
+      traces: {
+        defaultPass: createTestTrace({
+          frameUrl: 'https://example.com',
+        }),
       },
     };
     const {cspHeaders, cspMetaTags} =

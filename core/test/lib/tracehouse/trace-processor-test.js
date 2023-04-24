@@ -728,6 +728,45 @@ Object {
       });
     });
 
+    describe('.processNavigation() - lastNavigationStartEvt', () => {
+      it('finds the correct lastNavigationStartEvt', () => {
+        const trace = TraceProcessor.processTrace(lcpAllFramesTrace);
+        const {lastNavigationStartEvt} = TraceProcessor.processNavigation(trace);
+        expect(lastNavigationStartEvt).toMatchObject({
+          name: 'navigationStart',
+          args: {
+            frame: '207613A6AD77B492759226780A40F6F4',
+            data: {documentLoaderURL: 'http://localhost:8080/frame-metrics.html'},
+          },
+        });
+      });
+
+      it('throws if there was no navigationStart in the trace', () => {
+        // Contrived but possible example where a  timespan observed FCP and is
+        // now being processed as a navigation in confusion (without FCP event,
+        // this would fail with NO_FCP).
+        const fcpedTimespanTrace = JSON.parse(JSON.stringify(timespanTrace));
+        fcpedTimespanTrace.traceEvents.push({
+          name: 'firstContentfulPaint',
+          cat: 'loading,rail,devtools.timeline',
+          ph: 'R',
+          pid: 98676,
+          tid: 775,
+          ts: 260759707667,
+          args: {
+            data: {
+              navigationId: '5BC1BE508324EEED8CA297464222D782',
+            },
+            frame: 'CDC7FDACD95C50606A7BC08529E7F1CD',
+          },
+        });
+
+        const trace = TraceProcessor.processTrace(fcpedTimespanTrace);
+        expect(() => TraceProcessor.processNavigation(trace))
+          .toThrowError('No navigationStart event found');
+      });
+    });
+
     it('handles traces missing a paints (captured in background tab)', () => {
       const trace = TraceProcessor.processTrace(backgroundTabTrace);
       const navigation = TraceProcessor.processNavigation(trace);

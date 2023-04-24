@@ -10,6 +10,7 @@ import CharsetDefinedAudit, {
   CHARSET_HTML_REGEX, CHARSET_HTTP_REGEX, IANA_REGEX,
 } from '../../../audits/dobetterweb/charset.js';
 import {networkRecordsToDevtoolsLog} from '../../network-records-to-devtools-log.js';
+import {createTestTrace} from '../../create-test-trace.js';
 
 const HTML_PRE = '<!doctype html><head>';
 const HTML_POST = '</head><body><h1>hello';
@@ -23,10 +24,11 @@ function generateArtifacts(htmlContent, contentTypeValue = 'text/html') {
     ],
   };
   const devtoolsLog = networkRecordsToDevtoolsLog([mainResource]);
+  const trace = createTestTrace({frameUrl: mainDocumentUrl});
   const context = {computedCache: new Map()};
   return [{
     devtoolsLogs: {[CharsetDefinedAudit.DEFAULT_PASS]: devtoolsLog},
-    URL: {mainDocumentUrl},
+    traces: {[CharsetDefinedAudit.DEFAULT_PASS]: trace},
     MainDocumentContent: htmlContent,
     MetaElements: [],
   }, context];

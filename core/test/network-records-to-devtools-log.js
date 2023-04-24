@@ -18,6 +18,7 @@ const redirectSuffix = ':redirect';
 // bad network records starting at 0. See https://github.com/GoogleChrome/lighthouse/pull/6780
 const defaultStart = 1000;
 const defaultTimingOffset = 1000;
+const defaultFrameId = 'ROOT_FRAME';
 
 /**
  * Extract requestId without any `:redirect` strings.
@@ -241,7 +242,7 @@ function getRequestWillBeSentEvent(networkRecord, index, normalizedTiming) {
       wallTime: 0,
       initiator,
       type: networkRecord.resourceType || 'Document',
-      frameId: networkRecord.frameId || `${idBase}.1`,
+      frameId: networkRecord.frameId || defaultFrameId,
       redirectResponse: networkRecord.redirectResponse,
     },
   };
@@ -289,7 +290,7 @@ function getResponseReceivedEvent(networkRecord, index, normalizedTiming) {
         timing: {...normalizedTiming.timing},
         protocol: networkRecord.protocol || 'http/1.1',
       },
-      frameId: networkRecord.frameId || `${idBase}.1`,
+      frameId: networkRecord.frameId || defaultFrameId,
     },
   };
 }
