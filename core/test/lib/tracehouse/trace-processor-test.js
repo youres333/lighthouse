@@ -728,10 +728,55 @@ Object {
       });
     });
 
-    describe('.processNavigation() - lastNavigationStartEvt', () => {
-      it('finds the correct lastNavigationStartEvt', () => {
-        const trace = TraceProcessor.processTrace(lcpAllFramesTrace);
-        const {lastNavigationStartEvt} = TraceProcessor.processNavigation(trace);
+    describe('.processNavigation() - first/lastNavigationStartEvt', () => {
+      it('finds the correct navigationStarted events', () => {
+        const testTrace = createTestTrace({frameUrl: 'https://example.com', timeOrigin: 100, traceEnd: 1000});
+        const navStart = testTrace.traceEvents.find(e => e.name === 'navigationStart');
+
+        /* eslint-disable max-len */
+        testTrace.traceEvents.push(
+          // Earliest navStart, but with unpopulated documentLoaderURL.
+          {...navStart, ts: 0, args: {frame: 'ROOT_FRAME', data: {documentLoaderURL: '', navigationId: '111'}}},
+          // Client-side redirect navStart.
+          {...navStart, ts: 100_005, args: {frame: 'ROOT_FRAME', data: {documentLoaderURL: 'https://m.example.com', navigationId: '222'}}},
+          // Latest navStart, but with unpopulated documentLoaderURL.
+          {...navStart, ts: 1_500_000, args: {frame: 'ROOT_FRAME', data: {documentLoaderURL: '', navigationId: '333'}}}
+        );
+        /* eslint-enable max-len */
+
+        const processedTrace = TraceProcessor.processTrace(testTrace);
+        const {
+          firstNavigationStartEvt,
+          lastNavigationStartEvt,
+        } = TraceProcessor.processNavigation(processedTrace);
+
+        expect(firstNavigationStartEvt).toMatchObject({
+          name: 'navigationStart',
+          args: {
+            data: {documentLoaderURL: 'https://example.com'},
+          },
+        });
+        expect(lastNavigationStartEvt).toMatchObject({
+          name: 'navigationStart',
+          args: {
+            data: {documentLoaderURL: 'https://m.example.com'},
+          },
+        });
+      });
+
+      it('finds the correct single navigationStart event', () => {
+        const processedTrace = TraceProcessor.processTrace(lcpAllFramesTrace);
+        const {
+          firstNavigationStartEvt,
+          lastNavigationStartEvt,
+        } = TraceProcessor.processNavigation(processedTrace);
+        expect(firstNavigationStartEvt).toMatchObject({
+          name: 'navigationStart',
+          args: {
+            frame: '207613A6AD77B492759226780A40F6F4',
+            data: {documentLoaderURL: 'http://localhost:8080/frame-metrics.html'},
+          },
+        });
         expect(lastNavigationStartEvt).toMatchObject({
           name: 'navigationStart',
           args: {
@@ -742,7 +787,7 @@ Object {
       });
 
       it('throws if there was no navigationStart in the trace', () => {
-        // Contrived but possible example where a  timespan observed FCP and is
+        // Contrived but possible example where a timespan observed FCP and is
         // now being processed as a navigation in confusion (without FCP event,
         // this would fail with NO_FCP).
         const fcpedTimespanTrace = JSON.parse(JSON.stringify(timespanTrace));

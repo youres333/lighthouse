@@ -4,10 +4,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import {NetworkAnalyzer} from '../lib/dependency-graph/simulator/network-analyzer.js';
 import {makeComputedArtifact} from './computed-artifact.js';
 import {NetworkRecords} from './network-records.js';
-import {ProcessedTrace} from './processed-trace.js';
+import {ProcessedNavigation} from './processed-navigation.js';
+import {MainResource} from './main-resource.js';
 
 /**
  * @fileoverview Compute the navigation specific URLs `requestedUrl` and `mainDocumentUrl` in situations where
@@ -22,29 +22,17 @@ class DocumentUrls {
    * @return {Promise<{requestedUrl: string, mainDocumentUrl: string}>}
    */
   static async compute_(data, context) {
-    const processedTrace = await ProcessedTrace.request(data.trace, context);
     const networkRecords = await NetworkRecords.request(data.devtoolsLog, context);
+    const {firstNavigationStartEvt} = await ProcessedNavigation.request(data.trace, context);
+    const navigationId = firstNavigationStartEvt.args.data?.navigationId;
 
-    const mainFrameId = processedTrace.mainFrameInfo.frameId;
+    const initialRequest = networkRecords.find(record => record.requestId === navigationId);
+    if (!initialRequest) throw new Error('No main frame navigations found');
 
-    /** @type {string|undefined} */
-    let requestedUrl;
-    /** @type {string|undefined} */
-    let mainDocumentUrl;
-    for (const event of data.devtoolsLog) {
-      if (event.method === 'Page.frameNavigated' && event.params.frame.id === mainFrameId) {
-        const {url} = event.params.frame;
-        // Only set requestedUrl on the first main frame navigation.
-        if (!requestedUrl) requestedUrl = url;
-        mainDocumentUrl = url;
-      }
-    }
-    if (!requestedUrl || !mainDocumentUrl) throw new Error('No main frame navigations found');
+    // Defer to MainResource for mainDocumentUrl for consistency.
+    const mainResource = await MainResource.request(data, context);
 
-    const initialRequest = NetworkAnalyzer.findResourceForUrl(networkRecords, requestedUrl);
-    if (initialRequest?.redirects?.length) requestedUrl = initialRequest.redirects[0].url;
-
-    return {requestedUrl, mainDocumentUrl};
+    return {requestedUrl: initialRequest.url, mainDocumentUrl: mainResource.url};
   }
 }
 

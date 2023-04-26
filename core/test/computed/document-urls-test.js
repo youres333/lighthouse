@@ -9,37 +9,48 @@ import {networkRecordsToDevtoolsLog} from '../network-records-to-devtools-log.js
 import {createTestTrace} from '../create-test-trace.js';
 
 describe('DocumentUrls', () => {
-  it('should resolve redirects', async () => {
-    const trace = createTestTrace({frameUrl: 'https://page.example.com/'});
+  it('should resolve redirects with multiple navStarts', async () => {
+    const trace = createTestTrace({
+      frameUrl: 'https://www.example.com/',
+      navigationId: '0',
+    });
+    const navStartEvt = trace.traceEvents.find(e => e.name === 'navigationStart');
+
+    const nextNavStart = JSON.parse(JSON.stringify(navStartEvt));
+    nextNavStart.args.data.documentLoaderURL = 'https://page.example.com/';
+    nextNavStart.args.data.navigationId = '1';
+    nextNavStart.ts++;
+    trace.traceEvents.push(nextNavStart);
+
     const devtoolsLog = networkRecordsToDevtoolsLog([
       {requestId: '0', url: 'http://example.com/'},
       {requestId: '0:redirect', url: 'https://example.com/'},
       {requestId: '0:redirect:redirect', url: 'https://www.example.com/'},
       {requestId: '1', url: 'https://page.example.com/'},
     ]);
-    devtoolsLog.push({
-      method: 'Page.frameNavigated',
-      params: {
-        frame: {
-          id: 'ROOT_FRAME',
-          url: 'https://www.example.com/',
-        },
-      },
-    });
-    devtoolsLog.push({
-      method: 'Page.frameNavigated',
-      params: {
-        frame: {
-          id: 'ROOT_FRAME',
-          url: 'https://page.example.com/',
-        },
-      },
-    });
 
     const URL = await DocumentUrls.request({devtoolsLog, trace}, {computedCache: new Map()});
     expect(URL).toEqual({
       requestedUrl: 'http://example.com/',
       mainDocumentUrl: 'https://page.example.com/',
+    });
+  });
+
+  it('should resolve HTTP redirects (single navStart)', async () => {
+    const trace = createTestTrace({
+      frameUrl: 'https://www.example.com/',
+      navigationId: '0',
+    });
+    const devtoolsLog = networkRecordsToDevtoolsLog([
+      {requestId: '0', url: 'http://example.com/'},
+      {requestId: '0:redirect', url: 'https://example.com/'},
+      {requestId: '0:redirect:redirect', url: 'https://www.example.com/'},
+    ]);
+
+    const URL = await DocumentUrls.request({devtoolsLog, trace}, {computedCache: new Map()});
+    expect(URL).toEqual({
+      requestedUrl: 'http://example.com/',
+      mainDocumentUrl: 'https://www.example.com/',
     });
   });
 });

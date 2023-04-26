@@ -93,16 +93,6 @@ class TraceProcessor {
   }
 
   /**
-   * Returns the last frame navigation in the trace events.
-   * @param {Array<LH.TraceEvent>} frameEvents
-   * @return {LH.TraceEvent|undefined}
-   */
-  static lastNavigationStart(frameEvents) {
-    // Our time origin will be the last frame navigation in the trace
-    return frameEvents.filter(TraceProcessor._isNavigationStartOfInterest).pop();
-  }
-
-  /**
    * This method sorts a group of trace events that have the same timestamp. We want to...
    *
    * 1. Put E events first, we finish off our existing events before we start new ones.
@@ -811,7 +801,7 @@ class TraceProcessor {
 
     // This should have already failed when processing the trace with last navStart
     // as the time origin, but assert for the type and if somehow someone ends up here.
-    if (!frameTimings.lastNavigationStartEvt) {
+    if (!frameTimings.firstNavigationStartEvt || !frameTimings.lastNavigationStartEvt) {
       throw this.createNoNavstartError();
     }
 
@@ -857,6 +847,7 @@ class TraceProcessor {
         domContentLoaded: frameTimings.timestamps.domContentLoaded,
         traceEnd: timestamps.traceEnd,
       },
+      firstNavigationStartEvt: frameTimings.firstNavigationStartEvt,
       lastNavigationStartEvt: frameTimings.lastNavigationStartEvt,
       firstPaintEvt: frameTimings.firstPaintEvt,
       firstContentfulPaintEvt: frameTimings.firstContentfulPaintEvt,
@@ -909,6 +900,12 @@ class TraceProcessor {
    * @return {LH.TraceEvent}
    */
   static computeTimeOrigin(traceEventSubsets, method) {
+    const lastNavigationStart = () => {
+      // Our time origin will be the last frame navigation in the trace
+      const frameEvents = traceEventSubsets.frameEvents;
+      return frameEvents.filter(this._isNavigationStartOfInterest).pop();
+    };
+
     const lighthouseMarker = () => {
       const frameEvents = traceEventSubsets.keyEvents;
       return frameEvents.find(
@@ -930,7 +927,7 @@ class TraceProcessor {
         return fetchStart;
       }
       case 'lastNavigationStart': {
-        const navigationStart = TraceProcessor.lastNavigationStart(traceEventSubsets.frameEvents);
+        const navigationStart = lastNavigationStart();
         if (!navigationStart) throw this.createNoNavstartError();
         return navigationStart;
       }
@@ -940,8 +937,7 @@ class TraceProcessor {
         return marker;
       }
       case 'auto': {
-        const marker = lighthouseMarker() ||
-            TraceProcessor.lastNavigationStart(traceEventSubsets.frameEvents);
+        const marker = lighthouseMarker() || lastNavigationStart();
         if (!marker) throw this.createNoNavstartError();
         return marker;
       }
@@ -957,7 +953,9 @@ class TraceProcessor {
   static computeNavigationTimingsForFrame(frameEvents, options) {
     const {timeOriginEvt} = options;
 
-    const lastNavigationStartEvt = TraceProcessor.lastNavigationStart(frameEvents);
+    const navigationStarts = frameEvents.filter(this._isNavigationStartOfInterest);
+    const firstNavigationStartEvt = navigationStarts.at(0);
+    const lastNavigationStartEvt = navigationStarts.at(-1);
 
     // Find our first paint of this frame
     const firstPaint = frameEvents.find(e => e.name === 'firstPaint' && e.ts > timeOriginEvt.ts);
@@ -1033,6 +1031,7 @@ class TraceProcessor {
       timings,
       timestamps,
       timeOriginEvt: timeOriginEvt,
+      firstNavigationStartEvt,
       lastNavigationStartEvt,
       firstPaintEvt: firstPaint,
       firstContentfulPaintEvt: firstContentfulPaint,
