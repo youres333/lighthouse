@@ -11,7 +11,8 @@ import {createTestTrace} from '../create-test-trace.js';
 import {networkRecordsToDevtoolsLog} from '../network-records-to-devtools-log.js';
 import {readJson} from '../test-utils.js';
 
-const redditDevtoolsLog = readJson('../fixtures/artifacts/perflog/defaultPass.devtoolslog.json', import.meta);
+const ampTrace = readJson('../fixtures/traces/amp-m86.trace.json', import.meta);
+const ampDevtoolsLog = readJson('../fixtures/traces/amp-m86.devtoolslog.json', import.meta);
 
 const FAILING_CHAIN_RECORDS = [
   {
@@ -108,19 +109,20 @@ describe('Performance: critical-request-chains audit', () => {
   });
 
   it('calculates the correct chain result for a real devtools log', () => {
+    const url = 'https://elsoberano.org/';
     const artifacts = {
-      traces: {defaultPass: createTestTrace({topLevelTasks: [{ts: 0}]})},
-      devtoolsLogs: {defaultPass: redditDevtoolsLog},
+      traces: {defaultPass: ampTrace},
+      devtoolsLogs: {defaultPass: ampDevtoolsLog},
       URL: {
-        requestedUrl: 'https://www.reddit.com/r/nba',
-        mainDocumentUrl: 'https://www.reddit.com/r/nba',
-        finalDisplayedUrl: 'https://www.reddit.com/r/nba',
+        requestedUrl: url,
+        mainDocumentUrl: url,
+        finalDisplayedUrl: url,
       },
     };
     const context = {computedCache: new Map()};
     return CriticalRequestChains.audit(artifacts, context).then(output => {
-      expect(output.details.longestChain.duration).toBeCloseTo(656.491);
-      expect(output.details.longestChain.transferSize).toEqual(2468);
+      expect(output.details.longestChain.duration).toBeCloseTo(2627.193);
+      expect(output.details.longestChain.transferSize).toEqual(15743);
       expect(output).toHaveProperty('score', 0);
     });
   });
