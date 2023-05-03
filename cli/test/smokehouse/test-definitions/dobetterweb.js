@@ -588,8 +588,8 @@ const expectations = {
       'metrics': {
         details: {items: {0: {
           timeToFirstByte: '450+/-100',
-          lcpLoadStart: '7750+/-500',
-          lcpLoadEnd: '7750+/-500',
+          lcpLoadStart: '5500+/-500',
+          lcpLoadEnd: '5500+/-500',
         }}},
       },
     },
