@@ -12,7 +12,7 @@ import {LanternInteractive} from '../computed/metrics/lantern-interactive.js';
 import {LanternSpeedIndex} from '../computed/metrics/lantern-speed-index.js';
 import {LanternLargestContentfulPaint} from '../computed/metrics/lantern-largest-contentful-paint.js';
 import {TimingSummary} from '../computed/metrics/timing-summary.js';
-import {defaultSettings} from '../config/constants.js';
+import {defaultSettings, throttling} from '../config/constants.js';
 
 // Parameters (in ms) for log-normal CDF scoring. To see the curve:
 //   https://www.desmos.com/calculator/bksgkihhj8
@@ -51,7 +51,12 @@ class PredictivePerf extends Audit {
     /** @type {LH.Config.Settings} */
     const settings = JSON.parse(JSON.stringify(defaultSettings)); // Use default settings.
     const computationData = {trace, devtoolsLog, gatherContext, settings, URL};
-    computationData.settings.throttling.cpuSlowdownMultiplier = artifacts.BenchmarkIndex / 230;
+
+    computationData.settings.throttling = {
+      ...throttling.desktopDense4G,
+      cpuSlowdownMultiplier: artifacts.BenchmarkIndex / 230,
+    };
+
     const fcp = await LanternFirstContentfulPaint.request(computationData, context);
     const fmp = await LanternFirstMeaningfulPaint.request(computationData, context);
     const tti = await LanternInteractive.request(computationData, context);
