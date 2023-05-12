@@ -51,6 +51,7 @@ class PredictivePerf extends Audit {
     /** @type {LH.Config.Settings} */
     const settings = JSON.parse(JSON.stringify(defaultSettings)); // Use default settings.
     const computationData = {trace, devtoolsLog, gatherContext, settings, URL};
+    computationData.settings.throttling.cpuSlowdownMultiplier = artifacts.BenchmarkIndex / 230;
     const fcp = await LanternFirstContentfulPaint.request(computationData, context);
     const fmp = await LanternFirstMeaningfulPaint.request(computationData, context);
     const tti = await LanternInteractive.request(computationData, context);

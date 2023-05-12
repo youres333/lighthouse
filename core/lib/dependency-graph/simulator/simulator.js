@@ -23,7 +23,7 @@ const mobileSlow4G = constants.throttling.mobileSlow4G;
 // see https://cs.chromium.org/search/?q=kDefaultMaxNumDelayableRequestsPerClient&sq=package:chromium&type=cs
 const DEFAULT_MAXIMUM_CONCURRENT_REQUESTS = 10;
 // layout tasks tend to be less CPU-bound and do not experience the same increase in duration
-const DEFAULT_LAYOUT_TASK_MULTIPLIER = 0.5;
+const DEFAULT_LAYOUT_TASK_MULTIPLIER = 1;
 // if a task takes more than 10 seconds it's usually a sign it isn't actually CPU bound and we're overestimating
 const DEFAULT_MAXIMUM_CPU_TASK_DURATION = 10000;
 

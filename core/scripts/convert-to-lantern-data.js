@@ -46,6 +46,7 @@ for (const subDir of glob.sync('*/*/', {cwd: inputDirMobile})) {
   fs.mkdirSync(`${outputDir}/${subDir}`, {recursive: true});
   fs.copyFileSync(tracePath, `${outputDir}/${subDir}defaultPass.trace.json`);
   fs.copyFileSync(devtoolsLogPath, `${outputDir}/${subDir}defaultPass.devtoolslog.json`);
+  fs.copyFileSync(`${desktopDir}/artifacts.json`, `${outputDir}/${subDir}artifacts.json`);
 }
 
 fs.writeFileSync(`${outputDir}/site-index-plus-golden-expectations.json`,

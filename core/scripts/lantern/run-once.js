@@ -21,6 +21,7 @@ async function run() {
   const tracePath = path.resolve(process.cwd(), process.argv[2]);
   const traces = {defaultPass: readJson(tracePath)};
   const devtoolsLogs = {defaultPass: readJson(path.resolve(process.cwd(), process.argv[3]))};
+  const artifactsJson = readJson(path.resolve(path.dirname(tracePath), 'artifacts.json'));
   const context = {computedCache: new Map(), settings: {locale: 'en-us'}};
 
   const trace = traces.defaultPass;
@@ -32,7 +33,9 @@ async function run() {
     devtoolsLogs,
     GatherContext: {gatherMode: 'navigation'},
     URL,
+    BenchmarkIndex: artifactsJson.BenchmarkIndex,
   };
+  console.error(artifacts.BenchmarkIndex / 230);
 
   // @ts-expect-error - We don't need the full artifacts or context.
   const result = await PredictivePerf.audit(artifacts, context);
