@@ -5,7 +5,7 @@ import glob from 'glob';
 import {getMetrics} from './lantern/collect/common.js';
 
 const inputDirMobile = 'timings-data/motopower';
-const inputDirDesktop = 'timings-data/desktop';
+const inputDirDesktop = 'timings-data/m1';
 const outputDir = 'lantern-data';
 
 fs.rmSync(outputDir, {force: true, recursive: true});
@@ -23,7 +23,7 @@ for (const subDir of glob.sync('*/*/', {cwd: inputDirMobile})) {
   if (sites.find(s => s.url === url)) continue;
 
   const metrics = getMetrics(moibleLhr);
-  if (!metrics) throw new Error();
+  if (!metrics) continue;
 
   sites.push({
     url,

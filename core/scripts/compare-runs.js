@@ -170,12 +170,16 @@ async function gather() {
       // Skip if already gathered. Allows for restarting collection.
       if (fs.existsSync(gatherDir)) continue;
 
-      await execFile('node', [
-        `${LH_ROOT}/cli`,
-        url,
-        `--gather-mode=${gatherDir}`,
-        ...argv.lhFlags.split(' '),
-      ]);
+      try {
+        await execFile('node', [
+          `${LH_ROOT}/cli`,
+          url,
+          `--gather-mode=${gatherDir}`,
+          ...argv.lhFlags.split(' '),
+        ]);
+      } catch (e) {
+        console.error('gather error:', e);
+      }
     }
   }
   progress.closeProgress();
