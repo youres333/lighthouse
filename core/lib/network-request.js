@@ -27,26 +27,26 @@
       - DNS
       - Connection setup cost (TCP, TLS, SSL, etc.)
 
-      CDP: left whisker edge is Network.requestWillBeSent timestamp (also, timing.requestTime)
+      CDP: left whisker edge is Network.requestWillBeSent timestamp
 
   (2) light shaded region
 
       browser network manager has initiated the request, hasn't recieved any bytes back yet
       Note: even with early-hint response, only the "real" response is considered here
 
-      CDP: Network.requestWillBeSentExtraInfo timing.requestTime + timing.sendStart
+      CDP: Network.requestWillBeSent timing.requestTime + timing.sendStart
 
   (3) dark shaded region
 
       browser network manager has recieved the very first header byte
 
-      CDP:   Network.requestWillBeSentExtraInfo timing.requestTime + timing.recievedHeadersEnd
+      CDP:   Network.responseReceived timing.requestTime + timing.recievedHeadersEnd
 
   (4) end of box
 
       browser network manager has recieved all response bytes
 
-      CDP:   Network.requestWillBeSentExtraInfo timing.requestTime + timing.sendEnd
+      CDP:   Network.responseReceived timestamp
       CDP:   Network.finished/Network.failed timestamp
       Trace: ResourceFinish.finishedTime
 
