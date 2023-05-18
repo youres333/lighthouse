@@ -253,7 +253,7 @@ describe('NetworkRequest', () => {
       });
     });
 
-    it('does not override existing timing properties', function() {
+    it('does override existing timing properties', function() {
       const req = getRequest();
       req.timing = {proxyStart: 17, sslStart: 35};
       const devtoolsLog = networkRecordsToDevtoolsLog([req]);
@@ -266,8 +266,8 @@ describe('NetworkRequest', () => {
       const lrRecord = NetworkRecorder.recordsFromLogs(devtoolsLog)[0];
 
       expect(lrRecord.timing).toMatchObject({
-        proxyStart: 17,
-        sslStart: 35,
+        proxyStart: 17, // Does not modify.
+        sslStart: 4000, // Does modify.
       });
       expect(lrRecord.lrStatistics).toStrictEqual({
         endTimeDeltaMs: -8050,
