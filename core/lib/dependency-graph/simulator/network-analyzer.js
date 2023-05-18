@@ -126,9 +126,9 @@ class NetworkAnalyzer {
 
       // If the request was SSL we get two estimates, one for the SSL negotiation and another for the
       // regular handshake. SSL can also be more than 1 RT but assume False Start was used.
-      if (timing.sslStart > 0 && timing.sslEnd > 0) {
+      if (timing.sslStart >= 0 && timing.sslEnd >= 0) {
         return [timing.connectEnd - timing.sslStart, timing.sslStart - timing.connectStart];
-      } else if (timing.connectStart > 0 && timing.connectEnd > 0) {
+      } else if (timing.connectStart >= 0 && timing.connectEnd >= 0) {
         return timing.connectEnd - timing.connectStart;
       }
     });
@@ -319,6 +319,8 @@ class NetworkAnalyzer {
     } = options || {};
 
     let estimatesByOrigin = NetworkAnalyzer._estimateRTTByOriginViaTCPTiming(records);
+    // Only fallback to less reliable means if requests; or if we are missing TCP timings
+    // for whatever reason.
     if (!estimatesByOrigin.size || forceCoarseEstimates) {
       estimatesByOrigin = new Map();
       const estimatesViaDownload = NetworkAnalyzer._estimateRTTByOriginViaDownloadTiming(records);

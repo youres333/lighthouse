@@ -505,13 +505,14 @@ class NetworkRequest {
     // Don't modify the object coming from the devtools log.
     this.timing = {...this.timing};
 
-    // All of `timing` is set to -1 for LR, except for `requestTime` because Chrome itself knows this values
-    // without interfacing with the netstack.
+    // All of `timing` is set to -1 for LR, except for `requestTime` and `receiveHeadersEnd`
+    // because Chrome itself knows these values without interfacing with the netstack.
     if (TCPMs) {
-      // Connection timings are only present when a connection is first established, so just for the first request
-      // to an origin.
+      // Connection timings are only present when a connection is first established, so just for
+      // the first request to an origin.
       // Note: We currently cannot get dns timing.
       // Note: TCPMs is the tcp+ssl duration, and SSLMs is just ssl.
+      // Note: All we care about are relative times between these endpoints.
       this.timing.connectStart = 0;
       // Currently LR is not recieving SSL timings.
       this.timing.sslStart = SSLMs ? TCPMs - SSLMs : -1;
@@ -519,7 +520,6 @@ class NetworkRequest {
       this.timing.connectEnd = TCPMs;
     }
     // Response timings.
-    this.timing.receiveHeadersEnd = TCPMs + requestMs;
     this.timing.sendStart = TCPMs;
     this.timing.sendEnd = TCPMs + requestMs + responseMs;
   }
