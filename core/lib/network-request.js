@@ -502,6 +502,9 @@ class NetworkRequest {
 
     if (!this.timing) return;
 
+    // Don't modify the object coming from the devtools log.
+    this.timing = {...this.timing};
+
     // All of `timing` is set to -1 for LR, except for `requestTime` because Chrome itself knows this values
     // without interfacing with the netstack.
     if (TCPMs) {
@@ -510,8 +513,9 @@ class NetworkRequest {
       // Note: We currently cannot get dns timing.
       // Note: TCPMs is the tcp+ssl duration, and SSLMs is just ssl.
       this.timing.connectStart = 0;
-      this.timing.sslStart = TCPMs - SSLMs;
-      this.timing.sslEnd = TCPMs;
+      // Currently LR is not recieving SSL timings.
+      this.timing.sslStart = SSLMs ? TCPMs - SSLMs : -1;
+      this.timing.sslEnd = SSLMs ? TCPMs : -1;
       this.timing.connectEnd = TCPMs;
     }
     // Response timings.
