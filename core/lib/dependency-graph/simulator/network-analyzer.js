@@ -133,6 +133,9 @@ class NetworkAnalyzer {
       } else if (timing.connectStart >= 0 && timing.connectEnd >= 0) {
         estimates = [timing.connectEnd - timing.connectStart];
       }
+      // `timing.sslStart - timing.connectStart` can be zero in cases where a TCP conneciton has
+      // already been established but needs to be upgraded to use SSL. Filter out that case, and
+      // also any non-zero values we happen to come across.
       return estimates.filter(e => e > 0);
     });
   }
