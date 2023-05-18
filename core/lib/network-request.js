@@ -519,9 +519,6 @@ class NetworkRequest {
       this.timing.sslEnd = SSLMs ? TCPMs : -1;
       this.timing.connectEnd = TCPMs;
     }
-    // Response timings.
-    this.timing.sendStart = TCPMs;
-    this.timing.sendEnd = TCPMs + requestMs + responseMs;
   }
 
   /**
