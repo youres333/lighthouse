@@ -516,6 +516,7 @@ class NetworkRequest {
     }
     // Response timings.
     this.timing.receiveHeadersEnd = TCPMs + requestMs;
+    this.timing.sendStart = TCPMs;
     this.timing.sendEnd = TCPMs + requestMs + responseMs;
   }
 
