@@ -17,7 +17,7 @@
   DevTools box-whisker
 
     |-------[xxxxxXXXXXX]-|
-       (1)    (2)    (3) (4)
+       (1)  (2)  (3)  (4)(5)
 
   (1) leading whisker
 
@@ -27,7 +27,7 @@
       - DNS
       - Connection setup cost (TCP, TLS, SSL, etc.)
 
-      CDP: left whisker edge is Network.requestWillBeSent timestamp
+      CDP: left whisker edge is Network.requestWillBeSent timestamp (also, timing.requestTime)
 
   (2) light shaded region
 
@@ -41,10 +41,16 @@
       browser network manager has recieved the very first header byte
 
       CDP:   Network.requestWillBeSentExtraInfo timing.requestTime + timing.recievedHeadersEnd
-      CDP:   (right edge of box) Network.finished/Network.failed timestamp
+
+  (4) end of box
+
+      browser network manager has recieved all response bytes
+
+      CDP:   Network.requestWillBeSentExtraInfo timing.requestTime + timing.sendEnd
+      CDP:   Network.finished/Network.failed timestamp
       Trace: ResourceFinish.finishedTime
 
-  (4) trailing whisker
+  (5) trailing whisker
 
       Marks time when render process main thread is available to use the resource. Could be long
       if main thread is busy. Currently don't use this anywhere.
@@ -493,6 +499,24 @@ class NetworkRequest {
       requestMs: requestMs,
       responseMs: responseMs,
     };
+
+    if (!this.timing) return;
+
+    // All of `timing` is set to -1 for LR, except for `requestTime` because Chrome itself knows this values
+    // without interfacing with the netstack.
+    if (TCPMs) {
+      // Connection timings are only present when a connection is first established, so just for the first request
+      // to an origin.
+      // Note: We currently cannot get dns timing.
+      // Note: TCPMs is the tcp+ssl duration, and SSLMs is just ssl.
+      this.timing.connectStart = 0;
+      this.timing.sslStart = TCPMs - SSLMs;
+      this.timing.sslEnd = TCPMs;
+      this.timing.connectEnd = TCPMs;
+    }
+    // Response timings.
+    this.timing.receiveHeadersEnd = TCPMs + requestMs;
+    this.timing.sendEnd = TCPMs + requestMs + responseMs;
   }
 
   /**
