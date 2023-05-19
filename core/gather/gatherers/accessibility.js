@@ -20,9 +20,10 @@ async function runA11yChecks() {
   const axe = window.axe;
   const application = `lighthouse-${Math.random()}`;
   axe.configure({
-    branding: {
-      application,
-    },
+    // TODO: if app name is not the default of `axeAPI`, axe won't ever accept postMessages.
+    // branding: {
+    //   application,
+    // },
     noHtml: true,
   });
   const axeResults = await axe.run(document, {
@@ -58,7 +59,7 @@ async function runA11yChecks() {
       'aria-treeitem-name': {enabled: true},
       // https://github.com/dequelabs/axe-core/issues/2958
       'nested-interactive': {enabled: false},
-      'frame-focusable-content': {enabled: false},
+      'frame-focusable-content': {enabled: true},
       'aria-roledescription': {enabled: false},
       'scrollable-region-focusable': {enabled: false},
       // TODO(paulirish): create audits and enable these 5.
@@ -80,6 +81,7 @@ async function runA11yChecks() {
     notApplicable: axeResults.inapplicable.map(result => ({id: result.id})), // FYI: inapplicable => notApplicable!
     passes: axeResults.passes.map(result => ({id: result.id})),
     version: axeResults.testEngine.version,
+    // AXE_OUTPUT: window.AXE_OUTPUT,
   };
 }
 
@@ -104,9 +106,17 @@ function createAxeRuleResultArtifact(result) {
   // Simplify `nodes` and collect nodeDetails for each.
   const nodes = result.nodes.map(node => {
     const {target, failureSummary, element} = node;
-    // TODO: with `elementRef: true`, `element` _should_ always be defined, but need to verify.
-    // @ts-expect-error - getNodeDetails put into scope via stringification
-    const nodeDetails = getNodeDetails(/** @type {HTMLElement} */ (element));
+    // @ts-expect-error: smuggled from axe running inside iframes.
+    const {_lhNodeDetails} = node;
+
+    // if (!element) throw new Error(JSON.stringify(node, null, 2));
+    // TODO: with `elementRef: true`, `element` is always be defined, except if the result came
+    // from an iframe. In that case, we use a smuggled lh node details.
+    // TODO: do same for related nodes.
+    const nodeDetails = element ?
+      // @ts-expect-error - getNodeDetails put into scope via stringification
+      getNodeDetails(/** @type {HTMLElement} */ (element)) :
+      _lhNodeDetails;
 
     /** @type {Set<HTMLElement>} */
     const relatedNodeElements = new Set();
@@ -180,19 +190,59 @@ class Accessibility extends FRGatherer {
    * @param {LH.Gatherer.FRTransitionalContext} passContext
    * @return {Promise<LH.Artifacts.Accessibility>}
    */
-  getArtifact(passContext) {
+  async getArtifact(passContext) {
     const driver = passContext.driver;
 
-    return driver.executionContext.evaluate(runA11yChecksAndResetScroll, {
-      args: [],
-      useIsolation: true,
-      deps: [
-        axeSource,
-        pageFunctions.getNodeDetails,
-        createAxeRuleResultArtifact,
-        runA11yChecks,
-      ],
-    });
+    // Hack the axe source code to use a subset of options when running inside a frame. We don't want to surface everything,
+    // just allow for `frame-focusable-content` to work.
+    const frameOptions = {
+      elementRef: true,
+      runOnly: {type: 'rules', values: ['frame-focusable-content']},
+    };
+    const replacement = `{options:${JSON.stringify(frameOptions)},command:o,parameter:i,context:r}`;
+    const hackedAxeSource =
+      // minified...
+      axeSource.replace('{options:a,command:o,parameter:i,context:r}', replacement)
+      // not minified...
+                .replace('var params = {', `options = ${JSON.stringify(frameOptions)}\nvar params = {`);
+
+    for (const executionContext of driver.targetManager.mainFrameExecutionContexts()) {
+      const r = await driver.defaultSession.sendCommand('Runtime.evaluate', {
+        expression: `${pageFunctions.getNodeDetails.toString()}\n${hackedAxeSource}`,
+        returnByValue: true,
+        // contextId: executionContext.id,
+        uniqueContextId: executionContext.uniqueId,
+      });
+      // console.log(executionContext, r.exceptionDetails, r.result.value)
+    }
+
+    let r;
+    try {
+      r = await driver.executionContext.evaluate(runA11yChecksAndResetScroll, {
+        args: [],
+        // useIsolation: true,
+        deps: [
+          // axeSource,
+          pageFunctions.getNodeDetails,
+          createAxeRuleResultArtifact,
+          runA11yChecks,
+        ],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    console.log('done, getting logs...');
+    for (const executionContext of driver.targetManager.mainFrameExecutionContexts()) {
+      const r = await driver.defaultSession.sendCommand('Runtime.evaluate', {
+        expression: 'window.AXE_OUTPUT',
+        returnByValue: true,
+        uniqueContextId: executionContext.uniqueId,
+      });
+      console.log(r.exceptionDetails, r.result.value);
+    }
+
+    return r;
   }
 }
 

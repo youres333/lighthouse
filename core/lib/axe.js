@@ -10,7 +10,8 @@ import {createRequire} from 'module';
 // This is removed by rollup, because the only usage is to resolve a module path
 // but that is replaced by the inline-fs plugin, leaving `require` unused.
 const require = /* #__PURE__ */ createRequire(import.meta.url);
-const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
+// const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
+const axeSource = fs.readFileSync(require.resolve('./axe-tmp.js'), 'utf8');
 
 export {
   axeSource,

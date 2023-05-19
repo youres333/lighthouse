@@ -105,7 +105,7 @@ class TargetManager extends ProtocolEventEmitter {
 
   mainFrameExecutionContexts() {
     return [...this._executionContextIdToDescriptions.values()].filter(executionContext => {
-      return executionContext.auxData.frameId === this._mainFrameId;
+      return true;
     });
   }
 
@@ -227,6 +227,7 @@ class TargetManager extends ProtocolEventEmitter {
     await this._rootCdpSession.send('Runtime.enable');
 
     this._mainFrameId = (await this._rootCdpSession.send('Page.getFrameTree')).frameTree.frame.id;
+    const a = (await this._rootCdpSession.send('Page.getFrameTree'));
 
     // Start with the already attached root session.
     await this._onSessionAttached(this._rootCdpSession);
