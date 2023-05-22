@@ -52,11 +52,22 @@ class NetworkAnalyzer {
   static getSummary(values) {
     values.sort((a, b) => a - b);
 
+    let median;
+    if (values.length === 0) {
+      median = values[0];
+    } else if (values.length % 2 === 0) {
+      const a = values[Math.floor((values.length - 1) / 2)];
+      const b = values[Math.floor((values.length - 1) / 2) + 1];
+      median = (a + b) / 2;
+    } else {
+      median = values[Math.floor((values.length - 1) / 2)];
+    }
+
     return {
       min: values[0],
       max: values[values.length - 1],
       avg: values.reduce((a, b) => a + b, 0) / values.length,
-      median: values[Math.floor((values.length - 1) / 2)],
+      median,
     };
   }
 
@@ -114,29 +125,29 @@ class NetworkAnalyzer {
   }
 
   /**
-   * Estimates the observed RTT to each origin based on how long the TCP handshake took.
+   * Estimates the observed RTT to each origin based on how long the connection setup.
+   * For h1 and h2, this could includes two estimates - one for the TCP handshake, another for
+   * SSL negotiation.
+   * For h3, we get only one estimate since QUIC establishes a secure connection in a
+   * single handshake.
    * This is the most accurate and preferred method of measurement when the data is available.
    *
    * @param {LH.Artifacts.NetworkRequest[]} records
    * @return {Map<string, number[]>}
    */
-  static _estimateRTTByOriginViaTCPTiming(records) {
-    return NetworkAnalyzer._estimateValueByOrigin(records, ({timing, connectionReused}) => {
+  static _estimateRTTByOriginViaConnectionTiming(records) {
+    return NetworkAnalyzer._estimateValueByOrigin(records, ({timing, connectionReused, record}) => {
       if (connectionReused) return;
 
-      // If the request was SSL we get two estimates, one for the SSL negotiation and another for the
-      // regular handshake. SSL can also be more than 1 RT but assume False Start was used.
-      /** @type {number[]} */
-      let estimates = [];
-      if (timing.sslStart >= 0 && timing.sslEnd >= 0) {
-        estimates = [timing.connectEnd - timing.sslStart, timing.sslStart - timing.connectStart];
-      } else if (timing.connectStart >= 0 && timing.connectEnd >= 0) {
-        estimates = [timing.connectEnd - timing.connectStart];
+      if (timing.connectEnd > 0 && timing.connectStart > 0 && record.protocol.startsWith('h3')) {
+        // These values are equal to sslStart and sslEnd for h3.
+        return timing.connectEnd - timing.connectStart;
+      } else if (timing.sslStart > 0 && timing.sslEnd > 0) {
+        // SSL can also be more than 1 RT but assume False Start was used.
+        return [timing.connectEnd - timing.sslStart, timing.sslStart - timing.connectStart];
+      } else if (timing.connectStart > 0 && timing.connectEnd > 0) {
+        return timing.connectEnd - timing.connectStart;
       }
-      // `timing.sslStart - timing.connectStart` can be zero in cases where a TCP conneciton has
-      // already been established but needs to be upgraded to use SSL. Filter out that case, and
-      // also any non-zero values we happen to come across.
-      return estimates.filter(e => e > 0);
     });
   }
 
@@ -324,9 +335,9 @@ class NetworkAnalyzer {
       useHeadersEndEstimates = true,
     } = options || {};
 
-    let estimatesByOrigin = NetworkAnalyzer._estimateRTTByOriginViaTCPTiming(records);
     // Only fallback to less reliable means if requests; or if we are missing TCP timings
     // for whatever reason.
+    let estimatesByOrigin = NetworkAnalyzer._estimateRTTByOriginViaConnectionTiming(records);
     if (!estimatesByOrigin.size || forceCoarseEstimates) {
       estimatesByOrigin = new Map();
       const estimatesViaDownload = NetworkAnalyzer._estimateRTTByOriginViaDownloadTiming(records);
