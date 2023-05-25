@@ -40,7 +40,7 @@ describe('Link Elements gatherer', () => {
     };
   }
 
-  function getContext({linkElementsInDOM = [], headers = []}) {
+  function getContext({linkElementsInDOM = [], headers = [], gatherMode = 'navigation'}) {
     const url = 'https://example.com';
     mockMainResource.mockReturnValue({url, responseHeaders: headers, resourceType: 'Document'});
     const driver = {
@@ -54,13 +54,13 @@ describe('Link Elements gatherer', () => {
       },
       LighthouseRunWarnings: [],
     };
-    return {driver, url, baseArtifacts, dependencies: {}, computedCache: new Map()};
+    return {driver, url, baseArtifacts, gatherMode, dependencies: {}, computedCache: new Map()};
   }
 
   it('returns elements from DOM', async () => {
     const linkElementsInDOM = [
       link({source: 'head', rel: 'preconnect', href: 'https://cdn.example.com'}),
-      link({source: 'head', rel: 'styleSheeT', href: 'https://example.com/a.css'}),
+      link({source: 'head', rel: 'stylesheet', href: 'https://example.com/a.css'}),
       link({source: 'body', rel: 'ICON', href: 'https://example.com/a.png'}),
     ];
 
@@ -92,7 +92,7 @@ describe('Link Elements gatherer', () => {
 
   it('combines elements from headers and DOM', async () => {
     const linkElementsInDOM = [
-      link({source: 'head', rel: 'styleSheeT', href: 'https://example.com/a.css'}),
+      link({source: 'head', rel: 'stylesheet', href: 'https://example.com/a.css'}),
       link({source: 'body', rel: 'ICON', href: 'https://example.com/a.png'}),
     ];
 
@@ -121,5 +121,26 @@ describe('Link Elements gatherer', () => {
     expect(context.baseArtifacts.LighthouseRunWarnings[0]).toBeDisplayString(
       'Error parsing `link` header (Unexpected character "a" at offset 22): `<https://example.com/>a`'
     );
+  });
+
+  it('recovers when missing main resource in timespan mode', async () => {
+    const linkElementsInDOM = [
+      link({source: 'head', rel: 'stylesheet', href: 'https://example.com/a.css'}),
+    ];
+    const context = getContext({linkElementsInDOM, gatherMode: 'timespan'});
+    mockMainResource.mockRestore();
+    mockMainResource.mockRejectedValue(new Error('Unable to identify the main resource'));
+    const result = await new LinkElements().getArtifact(context);
+    expect(result).toEqual(linkElementsInDOM);
+  });
+
+  it('throws error when missing main resource in navigation mode', async () => {
+    const linkElementsInDOM = [
+      link({source: 'head', rel: 'stylesheet', href: 'https://example.com/a.css'}),
+    ];
+    const context = getContext({linkElementsInDOM, gatherMode: 'navigation'});
+    mockMainResource.mockRestore();
+    mockMainResource.mockRejectedValue(new Error('Unable to identify the main resource'));
+    await expect(new LinkElements().getArtifact(context)).rejects.toThrow();
   });
 });
