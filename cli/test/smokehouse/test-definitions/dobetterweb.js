@@ -204,6 +204,63 @@ const expectations = {
       lineNumber: '>300',
       columnNumber: '>30',
     }],
+    DevtoolsLog: {
+      _includes: [
+        // Ensure we are getting async call stacks.
+        {
+          method: 'Network.requestWillBeSent',
+          params: {
+            type: 'Image',
+            request: {
+              url: 'http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?async',
+            },
+            initiator: {
+              type: 'script',
+              stack: {
+                callFrames: [],
+                parent: {
+                  description: 'Image',
+                  callFrames: [
+                    {
+                      'functionName': '',
+                      'url': 'http://localhost:10200/dobetterweb/dbw_tester.html',
+                    },
+                  ],
+                  parent: {
+                    description: 'Promise.then',
+                    callFrames: [
+                      {
+                        'functionName': '',
+                        'url': 'http://localhost:10200/dobetterweb/dbw_tester.html',
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+    ImageElements: {
+      _includes: [{
+        src: 'http://localhost:10200/dobetterweb/lighthouse-1024x680.jpg?iar2',
+        srcset: '',
+        displayedWidth: 120,
+        displayedHeight: 80,
+        attributeWidth: '120',
+        attributeHeight: '80',
+        naturalDimensions: {
+          width: 1024,
+          height: 678,
+        },
+        isCss: false,
+        isPicture: false,
+        isInShadowDOM: false,
+        loading: 'lazy',
+        fetchPriority: 'low',
+      }],
+    },
   },
   lhr: {
     requestedUrl: 'http://localhost:10200/dobetterweb/dbw_tester.html',
@@ -243,17 +300,6 @@ const expectations = {
             // In legacy Lighthouse this audit will have additional duplicate failures which are a mistake.
             // Fraggle Rock ordering of gatherer `stopInstrumentation` and `getArtifact` fixes the re-request issue.
           },
-        },
-      },
-      'is-on-https': {
-        score: 0,
-        details: {
-          items: [
-            {
-              url: 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
-              resolution: 'Allowed',
-            },
-          ],
         },
       },
       'geolocation-on-start': {
@@ -341,7 +387,7 @@ const expectations = {
           ],
         },
       },
-      'password-inputs-can-be-pasted-into': {
+      'paste-preventing-inputs': {
         score: 0,
         details: {
           items: {
@@ -355,9 +401,9 @@ const expectations = {
           items: {
             0: {
               displayedAspectRatio: /^120 x 15/,
-              url: 'http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?iar1',
+              url: 'http://localhost:10200/dobetterweb/lighthouse-1024x680.jpg?iar1',
             },
-            length: 1,
+            length: 2,
           },
         },
       },
@@ -498,21 +544,24 @@ const expectations = {
           ],
         },
       },
-      'preload-lcp-image': {
-        score: 1,
-        numericValue: 0,
+      'prioritize-lcp-image': {
+        // In CI, there can sometimes be slight savings.
+        numericValue: '<=50',
         details: {
           items: [{
             node: {
               snippet: '<h2 id="toppy" style="background-image:url(\'\');">',
               nodeLabel: 'Do better web tester page',
             },
-            url: 'http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?lcp',
-            wastedMs: 0,
+            url: 'http://localhost:10200/dobetterweb/lighthouse-1024x680.jpg?redirected-lcp',
+            wastedMs: '<=50',
           }],
           debugData: {
             initiatorPath: [{
-              url: 'http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?lcp',
+              url: 'http://localhost:10200/dobetterweb/lighthouse-1024x680.jpg?redirected-lcp',
+              initiatorType: 'redirect',
+            }, {
+              url: 'http://localhost:10200/dobetterweb/lighthouse-1024x680.jpg?lcp&redirect=lighthouse-1024x680.jpg%3Fredirected-lcp',
               initiatorType: 'parser',
             }, {
               url: 'http://localhost:10200/dobetterweb/dbw_tester.css?delay=2000&async=true',
@@ -521,14 +570,48 @@ const expectations = {
               url: 'http://localhost:10200/dobetterweb/dbw_tester.html',
               initiatorType: 'other',
             }],
-            pathLength: 3,
+            pathLength: 4,
           },
+        },
+      },
+      'metrics': {
+        // Flaky in DevTools
+        _excludeRunner: 'devtools',
+        details: {items: {0: {
+          timeToFirstByte: '450+/-100',
+          lcpLoadStart: '7750+/-500',
+          lcpLoadEnd: '7750+/-500',
+        }}},
+      },
+      'largest-contentful-paint-element': {
+        score: null,
+        displayValue: '1 element found',
+        details: {
+          items: [
+            {
+              items: [{
+                node: {
+                  type: 'node',
+                  nodeLabel: 'Do better web tester page',
+                  path: '2,HTML,1,BODY,9,DIV,2,H2',
+                },
+              }],
+            },
+            {
+              items: [
+                {timing: '>0'},
+                {timing: '>0'},
+                {timing: '>0'},
+                {timing: '>0'},
+              ],
+            },
+          ],
         },
       },
     },
     fullPageScreenshot: {
       screenshot: {
-        width: 360,
+        width: 412,
         // Allow for differences in platforms.
         height: '1350±100',
         data: /^data:image\/webp;.{500,}/,

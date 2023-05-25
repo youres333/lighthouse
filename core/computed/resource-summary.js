@@ -142,10 +142,8 @@ class ResourceSummary {
    */
   static async compute_(data, context) {
     const networkRecords = await NetworkRecords.request(data.devtoolsLog, context);
-    const classifiedEntities = await EntityClassification.request({
-      URL: data.URL,
-      devtoolsLog: data.devtoolsLog,
-    }, context);
+    const classifiedEntities = await EntityClassification.request(
+      {URL: data.URL, devtoolsLog: data.devtoolsLog}, context);
     return ResourceSummary.summarize(
       networkRecords, data.URL, data.budgets, data.LinkElements, classifiedEntities);
   }

@@ -235,7 +235,7 @@ class GatherRunner {
       id: `lh:gather:getDevtoolsLog`,
     };
     log.time(status);
-    const devtoolsLog = driver.endDevtoolsLog();
+    const devtoolsLog = await driver.endDevtoolsLog();
     const networkRecords = await NetworkRecords.request(devtoolsLog, passContext);
     log.timeEnd(status);
 
@@ -452,7 +452,7 @@ class GatherRunner {
       // Add a `bidx=20` query param, eg: https://www.example.com/?bidx=50
       const parsedUrl = UrlUtils.isValid(options.requestedUrl) && new URL(options.requestedUrl);
       if (options.settings.channel === 'lr' && parsedUrl && parsedUrl.searchParams.has('bidx')) {
-        const bidxRunCount = parsedUrl.searchParams.get('bidx') || 0;
+        const bidxRunCount = Number(parsedUrl.searchParams.get('bidx')) || 0;
         // Add the first bidx into the new set
         const indexes = [baseArtifacts.BenchmarkIndex];
         for (let i = 0; i < bidxRunCount; i++) {

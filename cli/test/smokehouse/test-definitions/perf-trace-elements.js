@@ -90,12 +90,12 @@ const expectations = {
             top: 465,
             bottom: 502,
             left: 8,
-            right: 352,
-            width: 344,
+            right: 404,
+            width: 396,
             height: 37,
           },
         },
-        score: '0.058 +/- 0.01',
+        score: '0.035 +/- 0.01',
       },
       {
         traceEventType: 'layout-shift',
@@ -106,12 +106,12 @@ const expectations = {
             top: 426,
             bottom: 444,
             left: 8,
-            right: 352,
-            width: 344,
+            right: 404,
+            width: 396,
             height: 18,
           },
         },
-        score: '0.026 +/- 0.01',
+        score: '0.017 +/- 0.01',
       },
       {
         traceEventType: 'animation',
@@ -146,15 +146,17 @@ const expectations = {
         score: null,
         displayValue: '1 element found',
         details: {
-          items: [
-            {
-              node: {
-                type: 'node',
-                nodeLabel: 'section > img',
-                path: '0,HTML,1,BODY,1,DIV,a,#document-fragment,0,SECTION,0,IMG',
-              },
+          items: {
+            0: {
+              items: [{
+                node: {
+                  type: 'node',
+                  nodeLabel: 'section > img',
+                  path: '0,HTML,1,BODY,1,DIV,a,#document-fragment,0,SECTION,0,IMG',
+                },
+              }],
             },
-          ],
+          },
         },
       },
       'lcp-lazy-loaded': {
@@ -191,17 +193,16 @@ const expectations = {
           },
         },
       },
-      'preload-lcp-image': {
+      'prioritize-lcp-image': {
         score: 1,
         numericValue: 0,
         details: {
-          items: [{
-            url: 'http://localhost:10200/dobetterweb/lighthouse-480x318.jpg',
-          }],
+          items: [],
           debugData: {
             initiatorPath: [{
               url: 'http://localhost:10200/dobetterweb/lighthouse-480x318.jpg',
-              initiatorType: 'other',
+              // Dynamically-added, lazy-loaded images currently have broken initiator chains.
+              initiatorType: 'fallbackToMain',
             }, {
               url: 'http://localhost:10200/perf/trace-elements.html',
               initiatorType: 'other',

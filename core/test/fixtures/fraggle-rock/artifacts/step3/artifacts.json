@@ -6,144 +6,392 @@
       "entryType": "measure",
       "startTime": 0,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:config:resolveArtifactsToDefns",
       "entryType": "measure",
       "startTime": 1,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:config:resolveNavigationsToDefns",
       "entryType": "measure",
       "startTime": 2,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:runner:gather",
       "entryType": "measure",
       "startTime": 3,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:driver:connect",
       "entryType": "measure",
       "startTime": 4,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:gather:getBenchmarkIndex",
       "entryType": "measure",
       "startTime": 5,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:gather:getVersion",
       "entryType": "measure",
       "startTime": 6,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:prepare:navigationMode",
       "entryType": "measure",
       "startTime": 7,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:prepare:navigation",
       "entryType": "measure",
       "startTime": 8,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:gather:prepareThrottlingAndNetwork",
       "entryType": "measure",
       "startTime": 9,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:driver:navigate",
       "entryType": "measure",
       "startTime": 10,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:DevtoolsLog",
+      "entryType": "measure",
+      "startTime": 11,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Trace",
+      "entryType": "measure",
+      "startTime": 12,
+      "duration": 1,
+      "detail": null
     },
     {
       "name": "lh:computed:NetworkRecords",
       "entryType": "measure",
-      "startTime": 11,
+      "startTime": 13,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:DevtoolsLog",
+      "entryType": "measure",
+      "startTime": 14,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Trace",
+      "entryType": "measure",
+      "startTime": 15,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Accessibility",
+      "entryType": "measure",
+      "startTime": 16,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:AnchorElements",
+      "entryType": "measure",
+      "startTime": 17,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ConsoleMessages",
+      "entryType": "measure",
+      "startTime": 18,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:CSSUsage",
+      "entryType": "measure",
+      "startTime": 19,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Doctype",
+      "entryType": "measure",
+      "startTime": 20,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:DOMStats",
+      "entryType": "measure",
+      "startTime": 21,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:EmbeddedContent",
+      "entryType": "measure",
+      "startTime": 22,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:FontSize",
+      "entryType": "measure",
+      "startTime": 23,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Inputs",
+      "entryType": "measure",
+      "startTime": 24,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:GlobalListeners",
+      "entryType": "measure",
+      "startTime": 25,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ImageElements",
+      "entryType": "measure",
+      "startTime": 26,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:InstallabilityErrors",
+      "entryType": "measure",
+      "startTime": 27,
+      "duration": 1,
+      "detail": null
     },
     {
       "name": "lh:gather:getInstallabilityErrors",
       "entryType": "measure",
-      "startTime": 12,
+      "startTime": 28,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:InspectorIssues",
+      "entryType": "measure",
+      "startTime": 29,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:JsUsage",
+      "entryType": "measure",
+      "startTime": 30,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:LinkElements",
+      "entryType": "measure",
+      "startTime": 31,
+      "duration": 1,
+      "detail": null
     },
     {
       "name": "lh:computed:MainResource",
       "entryType": "measure",
-      "startTime": 13,
+      "startTime": 32,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:MainDocumentContent",
+      "entryType": "measure",
+      "startTime": 33,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:MetaElements",
+      "entryType": "measure",
+      "startTime": 34,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:NetworkUserAgent",
+      "entryType": "measure",
+      "startTime": 35,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:OptimizedImages",
+      "entryType": "measure",
+      "startTime": 36,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ResponseCompression",
+      "entryType": "measure",
+      "startTime": 37,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:RobotsTxt",
+      "entryType": "measure",
+      "startTime": 38,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ServiceWorker",
+      "entryType": "measure",
+      "startTime": 39,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Scripts",
+      "entryType": "measure",
+      "startTime": 40,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:SourceMaps",
+      "entryType": "measure",
+      "startTime": 41,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Stacks",
+      "entryType": "measure",
+      "startTime": 42,
+      "duration": 1,
+      "detail": null
     },
     {
       "name": "lh:gather:collectStacks",
       "entryType": "measure",
-      "startTime": 14,
+      "startTime": 43,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:TagsBlockingFirstPaint",
+      "entryType": "measure",
+      "startTime": 44,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:TapTargets",
+      "entryType": "measure",
+      "startTime": 45,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:TraceElements",
+      "entryType": "measure",
+      "startTime": 46,
+      "duration": 1,
+      "detail": null
     },
     {
       "name": "lh:computed:ProcessedTrace",
       "entryType": "measure",
-      "startTime": 15,
+      "startTime": 47,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:computed:ProcessedNavigation",
       "entryType": "measure",
-      "startTime": 16,
+      "startTime": 48,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:computed:Responsiveness",
       "entryType": "measure",
-      "startTime": 17,
+      "startTime": 49,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ViewportDimensions",
+      "entryType": "measure",
+      "startTime": 50,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:WebAppManifest",
+      "entryType": "measure",
+      "startTime": 51,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:devtoolsLogs",
+      "entryType": "measure",
+      "startTime": 52,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:traces",
+      "entryType": "measure",
+      "startTime": 53,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:FullPageScreenshot",
+      "entryType": "measure",
+      "startTime": 54,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:BFCacheFailures",
+      "entryType": "measure",
+      "startTime": 55,
+      "duration": 1,
+      "detail": null
     }
   ],
   "LighthouseRunWarnings": [],
@@ -167,12 +415,12 @@
     "throttlingMethod": "simulate",
     "screenEmulation": {
       "mobile": true,
-      "width": 360,
-      "height": 640,
-      "deviceScaleFactor": 2.625,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
       "disabled": false
     },
-    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
     "auditMode": false,
     "gatherMode": false,
     "disableStorageReset": true,
@@ -233,7 +481,7 @@
       "npm": "next"
     }
   ],
-  "NetworkUserAgent": "Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+  "NetworkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
   "WebAppManifest": null,
   "InstallabilityErrors": {
     "errors": [
@@ -1772,8 +2020,7 @@
     ],
     "quirksModeIssue": [],
     "cookieIssue": [],
-    "sharedArrayBufferIssue": [],
-    "twaQualityEnforcement": []
+    "sharedArrayBufferIssue": []
   },
   "JsUsage": {
     "16": {
@@ -18334,7 +18581,7 @@
       "hrefRaw": "/favicon.png",
       "source": "head",
       "node": {
-        "lhId": "1-15-LINK",
+        "lhId": "1-16-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,4,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18358,7 +18605,7 @@
       "hrefRaw": "/fonts/danielbd.woff2",
       "source": "head",
       "node": {
-        "lhId": "1-16-LINK",
+        "lhId": "1-17-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,5,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18382,7 +18629,7 @@
       "hrefRaw": "https://fonts.gstatic.com",
       "source": "head",
       "node": {
-        "lhId": "1-17-LINK",
+        "lhId": "1-18-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,6,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18406,7 +18653,7 @@
       "hrefRaw": "/_next/static/css/08dcb440d7d83b488817.css",
       "source": "head",
       "node": {
-        "lhId": "1-18-LINK",
+        "lhId": "1-19-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,24,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18430,7 +18677,7 @@
       "hrefRaw": "/_next/static/css/08dcb440d7d83b488817.css",
       "source": "head",
       "node": {
-        "lhId": "1-19-LINK",
+        "lhId": "1-20-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,25,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18454,7 +18701,7 @@
       "hrefRaw": "/_next/static/chunks/main-1f8481d632114a408557.js",
       "source": "head",
       "node": {
-        "lhId": "1-20-LINK",
+        "lhId": "1-21-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,27,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18478,7 +18725,7 @@
       "hrefRaw": "/_next/static/chunks/webpack-657a8433bac0aabd564e.js",
       "source": "head",
       "node": {
-        "lhId": "1-21-LINK",
+        "lhId": "1-22-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,28,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18502,7 +18749,7 @@
       "hrefRaw": "/_next/static/chunks/framework.9d524150d48315f49e80.js",
       "source": "head",
       "node": {
-        "lhId": "1-22-LINK",
+        "lhId": "1-23-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,29,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18526,7 +18773,7 @@
       "hrefRaw": "/_next/static/chunks/commons.49455e4fa8cc3f51203f.js",
       "source": "head",
       "node": {
-        "lhId": "1-23-LINK",
+        "lhId": "1-24-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,30,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18550,7 +18797,7 @@
       "hrefRaw": "/_next/static/chunks/pages/_app-ef508c97234d1af96c47.js",
       "source": "head",
       "node": {
-        "lhId": "1-24-LINK",
+        "lhId": "1-25-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,31,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18574,7 +18821,7 @@
       "hrefRaw": "/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97ae6e480bf.js",
       "source": "head",
       "node": {
-        "lhId": "1-25-LINK",
+        "lhId": "1-26-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,32,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18598,7 +18845,7 @@
       "hrefRaw": "/_next/static/chunks/pages/corrections-7a620a51252fe2c2f77b.js",
       "source": "head",
       "node": {
-        "lhId": "1-26-LINK",
+        "lhId": "1-27-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,33,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18622,7 +18869,7 @@
       "hrefRaw": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap",
       "source": "head",
       "node": {
-        "lhId": "1-27-LINK",
+        "lhId": "1-28-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,34,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18646,7 +18893,7 @@
       "hrefRaw": "/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97ae6e480bf.js",
       "source": "head",
       "node": {
-        "lhId": "1-28-LINK",
+        "lhId": "1-29-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,35,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -18670,7 +18917,7 @@
       "hrefRaw": "/_next/static/chunks/pages/index-37980adf97404e76e41a.js",
       "source": "head",
       "node": {
-        "lhId": "1-29-LINK",
+        "lhId": "1-30-LINK",
         "devtoolsNodePath": "1,HTML,0,HEAD,36,LINK",
         "selector": "head > link",
         "boundingRect": {
@@ -20064,5 +20311,258 @@
       }
     }
   },
-  "BFCacheFailures": []
+  "BFCacheFailures": [],
+  "Inputs": {
+    "inputs": [
+      {
+        "parentFormIndex": 0,
+        "labelIndices": [],
+        "id": "",
+        "name": "type",
+        "type": "hidden",
+        "placeholder": "",
+        "autocomplete": {
+          "property": "",
+          "attribute": null,
+          "prediction": null
+        },
+        "preventsPaste": false,
+        "node": {
+          "lhId": "1-20-INPUT",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,0,INPUT",
+          "selector": "main#main-content > div > form.flex > input",
+          "boundingRect": {
+            "top": 0,
+            "bottom": 0,
+            "left": 0,
+            "right": 0,
+            "width": 0,
+            "height": 0
+          },
+          "snippet": "<input type=\"hidden\" name=\"type\" value=\"correction\">",
+          "nodeLabel": "main#main-content > div > form.flex > input"
+        }
+      },
+      {
+        "parentFormIndex": 0,
+        "labelIndices": [
+          0
+        ],
+        "id": "",
+        "name": "email",
+        "type": "email",
+        "placeholder": "",
+        "autocomplete": {
+          "property": "",
+          "attribute": null,
+          "prediction": null
+        },
+        "preventsPaste": false,
+        "node": {
+          "lhId": "1-21-INPUT",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,1,LABEL,1,INPUT",
+          "selector": "div > form.flex > label.mt-4 > input.rounded-md",
+          "boundingRect": {
+            "top": 428,
+            "bottom": 470,
+            "left": 16,
+            "right": 205,
+            "width": 189,
+            "height": 42
+          },
+          "snippet": "<input type=\"email\" class=\"rounded-md\" name=\"email\">",
+          "nodeLabel": "div > form.flex > label.mt-4 > input.rounded-md"
+        }
+      },
+      {
+        "parentFormIndex": 0,
+        "labelIndices": [
+          1
+        ],
+        "id": "",
+        "name": "episode",
+        "type": "text",
+        "placeholder": "",
+        "autocomplete": {
+          "property": "",
+          "attribute": null,
+          "prediction": null
+        },
+        "preventsPaste": false,
+        "node": {
+          "lhId": "1-22-INPUT",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,2,LABEL,1,INPUT",
+          "selector": "div > form.flex > label.mt-4 > input.rounded-md",
+          "boundingRect": {
+            "top": 510,
+            "bottom": 552,
+            "left": 16,
+            "right": 205,
+            "width": 189,
+            "height": 42
+          },
+          "snippet": "<input type=\"text\" class=\"rounded-md\" name=\"episode\">",
+          "nodeLabel": "div > form.flex > label.mt-4 > input.rounded-md"
+        }
+      },
+      {
+        "parentFormIndex": 0,
+        "labelIndices": [
+          2
+        ],
+        "id": "",
+        "name": "url",
+        "type": "url",
+        "placeholder": "",
+        "autocomplete": {
+          "property": "",
+          "attribute": null,
+          "prediction": null
+        },
+        "preventsPaste": false,
+        "node": {
+          "lhId": "1-23-INPUT",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,3,LABEL,1,INPUT",
+          "selector": "div > form.flex > label.mt-4 > input.rounded-md",
+          "boundingRect": {
+            "top": 592,
+            "bottom": 634,
+            "left": 16,
+            "right": 344,
+            "width": 328,
+            "height": 42
+          },
+          "snippet": "<input type=\"url\" class=\"rounded-md w-full\" name=\"url\" value=\"\">",
+          "nodeLabel": "div > form.flex > label.mt-4 > input.rounded-md"
+        }
+      },
+      {
+        "parentFormIndex": 0,
+        "labelIndices": [
+          3
+        ],
+        "id": "",
+        "name": "message",
+        "type": "textarea",
+        "placeholder": "",
+        "autocomplete": {
+          "property": "",
+          "attribute": null,
+          "prediction": null
+        },
+        "preventsPaste": false,
+        "node": {
+          "lhId": "1-24-TEXTAREA",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,4,LABEL,1,TEXTAREA",
+          "selector": "div > form.flex > label.mt-4 > textarea.w-full",
+          "boundingRect": {
+            "top": 674,
+            "bottom": 740,
+            "left": 16,
+            "right": 344,
+            "width": 328,
+            "height": 66
+          },
+          "snippet": "<textarea class=\"w-full rounded-md\" name=\"message\" required=\"\">",
+          "nodeLabel": "div > form.flex > label.mt-4 > textarea.w-full"
+        }
+      }
+    ],
+    "forms": [
+      {
+        "id": "",
+        "name": "",
+        "autocomplete": "on",
+        "node": {
+          "lhId": "1-15-FORM",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM",
+          "selector": "div.flex > main#main-content > div > form.flex",
+          "boundingRect": {
+            "top": 388,
+            "bottom": 787,
+            "left": 16,
+            "right": 344,
+            "width": 328,
+            "height": 399
+          },
+          "snippet": "<form class=\"flex flex-col\">",
+          "nodeLabel": "Email\nRelevant Episode\nRelevant URL\nExplanation*\nSubmit"
+        }
+      }
+    ],
+    "labels": [
+      {
+        "for": "",
+        "node": {
+          "lhId": "1-16-LABEL",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,1,LABEL",
+          "selector": "main#main-content > div > form.flex > label.mt-4",
+          "boundingRect": {
+            "top": 404,
+            "bottom": 470,
+            "left": 16,
+            "right": 344,
+            "width": 328,
+            "height": 66
+          },
+          "snippet": "<label class=\"mt-4\">",
+          "nodeLabel": "Email"
+        }
+      },
+      {
+        "for": "",
+        "node": {
+          "lhId": "1-17-LABEL",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,2,LABEL",
+          "selector": "main#main-content > div > form.flex > label.mt-4",
+          "boundingRect": {
+            "top": 486,
+            "bottom": 552,
+            "left": 16,
+            "right": 344,
+            "width": 328,
+            "height": 66
+          },
+          "snippet": "<label class=\"mt-4\">",
+          "nodeLabel": "Relevant Episode"
+        }
+      },
+      {
+        "for": "",
+        "node": {
+          "lhId": "1-18-LABEL",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,3,LABEL",
+          "selector": "main#main-content > div > form.flex > label.mt-4",
+          "boundingRect": {
+            "top": 568,
+            "bottom": 634,
+            "left": 16,
+            "right": 344,
+            "width": 328,
+            "height": 66
+          },
+          "snippet": "<label class=\"mt-4\">",
+          "nodeLabel": "Relevant URL"
+        }
+      },
+      {
+        "for": "",
+        "node": {
+          "lhId": "1-19-LABEL",
+          "devtoolsNodePath": "1,HTML,1,BODY,0,DIV,0,DIV,3,MAIN,3,DIV,0,FORM,4,LABEL",
+          "selector": "main#main-content > div > form.flex > label.mt-4",
+          "boundingRect": {
+            "top": 650,
+            "bottom": 747,
+            "left": 16,
+            "right": 344,
+            "width": 328,
+            "height": 97
+          },
+          "snippet": "<label class=\"mt-4\">",
+          "nodeLabel": "Explanation*"
+        }
+      }
+    ]
+  }
 }

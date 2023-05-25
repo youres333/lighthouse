@@ -155,6 +155,7 @@ describe('BFCacheFailures', () => {
     context.dependencies.DevtoolsLog = [{
       method: 'Page.backForwardCacheNotUsed',
       params: createMockBfCacheEvent(),
+      targetType: 'page',
     }];
 
     const gatherer = new BFCacheFailures();
@@ -229,7 +230,7 @@ describe('BFCacheFailures', () => {
       const gatherer = new BFCacheFailures();
       const artifactPromise = gatherer.getArtifact(context);
 
-      await flushAllTimersAndMicrotasks(110);
+      await flushAllTimersAndMicrotasks(210);
 
       await expect(artifactPromise).resolves.toHaveLength(1);
     });
@@ -240,7 +241,7 @@ describe('BFCacheFailures', () => {
       const gatherer = new BFCacheFailures();
       const artifactPromise = gatherer.getArtifact(context);
 
-      await flushAllTimersAndMicrotasks(110);
+      await flushAllTimersAndMicrotasks(210);
 
       await expect(artifactPromise).rejects.toThrow(
         'bfcache failed but the failure reasons were not emitted in time'

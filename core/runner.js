@@ -88,6 +88,13 @@ class Runner {
       log.timeEnd(resultsStatus);
       log.timeEnd(runnerStatus);
 
+      /** @type {LH.Artifacts['FullPageScreenshot']|undefined} */
+      let fullPageScreenshot = artifacts.FullPageScreenshot;
+      if (resolvedConfig.settings.disableFullPageScreenshot ||
+          fullPageScreenshot instanceof Error) {
+        fullPageScreenshot = undefined;
+      }
+
       /** @type {LH.RawIcu<LH.Result>} */
       const i18nLhr = {
         lighthouseVersion,
@@ -113,8 +120,7 @@ class Runner {
         categoryGroups: resolvedConfig.groups || undefined,
         stackPacks: stackPacks.getStackPacks(artifacts.Stacks),
         entities: await Runner.getEntityClassification(artifacts, {computedCache}),
-        fullPageScreenshot: resolvedConfig.settings.disableFullPageScreenshot ?
-          undefined : artifacts.FullPageScreenshot,
+        fullPageScreenshot,
         timing: this._getTiming(artifacts),
         i18n: {
           rendererFormattedStrings: format.getRendererFormattedStrings(settings.locale),
@@ -154,37 +160,27 @@ class Runner {
 
     /** @type {Array<LH.Result.LhrEntity>} */
     const entities = [];
-    /** @type {Record<string, number>} */
-    const entityIndexByOrigin = {};
-    /** @type {Record<string, number>} */
-    const entityIndexByName = {};
-
     for (const [entity, entityUrls] of classifiedEntities.urlsByEntity) {
+      const uniqueOrigins = new Set();
+      for (const url of entityUrls) {
+        const origin = UrlUtils.getOrigin(url);
+        if (origin) uniqueOrigins.add(origin);
+      }
+
       /** @type {LH.Result.LhrEntity} */
       const shortEntity = {
         name: entity.name,
         homepage: entity.homepage,
+        origins: [...uniqueOrigins],
       };
-
       // Reduce payload size in LHR JSON by omitting whats falsy.
       if (entity === classifiedEntities.firstParty) shortEntity.isFirstParty = true;
       if (entity.isUnrecognized) shortEntity.isUnrecognized = true;
-
-      const id = entities.push(shortEntity) - 1;
-      for (const url of entityUrls) {
-        const origin = UrlUtils.getOrigin(url);
-        if (!origin) continue;
-        entityIndexByOrigin[origin] = id;
-      }
-      entityIndexByName[shortEntity.name] = id;
+      if (entity.category) shortEntity.category = entity.category;
+      entities.push(shortEntity);
     }
 
-    return {
-      list: entities,
-      firstParty: classifiedEntities.firstParty?.name,
-      entityIndexByOrigin,
-      entityIndexByName,
-    };
+    return entities;
   }
 
   /**

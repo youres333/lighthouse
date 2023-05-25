@@ -6,104 +6,224 @@
       "entryType": "measure",
       "startTime": 0,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:config:resolveArtifactsToDefns",
       "entryType": "measure",
       "startTime": 1,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:config:resolveNavigationsToDefns",
       "entryType": "measure",
       "startTime": 2,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:driver:connect",
       "entryType": "measure",
       "startTime": 3,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:gather:getBenchmarkIndex",
       "entryType": "measure",
       "startTime": 4,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:gather:getVersion",
       "entryType": "measure",
       "startTime": 5,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:prepare:timespanMode",
       "entryType": "measure",
       "startTime": 6,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:gather:prepareThrottlingAndNetwork",
       "entryType": "measure",
       "startTime": 7,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:runner:gather",
       "entryType": "measure",
       "startTime": 8,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:DevtoolsLog",
+      "entryType": "measure",
+      "startTime": 9,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Trace",
+      "entryType": "measure",
+      "startTime": 10,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ConsoleMessages",
+      "entryType": "measure",
+      "startTime": 11,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:CSSUsage",
+      "entryType": "measure",
+      "startTime": 12,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:GlobalListeners",
+      "entryType": "measure",
+      "startTime": 13,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ImageElements",
+      "entryType": "measure",
+      "startTime": 14,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:InspectorIssues",
+      "entryType": "measure",
+      "startTime": 15,
+      "duration": 1,
+      "detail": null
     },
     {
       "name": "lh:computed:NetworkRecords",
       "entryType": "measure",
-      "startTime": 9,
+      "startTime": 16,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:JsUsage",
+      "entryType": "measure",
+      "startTime": 17,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:NetworkUserAgent",
+      "entryType": "measure",
+      "startTime": 18,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:OptimizedImages",
+      "entryType": "measure",
+      "startTime": 19,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ResponseCompression",
+      "entryType": "measure",
+      "startTime": 20,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:Scripts",
+      "entryType": "measure",
+      "startTime": 21,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:SourceMaps",
+      "entryType": "measure",
+      "startTime": 22,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:TraceElements",
+      "entryType": "measure",
+      "startTime": 23,
+      "duration": 1,
+      "detail": null
     },
     {
       "name": "lh:computed:ProcessedTrace",
       "entryType": "measure",
-      "startTime": 10,
+      "startTime": 24,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:computed:ProcessedNavigation",
       "entryType": "measure",
-      "startTime": 11,
+      "startTime": 25,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
     },
     {
       "name": "lh:computed:Responsiveness",
       "entryType": "measure",
-      "startTime": 12,
+      "startTime": 26,
       "duration": 1,
-      "detail": null,
-      "gather": true
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:ViewportDimensions",
+      "entryType": "measure",
+      "startTime": 27,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:devtoolsLogs",
+      "entryType": "measure",
+      "startTime": 28,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:traces",
+      "entryType": "measure",
+      "startTime": 29,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:FullPageScreenshot",
+      "entryType": "measure",
+      "startTime": 30,
+      "duration": 1,
+      "detail": null
+    },
+    {
+      "name": "lh:gather:getArtifact:BFCacheFailures",
+      "entryType": "measure",
+      "startTime": 31,
+      "duration": 1,
+      "detail": null
     }
   ],
   "LighthouseRunWarnings": [],
@@ -127,12 +247,12 @@
     "throttlingMethod": "devtools",
     "screenEmulation": {
       "mobile": true,
-      "width": 360,
-      "height": 640,
-      "deviceScaleFactor": 2.625,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
       "disabled": false
     },
-    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
     "auditMode": false,
     "gatherMode": false,
     "disableStorageReset": false,
@@ -165,7 +285,7 @@
     "gatherMode": "timespan"
   },
   "Stacks": [],
-  "NetworkUserAgent": "Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+  "NetworkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
   "WebAppManifest": null,
   "InstallabilityErrors": {
     "errors": []
@@ -1437,8 +1557,7 @@
     ],
     "quirksModeIssue": [],
     "cookieIssue": [],
-    "sharedArrayBufferIssue": [],
-    "twaQualityEnforcement": []
+    "sharedArrayBufferIssue": []
   },
   "JsUsage": {
     "16": {
@@ -10770,463 +10889,5 @@
       }
     }
   },
-  "BFCacheFailures": [],
-  "LinkElements": [
-    {
-      "rel": "icon",
-      "href": "https://www.mikescerealshack.co/favicon.png",
-      "hreflang": "",
-      "as": "",
-      "crossOrigin": null,
-      "hrefRaw": "/favicon.png",
-      "source": "head",
-      "node": {
-        "lhId": "1-10-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,4,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"icon\" href=\"/favicon.png\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/fonts/danielbd.woff2",
-      "hreflang": "",
-      "as": "font",
-      "crossOrigin": "anonymous",
-      "hrefRaw": "/fonts/danielbd.woff2",
-      "source": "head",
-      "node": {
-        "lhId": "1-11-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,5,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/fonts/danielbd.woff2\" as=\"font\" crossorigin=\"anonymous\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preconnect",
-      "href": "https://fonts.gstatic.com/",
-      "hreflang": "",
-      "as": "",
-      "crossOrigin": null,
-      "hrefRaw": "https://fonts.gstatic.com",
-      "source": "head",
-      "node": {
-        "lhId": "1-12-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,6,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/css/08dcb440d7d83b488817.css",
-      "hreflang": "",
-      "as": "style",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/css/08dcb440d7d83b488817.css",
-      "source": "head",
-      "node": {
-        "lhId": "1-13-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,24,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/css/08dcb440d7d83b488817.css\" as=\"style\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "stylesheet",
-      "href": "https://www.mikescerealshack.co/_next/static/css/08dcb440d7d83b488817.css",
-      "hreflang": "",
-      "as": "",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/css/08dcb440d7d83b488817.css",
-      "source": "head",
-      "node": {
-        "lhId": "1-14-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,25,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"stylesheet\" href=\"/_next/static/css/08dcb440d7d83b488817.css\" data-n-g=\"\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/main-1f8481d632114a408557.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/main-1f8481d632114a408557.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-15-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,27,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/chunks/main-1f8481d632114a408557.js\" as=\"script\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/webpack-657a8433bac0aabd564e.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/webpack-657a8433bac0aabd564e.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-16-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,28,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/chunks/webpack-657a8433bac0aabd564e.js\" as=\"script\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/framework.9d524150d48315f49e80.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/framework.9d524150d48315f49e80.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-17-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,29,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/chunks/framework.9d524150d48315f49e80.js\" as=\"script\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/commons.49455e4fa8cc3f51203f.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/commons.49455e4fa8cc3f51203f.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-18-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,30,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/chunks/commons.49455e4fa8cc3f51203f.js\" as=\"script\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/pages/_app-ef508c97234d1af96c47.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/pages/_app-ef508c97234d1af96c47.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-19-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,31,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/chunks/pages/_app-ef508c97234d1af96c47.js\" as=\"script\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97ae6e480bf.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97ae6e480bf.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-20-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,32,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97a…\" as=\"script\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "preload",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/pages/index-37980adf97404e76e41a.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/pages/index-37980adf97404e76e41a.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-21-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,33,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"preload\" href=\"/_next/static/chunks/pages/index-37980adf97404e76e41a.js\" as=\"script\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "stylesheet",
-      "href": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap",
-      "hreflang": "",
-      "as": "",
-      "crossOrigin": null,
-      "hrefRaw": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap",
-      "source": "head",
-      "node": {
-        "lhId": "1-22-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,34,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&amp;display=…\" media=\"all\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "prefetch",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97ae6e480bf.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97ae6e480bf.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-23-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,35,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link as=\"script\" rel=\"prefetch\" href=\"/_next/static/chunks/1aeab0175d4c4d823d7a78205bceb5dd9cd36d32.a629f28ec97a…\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "prefetch",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/9ea7d3ba8dd80c65c50028121847762825088b49.dc477066508a83415fce.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/9ea7d3ba8dd80c65c50028121847762825088b49.dc477066508a83415fce.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-24-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,36,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link as=\"script\" rel=\"prefetch\" href=\"/_next/static/chunks/9ea7d3ba8dd80c65c50028121847762825088b49.dc477066508a…\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "prefetch",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/pages/scenes/%5Bseason%5D/%5Bepisode%5D/%5Bscene%5D-526fe33be891a56314a3.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/pages/scenes/%5Bseason%5D/%5Bepisode%5D/%5Bscene%5D-526fe33be891a56314a3.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-25-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,37,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link as=\"script\" rel=\"prefetch\" href=\"/_next/static/chunks/pages/scenes/%5Bseason%5D/%5Bepisode%5D/%5Bscene%5D-5…\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "prefetch",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/pages/index-37980adf97404e76e41a.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/pages/index-37980adf97404e76e41a.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-26-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,38,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link as=\"script\" rel=\"prefetch\" href=\"/_next/static/chunks/pages/index-37980adf97404e76e41a.js\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "prefetch",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/pages/terms-0236318e86139dd7d7f2.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/pages/terms-0236318e86139dd7d7f2.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-27-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,39,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link as=\"script\" rel=\"prefetch\" href=\"/_next/static/chunks/pages/terms-0236318e86139dd7d7f2.js\">",
-        "nodeLabel": "head > link"
-      }
-    },
-    {
-      "rel": "prefetch",
-      "href": "https://www.mikescerealshack.co/_next/static/chunks/pages/privacy-864d3895f3c3722acef2.js",
-      "hreflang": "",
-      "as": "script",
-      "crossOrigin": null,
-      "hrefRaw": "/_next/static/chunks/pages/privacy-864d3895f3c3722acef2.js",
-      "source": "head",
-      "node": {
-        "lhId": "1-28-LINK",
-        "devtoolsNodePath": "1,HTML,0,HEAD,40,LINK",
-        "selector": "head > link",
-        "boundingRect": {
-          "top": 0,
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "width": 0,
-          "height": 0
-        },
-        "snippet": "<link as=\"script\" rel=\"prefetch\" href=\"/_next/static/chunks/pages/privacy-864d3895f3c3722acef2.js\">",
-        "nodeLabel": "head > link"
-      }
-    }
-  ]
+  "BFCacheFailures": []
 }

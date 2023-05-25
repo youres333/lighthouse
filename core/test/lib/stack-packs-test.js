@@ -7,7 +7,7 @@
 import lighthouseStackPacksDep from 'lighthouse-stack-packs';
 
 import {initializeConfig} from '../../config/config.js';
-import {stackPacksToInclude} from '../../lib/stack-packs.js';
+import {stackPacksToInclude, getStackPacks} from '../../lib/stack-packs.js';
 
 async function getAuditIds() {
   const {resolvedConfig} = await initializeConfig('navigation');
@@ -21,6 +21,27 @@ describe('stack-packs lib', () => {
       .map(p => p.id);
     expect(result).toEqual([]);
   });
+
+  it('returns packs from page stacks', () => {
+    expect(getStackPacks([])).toEqual([]);
+    expect(getStackPacks([{detector: 'js', id: 'i-dont-know-you'}])).toEqual([]);
+
+    const packs = getStackPacks([
+      {detector: 'js', id: 'wordpress'},
+      {detector: 'js', id: 'react'},
+    ]);
+
+    expect(packs.map(pack => pack.id)).toEqual(['wordpress', 'react']);
+  });
+
+  it('returns packs from page stacks in order defined by us', () => {
+    const packs = getStackPacks([
+      {detector: 'js', id: 'react'},
+      {detector: 'js', id: 'wordpress'},
+    ]);
+
+    expect(packs.map(pack => pack.id)).toEqual(['wordpress', 'react']);
+  });
 });
 
 // These tests summarize the contents of the lighthouse-stack-packs package.
@@ -32,6 +53,7 @@ Array [
   "angular",
   "drupal",
   "ezoic",
+  "gatsby",
   "joomla",
   "magento",
   "next.js",
@@ -112,6 +134,20 @@ Array [
     ],
   },
   Object {
+    "id": "gatsby",
+    "keys": Array [
+      "unused-css-rules",
+      "modern-image-formats",
+      "offscreen-images",
+      "render-blocking-resources",
+      "unused-javascript",
+      "uses-long-cache-ttl",
+      "uses-optimized-images",
+      "uses-responsive-images",
+      "prioritize-lcp-image",
+    ],
+  },
+  Object {
     "id": "joomla",
     "keys": Array [
       "unused-css-rules",
@@ -160,7 +196,7 @@ Array [
       "uses-text-compression",
       "uses-responsive-images",
       "user-timings",
-      "preload-lcp-image",
+      "prioritize-lcp-image",
       "unsized-images",
     ],
   },
@@ -171,7 +207,7 @@ Array [
       "offscreen-images",
       "uses-optimized-images",
       "uses-responsive-images",
-      "preload-lcp-image",
+      "prioritize-lcp-image",
       "unsized-images",
     ],
   },

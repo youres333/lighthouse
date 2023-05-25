@@ -5,7 +5,6 @@
  */
 
 import {Audit} from '../audit.js';
-import {linearInterpolation} from '../../lib/statistics.js';
 import {LanternInteractive} from '../../computed/metrics/lantern-interactive.js';
 import * as i18n from '../../lib/i18n/i18n.js';
 import {NetworkRecords} from '../../computed/network-records.js';
@@ -17,9 +16,13 @@ const str_ = i18n.createIcuMessageFn(import.meta.url, {});
 /** @typedef {import('../../lib/dependency-graph/simulator/simulator').Simulator} Simulator */
 /** @typedef {import('../../lib/dependency-graph/base-node.js').Node} Node */
 
-const WASTED_MS_FOR_AVERAGE = 300;
-const WASTED_MS_FOR_POOR = 750;
-const WASTED_MS_FOR_SCORE_OF_ZERO = 5000;
+// Parameters for log-normal distribution scoring. These values were determined by fitting the
+// log-normal cumulative distribution function curve to the former method of linear interpolation
+// scoring between the control points {average = 300 ms, poor = 750 ms, zero = 5000 ms} using the
+// curve-fit tool at https://mycurvefit.com/ rounded to the nearest integer. See
+// https://www.desmos.com/calculator/gcexiyesdi for an interactive visualization of the curve fit.
+const WASTED_MS_P10 = 150;
+const WASTED_MS_MEDIAN = 935;
 
 /**
  * @typedef {object} ByteEfficiencyProduct
@@ -29,6 +32,7 @@ const WASTED_MS_FOR_SCORE_OF_ZERO = 5000;
  * @property {LH.IcuMessage} [displayValue]
  * @property {LH.IcuMessage} [explanation]
  * @property {Array<string | LH.IcuMessage>} [warnings]
+ * @property {Array<string>} [sortedBy]
  */
 
 /**
@@ -37,24 +41,18 @@ const WASTED_MS_FOR_SCORE_OF_ZERO = 5000;
  */
 class ByteEfficiencyAudit extends Audit {
   /**
-   * Creates a score based on the wastedMs value using linear interpolation between control points.
+   * Creates a score based on the wastedMs value using log-normal distribution scoring. A negative
+   * wastedMs will be scored as 1, assuming time is not being wasted with respect to the opportunity
+   * being measured.
    *
    * @param {number} wastedMs
    * @return {number}
    */
   static scoreForWastedMs(wastedMs) {
-    if (wastedMs === 0) {
-      return 1;
-    } else if (wastedMs < WASTED_MS_FOR_AVERAGE) {
-      return linearInterpolation(0, 1, WASTED_MS_FOR_AVERAGE, 0.75, wastedMs);
-    } else if (wastedMs < WASTED_MS_FOR_POOR) {
-      return linearInterpolation(WASTED_MS_FOR_AVERAGE, 0.75, WASTED_MS_FOR_POOR, 0.5, wastedMs);
-    } else {
-      return Math.max(
-        0,
-        linearInterpolation(WASTED_MS_FOR_POOR, 0.5, WASTED_MS_FOR_SCORE_OF_ZERO, 0, wastedMs)
-      );
-    }
+    return Audit.computeLogNormalScore(
+      {p10: WASTED_MS_P10, median: WASTED_MS_MEDIAN},
+      wastedMs
+    );
   }
 
   /**
@@ -213,6 +211,8 @@ class ByteEfficiencyAudit extends Audit {
 
     const wastedBytes = results.reduce((sum, item) => sum + item.wastedBytes, 0);
 
+    // `wastedMs` may be negative, if making the opportunity change could be detrimental.
+    // This is useful information in the LHR and should be preserved.
     let wastedMs;
     if (gatherContext.gatherMode === 'navigation') {
       if (!graph) throw Error('Page dependency graph should always be computed in navigation mode');
@@ -228,7 +228,9 @@ class ByteEfficiencyAudit extends Audit {
       displayValue = str_(i18n.UIStrings.displayValueByteSavings, {wastedBytes});
     }
 
-    const details = Audit.makeOpportunityDetails(result.headings, results, wastedMs, wastedBytes);
+    const sortedBy = result.sortedBy || ['wastedBytes'];
+    const details = Audit.makeOpportunityDetails(result.headings, results,
+      {overallSavingsMs: wastedMs, overallSavingsBytes: wastedBytes, sortedBy});
 
     return {
       explanation: result.explanation,

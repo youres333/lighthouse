@@ -11,7 +11,7 @@ import {Simulator} from '../core/lib/dependency-graph/simulator/simulator.js';
 import {LighthouseError} from '../core/lib/lh-error.js';
 import {NetworkRequest as _NetworkRequest} from '../core/lib/network-request.js';
 import speedline from 'speedline-core';
-import TextSourceMap from '../core/lib/cdt/generated/SourceMap.js';
+import * as TextSourceMap from '../core/lib/cdt/generated/SourceMap.js';
 import {ArbitraryEqualityMap} from '../core/lib/arbitrary-equality-map.js';
 import type { TaskNode as _TaskNode } from '../core/lib/tracehouse/main-thread-tasks.js';
 import AuditDetails from './lhr/audit-details.js'
@@ -151,7 +151,7 @@ export interface GathererArtifacts extends PublicGathererArtifacts,LegacyBaseArt
   /** Errors preventing page being installable as PWA. */
   InstallabilityErrors: Artifacts.InstallabilityErrors;
   /** JS coverage information for code used during audit. Keyed by script id. */
-  // 'url' is excluded because it can be overriden by a magic sourceURL= comment, which makes keeping it a dangerous footgun!
+  // 'url' is excluded because it can be overridden by a magic sourceURL= comment, which makes keeping it a dangerous footgun!
   JsUsage: Record<string, Omit<Crdp.Profiler.ScriptCoverage, 'url'>>;
   /** Parsed version of the page's Web App Manifest, or null if none found. */
   Manifest: Artifacts.Manifest | null;
@@ -159,8 +159,6 @@ export interface GathererArtifacts extends PublicGathererArtifacts,LegacyBaseArt
   MixedContent: {url: string};
   /** Size and compression opportunity information for all the images in the page. */
   OptimizedImages: Array<Artifacts.OptimizedImage | Artifacts.OptimizedImageError>;
-  /** HTML snippets and node paths from any password inputs that prevent pasting. */
-  PasswordInputsWithPreventedPaste: Artifacts.PasswordInputsWithPreventedPaste[];
   /** Size info of all network records sent without compression and their size after gzipping. */
   ResponseCompression: {requestId: string, url: string, mimeType: string, transferSize: number, resourceSize: number, gzipSize?: number}[];
   /** Information on fetching and the content of the /robots.txt file. */
@@ -310,9 +308,9 @@ declare module Artifacts {
     /** Where the link was found, either in the DOM or in the headers of the main document */
     source: 'head'|'body'|'headers'
     node: NodeDetails | null
+    /** The fetch priority hint for preload links. */
+    fetchPriority?: string;
   }
-
-  interface PasswordInputsWithPreventedPaste {node: NodeDetails}
 
   interface Script extends Omit<Crdp.Debugger.ScriptParsedEvent, 'url'|'embedderName'> {
     /**
@@ -412,6 +410,7 @@ declare module Artifacts {
     target: string
     node: NodeDetails
     onclick: string
+    id: string
     listeners?: Array<{
       type: Crdp.DOMDebugger.EventListener['type']
     }>
@@ -538,6 +537,8 @@ declare module Artifacts {
     node: NodeDetails;
     /** The loading attribute of the image. */
     loading?: string;
+    /** The fetch priority hint for HTMLImageElements. */
+    fetchPriority?: string;
   }
 
   interface OptimizedImage {
@@ -603,6 +604,7 @@ declare module Artifacts {
   interface InspectorIssues {
     attributionReportingIssue: Crdp.Audits.AttributionReportingIssueDetails[];
     blockedByResponseIssue: Crdp.Audits.BlockedByResponseIssueDetails[];
+    bounceTrackingIssue: Crdp.Audits.BounceTrackingIssueDetails[];
     clientHintIssue: Crdp.Audits.ClientHintIssueDetails[];
     contentSecurityPolicyIssue: Crdp.Audits.ContentSecurityPolicyIssueDetails[];
     corsIssue: Crdp.Audits.CorsIssueDetails[];
@@ -616,7 +618,6 @@ declare module Artifacts {
     quirksModeIssue: Crdp.Audits.QuirksModeIssueDetails[];
     cookieIssue: Crdp.Audits.CookieIssueDetails[];
     sharedArrayBufferIssue: Crdp.Audits.SharedArrayBufferIssueDetails[];
-    twaQualityEnforcement: Crdp.Audits.TrustedWebActivityIssueDetails[];
   }
 
   // Computed artifact types below.
@@ -713,7 +714,7 @@ declare module Artifacts {
     timestamps: TraceTimes;
     /** The relative times from timeOrigin to key events, in milliseconds. */
     timings: TraceTimes;
-    /** The subset of trace events from the page's process, sorted by timestamp. */
+    /** The subset of trace events from the main frame's process, sorted by timestamp. Due to cross-origin navigations, the main frame may have multiple processes, so events may be from more than one process.  */
     processEvents: Array<TraceEvent>;
     /** The subset of trace events from the page's main thread, sorted by timestamp. */
     mainThreadEvents: Array<TraceEvent>;
@@ -788,6 +789,10 @@ declare module Artifacts {
     largestContentfulPaintTs: number | undefined;
     largestContentfulPaintAllFrames: number | undefined;
     largestContentfulPaintAllFramesTs: number | undefined;
+    timeToFirstByte: number | undefined;
+    timeToFirstByteTs: number | undefined;
+    lcpLoadStart: number | undefined;
+    lcpLoadEnd: number | undefined;
     interactive: number | undefined;
     interactiveTs: number | undefined;
     speedIndex: number | undefined;
@@ -851,7 +856,8 @@ declare module Artifacts {
       property: string;
       attribute: string | null;
       prediction: string | null;
-    }
+    };
+    preventsPaste?: boolean;
     node: NodeDetails;
   }
 
@@ -943,6 +949,12 @@ declare module Artifacts {
     // Convenience methods.
     isFirstParty: (url: string) => boolean;
   }
+
+  interface TraceImpactedNode {
+    node_id: number;
+    old_rect?: Array<number>;
+    new_rect?: Array<number>;
+  }
 }
 
 export interface Trace {
@@ -977,9 +989,11 @@ export interface TraceEvent {
     };
     data?: {
       frame?: string;
+      frameID?: string;
       processId?: number;
       isLoadingMainFrame?: boolean;
       documentLoaderURL?: string;
+      navigationId?: string;
       frames?: {
         frame: string;
         url: string;
@@ -1010,11 +1024,7 @@ export interface TraceEvent {
       nodeId?: number;
       DOMNodeId?: number;
       imageUrl?: string;
-      impacted_nodes?: Array<{
-        node_id: number,
-        old_rect?: Array<number>,
-        new_rect?: Array<number>,
-      }>;
+      impacted_nodes?: Artifacts.TraceImpactedNode[];
       score?: number;
       weighted_score_delta?: number;
       had_recent_input?: boolean;
