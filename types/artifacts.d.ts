@@ -799,8 +799,6 @@ declare module Artifacts {
     speedIndexTs: number | undefined;
     maxPotentialFID: number | undefined;
     cumulativeLayoutShift: number | undefined;
-    cumulativeLayoutShiftMainFrame: number | undefined;
-    totalCumulativeLayoutShift: number | undefined;
     totalBlockingTime: number | undefined;
     observedTimeOrigin: number;
     observedTimeOriginTs: number;
