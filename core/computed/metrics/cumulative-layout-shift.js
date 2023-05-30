@@ -4,6 +4,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+import log from 'lighthouse-logger';
+
+import SDK from '../../lib/cdt/SDK.js';
 import {makeComputedArtifact} from '../computed-artifact.js';
 import {ProcessedTrace} from '../processed-trace.js';
 
@@ -102,34 +105,29 @@ class CumulativeLayoutShift {
   }
 
   /**
-   * Sum all layout shift events from the entire trace.
-   * @param {Array<LayoutShiftEvent>} layoutShiftEvents
-   * @return {number}
-   */
-  static calculateTotalCumulativeLayoutShift(layoutShiftEvents) {
-    return layoutShiftEvents.reduce((sum, e) => sum += e.weightedScore, 0);
-  }
-
-  /**
    * @param {LH.Trace} trace
    * @param {LH.Artifacts.ComputedContext} context
-   * @return {Promise<{cumulativeLayoutShift: number, cumulativeLayoutShiftMainFrame: number, totalCumulativeLayoutShift: number}>}
+   * @return {Promise<{cumulativeLayoutShift: number}>}
    */
   static async compute_(trace, context) {
-    const processedTrace = await ProcessedTrace.request(trace, context);
+    try {
+      const processor = new SDK.TraceProcessor.TraceProcessor({
+        LayoutShifts: SDK.TraceHandlers.LayoutShiftsHandler,
+      });
+      await processor.parse(trace.traceEvents);
+      const data = processor.data;
+      return {
+        cumulativeLayoutShift: data.LayoutShifts.sessionMaxScore,
+      };
+    } catch (e) {
+      log.error('Error running SDK.TraceProcessor', e);
+    }
 
+    const processedTrace = await ProcessedTrace.request(trace, context);
     const allFrameShiftEvents =
         CumulativeLayoutShift.getLayoutShiftEvents(processedTrace);
-    const mainFrameShiftEvents = allFrameShiftEvents.filter(e => e.isMainFrame);
-
-    // The original Cumulative Layout Shift metric, the sum of all main-frame shift events.
-    const totalCumulativeLayoutShift =
-        CumulativeLayoutShift.calculateTotalCumulativeLayoutShift(mainFrameShiftEvents);
-
     return {
       cumulativeLayoutShift: CumulativeLayoutShift.calculate(allFrameShiftEvents),
-      cumulativeLayoutShiftMainFrame: CumulativeLayoutShift.calculate(mainFrameShiftEvents),
-      totalCumulativeLayoutShift,
     };
   }
 }

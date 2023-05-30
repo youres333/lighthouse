@@ -5,12 +5,14 @@
  */
 
 const SDK = {
-  TextSourceMap: require('./generated/SourceMap.js'),
+  SourceMap: require('./generated/SourceMap.js'),
+  TraceProcessor: require('./generated/models/trace/Processor.js'),
+  TraceHandlers: require('./generated/models/trace/handlers/handlers.js').ModelHandlers,
 };
 
 // Add `lastColumnNumber` to mappings. This will eventually be added to CDT.
 // @ts-expect-error
-SDK.TextSourceMap.prototype.computeLastGeneratedColumns = function() {
+SDK.SourceMap.prototype.computeLastGeneratedColumns = function() {
   const mappings = this.mappings();
   if (mappings.length && mappings[0].lastColumnNumber !== undefined) return;
 
