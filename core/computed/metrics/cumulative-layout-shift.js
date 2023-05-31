@@ -10,7 +10,7 @@ import SDK from '../../lib/cdt/SDK.js';
 import {makeComputedArtifact} from '../computed-artifact.js';
 import {ProcessedTrace} from '../processed-trace.js';
 
-/** @typedef {{ts: number, isMainFrame: boolean, weightedScore: number, impactedNodes?: LH.Artifacts.TraceImpactedNode[]}} LayoutShiftEvent */
+/** @typedef {{ts: number, isMainFrame: boolean, weightedScore: number, impactedNodes?: LH.Artifacts.TraceImpactedNode[], event: LH.TraceEvent}} LayoutShiftEvent */
 
 const RECENT_INPUT_WINDOW = 500;
 
@@ -69,6 +69,7 @@ class CumulativeLayoutShift {
         isMainFrame: event.args.data.is_main_frame,
         weightedScore: event.args.data.weighted_score_delta,
         impactedNodes: event.args.data.impacted_nodes,
+        event,
       });
     }
 
@@ -107,28 +108,35 @@ class CumulativeLayoutShift {
   /**
    * @param {LH.Trace} trace
    * @param {LH.Artifacts.ComputedContext} context
-   * @return {Promise<{cumulativeLayoutShift: number}>}
+   * @return {Promise<number>}
    */
   static async compute_(trace, context) {
+    const processedTrace = await ProcessedTrace.request(trace, context);
+    const filteredShiftEvents =
+        CumulativeLayoutShift.getLayoutShiftEvents(processedTrace);
+
     try {
       const processor = new SDK.TraceProcessor.TraceProcessor({
         LayoutShifts: SDK.TraceHandlers.LayoutShiftsHandler,
       });
-      await processor.parse(trace.traceEvents);
+      // We really want the logic that getLayoutShiftEvents provides for filtering out
+      // some events based on recent input.
+      // Would it make sense to upstream this to CDT?
+      const filteredTrace = processedTrace.frameTreeEvents.filter(event => {
+        if (event.name !== 'LayoutShift') {
+          return true;
+        }
+
+        return filteredShiftEvents.some(lse => lse.event === event);
+      });
+      await processor.parse(filteredTrace);
       const data = processor.data;
-      return {
-        cumulativeLayoutShift: data.LayoutShifts.sessionMaxScore,
-      };
+      return data.LayoutShifts.sessionMaxScore;
     } catch (e) {
       log.error('Error running SDK.TraceProcessor', e);
     }
 
-    const processedTrace = await ProcessedTrace.request(trace, context);
-    const allFrameShiftEvents =
-        CumulativeLayoutShift.getLayoutShiftEvents(processedTrace);
-    return {
-      cumulativeLayoutShift: CumulativeLayoutShift.calculate(allFrameShiftEvents),
-    };
+    return CumulativeLayoutShift.calculate(filteredShiftEvents);
   }
 }
 
