@@ -186,8 +186,7 @@
               "type": "debugdata",
               "items": [
                 {
-                  "cumulativeLayoutShiftMainFrame": 0.002631263732910156,
-                  "totalCumulativeLayoutShift": 0.002631263732910156
+                  "cumulativeLayoutShiftMainFrame": 0.002631263732910156
                 }
               ]
             }
@@ -1318,7 +1317,6 @@
                   "maxPotentialFID": 193,
                   "cumulativeLayoutShift": 0.002631263732910156,
                   "cumulativeLayoutShiftMainFrame": 0.002631263732910156,
-                  "totalCumulativeLayoutShift": 0.002631263732910156,
                   "lcpLoadStart": 985,
                   "lcpLoadEnd": 1062,
                   "timeToFirstByte": 615,
@@ -1346,7 +1344,6 @@
                   "observedDomContentLoadedTs": 183713237485,
                   "observedCumulativeLayoutShift": 0.002631263732910156,
                   "observedCumulativeLayoutShiftMainFrame": 0.002631263732910156,
-                  "observedTotalCumulativeLayoutShift": 0.002631263732910156,
                   "observedFirstVisualChange": 341,
                   "observedFirstVisualChangeTs": 183713323617,
                   "observedLastVisualChange": 575,
@@ -1541,7 +1538,7 @@
             "description": "This is the largest contentful element painted within the viewport. [Learn more about the Largest Contentful Paint element](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)",
             "score": null,
             "scoreDisplayMode": "informative",
-            "displayValue": "1 element found",
+            "displayValue": "1,350 ms",
             "details": {
               "type": "list",
               "items": [
@@ -6700,6 +6697,12 @@
                   "timeInMs": 22.397999999999982
                 },
                 "path": "audits[network-server-latency].displayValue"
+              },
+              {
+                "values": {
+                  "timeInMs": 1352.107
+                },
+                "path": "audits[largest-contentful-paint-element].displayValue"
               }
             ],
             "core/lib/i18n/i18n.js | maxPotentialFIDMetric": [
@@ -7016,20 +7019,6 @@
             "core/audits/largest-contentful-paint-element.js | description": [
               "audits[largest-contentful-paint-element].description"
             ],
-            "core/lib/i18n/i18n.js | displayValueElementsFound": [
-              {
-                "values": {
-                  "nodeCount": 1
-                },
-                "path": "audits[largest-contentful-paint-element].displayValue"
-              },
-              {
-                "values": {
-                  "nodeCount": 5
-                },
-                "path": "audits[layout-shift-elements].displayValue"
-              }
-            ],
             "core/lib/i18n/i18n.js | columnElement": [
               "audits[largest-contentful-paint-element].details.items[0].headings[0].label",
               "audits[lcp-lazy-loaded].details.headings[0].label",
@@ -7068,6 +7057,14 @@
             ],
             "core/audits/layout-shift-elements.js | description": [
               "audits[layout-shift-elements].description"
+            ],
+            "core/lib/i18n/i18n.js | displayValueElementsFound": [
+              {
+                "values": {
+                  "nodeCount": 5
+                },
+                "path": "audits[layout-shift-elements].displayValue"
+              }
             ],
             "core/audits/layout-shift-elements.js | columnContribution": [
               "audits[layout-shift-elements].details.headings[1].label"
@@ -8071,8 +8068,7 @@
               "type": "debugdata",
               "items": [
                 {
-                  "cumulativeLayoutShiftMainFrame": 0.13125,
-                  "totalCumulativeLayoutShift": 0.13125
+                  "cumulativeLayoutShiftMainFrame": 0.13125
                 }
               ]
             }
@@ -16911,8 +16907,7 @@
               "type": "debugdata",
               "items": [
                 {
-                  "cumulativeLayoutShiftMainFrame": 0,
-                  "totalCumulativeLayoutShift": 0
+                  "cumulativeLayoutShiftMainFrame": 0
                 }
               ]
             }
@@ -18007,7 +18002,6 @@
                   "maxPotentialFID": 76,
                   "cumulativeLayoutShift": 0,
                   "cumulativeLayoutShiftMainFrame": 0,
-                  "totalCumulativeLayoutShift": 0,
                   "lcpLoadStart": 603,
                   "lcpLoadEnd": 837,
                   "timeToFirstByte": 603,
@@ -18035,7 +18029,6 @@
                   "observedDomContentLoadedTs": 183729805229,
                   "observedCumulativeLayoutShift": 0,
                   "observedCumulativeLayoutShiftMainFrame": 0,
-                  "observedTotalCumulativeLayoutShift": 0,
                   "observedFirstVisualChange": 89,
                   "observedFirstVisualChangeTs": 183729849318,
                   "observedLastVisualChange": 505,
@@ -18213,7 +18206,7 @@
             "description": "This is the largest contentful element painted within the viewport. [Learn more about the Largest Contentful Paint element](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)",
             "score": null,
             "scoreDisplayMode": "informative",
-            "displayValue": "1 element found",
+            "displayValue": "1,800 ms",
             "details": {
               "type": "list",
               "items": [
@@ -23415,6 +23408,12 @@
                   "timeInMs": 3.5377
                 },
                 "path": "audits[network-server-latency].displayValue"
+              },
+              {
+                "values": {
+                  "timeInMs": 1803.0092
+                },
+                "path": "audits[largest-contentful-paint-element].displayValue"
               }
             ],
             "core/lib/i18n/i18n.js | maxPotentialFIDMetric": [
@@ -23732,14 +23731,6 @@
             ],
             "core/audits/largest-contentful-paint-element.js | description": [
               "audits[largest-contentful-paint-element].description"
-            ],
-            "core/lib/i18n/i18n.js | displayValueElementsFound": [
-              {
-                "values": {
-                  "nodeCount": 1
-                },
-                "path": "audits[largest-contentful-paint-element].displayValue"
-              }
             ],
             "core/lib/i18n/i18n.js | columnElement": [
               "audits[largest-contentful-paint-element].details.items[0].headings[0].label",
