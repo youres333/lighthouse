@@ -17,7 +17,7 @@ import type { TaskNode as _TaskNode } from '../core/lib/tracehouse/main-thread-t
 import AuditDetails from './lhr/audit-details.js'
 import Config from './config.js';
 import Gatherer from './gatherer.js';
-import {IEntity} from 'third-party-web';
+import {IEntity, IProduct} from 'third-party-web';
 import {IcuMessage} from './lhr/i18n.js';
 import LHResult from './lhr/lhr.js'
 import Protocol from './protocol.js';
@@ -939,6 +939,7 @@ declare module Artifacts {
 
   interface Entity extends IEntity {
     isUnrecognized?: boolean;
+    resolvedProducts?: Set<IProduct>;
   }
 
   interface EntityClassification {

@@ -116,9 +116,20 @@ class EntityClassification {
       const {url} = record;
       if (entityByUrl.has(url)) continue;
 
-      const entity = thirdPartyWeb.getEntity(url) ||
+      /** @type {LH.Artifacts.Entity | undefined} */
+      const thirdPartyWebEntity = thirdPartyWeb.getEntity(url);
+      const entity = thirdPartyWebEntity ||
         EntityClassification._makeUpAnEntity(madeUpEntityCache, url);
       if (!entity) continue;
+
+      if (thirdPartyWebEntity) {
+        // If an entity from third-party-web was identified, try resolving it to a product.
+        const product = thirdPartyWeb.getProduct(url);
+        if (product) {
+          if (entity.resolvedProducts === undefined) entity.resolvedProducts = new Set();
+          entity.resolvedProducts.add(product);
+        }
+      }
 
       const entityURLs = urlsByEntity.get(entity) || new Set();
       entityURLs.add(url);

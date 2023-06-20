@@ -174,6 +174,22 @@ declare module Result {
     isUnrecognized?: boolean;
     /** List of origin strings that belong to this entity found in network records. */
     origins: Array<string>;
+    /** List of products resolved within this entity, in this run. */
+    products?: Array<LhrEntityProduct>;
+  }
+
+  /**
+   * A product resolved with an entity.
+   */
+  interface LhrEntityProduct {
+    /** Name of the product. Maps to third-party-web IProduct.name. */
+    name: string;
+    /** Homepage URL for the product, if available. */
+    homepage?: string;
+    /** Category name the product belongs to, if available. */
+    category?: string;
+    /** RegExp URL patterns that identify the product. */
+    urlPatterns?: string[];
   }
 
   /**

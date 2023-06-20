@@ -177,9 +177,13 @@ class Runner {
       if (entity === classifiedEntities.firstParty) shortEntity.isFirstParty = true;
       if (entity.isUnrecognized) shortEntity.isUnrecognized = true;
       if (entity.category) shortEntity.category = entity.category;
+      if (entity.resolvedProducts && entity.resolvedProducts.size) {
+        shortEntity.products = [...entity.resolvedProducts].map(
+          ({name, homepage, category, urlPatterns}) => ({name, homepage, category, urlPatterns})
+        );
+      }
       entities.push(shortEntity);
     }
-
     return entities;
   }
 
