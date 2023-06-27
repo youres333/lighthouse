@@ -108,13 +108,15 @@ class CumulativeLayoutShift {
   /**
    * @param {LH.Trace} trace
    * @param {LH.Artifacts.ComputedContext} context
-   * @return {Promise<number>}
+   * @return {Promise<{cumulativeLayoutShift: number, cumulativeLayoutShiftMainFrame: number}>}
    */
   static async compute_(trace, context) {
     const processedTrace = await ProcessedTrace.request(trace, context);
-    const filteredShiftEvents =
+    const allFrameShiftEvents =
         CumulativeLayoutShift.getLayoutShiftEvents(processedTrace);
+    const mainFrameShiftEvents = allFrameShiftEvents.filter(e => e.isMainFrame);
 
+    let cumulativeLayoutShift;
     try {
       const processor = new SDK.TraceProcessor.TraceProcessor({
         LayoutShifts: SDK.TraceHandlers.LayoutShiftsHandler,
@@ -127,16 +129,20 @@ class CumulativeLayoutShift {
           return true;
         }
 
-        return filteredShiftEvents.some(lse => lse.event === event);
+        return allFrameShiftEvents.some(lse => lse.event === event);
       });
       await processor.parse(filteredTrace);
       const data = processor.data;
-      return data.LayoutShifts.sessionMaxScore;
+      cumulativeLayoutShift = data.LayoutShifts.sessionMaxScore;
     } catch (e) {
       log.error('Error running SDK.TraceProcessor', e);
+      cumulativeLayoutShift = CumulativeLayoutShift.calculate(allFrameShiftEvents);
     }
 
-    return CumulativeLayoutShift.calculate(filteredShiftEvents);
+    return {
+      cumulativeLayoutShift,
+      cumulativeLayoutShiftMainFrame: CumulativeLayoutShift.calculate(mainFrameShiftEvents),
+    };
   }
 }
 

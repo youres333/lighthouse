@@ -618,6 +618,8 @@ declare module Artifacts {
     quirksModeIssue: Crdp.Audits.QuirksModeIssueDetails[];
     cookieIssue: Crdp.Audits.CookieIssueDetails[];
     sharedArrayBufferIssue: Crdp.Audits.SharedArrayBufferIssueDetails[];
+    stylesheetLoadingIssue: Crdp.Audits.StylesheetLoadingIssueDetails[];
+    federatedAuthUserInfoRequestIssue: Crdp.Audits.FederatedAuthUserInfoRequestIssueDetails[];
   }
 
   // Computed artifact types below.
@@ -799,6 +801,7 @@ declare module Artifacts {
     speedIndexTs: number | undefined;
     maxPotentialFID: number | undefined;
     cumulativeLayoutShift: number | undefined;
+    cumulativeLayoutShiftMainFrame: number | undefined;
     totalBlockingTime: number | undefined;
     observedTimeOrigin: number;
     observedTimeOriginTs: number;
@@ -806,7 +809,6 @@ declare module Artifacts {
     observedNavigationStartTs: number | undefined;
     observedCumulativeLayoutShift: number | undefined;
     observedCumulativeLayoutShiftMainFrame: number | undefined;
-    observedTotalCumulativeLayoutShift: number | undefined;
     observedFirstPaint: number | undefined;
     observedFirstPaintTs: number | undefined;
     observedFirstContentfulPaint: number | undefined;

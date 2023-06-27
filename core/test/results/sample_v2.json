@@ -1,5 +1,5 @@
 {
-  "lighthouseVersion": "10.2.0",
+  "lighthouseVersion": "10.3.0",
   "requestedUrl": "http://localhost:10200/dobetterweb/dbw_tester.html",
   "mainDocumentUrl": "http://localhost:10200/dobetterweb/dbw_tester.html",
   "finalDisplayedUrl": "http://localhost:10200/dobetterweb/dbw_tester.html",
@@ -195,7 +195,15 @@
       "scoreDisplayMode": "numeric",
       "numericValue": 0.13570762803819444,
       "numericUnit": "unitless",
-      "displayValue": "0.136"
+      "displayValue": "0.136",
+      "details": {
+        "type": "debugdata",
+        "items": [
+          {
+            "cumulativeLayoutShiftMainFrame": 0.13570762803819444
+          }
+        ]
+      }
     },
     "errors-in-console": {
       "id": "errors-in-console",
@@ -1268,7 +1276,8 @@
             "mimeType": "text/html",
             "resourceType": "Document",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.css?delay=100",
@@ -1284,7 +1293,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/unknown404.css?delay=200",
@@ -1300,7 +1310,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.css?delay=2200",
@@ -1316,7 +1327,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_disabled.css?delay=200&isdisabled",
@@ -1332,7 +1344,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.css?delay=3000&capped",
@@ -1348,7 +1361,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.css?delay=2000&async=true",
@@ -1365,7 +1379,8 @@
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
             "isLinkPreload": true,
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.css?delay=3000&async=true",
@@ -1381,7 +1396,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.js",
@@ -1397,7 +1413,8 @@
             "mimeType": "application/javascript",
             "resourceType": "Script",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/empty_module.js?delay=500",
@@ -1413,7 +1430,8 @@
             "mimeType": "application/javascript",
             "resourceType": "Script",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/empty.css",
@@ -1429,7 +1447,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryLow",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/fcp-delayer.js?delay=5000",
@@ -1445,7 +1464,8 @@
             "mimeType": "application/javascript",
             "resourceType": "Script",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?iar1",
@@ -1461,7 +1481,8 @@
             "mimeType": "image/jpeg",
             "resourceType": "Image",
             "priority": "Low",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?isr1",
@@ -1477,7 +1498,8 @@
             "mimeType": "image/jpeg",
             "resourceType": "Image",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?isr2",
@@ -1493,7 +1515,8 @@
             "mimeType": "image/jpeg",
             "resourceType": "Image",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?isr3",
@@ -1509,7 +1532,8 @@
             "mimeType": "image/jpeg",
             "resourceType": "Image",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg",
@@ -1525,7 +1549,8 @@
             "mimeType": "image/jpeg",
             "resourceType": "Image",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-rotating.gif",
@@ -1541,7 +1566,8 @@
             "mimeType": "image/gif",
             "resourceType": "Image",
             "priority": "Low",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/third_party/aggressive-promise-polyfill.js",
@@ -1557,7 +1583,8 @@
             "mimeType": "application/javascript",
             "resourceType": "Script",
             "priority": "Medium",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js",
@@ -1573,7 +1600,8 @@
             "mimeType": "text/javascript",
             "resourceType": "Script",
             "priority": "Medium",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "Google CDN"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg?iar2",
@@ -1589,7 +1617,8 @@
             "mimeType": "image/jpeg",
             "resourceType": "Image",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.css?scriptActivated&delay=200",
@@ -1605,7 +1634,8 @@
             "mimeType": "text/css",
             "resourceType": "Stylesheet",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/dbw_tester.html",
@@ -1621,7 +1651,8 @@
             "mimeType": "text/html",
             "resourceType": "XHR",
             "priority": "VeryHigh",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "blob:http://localhost:10200/3f2bc9df-684b-4541-837c-1590152ef65d",
@@ -1669,7 +1700,8 @@
             "mimeType": "image/vnd.microsoft.icon",
             "resourceType": "Other",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-1024x680.jpg?lcp&redirect=lighthouse-1024x680.jpg%3Fredirected-lcp",
@@ -1684,7 +1716,8 @@
             "statusCode": 302,
             "mimeType": "",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           },
           {
             "url": "http://localhost:10200/dobetterweb/lighthouse-1024x680.jpg?redirected-lcp",
@@ -1700,7 +1733,8 @@
             "mimeType": "image/jpeg",
             "resourceType": "Image",
             "priority": "High",
-            "experimentalFromMainFrame": true
+            "experimentalFromMainFrame": true,
+            "entity": "localhost"
           }
         ],
         "debugData": {
@@ -1906,6 +1940,7 @@
             "totalBlockingTime": 1221,
             "maxPotentialFID": 1175,
             "cumulativeLayoutShift": 0.13570762803819444,
+            "cumulativeLayoutShiftMainFrame": 0.13570762803819444,
             "lcpLoadStart": 10849,
             "lcpLoadEnd": 12900,
             "timeToFirstByte": 572,
@@ -1933,6 +1968,7 @@
             "observedDomContentLoaded": 8186,
             "observedDomContentLoadedTs": 8704886496,
             "observedCumulativeLayoutShift": 0.13570762803819444,
+            "observedCumulativeLayoutShiftMainFrame": 0.13570762803819444,
             "observedFirstVisualChange": 8058,
             "observedFirstVisualChangeTs": 8704758822,
             "observedLastVisualChange": 8893,
@@ -2270,7 +2306,7 @@
       "description": "This is the largest contentful element painted within the viewport. [Learn more about the Largest Contentful Paint element](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)",
       "score": null,
       "scoreDisplayMode": "informative",
-      "displayValue": "1 element found",
+      "displayValue": "13,320 ms",
       "details": {
         "type": "list",
         "items": [
@@ -2957,6 +2993,18 @@
       "score": null,
       "scoreDisplayMode": "notApplicable"
     },
+    "aria-dialog-name": {
+      "id": "aria-dialog-name",
+      "title": "Elements with `role=\"dialog\"` or `role=\"alertdialog\"` have accessible names.",
+      "description": "ARIA dialog elements without accessible names may prevent screen readers users from discerning the purpose of these elements. [Learn how to make ARIA dialog elements more accessible](https://dequeuniversity.com/rules/axe/4.7/aria-dialog-name).",
+      "score": 1,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": []
+      }
+    },
     "aria-hidden-body": {
       "id": "aria-hidden-body",
       "title": "`[aria-hidden=\"true\"]` is not present on the document `<body>`",
@@ -3027,6 +3075,18 @@
       "id": "aria-roles",
       "title": "`[role]` values are valid",
       "description": "ARIA roles must have valid values in order to perform their intended accessibility functions. [Learn more about valid ARIA roles](https://dequeuniversity.com/rules/axe/4.7/aria-roles).",
+      "score": 1,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": []
+      }
+    },
+    "aria-text": {
+      "id": "aria-text",
+      "title": "Elements with the `role=text` attribute do not have focusable descendents.",
+      "description": "Adding `role=text` around a text node split by markup enables VoiceOver to treat it as one phrase, but the element's focusable descendents will not be announced. [Learn more about the `role=text` attribute](https://dequeuniversity.com/rules/axe/4.7/aria-text).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3640,6 +3700,18 @@
         }
       }
     },
+    "link-in-text-block": {
+      "id": "link-in-text-block",
+      "title": "Links are distinguishable without relying on color.",
+      "description": "Low-contrast text is difficult or impossible for many users to read. Link text that is discernible improves the experience for users with low vision. [Learn how to make links distinguishable](https://dequeuniversity.com/rules/axe/4.7/link-in-text-block).",
+      "score": 1,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": []
+      }
+    },
     "list": {
       "id": "list",
       "title": "Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
@@ -3744,6 +3816,13 @@
           ]
         }
       }
+    },
+    "select-name": {
+      "id": "select-name",
+      "title": "Select elements have associated label elements.",
+      "description": "Form elements without effective labels can create frustrating experiences for screen reader users. [Learn more about the `select` element](https://dequeuniversity.com/rules/axe/4.7/select-name).",
+      "score": null,
+      "scoreDisplayMode": "notApplicable"
     },
     "tabindex": {
       "id": "tabindex",
@@ -5853,6 +5932,11 @@
           "group": "a11y-aria"
         },
         {
+          "id": "aria-dialog-name",
+          "weight": 3,
+          "group": "a11y-aria"
+        },
+        {
           "id": "aria-hidden-body",
           "weight": 10,
           "group": "a11y-aria"
@@ -5895,6 +5979,11 @@
         {
           "id": "aria-roles",
           "weight": 10,
+          "group": "a11y-aria"
+        },
+        {
+          "id": "aria-text",
+          "weight": 3,
           "group": "a11y-aria"
         },
         {
@@ -6013,6 +6102,11 @@
           "group": "a11y-names-labels"
         },
         {
+          "id": "link-in-text-block",
+          "weight": 3,
+          "group": "a11y-color-contrast"
+        },
+        {
           "id": "link-name",
           "weight": 3,
           "group": "a11y-names-labels"
@@ -6040,6 +6134,11 @@
         {
           "id": "object-alt",
           "weight": 3,
+          "group": "a11y-names-labels"
+        },
+        {
+          "id": "select-name",
+          "weight": 0,
           "group": "a11y-names-labels"
         },
         {
@@ -6119,7 +6218,7 @@
         }
       ],
       "id": "accessibility",
-      "score": 0.8
+      "score": 0.81
     },
     "best-practices": {
       "title": "Best Practices",
@@ -7862,6 +7961,12 @@
       },
       {
         "startTime": 0,
+        "name": "lh:computed:EntityClassification",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:network-rtt",
         "duration": 100,
         "entryType": "measure"
@@ -7929,12 +8034,6 @@
       {
         "startTime": 0,
         "name": "lh:computed:ResourceSummary",
-        "duration": 100,
-        "entryType": "measure"
-      },
-      {
-        "startTime": 0,
-        "name": "lh:computed:EntityClassification",
         "duration": 100,
         "entryType": "measure"
       },
@@ -8174,6 +8273,12 @@
       },
       {
         "startTime": 0,
+        "name": "lh:audit:aria-dialog-name",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:aria-hidden-body",
         "duration": 100,
         "entryType": "measure"
@@ -8223,6 +8328,12 @@
       {
         "startTime": 0,
         "name": "lh:audit:aria-roles",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:aria-text",
         "duration": 100,
         "entryType": "measure"
       },
@@ -8372,6 +8483,12 @@
       },
       {
         "startTime": 0,
+        "name": "lh:audit:link-in-text-block",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:list",
         "duration": 100,
         "entryType": "measure"
@@ -8397,6 +8514,12 @@
       {
         "startTime": 0,
         "name": "lh:audit:object-alt",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:select-name",
         "duration": 100,
         "entryType": "measure"
       },
@@ -8970,6 +9093,12 @@
             "timeInMs": 582.2760000000001
           },
           "path": "audits[network-server-latency].displayValue"
+        },
+        {
+          "values": {
+            "timeInMs": 13319.961
+          },
+          "path": "audits[largest-contentful-paint-element].displayValue"
         }
       ],
       "core/lib/i18n/i18n.js | maxPotentialFIDMetric": [
@@ -9390,20 +9519,6 @@
       "core/audits/largest-contentful-paint-element.js | description": [
         "audits[largest-contentful-paint-element].description"
       ],
-      "core/lib/i18n/i18n.js | displayValueElementsFound": [
-        {
-          "values": {
-            "nodeCount": 1
-          },
-          "path": "audits[largest-contentful-paint-element].displayValue"
-        },
-        {
-          "values": {
-            "nodeCount": 5
-          },
-          "path": "audits[layout-shift-elements].displayValue"
-        }
-      ],
       "core/lib/i18n/i18n.js | columnElement": [
         "audits[largest-contentful-paint-element].details.items[0].headings[0].label",
         "audits[layout-shift-elements].details.headings[0].label",
@@ -9442,6 +9557,14 @@
       ],
       "core/audits/layout-shift-elements.js | description": [
         "audits[layout-shift-elements].description"
+      ],
+      "core/lib/i18n/i18n.js | displayValueElementsFound": [
+        {
+          "values": {
+            "nodeCount": 5
+          },
+          "path": "audits[layout-shift-elements].displayValue"
+        }
       ],
       "core/audits/layout-shift-elements.js | columnContribution": [
         "audits[layout-shift-elements].details.headings[1].label"
@@ -9571,6 +9694,12 @@
       "core/audits/accessibility/aria-command-name.js | description": [
         "audits[aria-command-name].description"
       ],
+      "core/audits/accessibility/aria-dialog-name.js | title": [
+        "audits[aria-dialog-name].title"
+      ],
+      "core/audits/accessibility/aria-dialog-name.js | description": [
+        "audits[aria-dialog-name].description"
+      ],
       "core/audits/accessibility/aria-hidden-body.js | title": [
         "audits[aria-hidden-body].title"
       ],
@@ -9624,6 +9753,12 @@
       ],
       "core/audits/accessibility/aria-roles.js | description": [
         "audits[aria-roles].description"
+      ],
+      "core/audits/accessibility/aria-text.js | title": [
+        "audits[aria-text].title"
+      ],
+      "core/audits/accessibility/aria-text.js | description": [
+        "audits[aria-text].description"
       ],
       "core/audits/accessibility/aria-toggle-field-name.js | title": [
         "audits[aria-toggle-field-name].title"
@@ -9777,6 +9912,12 @@
       "core/audits/accessibility/link-name.js | description": [
         "audits[link-name].description"
       ],
+      "core/audits/accessibility/link-in-text-block.js | title": [
+        "audits[link-in-text-block].title"
+      ],
+      "core/audits/accessibility/link-in-text-block.js | description": [
+        "audits[link-in-text-block].description"
+      ],
       "core/audits/accessibility/list.js | title": [
         "audits.list.title"
       ],
@@ -9806,6 +9947,12 @@
       ],
       "core/audits/accessibility/object-alt.js | description": [
         "audits[object-alt].description"
+      ],
+      "core/audits/accessibility/select-name.js | title": [
+        "audits[select-name].title"
+      ],
+      "core/audits/accessibility/select-name.js | description": [
+        "audits[select-name].description"
       ],
       "core/audits/accessibility/tabindex.js | title": [
         "audits.tabindex.title"
