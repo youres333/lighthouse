@@ -133,7 +133,8 @@ class CumulativeLayoutShift {
         return allFrameShiftEvents.some(lse => lse.event === event);
       });
       await processor.parse(filteredTrace);
-      const data = /** @type {{LayoutShifts: {sessionMaxScore: number}}} */ (processor.data);
+      const data = /** @type {import('../../lib/cdt/SDK.js').TraceProcessorResult} */ (
+        processor.data);
       cumulativeLayoutShift = data.LayoutShifts.sessionMaxScore;
     } catch (e) {
       // Something failed, so fallback to our own implementation.

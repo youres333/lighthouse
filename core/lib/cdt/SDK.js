@@ -10,6 +10,9 @@ const SDK = {
   TraceHandlers: require('./generated/models/trace/handlers/handlers.js').ModelHandlers,
 };
 
+/** @typedef {{sessionMaxScore: number}} LayoutShiftsHandler */
+/** @typedef {{LayoutShifts: LayoutShiftsHandler}} TraceProcessorResult */
+
 // Add `lastColumnNumber` to mappings. This will eventually be added to CDT.
 // @ts-expect-error
 SDK.SourceMap.prototype.computeLastGeneratedColumns = function() {
