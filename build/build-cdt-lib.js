@@ -203,9 +203,7 @@ const modifications = [
       'new DOMRect(viewportX, viewportY, viewportWidth, viewportHeight)': 'null',
     },
     classesToRemove: [],
-    methodsToRemove: [
-      // 'findNextScreenshotSource',
-    ],
+    methodsToRemove: [],
     variablesToRemove: [
       'Platform',
     ],
