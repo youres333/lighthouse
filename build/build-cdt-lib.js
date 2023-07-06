@@ -25,10 +25,12 @@ import {LH_ROOT} from '../root.js';
 
 const outDir = `${LH_ROOT}/core/lib/cdt/generated`;
 
+const frontEndPath = 'node_modules/chrome-devtools-frontend/front_end';
+
 /** @type {Modification[]} */
 const modifications = [
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/core/sdk/SourceMap.ts',
+    input: `${frontEndPath}/core/sdk/SourceMap.ts`,
     output: `${outDir}/SourceMap.js`,
     template: [
       'const Common = require(\'../Common.js\');',
@@ -62,7 +64,7 @@ const modifications = [
     ],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/core/common/ParsedURL.ts',
+    input: `${frontEndPath}/core/common/ParsedURL.ts`,
     output: `${outDir}/ParsedURL.js`,
     template: '%sourceFilePrinted%',
     rawCodeToReplace: {},
@@ -114,7 +116,7 @@ const modifications = [
     ],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/types/types.ts',
+    input: `${frontEndPath}/models/trace/types/types.ts`,
     output: `${outDir}/models/trace/types/types.js`,
     template: '%sourceFilePrinted%',
     rawCodeToReplace: {},
@@ -123,7 +125,7 @@ const modifications = [
     variablesToRemove: [],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/types/TraceEvents.ts',
+    input: `${frontEndPath}/models/trace/types/TraceEvents.ts`,
     output: `${outDir}/models/trace/types/TraceEvents.js`,
     template: '%sourceFilePrinted%',
     rawCodeToReplace: {},
@@ -132,7 +134,7 @@ const modifications = [
     variablesToRemove: [],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/types/Timing.ts',
+    input: `${frontEndPath}/models/trace/types/Timing.ts`,
     output: `${outDir}/models/trace/types/Timing.js`,
     template: '%sourceFilePrinted%',
     rawCodeToReplace: {},
@@ -141,7 +143,7 @@ const modifications = [
     variablesToRemove: [],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/helpers/helpers.ts',
+    input: `${frontEndPath}/models/trace/helpers/helpers.ts`,
     output: `${outDir}/models/trace/helpers/helpers.js`,
     template: '%sourceFilePrinted%',
     rawCodeToReplace: {},
@@ -150,7 +152,7 @@ const modifications = [
     variablesToRemove: [],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/helpers/Timing.ts',
+    input: `${frontEndPath}/models/trace/helpers/Timing.ts`,
     output: `${outDir}/models/trace/helpers/Timing.js`,
     template: [
       'const Platform = require(\'../../../../Platform.js\');',
@@ -166,7 +168,7 @@ const modifications = [
     ],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/helpers/Trace.ts',
+    input: `${frontEndPath}/models/trace/helpers/Trace.ts`,
     output: `${outDir}/models/trace/helpers/Trace.js`,
     template: [
       'const Platform = require(\'../../../../Platform.js\');',
@@ -182,7 +184,7 @@ const modifications = [
     ],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/handlers/types.ts',
+    input: `${frontEndPath}/models/trace/handlers/types.ts`,
     output: `${outDir}/models/trace/handlers/types.js`,
     template: '%sourceFilePrinted%',
     rawCodeToReplace: {},
@@ -191,7 +193,7 @@ const modifications = [
     variablesToRemove: [],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/handlers/MetaHandler.ts',
+    input: `${frontEndPath}/models/trace/handlers/MetaHandler.ts`,
     output: `${outDir}/models/trace/handlers/MetaHandler.js`,
     template: [
       'const Platform = require(\'../../../../Platform.js\');',
@@ -209,7 +211,7 @@ const modifications = [
     ],
   },
   {
-    input: 'node_modules/chrome-devtools-frontend/front_end/models/trace/handlers/LayoutShiftsHandler.ts',
+    input: `${frontEndPath}/models/trace/handlers/LayoutShiftsHandler.ts`,
     output: `${outDir}/models/trace/handlers/LayoutShiftsHandler.js`,
     template: [
       'const Platform = require(\'../../../../Platform.js\');',

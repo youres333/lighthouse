@@ -118,6 +118,7 @@ class CumulativeLayoutShift {
 
     let cumulativeLayoutShift;
     try {
+      // Experimental usage of CDT's trace processor.
       const processor = new SDK.TraceProcessor.TraceProcessor({
         LayoutShifts: SDK.TraceHandlers.LayoutShiftsHandler,
       });
@@ -132,9 +133,10 @@ class CumulativeLayoutShift {
         return allFrameShiftEvents.some(lse => lse.event === event);
       });
       await processor.parse(filteredTrace);
-      const data = processor.data;
+      const data = /** @type {{LayoutShifts: {sessionMaxScore: number}}} */ (processor.data);
       cumulativeLayoutShift = data.LayoutShifts.sessionMaxScore;
     } catch (e) {
+      // Something failed, so fallback to our own implementation.
       log.error('Error running SDK.TraceProcessor', e);
       cumulativeLayoutShift = CumulativeLayoutShift.calculate(allFrameShiftEvents);
     }
