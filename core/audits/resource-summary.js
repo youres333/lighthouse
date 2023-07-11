@@ -7,6 +7,8 @@
 import {Audit} from './audit.js';
 import {ResourceSummary as ComputedResourceSummary} from '../computed/resource-summary.js';
 import * as i18n from '../lib/i18n/i18n.js';
+import {NetworkRequest} from '../lib/network-request.js';
+import {NetworkRecords} from '../computed/network-records.js';
 
 const UIStrings = {
   /** Imperative title of a Lighthouse audit that tells the user to minimize the size and quantity of resources used to load the page. */
@@ -38,15 +40,45 @@ class ResourceSummary extends Audit {
   }
 
   /**
-   * @param {LH.Artifacts} artifacts
-   * @param {LH.Audit.Context} context
-   * @return {Promise<LH.Audit.Product>}
+   * @param {LH.Artifacts.NetworkRequest[]} networkRecords
+   * @return {LH.Audit.Details.Table}
    */
-  static async audit(artifacts, context) {
-    const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
-    const summary = await ComputedResourceSummary
-      .request({devtoolsLog, URL: artifacts.URL, budgets: context.settings.budgets}, context);
+  static createRecordList(networkRecords) {
+    /** @type {Array<{url: string, totalBytes: number}>} */
+    let results = [];
 
+    networkRecords.forEach(record => {
+      // Exclude non-network URIs since their size is reflected in other resources.
+      // Exclude records without transfer size information (or 0 bytes which won't matter anyway).
+      if (NetworkRequest.isNonNetworkRequest(record) || !record.transferSize) return;
+
+      const result = {
+        url: record.url,
+        totalBytes: record.transferSize,
+      };
+
+      results.push(result);
+    });
+
+    results = results.sort((itemA, itemB) => {
+      return itemB.totalBytes - itemA.totalBytes ||
+        itemA.url.localeCompare(itemB.url);
+    }).slice(0, 10);
+
+    /** @type {LH.Audit.Details.Table['headings']} */
+    const headings = [
+      {key: 'url', valueType: 'url', label: str_(i18n.UIStrings.columnURL)},
+      {key: 'totalBytes', valueType: 'bytes', label: str_(i18n.UIStrings.columnTransferSize)},
+    ];
+
+    return Audit.makeTableDetails(headings, results, {sortedBy: ['totalBytes']});
+  }
+
+  /**
+   * @param {Awaited<ReturnType<ComputedResourceSummary['request']>>} summary
+   * @return {LH.Audit.Details.Table}
+   */
+  static createResourceBreakdown(summary) {
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'label', valueType: 'text', label: str_(i18n.UIStrings.columnResourceType)},
@@ -87,10 +119,30 @@ class ResourceSummary extends Audit {
       });
     const tableItems = otherRows.concat(thirdPartyRow);
 
-    const tableDetails = Audit.makeTableDetails(headings, tableItems);
+    return Audit.makeTableDetails(headings, tableItems);
+  }
+
+  /**
+   * @param {LH.Artifacts} artifacts
+   * @param {LH.Audit.Context} context
+   * @return {Promise<LH.Audit.Product>}
+   */
+  static async audit(artifacts, context) {
+    const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
+    const summary = await ComputedResourceSummary
+      .request({devtoolsLog, URL: artifacts.URL, budgets: context.settings.budgets}, context);
+    const networkRecords = await NetworkRecords.request(devtoolsLog, context);
+
+    const resourceBreakdown = this.createResourceBreakdown(summary);
+    const recordList = this.createRecordList(networkRecords);
+
+    const details = Audit.makeListDetails([
+      resourceBreakdown,
+      recordList,
+    ]);
 
     return {
-      details: tableDetails,
+      details,
       score: 1,
       displayValue: str_(UIStrings.displayValue, {
         requestCount: summary.total.count,
