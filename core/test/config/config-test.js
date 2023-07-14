@@ -408,8 +408,8 @@ describe('Fraggle Rock Config', () => {
         'BFCacheFailures', // Has internal priority of 1
         'FullPageScreenshot', // Has internal priority of 1
         'ExtraArtifact', // Has default priority of 0
-        'traces', // Has default priority of 0
-        'DevtoolsLog', // Has default priority of 0
+        'WebAppManifest', // Has default priority of 0
+        'ViewportDimensions', // Has default priority of 0
       ]);
     });
 
