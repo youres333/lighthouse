@@ -409,7 +409,7 @@ describe('Fraggle Rock Config', () => {
         'FullPageScreenshot', // Has internal priority of 1
         'ExtraArtifact', // Has default priority of 0
         'traces', // Has default priority of 0
-        'devtoolsLogs', // Has default priority of 0
+        'DevtoolsLog', // Has default priority of 0
       ]);
     });
 
