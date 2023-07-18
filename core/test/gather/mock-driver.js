@@ -36,7 +36,7 @@ function createMockSession() {
     removeProtocolMessageListener: fnAny(),
     dispose: fnAny(),
 
-    /** @return {LH.Gatherer.FRProtocolSession} */
+    /** @return {LH.Gatherer.ProtocolSession} */
     asSession() {
       return this;
     },
@@ -84,7 +84,7 @@ function createMockCdpConnection() {
 }
 
 /**
- * @param {LH.Gatherer.AnyFRGathererInstance['meta']} meta
+ * @param {LH.Gatherer.AnyGathererInstance['meta']} meta
  */
 function createMockGathererInstance(meta) {
   return {
@@ -95,9 +95,8 @@ function createMockGathererInstance(meta) {
     stopSensitiveInstrumentation: fnAny(),
     getArtifact: fnAny(),
 
-    /** @return {LH.Gatherer.AnyFRGathererInstance} */
+    /** @return {LH.Gatherer.AnyGathererInstance} */
     asGatherer() {
-      // @ts-expect-error - We'll rely on the tests passing to know this matches.
       return this;
     },
   };
@@ -207,7 +206,7 @@ function mockDriverModule(driverProvider) {
 }
 
 /**
- * @returns {LH.FRBaseArtifacts}
+ * @returns {LH.BaseArtifacts}
  */
 function createMockBaseArtifacts() {
   return {
@@ -238,14 +237,8 @@ function createMockContext() {
     baseArtifacts: createMockBaseArtifacts(),
     settings: JSON.parse(JSON.stringify(constants.defaultSettings)),
 
-    /** @return {LH.Gatherer.FRTransitionalContext} */
+    /** @return {LH.Gatherer.Context} */
     asContext() {
-      // @ts-expect-error - We'll rely on the tests passing to know this matches.
-      return this;
-    },
-
-    /** @return {LH.Gatherer.PassContext} */
-    asLegacyContext() {
       // @ts-expect-error - We'll rely on the tests passing to know this matches.
       return this;
     },
