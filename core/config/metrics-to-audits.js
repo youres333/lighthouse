@@ -25,7 +25,6 @@ const lcpRelevantAudits = [
   'prioritize-lcp-image',
   'unused-javascript',
   'efficient-animated-content',
-  'total-byte-weight',
   'lcp-lazy-loaded',
 ];
 
