@@ -16,8 +16,16 @@ import * as i18n from './i18n/i18n.js';
  */
 const stackPacksToInclude = [
   {
+    packId: 'gatsby',
+    requiredStacks: ['js:gatsby'],
+  },
+  {
     packId: 'wordpress',
     requiredStacks: ['js:wordpress'],
+  },
+  {
+    packId: 'wix',
+    requiredStacks: ['js:wix'],
   },
   {
     packId: 'wp-rocket',
@@ -117,7 +125,11 @@ function getStackPacks(pageStacks) {
     });
   }
 
-  return packs;
+  return packs.sort((a, b) => {
+    const aVal = stackPacksToInclude.findIndex(p => p.packId === a.id);
+    const bVal = stackPacksToInclude.findIndex(p => p.packId === b.id);
+    return aVal - bVal;
+  });
 }
 
 export {

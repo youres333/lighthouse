@@ -9,6 +9,7 @@ import jestMock from 'jest-mock';
 import * as api from '../../index.js';
 import {createTestState, getAuditsBreakdown} from './pptr-test-utils.js';
 import {LH_ROOT} from '../../../root.js';
+import {TargetManager} from '../../gather/driver/target-manager.js';
 
 describe('Fraggle Rock API', function() {
   // eslint-disable-next-line no-invalid-this
@@ -30,7 +31,7 @@ describe('Fraggle Rock API', function() {
   describe('snapshot', () => {
     beforeEach(() => {
       const {server} = state;
-      server.baseDir = `${LH_ROOT}/core/test/fixtures/fraggle-rock/snapshot-basic`;
+      server.baseDir = `${LH_ROOT}/core/test/fixtures/user-flows/snapshot-basic`;
     });
 
     it('should compute accessibility results on the page as-is', async () => {
@@ -59,7 +60,7 @@ describe('Fraggle Rock API', function() {
   describe('startTimespan', () => {
     beforeEach(() => {
       const {server} = state;
-      server.baseDir = `${LH_ROOT}/core/test/fixtures/fraggle-rock/snapshot-basic`;
+      server.baseDir = `${LH_ROOT}/core/test/fixtures/user-flows/snapshot-basic`;
     });
 
     it('should compute ConsoleMessage results across a span of time', async () => {
@@ -144,12 +145,74 @@ describe('Fraggle Rock API', function() {
 
       expect(erroredAudits).toHaveLength(0);
     });
+
+    // eslint-disable-next-line max-len
+    it('should know target type of network requests from frames created before timespan', async () => {
+      const spy = jestMock.spyOn(TargetManager.prototype, '_onExecutionContextCreated');
+      state.server.baseDir = `${LH_ROOT}/cli/test/fixtures`;
+      const {page, serverBaseUrl} = state;
+
+      await page.goto(`${serverBaseUrl}/oopif-scripts-timespan.html`);
+
+      const run = await api.startTimespan(state.page);
+      for (const iframe of page.frames()) {
+        if (iframe.url().includes('/oopif-simple-page.html')) {
+          iframe.click('button');
+        }
+      }
+      await page.waitForNetworkIdle().catch(() => {});
+      const result = await run.endTimespan();
+
+      if (!result) throw new Error('Lighthouse failed to produce a result');
+
+      const networkRequestsDetails = /** @type {LH.Audit.Details.Table} */ (
+        result.lhr.audits['network-requests'].details);
+      const networkRequests = networkRequestsDetails?.items
+        .map((r) => ({url: r.url, sessionTargetType: r.sessionTargetType}))
+        // @ts-expect-error
+        .sort((a, b) => a.url.localeCompare(b.url));
+      expect(networkRequests).toHaveLength(4);
+      expect(networkRequests.filter(r => r.sessionTargetType === 'page')).toHaveLength(2);
+      expect(networkRequests.filter(r => r.sessionTargetType === 'iframe')).toHaveLength(2);
+      expect(networkRequests).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "sessionTargetType": "page",
+    "url": "http://localhost:10200/simple-script.js",
+  },
+  Object {
+    "sessionTargetType": "page",
+    "url": "http://localhost:10200/simple-worker.js",
+  },
+  Object {
+    "sessionTargetType": "iframe",
+    "url": "http://localhost:10503/simple-script.js",
+  },
+  Object {
+    "sessionTargetType": "iframe",
+    "url": "http://localhost:10503/simple-worker.js",
+  },
+]
+`);
+
+      // Check that TargetManager is getting execution context created events even if connecting
+      // to the page after they already exist.
+      // There are two execution contexts, one for the main frame and one for the iframe of
+      // the same origin.
+      const contextCreatedMainFrameCalls =
+        spy.mock.calls.filter(call => call[0].context.origin === 'http://localhost:10200');
+      // For some reason, puppeteer gives us two created events for every uniqueId,
+      // so using Set here to ignore that detail.
+      expect(new Set(contextCreatedMainFrameCalls.map(call => call[0].context.uniqueId)).size)
+        .toEqual(2);
+      spy.mockRestore();
+    });
   });
 
   describe('navigation', () => {
     beforeEach(() => {
       const {server} = state;
-      server.baseDir = `${LH_ROOT}/core/test/fixtures/fraggle-rock/navigation-basic`;
+      server.baseDir = `${LH_ROOT}/core/test/fixtures/user-flows/navigation-basic`;
     });
 
     it('should compute both snapshot & timespan results', async () => {
