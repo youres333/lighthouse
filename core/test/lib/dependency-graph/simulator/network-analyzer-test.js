@@ -14,6 +14,10 @@ const devtoolsLog = readJson('../../../fixtures/traces/progressive-app-m60.devto
 const devtoolsLogWithRedirect = readJson('../../../fixtures/artifacts/redirect/devtoolslog.json', import.meta);
 
 describe('DependencyGraph/Simulator/NetworkAnalyzer', () => {
+  afterEach(() => {
+    global.isLightrider = undefined;
+  });
+
   let recordId;
 
   function createRecord(opts) {
@@ -210,6 +214,16 @@ describe('DependencyGraph/Simulator/NetworkAnalyzer', () => {
       assert.deepStrictEqual(result.get('https://example.com'), expected);
     });
 
+    it('should use coarse estimates on a per-origin basis', () => {
+      const records = [
+        createRecord({url: 'https://example.com', timing: {connectStart: 1, connectEnd: 100, sendStart: 150}}),
+        createRecord({url: 'https://example2.com', timing: {sendStart: 150}}),
+      ];
+      const result = NetworkAnalyzer.estimateRTTByOrigin(records);
+      assert.deepStrictEqual(result.get('https://example.com'), {min: 99, max: 99, avg: 99, median: 99});
+      assert.deepStrictEqual(result.get('https://example2.com'), {min: 15, max: 15, avg: 15, median: 15});
+    });
+
     it('should handle untrustworthy connection information', () => {
       const timing = {sendStart: 150};
       const recordA = createRecord({networkRequestTime: 0, networkEndTime: 1, timing,
@@ -247,6 +261,22 @@ describe('DependencyGraph/Simulator/NetworkAnalyzer', () => {
         assertCloseEnough(result.avg, resultApprox.avg, 30);
         assertCloseEnough(result.median, resultApprox.median, 30);
       });
+    });
+
+    it('should use lrStatistics when needed', () => {
+      global.isLightrider = true;
+      const record = createRecord({timing: {}, lrStatistics: {TCPMs: 100}});
+      const result = NetworkAnalyzer.estimateRTTByOrigin([record]);
+      const expected = {min: 50, max: 50, avg: 50, median: 50};
+      assert.deepStrictEqual(result.get('https://example.com'), expected);
+    });
+
+    it('should use lrStatistics when needed (h3)', () => {
+      global.isLightrider = true;
+      const record = createRecord({protocol: 'h3', timing: {}, lrStatistics: {TCPMs: 100}});
+      const result = NetworkAnalyzer.estimateRTTByOrigin([record]);
+      const expected = {min: 100, max: 100, avg: 100, median: 100};
+      assert.deepStrictEqual(result.get('https://example.com'), expected);
     });
   });
 
@@ -298,6 +328,14 @@ describe('DependencyGraph/Simulator/NetworkAnalyzer', () => {
         assertCloseEnough(result.avg, resultApprox.avg, 30);
         assertCloseEnough(result.median, resultApprox.median, 30);
       });
+    });
+
+    it('should use lrStatistics when needed', () => {
+      global.isLightrider = true;
+      const record = createRecord({timing: {}, lrStatistics: {requestMs: 100}});
+      const result = NetworkAnalyzer.estimateServerResponseTimeByOrigin([record]);
+      const expected = {min: 100, max: 100, avg: 100, median: 100};
+      assert.deepStrictEqual(result.get('https://example.com'), expected);
     });
   });
 

@@ -8,6 +8,7 @@ on:
 env:
   DEPOT_TOOLS_PATH: ${{ github.workspace }}/depot-tools
   DEVTOOLS_PATH: ${{ github.workspace }}/devtools-frontend
+  PUPPETEER_SKIP_DOWNLOAD: 1
 
 jobs:
   build:
@@ -20,12 +21,12 @@ jobs:
       run: echo "$DEPOT_TOOLS_PATH" >> $GITHUB_PATH
 
     - name: git clone
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: lighthouse
 
     - name: Use Node.js 16.x
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 16.x
 
@@ -86,12 +87,12 @@ jobs:
 
     steps:
     - name: git clone
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: lighthouse
 
     - name: Use Node.js 16.x
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 16.x
 
@@ -131,12 +132,12 @@ jobs:
 
     steps:
     - name: git clone
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: lighthouse
 
     - name: Use Node.js 16.x
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 16.x
 
@@ -175,4 +176,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: Smokehouse (devtools smoke)
-        path: ${{ github.workspace }}/lighthouse/.tmp/smokehouse-ci-failures/
+        path: ${{ github.workspace }}/lighthouse/.tmp/smokehouse-failures/
