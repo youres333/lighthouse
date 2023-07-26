@@ -11,6 +11,8 @@ import * as emulation from '../../lib/emulation.js';
 import {pageFunctions} from '../../lib/page-functions.js';
 import {waitForNetworkIdle} from '../driver/wait-for-condition.js';
 
+/** @typedef {{width: number, height: number, deviceScaleFactor: number, mobile: boolean}} DeviceMetrics */
+
 // JPEG quality setting
 // Exploration and examples of reports using different quality settings: https://docs.google.com/document/d/1ZSffucIca9XDW2eEwfoevrk-OTl7WQFeMf0CgeJAA8M/edit#
 // Note: this analysis was done for JPEG, but now we use WEBP.
@@ -37,6 +39,8 @@ function getObservedDeviceMetrics() {
   return {
     width: window.outerWidth,
     height: window.outerHeight,
+    innerWidth: window.innerWidth,
+    innerHeight: window.innerHeight,
     screenOrientation: {
       type: screenOrientationType,
       angle: window.screen.orientation.angle,
@@ -61,7 +65,7 @@ class FullPageScreenshot extends BaseGatherer {
 
   /**
    * @param {LH.Gatherer.Context} context
-   * @param {{height: number, width: number, mobile: boolean}} deviceMetrics
+   * @param {DeviceMetrics} deviceMetrics
    */
   async _resizeViewport(context, deviceMetrics) {
     const session = context.driver.defaultSession;
@@ -107,9 +111,10 @@ class FullPageScreenshot extends BaseGatherer {
 
   /**
    * @param {LH.Gatherer.Context} context
+   * @param {DeviceMetrics} deviceMetrics
    * @return {Promise<LH.Result.FullPageScreenshot['screenshot']>}
    */
-  async _takeScreenshot(context) {
+  async _takeScreenshot(context, deviceMetrics) {
     const result = await context.driver.defaultSession.sendCommand('Page.captureScreenshot', {
       format: 'webp',
       quality: FULL_PAGE_SCREENSHOT_QUALITY,
@@ -120,7 +125,8 @@ class FullPageScreenshot extends BaseGatherer {
       data,
       // Since we resized emulated viewport to match the desired screenshot size,
       // it is safe to rely on scaled visual viewport css dimensions.
-      width: Math.round(metrics.cssVisualViewport.clientWidth * metrics.cssVisualViewport.scale),
+      // Rely on device metrics width to account for scrollbar on macOS.
+      width: Math.round(deviceMetrics.width * metrics.cssVisualViewport.scale),
       height: Math.round(metrics.cssVisualViewport.clientHeight * metrics.cssVisualViewport.scale),
     };
   }
@@ -207,7 +213,10 @@ class FullPageScreenshot extends BaseGatherer {
       // Issue both commands at once, to reduce the chance that the page changes between capturing
       // a screenshot and resolving the nodes. https://github.com/GoogleChrome/lighthouse/pull/14763
       const [screenshot, nodes] =
-        await Promise.all([this._takeScreenshot(context), this._resolveNodes(context)]);
+        await Promise.all([
+          this._takeScreenshot(context, deviceMetrics),
+          this._resolveNodes(context),
+        ]);
       return {
         screenshot,
         nodes,
