@@ -123,10 +123,10 @@ class FullPageScreenshot extends BaseGatherer {
     const data = 'data:image/webp;base64,' + result.data;
     return {
       data,
+      // Rely on device metrics width that is already in scaled units to account for scrollbar on macOS.
+      width: deviceMetrics.width,
       // Since we resized emulated viewport to match the desired screenshot size,
       // it is safe to rely on scaled visual viewport css dimensions.
-      // Rely on device metrics width to account for scrollbar on macOS.
-      width: Math.round(deviceMetrics.width * metrics.cssVisualViewport.scale),
       height: Math.round(metrics.cssVisualViewport.clientHeight * metrics.cssVisualViewport.scale),
     };
   }
