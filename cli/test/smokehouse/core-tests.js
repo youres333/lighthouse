@@ -53,6 +53,7 @@ import pwaSvgomg from './test-definitions/pwa-svgomg.js';
 import redirectsClientPaintServer from './test-definitions/redirects-client-paint-server.js';
 import redirectsHistoryPushState from './test-definitions/redirects-history-push-state.js';
 import redirectsMultipleServer from './test-definitions/redirects-multiple-server.js';
+import redirectsRefresh from './test-definitions/redirects-refresh.js';
 import redirectsScripts from './test-definitions/redirects-scripts.js';
 import redirectsSelf from './test-definitions/redirects-self.js';
 import redirectsSingleClient from './test-definitions/redirects-single-client.js';
@@ -116,6 +117,7 @@ const smokeTests = [
   redirectsClientPaintServer,
   redirectsHistoryPushState,
   redirectsMultipleServer,
+  redirectsRefresh,
   redirectsScripts,
   redirectsSelf,
   redirectsSingleClient,
