@@ -119,7 +119,7 @@ function getNonHtmlError(finalRecord) {
 function getPageLoadError(navigationError, context) {
   const {url, loadFailureMode, networkRecords} = context;
   /** @type {LH.Artifacts.NetworkRequest|undefined} */
-  let mainRecord = NetworkAnalyzer.findLastDocumentForUrl(networkRecords, url);
+  let mainRecord = NetworkAnalyzer.findResourceForUrl(networkRecords, url);
 
   // If the url doesn't give us a network request, it's possible we landed on a chrome-error:// page
   // In this case, just get the first document request.
