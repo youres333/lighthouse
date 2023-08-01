@@ -511,9 +511,10 @@ class NetworkAnalyzer {
    * @param {string} resourceUrl
    * @return {LH.Artifacts.NetworkRequest|undefined}
    */
-  static findLastResourceForUrl(records, resourceUrl) {
+  static findLastDocumentForUrl(records, resourceUrl) {
     // equalWithExcludedFragments is expensive, so check that the resourceUrl starts with the request url first
     const matchingRequests = records.filter(request =>
+      request.resourceType === 'Document' &&
       resourceUrl.startsWith(request.url) &&
       UrlUtils.equalWithExcludedFragments(request.url, resourceUrl)
     );
@@ -522,7 +523,7 @@ class NetworkAnalyzer {
 
   /**
    * Resolves redirect chain given a main document.
-   * See: {@link NetworkAnalyzer.findLastResourceForUrl}) for how to retrieve main document.
+   * See: {@link NetworkAnalyzer.findLastDocumentForUrl}) for how to retrieve main document.
    *
    * @param {LH.Artifacts.NetworkRequest} request
    * @return {LH.Artifacts.NetworkRequest}
