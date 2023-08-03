@@ -84,27 +84,27 @@ const banner = `
 async function buildBundle(entryPath, distPath, opts = {minify: true}) {
   // List of paths (absolute / relative to config-helpers.js) to include
   // in bundle and make accessible via config-helpers.js `requireWrapper`.
-  const dynamicModulePaths = [
-    ...Runner.getGathererList().map(gatherer => `../gather/gatherers/${gatherer}`),
-    ...Runner.getAuditList().map(gatherer => `../audits/${gatherer}`),
-  ];
+  // const dynamicModulePaths = [
+  //   // ...Runner.getGathererList().map(gatherer => `../gather/gatherers/${gatherer}`),
+  //   // ...Runner.getAuditList().map(gatherer => `../audits/${gatherer}`).slice(0,1),
+  // ];
 
   // Include plugins.
   if (isDevtools(entryPath) || isLightrider(entryPath)) {
-    dynamicModulePaths.push('lighthouse-plugin-publisher-ads');
-    pubAdsAudits.forEach(pubAdAudit => {
-      dynamicModulePaths.push(pubAdAudit);
-    });
-    dynamicModulePaths.push('lighthouse-plugin-soft-navigation');
-    softNavAudits.forEach(softNavAudit => {
-      dynamicModulePaths.push(softNavAudit);
-    });
+    // dynamicModulePaths.push('lighthouse-plugin-publisher-ads');
+    // pubAdsAudits.slice(0, 1).forEach(pubAdAudit => {
+    //   dynamicModulePaths.push(pubAdAudit);
+    // });
+    // dynamicModulePaths.push('lighthouse-plugin-soft-navigation');
+    // softNavAudits.forEach(softNavAudit => {
+    //   dynamicModulePaths.push(softNavAudit);
+    // });
   }
 
-  const bundledMapEntriesCode = dynamicModulePaths.map(modulePath => {
-    const pathNoExt = modulePath.replace('.js', '');
-    return `['${pathNoExt}', import('${modulePath}')]`;
-  }).join(',\n');
+  // const bundledMapEntriesCode = dynamicModulePaths.map(modulePath => {
+  //   const pathNoExt = modulePath.replace('.js', '');
+  //   return `['${pathNoExt}', import('${modulePath}')]`;
+  // }).join(',\n');
 
   /** @type {Record<string, string>} */
   const shimsObj = {
@@ -129,10 +129,10 @@ async function buildBundle(entryPath, distPath, opts = {minify: true}) {
 
   // Don't include the stringified report in DevTools - see devtools-report-assets.js
   // Don't include in Lightrider - HTML generation isn't supported, so report assets aren't needed.
-  if (isDevtools(entryPath) || isLightrider(entryPath)) {
-    shimsObj[`${LH_ROOT}/report/generator/report-assets.js`] =
-      'export const reportAssets = {}';
-  }
+  // if (isDevtools(entryPath) || isLightrider(entryPath)) {
+  //   shimsObj[`${LH_ROOT}/report/generator/report-assets.js`] =
+  //     'export const reportAssets = {}';
+  // }
 
   // Don't include locales in DevTools.
   if (isDevtools(entryPath)) {
@@ -151,11 +151,11 @@ async function buildBundle(entryPath, distPath, opts = {minify: true}) {
     bundle: true,
     minify: opts.minify,
     treeShaking: true,
-    sourcemap: DEBUG,
+    // sourcemap: DEBUG,
     banner: {js: banner},
     // Because of page-functions!
     keepNames: true,
-    inject: ['./build/process-global.js'],
+    // inject: ['./build/process-global.js'],
     /** @type {esbuild.Plugin[]} */
     plugins: [
       plugins.replaceModules({
@@ -180,70 +180,70 @@ async function buildBundle(entryPath, distPath, opts = {minify: true}) {
         disableUnusedError: true,
       }),
       nodeModulesPolyfillPlugin(),
-      plugins.bulkLoader([
-        // TODO: when we used rollup, various things were tree-shaken out before inlineFs did its
-        // thing. Now treeshaking only happens at the end, so the plugin sees more cases than it
-        // did before. Some of those new cases emit warnings. Safe to ignore, but should be
-        // resolved eventually.
-        plugins.partialLoaders.inlineFs({
-          verbose: Boolean(process.env.DEBUG),
-          ignorePaths: [require.resolve('puppeteer-core/lib/esm/puppeteer/common/Page.js')],
-        }),
-        plugins.partialLoaders.rmGetModuleDirectory,
-        plugins.partialLoaders.replaceText({
-          '/* BUILD_REPLACE_BUNDLED_MODULES */': `[\n${bundledMapEntriesCode},\n]`,
-          // TODO: Use globalThis directly.
-          'global.isLightrider': 'globalThis.isLightrider',
-          'global.isDevtools': 'globalThis.isDevtools',
-          // By default esbuild converts `import.meta` to an empty object.
-          // We need at least the url property for i18n things.
-          /** @param {string} id */
-          'import.meta': (id) => `{url: '${path.relative(LH_ROOT, id)}'}`,
-        }),
-      ]),
-      {
-        name: 'alias',
-        setup({onResolve}) {
-          onResolve({filter: /\.*/}, (args) => {
-            /** @type {Record<string, string>} */
-            const entries = {
-              'debug': require.resolve('debug/src/browser.js'),
-              'lighthouse-logger': require.resolve('../lighthouse-logger/index.js'),
-            };
-            if (args.path in entries) {
-              return {path: entries[args.path]};
-            }
-          });
-        },
-      },
-      {
-        name: 'postprocess',
-        setup({onEnd}) {
-          onEnd(result => {
-            if (!result.outputFiles) throw new Error();
+      // plugins.bulkLoader([
+      //   // TODO: when we used rollup, various things were tree-shaken out before inlineFs did its
+      //   // thing. Now treeshaking only happens at the end, so the plugin sees more cases than it
+      //   // did before. Some of those new cases emit warnings. Safe to ignore, but should be
+      //   // resolved eventually.
+      //   // plugins.partialLoaders.inlineFs({
+      //   //   verbose: Boolean(process.env.DEBUG),
+      //   //   ignorePaths: [require.resolve('puppeteer-core/lib/esm/puppeteer/common/Page.js')],
+      //   // }),
+      //   // plugins.partialLoaders.rmGetModuleDirectory,
+      //   plugins.partialLoaders.replaceText({
+      //     '/* BUILD_REPLACE_BUNDLED_MODULES */': `[\n${bundledMapEntriesCode},\n]`,
+      //     // TODO: Use globalThis directly.
+      //     'global.isLightrider': 'globalThis.isLightrider',
+      //     'global.isDevtools': 'globalThis.isDevtools',
+      //     // By default esbuild converts `import.meta` to an empty object.
+      //     // We need at least the url property for i18n things.
+      //     // /** @param {string} id */
+      //     // 'import.meta': (id) => `{url: '${path.relative(LH_ROOT, id)}'}`,
+      //   }),
+      // ]),
+      // {
+      //   name: 'alias',
+      //   setup({onResolve}) {
+      //     onResolve({filter: /\.*/}, (args) => {
+      //       /** @type {Record<string, string>} */
+      //       const entries = {
+      //         'debug': require.resolve('debug/src/browser.js'),
+      //         'lighthouse-logger': require.resolve('../lighthouse-logger/index.js'),
+      //       };
+      //       if (args.path in entries) {
+      //         return {path: entries[args.path]};
+      //       }
+      //     });
+      //   },
+      // },
+      // {
+      //   name: 'postprocess',
+      //   setup({onEnd}) {
+      //     onEnd(result => {
+      //       if (!result.outputFiles) throw new Error();
 
-            let code = result.outputFiles[0].text;
+      //       let code = result.outputFiles[0].text;
 
-            // Get rid of our extra license comments.
-            // https://stackoverflow.com/a/35923766
-            const re = /\/\*\*\s*\n([^*]|(\*(?!\/)))*\*\/\n/g;
-            let hasSeenFirst = false;
-            code = code.replace(re, (match) => {
-              if (match.includes('@license') && match.match(/Lighthouse Authors|Google/)) {
-                if (hasSeenFirst) {
-                  return '';
-                }
+      //       // Get rid of our extra license comments.
+      //       // https://stackoverflow.com/a/35923766
+      //       const re = /\/\*\*\s*\n([^*]|(\*(?!\/)))*\*\/\n/g;
+      //       let hasSeenFirst = false;
+      //       code = code.replace(re, (match) => {
+      //         if (match.includes('@license') && match.match(/Lighthouse Authors|Google/)) {
+      //           if (hasSeenFirst) {
+      //             return '';
+      //           }
 
-                hasSeenFirst = true;
-              }
+      //           hasSeenFirst = true;
+      //         }
 
-              return match;
-            });
+      //         return match;
+      //       });
 
-            result.outputFiles[0].contents = new TextEncoder().encode(code);
-          });
-        },
-      },
+      //       result.outputFiles[0].contents = new TextEncoder().encode(code);
+      //     });
+      //   },
+      // },
     ],
   });
 

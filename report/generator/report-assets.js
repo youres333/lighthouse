@@ -14,7 +14,7 @@ const moduleDir = getModuleDirectory(import.meta);
 
 const REPORT_TEMPLATE = fs.readFileSync(moduleDir + '/../assets/standalone-template.html',
     'utf8');
-const REPORT_JAVASCRIPT = fs.readFileSync(moduleDir + '/../../dist/report/standalone.js', 'utf8');
+const REPORT_JAVASCRIPT = 'blah';
 
 export const reportAssets = {
   REPORT_TEMPLATE,
