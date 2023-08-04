@@ -45,6 +45,9 @@ function buildStandaloneReport() {
     format: 'iife',
     bundle: true,
     minify: true,
+    loader: {
+      '.css': 'text',
+    },
   });
 }
 
@@ -61,6 +64,9 @@ async function buildFlowReport() {
     charset: 'utf8',
     bundle: true,
     minify: true,
+    loader: {
+      '.css': 'text',
+    },
     plugins: [
       plugins.replaceModules({
         [`${LH_ROOT}/flow-report/src/i18n/localized-strings.js`]: buildFlowStrings(),
@@ -118,6 +124,9 @@ export const format = {registerLocaleData, hasLocale};
     format: 'esm',
     bundle: true,
     minify: true,
+    loader: {
+      '.css': 'text',
+    },
     plugins: [
       plugins.replaceModules({
         // Exclude this 30kb from the devtools bundle for now.
@@ -134,6 +143,9 @@ async function buildUmdBundle() {
     bundle: true,
     // We do not minify, because this is pulled into google3 and minified there anyhow.
     minify: false,
+    loader: {
+      '.css': 'text',
+    },
     plugins: [
       plugins.umd('report'),
       plugins.replaceModules({

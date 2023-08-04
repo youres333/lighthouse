@@ -13,15 +13,6 @@ Example standalone HTML report, delivered by the CLI: [`dbwtest-3.0.3.html`](htt
 1. [`report/renderer`](https://github.com/GoogleChrome/lighthouse/tree/main/report/renderer) are all client-side JS files. They transform an LHR object into a report DOM tree. They are all executed within the browser.
 1. [`report/assets/standalone-template.html`](https://github.com/GoogleChrome/lighthouse/blob/main/lighthouse-core/report/html/report-template.html) is where the client-side build of the DOM report is typically kicked off ([with these four lines](https://github.com/GoogleChrome/lighthouse/blob/eda3a3e2e271249f261655f9504fd542d6acf0f8/lighthouse-core/report/html/report-template.html#L29-L33)) However, see _Current Uses.._ below for more possibilities.
 
-
-### Data Hydration
-`innerHTML` is deliberately not used. The renderer relies on basic `createElement` as well as multiple components defined in `<template>` tags that are added via [`document.importNode()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/importNode) and filled in via the `querySelector`/`textContent` combo.
-
-Examples:
-
-* [`templates.html`](https://github.com/GoogleChrome/lighthouse/blob/main/report/assets/templates.html)
-* [`performance-category-renderer.js`](https://github.com/GoogleChrome/lighthouse/blob/main/report/renderer/performance-category-renderer.js)
-
 ### Current uses of report renderer
 
 The renderer was designed to be portable across various environments.

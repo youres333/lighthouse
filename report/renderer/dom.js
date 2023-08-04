@@ -17,11 +17,12 @@
 
 /* eslint-env browser */
 
+/** @typedef {'3pFilter'|'audit'|'categoryHeader'|'chevron'|'clump'|'crc'|'crcChain'|'elementScreenshot'|'footer'|'fraction'|'gauge'|'gaugePwa'|'heading'|'metric'|'opportunity'|'opportunityHeader'|'scorescale'|'scoresWrapper'|'snippet'|'snippetContent'|'snippetHeader'|'snippetLine'|'styles'|'topbar'|'warningsToplevel'} ComponentName */
 /** @typedef {HTMLElementTagNameMap & {[id: string]: HTMLElement}} HTMLElementByTagName */
 /** @template {string} T @typedef {import('typed-query-selector/parser').ParseSelector<T, Element>} ParseSelector */
 
 import {Util} from '../../shared/util.js';
-import {createComponent} from './components.js';
+import {createComponent} from './preact-components.js';
 
 export class DOM {
   /**
@@ -102,7 +103,7 @@ export class DOM {
   }
 
   /**
-   * @param {import('./components.js').ComponentName} componentName
+   * @param {ComponentName} componentName
    * @return {!DocumentFragment} A clone of the cached component.
    */
   createComponent(componentName) {

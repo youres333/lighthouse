@@ -5,6 +5,9 @@
     "lib": ["es2020", "dom", "dom.iterable"],
     // Don't include any types from node_modules/.
     "types": [],
+
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
   },
   "references": [
     {"path": "../types/lhr/"},
@@ -13,6 +16,8 @@
   ],
   "include": [
     "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
     "types/**/*.d.ts",
     "../core/lib/lighthouse-compatibility.js",
   ],

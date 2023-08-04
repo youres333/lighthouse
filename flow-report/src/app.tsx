@@ -14,7 +14,7 @@ import {Report} from './wrappers/report';
 import {Topbar} from './topbar';
 import {Header} from './header';
 import {I18nProvider} from './i18n/i18n';
-import {Styles} from './wrappers/styles';
+import {Styles} from '../../report/renderer/preact-components.js';
 
 function getAnchorElement(hashState: LH.HashState|null) {
   if (!hashState || !hashState.anchor) return null;
