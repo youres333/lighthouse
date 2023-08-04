@@ -126,7 +126,7 @@ const OpportunityHeader: FunctionComponent = () => {
 
 const ScoresWrapper: FunctionComponent = () => {
   return <>
-    <style>{`
+    <style jsx>{`
       .lh-scores-container {
         display: flex;
         flex-direction: column;
@@ -205,7 +205,7 @@ const ScoresWrapper: FunctionComponent = () => {
 
 const Topbar: FunctionComponent = () => {
   return <>
-    <style>{`
+    <style jsx>{`
       .lh-topbar {
         position: sticky;
         top: 0;
@@ -391,78 +391,78 @@ const Topbar: FunctionComponent = () => {
 
 const Heading: FunctionComponent = () => {
   return <>
-    <style>{`
-    /* CSS Fireworks. Originally by Eddie Lin
-       https://codepen.io/paulirish/pen/yEVMbP
-    */
-    .lh-pyro {
-      display: none;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .lh-score100 .lh-pyro {
-      display: block;
-    }
-    .lh-score100 .lh-lighthouse stop:first-child {
-      stop-color: hsla(200, 12%, 95%, 0);
-    }
-    .lh-score100 .lh-lighthouse stop:last-child {
-      stop-color: hsla(65, 81%, 76%, 1);
-    }
+    <style jsx>{`
+      /* CSS Fireworks. Originally by Eddie Lin
+       * https://codepen.io/paulirish/pen/yEVMbP
+       */
+      .lh-pyro {
+        display: none;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .lh-score100 .lh-pyro {
+        display: block;
+      }
+      .lh-score100 .lh-lighthouse stop:first-child {
+        stop-color: hsla(200, 12%, 95%, 0);
+      }
+      .lh-score100 .lh-lighthouse stop:last-child {
+        stop-color: hsla(65, 81%, 76%, 1);
+      }
 
-    .lh-pyro > .lh-pyro-before, .lh-pyro > .lh-pyro-after {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 2.5px;
-      box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
-      animation: 1s bang ease-out infinite backwards,  1s gravity ease-in infinite backwards,  5s position linear infinite backwards;
-      animation-delay: 1s, 1s, 1s;
-    }
+      .lh-pyro > .lh-pyro-before, .lh-pyro > .lh-pyro-after {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 2.5px;
+        box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
+        animation: 1s bang ease-out infinite backwards,  1s gravity ease-in infinite backwards,  5s position linear infinite backwards;
+        animation-delay: 1s, 1s, 1s;
+      }
 
-    .lh-pyro > .lh-pyro-after {
-      animation-delay: 2.25s, 2.25s, 2.25s;
-      animation-duration: 1.25s, 1.25s, 6.25s;
-    }
+      .lh-pyro > .lh-pyro-after {
+        animation-delay: 2.25s, 2.25s, 2.25s;
+        animation-duration: 1.25s, 1.25s, 6.25s;
+      }
 
-    @keyframes bang {
-      to {
-        opacity: 1;
-        box-shadow: -70px -115.67px #47ebbc, -28px -99.67px #eb47a4, 58px -31.67px #7eeb47, 13px -141.67px #eb47c5, -19px 6.33px #7347eb, -2px -74.67px #ebd247, 24px -151.67px #eb47e0, 57px -138.67px #b4eb47, -51px -104.67px #479eeb, 62px 8.33px #ebcf47, -93px 0.33px #d547eb, -16px -118.67px #47bfeb, 53px -84.67px #47eb83, 66px -57.67px #eb47bf, -93px -65.67px #91eb47, 30px -13.67px #86eb47, -2px -59.67px #83eb47, -44px 1.33px #eb47eb, 61px -58.67px #47eb73, 5px -22.67px #47e8eb, -66px -28.67px #ebe247, 42px -123.67px #eb5547, -75px 26.33px #7beb47, 15px -52.67px #a147eb, 36px -51.67px #eb8347, -38px -12.67px #eb5547, -46px -59.67px #47eb81, 78px -114.67px #eb47ba, 15px -156.67px #eb47bf, -36px 1.33px #eb4783, -72px -86.67px #eba147, 31px -46.67px #ebe247, -68px 29.33px #47e2eb, -55px 19.33px #ebe047, -56px 27.33px #4776eb, -13px -91.67px #eb5547, -47px -138.67px #47ebc7, -18px -96.67px #eb47ac, 11px -88.67px #4783eb, -67px -28.67px #47baeb, 53px 10.33px #ba47eb, 11px 19.33px #5247eb, -5px -11.67px #eb4791, -68px -4.67px #47eba7, 95px -37.67px #eb478b, -67px -162.67px #eb5d47, -54px -120.67px #eb6847, 49px -12.67px #ebe047, 88px 8.33px #47ebda, 97px 33.33px #eb8147, 6px -71.67px #ebbc47;
+      @keyframes bang {
+        to {
+          opacity: 1;
+          box-shadow: -70px -115.67px #47ebbc, -28px -99.67px #eb47a4, 58px -31.67px #7eeb47, 13px -141.67px #eb47c5, -19px 6.33px #7347eb, -2px -74.67px #ebd247, 24px -151.67px #eb47e0, 57px -138.67px #b4eb47, -51px -104.67px #479eeb, 62px 8.33px #ebcf47, -93px 0.33px #d547eb, -16px -118.67px #47bfeb, 53px -84.67px #47eb83, 66px -57.67px #eb47bf, -93px -65.67px #91eb47, 30px -13.67px #86eb47, -2px -59.67px #83eb47, -44px 1.33px #eb47eb, 61px -58.67px #47eb73, 5px -22.67px #47e8eb, -66px -28.67px #ebe247, 42px -123.67px #eb5547, -75px 26.33px #7beb47, 15px -52.67px #a147eb, 36px -51.67px #eb8347, -38px -12.67px #eb5547, -46px -59.67px #47eb81, 78px -114.67px #eb47ba, 15px -156.67px #eb47bf, -36px 1.33px #eb4783, -72px -86.67px #eba147, 31px -46.67px #ebe247, -68px 29.33px #47e2eb, -55px 19.33px #ebe047, -56px 27.33px #4776eb, -13px -91.67px #eb5547, -47px -138.67px #47ebc7, -18px -96.67px #eb47ac, 11px -88.67px #4783eb, -67px -28.67px #47baeb, 53px 10.33px #ba47eb, 11px 19.33px #5247eb, -5px -11.67px #eb4791, -68px -4.67px #47eba7, 95px -37.67px #eb478b, -67px -162.67px #eb5d47, -54px -120.67px #eb6847, 49px -12.67px #ebe047, 88px 8.33px #47ebda, 97px 33.33px #eb8147, 6px -71.67px #ebbc47;
+        }
       }
-    }
-    @keyframes gravity {
-      from {
-        opacity: 1;
+      @keyframes gravity {
+        from {
+          opacity: 1;
+        }
+        to {
+          transform: translateY(80px);
+          opacity: 0;
+        }
       }
-      to {
-        transform: translateY(80px);
-        opacity: 0;
+      @keyframes position {
+        0%, 19.9% {
+          margin-top: 4%;
+          margin-left: 47%;
+        }
+        20%, 39.9% {
+          margin-top: 7%;
+          margin-left: 30%;
+        }
+        40%, 59.9% {
+          margin-top: 6%;
+          margin-left: 70%;
+        }
+        60%, 79.9% {
+          margin-top: 3%;
+          margin-left: 20%;
+        }
+        80%, 99.9% {
+          margin-top: 3%;
+          margin-left: 80%;
+        }
       }
-    }
-    @keyframes position {
-      0%, 19.9% {
-        margin-top: 4%;
-        margin-left: 47%;
-      }
-      20%, 39.9% {
-        margin-top: 7%;
-        margin-left: 30%;
-      }
-      40%, 59.9% {
-        margin-top: 6%;
-        margin-left: 70%;
-      }
-      60%, 79.9% {
-        margin-top: 3%;
-        margin-left: 20%;
-      }
-      80%, 99.9% {
-        margin-top: 3%;
-        margin-left: 80%;
-      }
-    }
-  `}</style>
+    `}</style>
 
     <div class="lh-header-container">
       <div class="lh-scores-wrapper-placeholder"></div>
@@ -473,16 +473,16 @@ const Heading: FunctionComponent = () => {
 
 const Footer: FunctionComponent = () => {
   return <>
-    <style>{`
-    .lh-footer {
-      padding: var(--footer-padding-vertical) calc(var(--default-padding) * 2);
-      max-width: var(--report-content-max-width);
-      margin: 0 auto;
-    }
-    .lh-footer .lh-generated {
-      text-align: center;
-    }
-  `}</style>
+    <style jsx>{`
+      .lh-footer {
+        padding: var(--footer-padding-vertical) calc(var(--default-padding) * 2);
+        max-width: var(--report-content-max-width);
+        margin: 0 auto;
+      }
+      .lh-footer .lh-generated {
+        text-align: center;
+      }
+    `}</style>
     <footer class="lh-footer">
       <ul class="lh-meta__items">
       </ul>
@@ -522,49 +522,49 @@ const Fraction: FunctionComponent = () => {
 
 const GaugePwa: FunctionComponent = () => {
   return <>
-    <style>{`
-    .lh-gauge--pwa .lh-gauge--pwa__component {
-      display: none;
-    }
-    .lh-gauge--pwa__wrapper:not(.lh-badged--all) .lh-gauge--pwa__logo > path {
-      /* Gray logo unless everything is passing. */
-      fill: #B0B0B0;
-    }
+    <style jsx>{`
+      .lh-gauge--pwa .lh-gauge--pwa__component {
+        display: none;
+      }
+      .lh-gauge--pwa__wrapper:not(.lh-badged--all) .lh-gauge--pwa__logo > path {
+        /* Gray logo unless everything is passing. */
+        fill: #B0B0B0;
+      }
 
-    .lh-gauge--pwa__disc {
-      fill: var(--color-gray-200);
-    }
+      .lh-gauge--pwa__disc {
+        fill: var(--color-gray-200);
+      }
 
-    .lh-gauge--pwa__logo--primary-color {
-      fill: #304FFE;
-    }
+      .lh-gauge--pwa__logo--primary-color {
+        fill: #304FFE;
+      }
 
-    .lh-gauge--pwa__logo--secondary-color {
-      fill: #3D3D3D;
-    }
-    .lh-dark .lh-gauge--pwa__logo--secondary-color {
-      fill: #D8B6B6;
-    }
+      .lh-gauge--pwa__logo--secondary-color {
+        fill: #3D3D3D;
+      }
+      .lh-dark .lh-gauge--pwa__logo--secondary-color {
+        fill: #D8B6B6;
+      }
 
-    /* No passing groups. */
-    .lh-gauge--pwa__wrapper:not([class*='lh-badged--']) .lh-gauge--pwa__na-line {
-      display: inline;
-    }
-    /* Just optimized. Same n/a line as no passing groups. */
-    .lh-gauge--pwa__wrapper.lh-badged--pwa-optimized:not(.lh-badged--pwa-installable) .lh-gauge--pwa__na-line {
-      display: inline;
-    }
+      /* No passing groups. */
+      .lh-gauge--pwa__wrapper:not([class*='lh-badged--']) .lh-gauge--pwa__na-line {
+        display: inline;
+      }
+      /* Just optimized. Same n/a line as no passing groups. */
+      .lh-gauge--pwa__wrapper.lh-badged--pwa-optimized:not(.lh-badged--pwa-installable) .lh-gauge--pwa__na-line {
+        display: inline;
+      }
 
-    /* Just installable. */
-    .lh-gauge--pwa__wrapper.lh-badged--pwa-installable .lh-gauge--pwa__installable-badge {
-      display: inline;
-    }
+      /* Just installable. */
+      .lh-gauge--pwa__wrapper.lh-badged--pwa-installable .lh-gauge--pwa__installable-badge {
+        display: inline;
+      }
 
-    /* All passing groups. */
-    .lh-gauge--pwa__wrapper.lh-badged--all .lh-gauge--pwa__check-circle {
-      display: inline;
-    }
-  `}</style>
+      /* All passing groups. */
+      .lh-gauge--pwa__wrapper.lh-badged--all .lh-gauge--pwa__check-circle {
+        display: inline;
+      }
+    `}</style>
 
     <a class="lh-gauge__wrapper lh-gauge--pwa__wrapper">
       <svg viewBox="0 0 60 60" class="lh-gauge lh-gauge--pwa">
@@ -613,7 +613,7 @@ const GaugePwa: FunctionComponent = () => {
 
 const Crc: FunctionComponent = () => {
   return <div class="lh-crc-container">
-    <style>{`
+    <style jsx>{`
       .lh-crc .lh-tree-marker {
         width: 12px;
         height: 26px;
@@ -683,20 +683,20 @@ const CrcChain: FunctionComponent = () => {
 
 const ThirdPartyFilter: FunctionComponent = () => {
   return <>
-    <style>{`
-    .lh-3p-filter {
-      color: var(--color-gray-600);
-      float: right;
-      padding: 6px var(--stackpack-padding-horizontal);
-    }
-    .lh-3p-filter-label, .lh-3p-filter-input {
-      vertical-align: middle;
-      user-select: none;
-    }
-    .lh-3p-filter-input:disabled + .lh-3p-ui-string {
-      text-decoration: line-through;
-    }
-  `}</style>
+    <style jsx>{`
+      .lh-3p-filter {
+        color: var(--color-gray-600);
+        float: right;
+        padding: 6px var(--stackpack-padding-horizontal);
+      }
+      .lh-3p-filter-label, .lh-3p-filter-input {
+        vertical-align: middle;
+        user-select: none;
+      }
+      .lh-3p-filter-input:disabled + .lh-3p-ui-string {
+        text-decoration: line-through;
+      }
+    `}</style>
     <div class="lh-3p-filter">
       <label class="lh-3p-filter-label">
         <input type="checkbox" class="lh-3p-filter-input" checked />
@@ -708,114 +708,114 @@ const ThirdPartyFilter: FunctionComponent = () => {
 
 const Snippet: FunctionComponent = () => {
   return <div class="lh-snippet">
-    <style>{`
-        :root {
-          --snippet-highlight-light: #fbf1f2;
-          --snippet-highlight-dark: #ffd6d8;
-        }
+    <style jsx>{`
+      :root {
+        --snippet-highlight-light: #fbf1f2;
+        --snippet-highlight-dark: #ffd6d8;
+      }
 
-        .lh-snippet__header {
-          position: relative;
-          overflow: hidden;
-          padding: 10px;
-          border-bottom: none;
-          color: var(--snippet-color);
-          background-color: var(--snippet-background-color);
-          border: 1px solid var(--report-border-color-secondary);
-        }
-        .lh-snippet__title {
-          font-weight: bold;
-          float: left;
-        }
-        .lh-snippet__node {
-          float: left;
-          margin-left: 4px;
-        }
-        .lh-snippet__toggle-expand {
-          padding: 1px 7px;
-          margin-top: -1px;
-          margin-right: -7px;
-          float: right;
-          background: transparent;
-          border: none;
-          cursor: pointer;
-          font-size: 14px;
-          color: #0c50c7;
-        }
+      .lh-snippet__header {
+        position: relative;
+        overflow: hidden;
+        padding: 10px;
+        border-bottom: none;
+        color: var(--snippet-color);
+        background-color: var(--snippet-background-color);
+        border: 1px solid var(--report-border-color-secondary);
+      }
+      .lh-snippet__title {
+        font-weight: bold;
+        float: left;
+      }
+      .lh-snippet__node {
+        float: left;
+        margin-left: 4px;
+      }
+      .lh-snippet__toggle-expand {
+        padding: 1px 7px;
+        margin-top: -1px;
+        margin-right: -7px;
+        float: right;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        color: #0c50c7;
+      }
 
-        .lh-snippet__snippet {
-          overflow: auto;
-          border: 1px solid var(--report-border-color-secondary);
-        }
-        /* Container needed so that all children grow to the width of the scroll container */
-        .lh-snippet__snippet-inner {
-          display: inline-block;
-          min-width: 100%;
-        }
+      .lh-snippet__snippet {
+        overflow: auto;
+        border: 1px solid var(--report-border-color-secondary);
+      }
+      /* Container needed so that all children grow to the width of the scroll container */
+      .lh-snippet__snippet-inner {
+        display: inline-block;
+        min-width: 100%;
+      }
 
-        .lh-snippet:not(.lh-snippet--expanded) .lh-snippet__show-if-expanded {
-          display: none;
-        }
-        .lh-snippet.lh-snippet--expanded .lh-snippet__show-if-collapsed {
-          display: none;
-        }
+      .lh-snippet:not(.lh-snippet--expanded) .lh-snippet__show-if-expanded {
+        display: none;
+      }
+      .lh-snippet.lh-snippet--expanded .lh-snippet__show-if-collapsed {
+        display: none;
+      }
 
-        .lh-snippet__line {
-          background: white;
-          white-space: pre;
-          display: flex;
-        }
-        .lh-snippet__line:not(.lh-snippet__line--message):first-child {
-          padding-top: 4px;
-        }
-        .lh-snippet__line:not(.lh-snippet__line--message):last-child {
-          padding-bottom: 4px;
-        }
-        .lh-snippet__line--content-highlighted {
-          background: var(--snippet-highlight-dark);
-        }
-        .lh-snippet__line--message {
-          background: var(--snippet-highlight-light);
-        }
-        .lh-snippet__line--message .lh-snippet__line-number {
-          padding-top: 10px;
-          padding-bottom: 10px;
-        }
-        .lh-snippet__line--message code {
-          padding: 10px;
-          padding-left: 5px;
-          color: var(--color-fail);
-          font-family: var(--report-font-family);
-        }
-        .lh-snippet__line--message code {
-          white-space: normal;
-        }
-        .lh-snippet__line-icon {
-          padding-top: 10px;
-          display: none;
-        }
-        .lh-snippet__line--message .lh-snippet__line-icon {
-          display: block;
-        }
-        .lh-snippet__line-icon:before {
-          content: "";
-          display: inline-block;
-          vertical-align: middle;
-          margin-right: 4px;
-          width: var(--score-icon-size);
-          height: var(--score-icon-size);
-          background-image: var(--fail-icon-url);
-        }
-        .lh-snippet__line-number {
-          flex-shrink: 0;
-          width: 40px;
-          text-align: right;
-          font-family: monospace;
-          padding-right: 5px;
-          margin-right: 5px;
-          color: var(--color-gray-600);
-          user-select: none;
-        }
+      .lh-snippet__line {
+        background: white;
+        white-space: pre;
+        display: flex;
+      }
+      .lh-snippet__line:not(.lh-snippet__line--message):first-child {
+        padding-top: 4px;
+      }
+      .lh-snippet__line:not(.lh-snippet__line--message):last-child {
+        padding-bottom: 4px;
+      }
+      .lh-snippet__line--content-highlighted {
+        background: var(--snippet-highlight-dark);
+      }
+      .lh-snippet__line--message {
+        background: var(--snippet-highlight-light);
+      }
+      .lh-snippet__line--message .lh-snippet__line-number {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .lh-snippet__line--message code {
+        padding: 10px;
+        padding-left: 5px;
+        color: var(--color-fail);
+        font-family: var(--report-font-family);
+      }
+      .lh-snippet__line--message code {
+        white-space: normal;
+      }
+      .lh-snippet__line-icon {
+        padding-top: 10px;
+        display: none;
+      }
+      .lh-snippet__line--message .lh-snippet__line-icon {
+        display: block;
+      }
+      .lh-snippet__line-icon:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 4px;
+        width: var(--score-icon-size);
+        height: var(--score-icon-size);
+        background-image: var(--fail-icon-url);
+      }
+      .lh-snippet__line-number {
+        flex-shrink: 0;
+        width: 40px;
+        text-align: right;
+        font-family: monospace;
+        padding-right: 5px;
+        margin-right: 5px;
+        color: var(--color-gray-600);
+        user-select: none;
+      }
     `}</style>
   </div>;
 };
