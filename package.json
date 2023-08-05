@@ -13,7 +13,8 @@
     "node": ">=18.16"
   },
   "scripts": {
-    "build-devtools": "mkdir -p dist && node ./build/build-bundle.js clients/devtools/devtools-entry.js dist/lighthouse-dt-bundle.js"
+    "reset-link": "(yarn unlink || true) && yarn link && yarn link lighthouse",
+    "build-devtools": "yarn reset-link && mkdir -p dist && node ./build/build-bundle.js clients/devtools/devtools-entry.js dist/lighthouse-dt-bundle.js"
   },
   "devDependencies": {
     "@build-tracker/cli": "^1.0.0-beta.15",
