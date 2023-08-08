@@ -22,7 +22,7 @@
 /** @template {string} T @typedef {import('typed-query-selector/parser').ParseSelector<T, Element>} ParseSelector */
 
 import {Util} from '../../shared/util.js';
-import {createComponent} from './preact-components.js';
+import {createComponent} from './preact-components';
 
 export class DOM {
   /**

@@ -4,6 +4,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
+import fs from 'fs';
+
 import esbuild from 'esbuild';
 import esMain from 'es-main';
 
@@ -38,6 +40,11 @@ function buildFlowStrings() {
   return 'export default ' + JSON.stringify(strings, null, 2) + ';';
 }
 
+function buildStylesModule() {
+  const styles = fs.readFileSync(`${LH_ROOT}/report/assets/styles.css`, 'utf-8');
+  return `export default ${JSON.stringify(styles)};`;
+}
+
 function buildStandaloneReport() {
   return esbuild.build({
     entryPoints: ['report/clients/standalone.js'],
@@ -45,9 +52,11 @@ function buildStandaloneReport() {
     format: 'iife',
     bundle: true,
     minify: true,
-    loader: {
-      '.css': 'text',
-    },
+    plugins: [
+      plugins.replaceModules({
+        [`${LH_ROOT}/report/assets/styles.js`]: buildStylesModule(),
+      }),
+    ],
   });
 }
 
@@ -64,12 +73,10 @@ async function buildFlowReport() {
     charset: 'utf8',
     bundle: true,
     minify: true,
-    loader: {
-      '.css': 'text',
-    },
     plugins: [
       plugins.replaceModules({
         [`${LH_ROOT}/flow-report/src/i18n/localized-strings.js`]: buildFlowStrings(),
+        [`${LH_ROOT}/report/assets/styles.js`]: buildStylesModule(),
         [`${LH_ROOT}/shared/localization/locales.js`]: 'export const locales = {}',
       }),
       plugins.ignoreBuiltins(),
@@ -124,13 +131,11 @@ export const format = {registerLocaleData, hasLocale};
     format: 'esm',
     bundle: true,
     minify: true,
-    loader: {
-      '.css': 'text',
-    },
     plugins: [
       plugins.replaceModules({
         // Exclude this 30kb from the devtools bundle for now.
         [`${LH_ROOT}/shared/localization/i18n-module.js`]: i18nModuleShim,
+        [`${LH_ROOT}/report/assets/styles.js`]: buildStylesModule(),
       }),
     ],
   });
@@ -143,13 +148,11 @@ async function buildUmdBundle() {
     bundle: true,
     // We do not minify, because this is pulled into google3 and minified there anyhow.
     minify: false,
-    loader: {
-      '.css': 'text',
-    },
     plugins: [
       plugins.umd('report'),
       plugins.replaceModules({
         [`${LH_ROOT}/shared/localization/locales.js`]: 'export const locales = {}',
+        [`${LH_ROOT}/report/assets/styles.js`]: buildStylesModule(),
       }),
       plugins.ignoreBuiltins(),
       buildReportBulkLoader,

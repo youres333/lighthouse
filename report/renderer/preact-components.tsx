@@ -7,7 +7,7 @@
 import {FunctionComponent, render} from 'preact';
 
 import {type DOM, type ComponentName} from './dom.js';
-import styles from '../assets/styles.css';
+import styles from '../assets/styles.js';
 
 /* eslint-disable max-len */
 
