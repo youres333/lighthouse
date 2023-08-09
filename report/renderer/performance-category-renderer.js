@@ -20,6 +20,7 @@
 import {CategoryRenderer} from './category-renderer.js';
 import {ReportUtils} from './report-utils.js';
 import {Globals} from './report-globals.js';
+import {Util} from '../../shared/util.js';
 
 export class PerformanceCategoryRenderer extends CategoryRenderer {
   /**
@@ -239,48 +240,71 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
     }
 
     // Opportunities
-    const opportunityAudits = category.auditRefs
-        .filter(audit => this._classifyPerformanceAudit(audit) === 'load-opportunity')
-        .filter(audit => !ReportUtils.showAsPassed(audit.result))
-        .sort((auditA, auditB) => this._getWastedMs(auditB) - this._getWastedMs(auditA));
+    // const opportunityAudits = category.auditRefs
+    //     .filter(audit => this._classifyPerformanceAudit(audit) === 'load-opportunity')
+    //     .filter(audit => !ReportUtils.showAsPassed(audit.result))
+    //     .sort((auditA, auditB) => this._getWastedMs(auditB) - this._getWastedMs(auditA));
 
-    const filterableMetrics = metricAudits.filter(a => !!a.relevantAudits);
-    // TODO: only add if there are opportunities & diagnostics rendered.
-    if (filterableMetrics.length) {
-      this.renderMetricAuditFilter(filterableMetrics, element);
-    }
+    // const filterableMetrics = metricAudits.filter(a => !!a.relevantAudits);
+    // // TODO: only add if there are opportunities & diagnostics rendered.
+    // if (filterableMetrics.length) {
+    //   this.renderMetricAuditFilter(filterableMetrics, element);
+    // }
 
-    if (opportunityAudits.length) {
-      // Scale the sparklines relative to savings, minimum 2s to not overstate small savings
-      const minimumScale = 2000;
-      const wastedMsValues = opportunityAudits.map(audit => this._getWastedMs(audit));
-      const maxWaste = Math.max(...wastedMsValues);
-      const scale = Math.max(Math.ceil(maxWaste / 1000) * 1000, minimumScale);
-      const [groupEl, footerEl] = this.renderAuditGroup(groups['load-opportunities']);
-      const tmpl = this.dom.createComponent('opportunityHeader');
+    // if (opportunityAudits.length) {
+    //   // Scale the sparklines relative to savings, minimum 2s to not overstate small savings
+    //   const minimumScale = 2000;
+    //   const wastedMsValues = opportunityAudits.map(audit => this._getWastedMs(audit));
+    //   const maxWaste = Math.max(...wastedMsValues);
+    //   const scale = Math.max(Math.ceil(maxWaste / 1000) * 1000, minimumScale);
+    //   const [groupEl, footerEl] = this.renderAuditGroup(groups['load-opportunities']);
+    //   const tmpl = this.dom.createComponent('opportunityHeader');
 
-      this.dom.find('.lh-load-opportunity__col--one', tmpl).textContent =
-        strings.opportunityResourceColumnLabel;
-      this.dom.find('.lh-load-opportunity__col--two', tmpl).textContent =
-        strings.opportunitySavingsColumnLabel;
+    //   this.dom.find('.lh-load-opportunity__col--one', tmpl).textContent =
+    //     strings.opportunityResourceColumnLabel;
+    //   this.dom.find('.lh-load-opportunity__col--two', tmpl).textContent =
+    //     strings.opportunitySavingsColumnLabel;
 
-      const headerEl = this.dom.find('.lh-load-opportunity__header', tmpl);
-      groupEl.insertBefore(headerEl, footerEl);
-      opportunityAudits.forEach(item =>
-        groupEl.insertBefore(this._renderOpportunity(item, scale), footerEl));
-      groupEl.classList.add('lh-audit-group--load-opportunities');
-      element.append(groupEl);
-    }
+    //   const headerEl = this.dom.find('.lh-load-opportunity__header', tmpl);
+    //   groupEl.insertBefore(headerEl, footerEl);
+    //   opportunityAudits.forEach(item =>
+    //     groupEl.insertBefore(this._renderOpportunity(item, scale), footerEl));
+    //   groupEl.classList.add('lh-audit-group--load-opportunities');
+    //   element.append(groupEl);
+    // }
 
     // Diagnostics
     const diagnosticAudits = category.auditRefs
-        .filter(audit => this._classifyPerformanceAudit(audit) === 'diagnostic')
+        // eslint-disable-next-line max-len
+        .filter(audit => this._classifyPerformanceAudit(audit))
         .filter(audit => !ReportUtils.showAsPassed(audit.result))
         .sort((a, b) => {
           const scoreA = a.result.scoreDisplayMode === 'informative' ? 100 : Number(a.result.score);
           const scoreB = b.result.scoreDisplayMode === 'informative' ? 100 : Number(b.result.score);
           return scoreA - scoreB;
         });
+
+    diagnosticAudits.forEach(a => {
+      const lcpAudit = metricAudits.find(a => a.acronym === 'LCP');
+      if (!lcpAudit) return;
+      if (lcpAudit.result.score === null) return;
+
+      const lcpValue = lcpAudit.result.numericValue;
+      if (lcpValue === undefined) return;
+
+      const scoringOptions = lcpAudit.result.scoringOptions;
+      if (!scoringOptions) return;
+
+      const lcpSavings = a.result.metricSavings?.LCP;
+      if (lcpSavings === undefined) return;
+
+
+      const newLcpScore = Util.computeLogNormalScore(scoringOptions, lcpValue - lcpSavings);
+      console.log(a.id, 'New:', newLcpScore, 'Old:', lcpAudit.result.score);
+
+      const weightedImpact = (newLcpScore - lcpAudit.result.score) * lcpAudit.weight;
+      console.log('Weighted LCP impact', weightedImpact);
+    });
 
     if (diagnosticAudits.length) {
       const [groupEl, footerEl] = this.renderAuditGroup(groups['diagnostics']);
