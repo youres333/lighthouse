@@ -131,6 +131,9 @@ const rawArgv = y
       // test contamination by chance of mocha splitting up the work in a way that hides it.
       default: Boolean(process.env.CI),
     },
+    'forbidOnly': {
+      type: 'boolean',
+    },
     'bail': {
       alias: 'b',
       type: 'boolean',
@@ -258,6 +261,7 @@ function exit({numberFailures, numberMochaInvocations}) {
  * @property {RegExp | string | undefined} grep
  * @property {boolean} bail
  * @property {boolean} parallel
+ * @property {boolean} forbidOnly
  * @property {string | undefined} require
  */
 
@@ -281,6 +285,7 @@ async function runMocha(tests, mochaArgs, invocationNumber) {
       // TODO: not working
       // parallel: tests.length > 1 && mochaArgs.parallel,
       parallel: false,
+      forbidOnly: mochaArgs.forbidOnly,
     });
 
     // @ts-expect-error - not in types.
@@ -324,6 +329,7 @@ async function main() {
     grep,
     bail: argv.bail,
     parallel: argv.parallel,
+    forbidOnly: argv.forbidOnly,
     require: argv.require,
   };
 
