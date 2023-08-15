@@ -133,6 +133,7 @@ const rawArgv = y
     },
     'forbidOnly': {
       type: 'boolean',
+      default: false,
     },
     'bail': {
       alias: 'b',
