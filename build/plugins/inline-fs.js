@@ -4,7 +4,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import {strict as assert} from 'assert';
+import assert from 'assert/strict';
 import fs from 'fs';
 import path from 'path';
 
@@ -98,6 +98,11 @@ async function inlineFs(code, filepath) {
             parsed.callee.property);
       }
     } catch (err) {
+      // Consider missing files to be a fatal error.
+      if (err.code === 'ENOENT') {
+        throw err;
+      }
+
       // Use the specific node with the error if available; fallback to fs.method location.
       const offsets = getNodeOffsets(err.node || parsed);
       const location = acorn.getLineInfo(code, offsets.start);
@@ -131,7 +136,6 @@ async function inlineFs(code, filepath) {
  */
 function parseExpressionAt(input, offset, options) {
   const parser = new acorn.Parser(options, input, offset);
-  // @ts-expect-error - Not part of the current acorn types.
   parser.nextToken();
   // @ts-expect-error - Not part of the current acorn types.
   return parser.parseMaybeAssign();
@@ -277,7 +281,7 @@ function collapseToStringLiteral(node, filepath) {
     }
 
     case 'Identifier': {
-      if (node.name === '__dirname') {
+      if (node.name === '__dirname' || node.name === 'moduleDir') {
         return path.dirname(filepath);
       } else if (node.name === '__filename') {
         return filepath;

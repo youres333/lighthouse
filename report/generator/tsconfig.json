@@ -8,6 +8,7 @@
   },
   "references": [
     {"path": "../../types/lhr/"},
+    {"path": "../../shared/"},
   ],
   "include": [
     "**/*.js",

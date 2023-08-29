@@ -7,9 +7,9 @@
 import jsdom from 'jsdom';
 
 import {ElementScreenshotRenderer} from '../../renderer/element-screenshot-renderer.js';
-import {Util} from '../../renderer/util.js';
-import {I18n} from '../../renderer/i18n.js';
+import {I18nFormatter} from '../../renderer/i18n-formatter.js';
 import {DOM} from '../../renderer/dom.js';
+import {Globals} from '../../renderer/report-globals.js';
 
 /**
  * @param {{left: number, top: number, width: number, height:number}} opts
@@ -26,15 +26,20 @@ function makeRect(opts) {
 describe('ElementScreenshotRenderer', () => {
   let dom;
 
-  beforeAll(() => {
-    Util.i18n = new I18n('en', {...Util.UIStrings});
+  before(() => {
+    Globals.apply({
+      providedStrings: {},
+      i18n: new I18nFormatter('en'),
+      reportJson: null,
+    });
 
     const {document} = new jsdom.JSDOM().window;
     dom = new DOM(document);
+    Globals.resetUniqueSuffix();
   });
 
-  afterAll(() => {
-    Util.i18n = undefined;
+  after(() => {
+    Globals.i18n = undefined;
   });
 
   it('renders screenshot', () => {

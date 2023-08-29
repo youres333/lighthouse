@@ -20,7 +20,7 @@
 /** @typedef {HTMLElementTagNameMap & {[id: string]: HTMLElement}} HTMLElementByTagName */
 /** @template {string} T @typedef {import('typed-query-selector/parser').ParseSelector<T, Element>} ParseSelector */
 
-import {Util} from './util.js';
+import {Util} from '../../shared/util.js';
 import {createComponent} from './components.js';
 
 export class DOM {
@@ -127,9 +127,10 @@ export class DOM {
 
   /**
    * @param {string} text
+   * @param {{alwaysAppendUtmSource?: boolean}} opts
    * @return {Element}
    */
-  convertMarkdownLinkSnippets(text) {
+  convertMarkdownLinkSnippets(text, opts = {}) {
     const element = this.createElement('span');
 
     for (const segment of Util.splitMarkdownLink(text)) {
@@ -146,8 +147,8 @@ export class DOM {
       // Otherwise, append any links found.
       const url = new URL(segment.linkHref);
 
-      const DOCS_ORIGINS = ['https://developers.google.com', 'https://web.dev'];
-      if (DOCS_ORIGINS.includes(url.origin)) {
+      const DOCS_ORIGINS = ['https://developers.google.com', 'https://web.dev', 'https://developer.chrome.com'];
+      if (DOCS_ORIGINS.includes(url.origin) || opts.alwaysAppendUtmSource) {
         url.searchParams.set('utm_source', 'lighthouse');
         url.searchParams.set('utm_medium', this._lighthouseChannel);
       }

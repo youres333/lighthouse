@@ -5,28 +5,28 @@
  */
 
 import fs from 'fs';
-import assert from 'assert';
+import assert from 'assert/strict';
 
-import {jest} from '@jest/globals';
 import puppeteer from 'puppeteer';
+import {expect} from 'expect';
+import {getChromePath} from 'chrome-launcher';
 
-import {server} from '../../lighthouse-cli/test/fixtures/static-server.js';
-import defaultConfig from '../../lighthouse-core/config/default-config.js';
+import {Server} from '../../cli/test/fixtures/static-server.js';
+import defaultConfig from '../../core/config/default-config.js';
 import {LH_ROOT} from '../../root.js';
 import {getCanonicalLocales} from '../../shared/localization/format.js';
+import {getProtoRoundTrip} from '../../core/test/test-utils.js';
+
+const {itIfProtoExists} = getProtoRoundTrip();
 
 const portNumber = 10200;
 const viewerUrl = `http://localhost:${portNumber}/dist/gh-pages/viewer/index.html`;
-const sampleLhr = LH_ROOT + '/lighthouse-core/test/results/sample_v2.json';
+const sampleLhr = LH_ROOT + '/core/test/results/sample_v2.json';
 // eslint-disable-next-line max-len
-const sampleFlowResult = LH_ROOT + '/lighthouse-core/test/fixtures/fraggle-rock/reports/sample-flow-result.json';
+const sampleFlowResult = LH_ROOT + '/core/test/fixtures/user-flows/reports/sample-flow-result.json';
 
 const lighthouseCategories = Object.keys(defaultConfig.categories);
 const getAuditsOfCategory = category => defaultConfig.categories[category].auditRefs;
-
-// These tests run in Chromium and have their own timeouts.
-// Make sure we get the more helpful test-specific timeout error instead of jest's generic one.
-jest.setTimeout(35_000);
 
 // TODO: should be combined in some way with clients/test/extension/extension-test.js
 describe('Lighthouse Viewer', () => {
@@ -37,7 +37,7 @@ describe('Lighthouse Viewer', () => {
   let browser;
   /** @type {import('puppeteer').Page} */
   let viewerPage;
-  const pageErrors = [];
+  let pageErrors = [];
 
   const selectors = {
     audits: '.lh-audit, .lh-metric',
@@ -60,30 +60,46 @@ describe('Lighthouse Viewer', () => {
       });
   }
 
-  beforeAll(async () => {
+  let server;
+  before(async () => {
+    server = new Server(portNumber);
     await server.listen(portNumber, 'localhost');
 
     // start puppeteer
     browser = await puppeteer.launch({
       headless: true,
+      executablePath: getChromePath(),
     });
     viewerPage = await browser.newPage();
     viewerPage.on('pageerror', pageError => pageErrors.push(pageError));
   });
 
-  afterAll(async function() {
-    // Log any page load errors encountered in case before() failed.
-    // eslint-disable-next-line no-console
-    if (pageErrors.length > 0) console.error(pageErrors);
-
+  after(async function() {
     await Promise.all([
       server.close(),
       browser && browser.close(),
     ]);
   });
 
+  beforeEach(async function() {
+    pageErrors = [];
+  });
+
+  async function ensureNoErrors() {
+    await viewerPage.evaluate(() => new Promise(window.requestAnimationFrame));
+    const theErrors = pageErrors;
+    pageErrors = [];
+    expect(theErrors).toHaveLength(0);
+  }
+
+  afterEach(async function() {
+    // Tests should call this themselves so the failure is associated with them in the test report,
+    // but just in case one is missed it won't hurt to repeat the check here.
+    await ensureNoErrors();
+  });
+
   describe('Renders the flow report', () => {
-    beforeAll(async () => {
+    before(async () => {
       await viewerPage.goto(viewerUrl, {waitUntil: 'networkidle2', timeout: 30000});
       const fileInput = await viewerPage.$('#hidden-file-input');
       await fileInput.uploadFile(sampleFlowResult);
@@ -91,7 +107,7 @@ describe('Lighthouse Viewer', () => {
     });
 
     it('should load with no errors', async () => {
-      assert.deepStrictEqual(pageErrors, []);
+      await ensureNoErrors();
     });
 
     it('renders the summary page', async () => {
@@ -103,12 +119,12 @@ describe('Lighthouse Viewer', () => {
       );
       assert.equal(scores.length, 14);
 
-      assert.deepStrictEqual(pageErrors, []);
+      await ensureNoErrors();
     });
   });
 
   describe('Renders the report', () => {
-    beforeAll(async function() {
+    before(async () => {
       await viewerPage.goto(viewerUrl, {waitUntil: 'networkidle2', timeout: 30000});
       const fileInput = await viewerPage.$('#hidden-file-input');
       await fileInput.uploadFile(sampleLhr);
@@ -116,7 +132,7 @@ describe('Lighthouse Viewer', () => {
     });
 
     it('should load with no errors', async () => {
-      assert.deepStrictEqual(pageErrors, []);
+      await ensureNoErrors();
     });
 
     it('should contain all categories', async () => {
@@ -129,10 +145,16 @@ describe('Lighthouse Viewer', () => {
     });
 
     it('should contain audits of all categories', async () => {
+      const nonNavigationAudits = [
+        'interaction-to-next-paint',
+        'uses-responsive-images-snapshot',
+        'work-during-interaction',
+      ];
       for (const category of lighthouseCategories) {
         let expected = getAuditsOfCategory(category);
         if (category === 'performance') {
-          expected = getAuditsOfCategory(category).filter(a => a.group !== 'hidden');
+          expected = getAuditsOfCategory(category)
+            .filter(a => a.group !== 'hidden' && !nonNavigationAudits.includes(a.id));
         }
         expected = expected.map(audit => audit.id);
         const elementIds = await getAuditElementsIds({category, selector: selectors.audits});
@@ -170,7 +192,8 @@ describe('Lighthouse Viewer', () => {
     });
 
     it('should support swapping locales', async () => {
-      function queryLocaleState() {
+      async function queryLocaleState() {
+        await viewerPage.waitForSelector('.lh-locale-selector');
         return viewerPage.$$eval('.lh-locale-selector', (elems) => {
           const selectEl = elems[0];
           const optionEls = [...selectEl.querySelectorAll('option')];
@@ -202,9 +225,11 @@ describe('Lighthouse Viewer', () => {
     it('should support saving as html', async () => {
       const tmpDir = `${LH_ROOT}/.tmp/pptr-downloads`;
       fs.rmSync(tmpDir, {force: true, recursive: true});
-      await viewerPage._client.send('Page.setDownloadBehavior', {
+      const session = await viewerPage.target().createCDPSession();
+      await session.send('Browser.setDownloadBehavior', {
         behavior: 'allow',
         downloadPath: tmpDir,
+        eventsEnabled: true,
       });
 
       await viewerPage.click('.lh-tools__button');
@@ -213,19 +238,26 @@ describe('Lighthouse Viewer', () => {
           document.querySelector('.lh-tools__dropdown')).visibility === 'visible';
       });
 
+      // For some reason, clicking this button doesn't always initiate the download after upgrading to Puppeteer 16.
+      // As a workaround, we send another click signal 1s after the first to make sure the download starts.
+      // TODO: Find a more robust fix for this issue.
+      const timeoutHandle = setTimeout(() => viewerPage.click('a[data-action="save-html"]'), 1000);
+
       const [, filename] = await Promise.all([
         viewerPage.click('a[data-action="save-html"]'),
         new Promise(resolve => {
-          viewerPage._client.on('Page.downloadWillBegin', ({suggestedFilename}) => {
+          session.on('Browser.downloadWillBegin', ({suggestedFilename}) => {
             resolve(suggestedFilename);
           });
         }),
         new Promise(resolve => {
-          viewerPage._client.on('Page.downloadProgress', ({state}) => {
+          session.on('Browser.downloadProgress', ({state}) => {
             if (state === 'completed') resolve();
           });
         }),
       ]);
+
+      clearTimeout(timeoutHandle);
 
       const savedPage = await browser.newPage();
       const savedPageErrors = [];
@@ -238,7 +270,44 @@ describe('Lighthouse Viewer', () => {
     });
   });
 
+  async function verifyLhrLoadsWithNoErrors(lhrFilePath) {
+    await viewerPage.goto(viewerUrl, {waitUntil: 'networkidle2', timeout: 30000});
+    const fileInput = await viewerPage.$('#hidden-file-input');
+    const waitForAck = viewerPage.evaluate(() =>
+      new Promise(resolve =>
+        document.addEventListener('lh-file-upload-test-ack', resolve, {once: true})));
+    await fileInput.uploadFile(lhrFilePath);
+    await Promise.race([
+      waitForAck,
+      new Promise((resolve, reject) => setTimeout(reject, 5_000)),
+    ]);
+    await ensureNoErrors();
+
+    const content = await viewerPage.$eval('main', el => el.textContent);
+    for (const line of content.split('\n')) {
+      expect(line).not.toContain('undefined');
+    }
+  }
+
+  describe('Renders old reports', () => {
+    [
+      'lhr-3.0.0.json',
+      'lhr-4.3.0.json',
+      'lhr-5.0.0.json',
+      'lhr-6.0.0.json',
+      'lhr-8.5.0.json',
+    ].forEach((testFilename) => {
+      it(`[${testFilename}] should load with no errors`, async () => {
+        await verifyLhrLoadsWithNoErrors(`${LH_ROOT}/report/test-assets/${testFilename}`);
+      });
+    });
+  });
+
   describe('PSI', () => {
+    itIfProtoExists('Renders proto roundtrip report', async () => {
+      await verifyLhrLoadsWithNoErrors(`${LH_ROOT}/.tmp/sample_v2_round_trip.json`);
+    });
+
     /** @type {Partial<puppeteer.ResponseForRequest>} */
     let interceptedRequest;
     /** @type {Partial<puppeteer.ResponseForRequest>} */
@@ -280,12 +349,12 @@ describe('Lighthouse Viewer', () => {
       }
     }
 
-    beforeAll(async () => {
+    before(async () => {
       await viewerPage.setRequestInterception(true);
       viewerPage.on('request', onRequest);
     });
 
-    afterAll(async () => {
+    after(async () => {
       viewerPage.off('request', onRequest);
       await viewerPage.setRequestInterception(false);
     });
@@ -338,7 +407,7 @@ describe('Lighthouse Viewer', () => {
       expect(interceptedUrl.searchParams.getAll('category').sort()).toEqual(defaultCategories);
 
       // No errors.
-      assert.deepStrictEqual(pageErrors, []);
+      await ensureNoErrors();
 
       // All categories.
       const categoryElementIds = await getCategoryElementsIds();
@@ -382,7 +451,7 @@ describe('Lighthouse Viewer', () => {
       });
 
       // No errors.
-      assert.deepStrictEqual(pageErrors, []);
+      await ensureNoErrors();
     });
 
     it('should handle errors from the API', async () => {
@@ -399,6 +468,7 @@ describe('Lighthouse Viewer', () => {
       // One error.
       expect(pageErrors).toHaveLength(1);
       expect(pageErrors[0].message).toContain('badPsiResponse error');
+      pageErrors = [];
     });
   });
 });

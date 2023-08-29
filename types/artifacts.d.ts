@@ -4,40 +4,34 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import parseManifest = require('../lighthouse-core/lib/manifest-parser.js');
-import LanternSimulator = require('../lighthouse-core/lib/dependency-graph/simulator/simulator.js');
-import LighthouseError = require('../lighthouse-core/lib/lh-error.js');
-import _NetworkRequest = require('../lighthouse-core/lib/network-request.js');
-import speedline = require('speedline-core');
-import TextSourceMap = require('../lighthouse-core/lib/cdt/generated/SourceMap.js');
-import ArbitraryEqualityMap = require('../lighthouse-core/lib/arbitrary-equality-map.js');
+import {Protocol as Crdp} from 'devtools-protocol/types/protocol.js';
 
-type _TaskNode = import('../lighthouse-core/lib/tracehouse/main-thread-tasks.js').TaskNode;
+import {parseManifest} from '../core/lib/manifest-parser.js';
+import {Simulator} from '../core/lib/dependency-graph/simulator/simulator.js';
+import {LighthouseError} from '../core/lib/lh-error.js';
+import {NetworkRequest as _NetworkRequest} from '../core/lib/network-request.js';
+import speedline from 'speedline-core';
+import * as CDTSourceMap from '../core/lib/cdt/generated/SourceMap.js';
+import {ArbitraryEqualityMap} from '../core/lib/arbitrary-equality-map.js';
+import type { TaskNode as _TaskNode } from '../core/lib/tracehouse/main-thread-tasks.js';
+import AuditDetails from './lhr/audit-details.js'
+import Config from './config.js';
+import Gatherer from './gatherer.js';
+import {IEntity} from 'third-party-web';
+import {IcuMessage} from './lhr/i18n.js';
+import LHResult from './lhr/lhr.js'
+import Protocol from './protocol.js';
+import Util from './utility-types.js';
+import Audit from './audit.js';
 
-import AuditDetails from './lhr/audit-details'
-import Config from './config';
-import Gatherer from './gatherer';
-import {IcuMessage} from './lhr/i18n';
-import LHResult from './lhr/lhr'
-import Protocol from './protocol';
-
-export interface Artifacts extends BaseArtifacts, GathererArtifacts {}
-
-export type FRArtifacts = StrictOmit<Artifacts,
-  | 'Fonts'
-  | 'Manifest'
-  | 'MixedContent'
-  | keyof FRBaseArtifacts
->;
+export type Artifacts = BaseArtifacts & GathererArtifacts;
 
 /**
  * Artifacts always created by gathering. These artifacts are available to Lighthouse plugins.
  * NOTE: any breaking changes here are considered breaking Lighthouse changes that must be done
  * on a major version bump.
  */
-export type BaseArtifacts = UniversalBaseArtifacts & ContextualBaseArtifacts & LegacyBaseArtifacts
-
-export type FRBaseArtifacts = UniversalBaseArtifacts & ContextualBaseArtifacts;
+export type BaseArtifacts = UniversalBaseArtifacts & ContextualBaseArtifacts;
 
 /**
  * The set of base artifacts that are available in every mode of Lighthouse operation.
@@ -74,24 +68,6 @@ interface ContextualBaseArtifacts {
 }
 
 /**
- * The set of base artifacts that were replaced by standard gatherers in Fraggle Rock.
- */
-interface LegacyBaseArtifacts {
-  /** The user agent string that Lighthouse used to load the page. Set to the empty string if unknown. */
-  NetworkUserAgent: string;
-  /** Information on detected tech stacks (e.g. JS libraries) used by the page. */
-  Stacks: Artifacts.DetectedStack[];
-  /** Parsed version of the page's Web App Manifest, or null if none found. This moved to a regular artifact in Fraggle Rock. */
-  WebAppManifest: Artifacts.Manifest | null;
-  /** Errors preventing page being installable as PWA. This moved to a regular artifact in Fraggle Rock. */
-  InstallabilityErrors: Artifacts.InstallabilityErrors;
-  /** A set of page-load traces, keyed by passName. */
-  traces: {[passName: string]: Trace};
-  /** A set of DevTools debugger protocol records, keyed by passName. */
-  devtoolsLogs: {[passName: string]: DevtoolsLog};
-}
-
-/**
  * Artifacts provided by the default gatherers that are exposed to plugins with a hardended API.
  * NOTE: any breaking changes here are considered breaking Lighthouse changes that must be done
  * on a major version bump.
@@ -119,17 +95,21 @@ interface PublicGathererArtifacts {
  * Artifacts provided by the default gatherers. Augment this interface when adding additional
  * gatherers. Changes to these artifacts are not considered a breaking Lighthouse change.
  */
-export interface GathererArtifacts extends PublicGathererArtifacts,LegacyBaseArtifacts {
+export interface GathererArtifacts extends PublicGathererArtifacts {
   /** The results of running the aXe accessibility tests on the page. */
   Accessibility: Artifacts.Accessibility;
   /** Array of all anchors on the page. */
   AnchorElements: Artifacts.AnchorElement[];
+  /** Errors when attempting to use the back/forward cache. */
+  BFCacheFailures: Artifacts.BFCacheFailure[];
   /** Array of all URLs cached in CacheStorage. */
   CacheContents: string[];
   /** CSS coverage information for styles used by page's final state. */
-  CSSUsage: {rules: LH.Crdp.CSS.RuleUsage[], stylesheets: Artifacts.CSSStyleSheetInfo[]};
-  /** The primary log of devtools protocol activity. Used in Fraggle Rock gathering. */
+  CSSUsage: {rules: Crdp.CSS.RuleUsage[], stylesheets: Artifacts.CSSStyleSheetInfo[]};
+  /** The primary log of devtools protocol activity. */
   DevtoolsLog: DevtoolsLog;
+  /** The log of devtools protocol activity if there was a page load error and Chrome navigated to a `chrome-error://` page. */
+  DevtoolsLogError: DevtoolsLog;
   /** Information on the document's doctype(or null if not present), specifically the name, publicId, and systemId.
       All properties default to an empty string if not present */
   Doctype: Artifacts.Doctype | null;
@@ -137,29 +117,25 @@ export interface GathererArtifacts extends PublicGathererArtifacts,LegacyBaseArt
   DOMStats: Artifacts.DOMStats;
   /** Relevant attributes and child properties of all <object>s, <embed>s and <applet>s in the page. */
   EmbeddedContent: Artifacts.EmbeddedContentInfo[];
-  /** Information for font faces used in the page. */
-  Fonts: Artifacts.Font[];
   /** Information on poorly sized font usage and the text affected by it. */
   FontSize: Artifacts.FontSize;
   /** All the input elements, including associated form and label elements. */
   Inputs: {inputs: Artifacts.InputElement[]; forms: Artifacts.FormElement[]; labels: Artifacts.LabelElement[]};
   /** Screenshot of the entire page (rather than just the above the fold content). */
-  FullPageScreenshot: Artifacts.FullPageScreenshot | null;
+  FullPageScreenshot: LHResult.FullPageScreenshot | null;
   /** Information about event listeners registered on the global object. */
   GlobalListeners: Array<Artifacts.GlobalListener>;
   /** The issues surfaced in the devtools Issues panel */
   InspectorIssues: Artifacts.InspectorIssues;
+  /** Errors preventing page being installable as PWA. */
+  InstallabilityErrors: Artifacts.InstallabilityErrors;
   /** JS coverage information for code used during audit. Keyed by script id. */
-  // 'url' is excluded because it can be overriden by a magic sourceURL= comment, which makes keeping it a dangerous footgun!
-  JsUsage: Record<string, Omit<LH.Crdp.Profiler.ScriptCoverage, 'url'>>;
-  /** Parsed version of the page's Web App Manifest, or null if none found. */
-  Manifest: Artifacts.Manifest | null;
-  /** The URL loaded with interception */
-  MixedContent: {url: string};
+  // 'url' is excluded because it can be overridden by a magic sourceURL= comment, which makes keeping it a dangerous footgun!
+  JsUsage: Record<string, Omit<Crdp.Profiler.ScriptCoverage, 'url'>>;
+  /** The user agent string that Lighthouse used to load the page. Set to the empty string if unknown. */
+  NetworkUserAgent: string;
   /** Size and compression opportunity information for all the images in the page. */
   OptimizedImages: Array<Artifacts.OptimizedImage | Artifacts.OptimizedImageError>;
-  /** HTML snippets and node paths from any password inputs that prevent pasting. */
-  PasswordInputsWithPreventedPaste: Artifacts.PasswordInputsWithPreventedPaste[];
   /** Size info of all network records sent without compression and their size after gzipping. */
   ResponseCompression: {requestId: string, url: string, mimeType: string, transferSize: number, resourceSize: number, gzipSize?: number}[];
   /** Information on fetching and the content of the /robots.txt file. */
@@ -167,31 +143,40 @@ export interface GathererArtifacts extends PublicGathererArtifacts,LegacyBaseArt
   /** Information on all scripts in the page. */
   Scripts: Artifacts.Script[];
   /** Version information for all ServiceWorkers active after the first page load. */
-  ServiceWorker: {versions: LH.Crdp.ServiceWorker.ServiceWorkerVersion[], registrations: LH.Crdp.ServiceWorker.ServiceWorkerRegistration[]};
+  ServiceWorker: {versions: Crdp.ServiceWorker.ServiceWorkerVersion[], registrations: Crdp.ServiceWorker.ServiceWorkerRegistration[]};
   /** Source maps of scripts executed in the page. */
   SourceMaps: Array<Artifacts.SourceMap>;
+  /** Information on detected tech stacks (e.g. JS libraries) used by the page. */
+  Stacks: Artifacts.DetectedStack[];
   /** Information on <script> and <link> tags blocking first paint. */
   TagsBlockingFirstPaint: Artifacts.TagBlockingFirstPaint[];
   /** Information about tap targets including their position and size. */
   TapTargets: Artifacts.TapTarget[];
-  /** The primary log of devtools protocol activity. Used in Fraggle Rock gathering. */
+  /** The primary trace taken over the entire run. */
   Trace: Trace;
+  /** The trace if there was a page load error and Chrome navigated to a `chrome-error://` page. */
+  TraceError: Trace;
   /** Elements associated with metrics (ie: Largest Contentful Paint element). */
   TraceElements: Artifacts.TraceElement[];
+  /** Parsed version of the page's Web App Manifest, or null if none found. */
+  WebAppManifest: Artifacts.Manifest | null;
+  /** COMPAT: A set of traces, keyed by passName. */
+  traces: {[passName: string]: Trace};
+  /** COMPAT: A set of DevTools debugger protocol records, keyed by passName. */
+  devtoolsLogs: {[passName: string]: DevtoolsLog};
 }
 
 declare module Artifacts {
-  type ComputedContext = Immutable<{
+  type ComputedContext = Util.Immutable<{
     computedCache: Map<string, ArbitraryEqualityMap>;
   }>;
 
   type NetworkRequest = _NetworkRequest;
   type TaskNode = _TaskNode;
+  type TBTImpactTask = TaskNode & {tbtImpact: number, selfTbtImpact: number};
   type MetaElement = Artifacts['MetaElements'][0];
 
   interface URL {
-    /** URL of the main frame before Lighthouse starts. */
-    initialUrl: string;
     /**
      * URL of the initially requested URL during a Lighthouse navigation.
      * Will be `undefined` in timespan/snapshot.
@@ -202,12 +187,8 @@ declare module Artifacts {
      * Will be `undefined` in timespan/snapshot.
      */
     mainDocumentUrl?: string;
-    /**
-     * Will be the same as `mainDocumentUrl` in navigation mode.
-     * Wil be the URL of the main frame after Lighthouse finishes in timespan/snapshot.
-     * TODO: Use the main frame URL in navigation mode as well.
-     */
-    finalUrl: string;
+    /** URL displayed on the page after Lighthouse finishes. */
+    finalDisplayedUrl: string;
   }
 
   interface NodeDetails {
@@ -246,7 +227,7 @@ declare module Artifacts {
   }
 
   interface CSSStyleSheetInfo {
-    header: LH.Crdp.CSS.CSSStyleSheetHeader;
+    header: Crdp.CSS.CSSStyleSheetHeader;
     content: string;
   }
 
@@ -311,11 +292,11 @@ declare module Artifacts {
     /** Where the link was found, either in the DOM or in the headers of the main document */
     source: 'head'|'body'|'headers'
     node: NodeDetails | null
+    /** The fetch priority hint for preload links. */
+    fetchPriority?: string;
   }
 
-  interface PasswordInputsWithPreventedPaste {node: NodeDetails}
-
-  interface Script extends Omit<LH.Crdp.Debugger.ScriptParsedEvent, 'url'|'embedderName'> {
+  interface Script extends Omit<Crdp.Debugger.ScriptParsedEvent, 'url'|'embedderName'> {
     /**
      * Set by a sourceURL= magic comment if present, otherwise this is the same as the URL.
      * Use this field for presentational purposes only.
@@ -390,8 +371,8 @@ declare module Artifacts {
 
   interface Bundle {
     rawMap: RawSourceMap;
-    script: LH.Artifacts.Script;
-    map: TextSourceMap;
+    script: Artifacts.Script;
+    map: CDTSourceMap;
     sizes: {
       // TODO(cjamcl): Rename to `sources`.
       files: Record<string, number>;
@@ -413,21 +394,20 @@ declare module Artifacts {
     target: string
     node: NodeDetails
     onclick: string
+    id: string
     listeners?: Array<{
-      type: LH.Crdp.DOMDebugger.EventListener['type']
+      type: Crdp.DOMDebugger.EventListener['type']
     }>
   }
 
-  interface Font {
-    display: string;
-    family: string;
-    featureSettings: string;
-    stretch: string;
-    style: string;
-    unicodeRange: string;
-    variant: string;
-    weight: string;
-    src?: string[];
+  type BFCacheReasonMap = {
+    [key in Crdp.Page.BackForwardCacheNotRestoredReason]?: string[];
+  };
+
+  type BFCacheNotRestoredReasonsTree = Record<Crdp.Page.BackForwardCacheNotRestoredReasonType, BFCacheReasonMap>;
+
+  interface BFCacheFailure {
+    notRestoredReasonsTree: BFCacheNotRestoredReasonsTree;
   }
 
   interface FontSize {
@@ -453,10 +433,10 @@ declare module Artifacts {
       cssRule?: {
         type: 'Regular' | 'Inline' | 'Attributes';
         range?: {startLine: number, startColumn: number};
-        parentRule?: {origin: LH.Crdp.CSS.StyleSheetOrigin, selectors: {text: string}[]};
+        parentRule?: {origin: Crdp.CSS.StyleSheetOrigin, selectors: {text: string}[]};
         styleSheetId?: string;
-        stylesheet?: LH.Crdp.CSS.CSSStyleSheetHeader;
-        cssProperties?: Array<LH.Crdp.CSS.CSSProperty>;
+        stylesheet?: Crdp.CSS.CSSStyleSheetHeader;
+        cssProperties?: Array<Crdp.CSS.CSSProperty>;
       }
     }>
   }
@@ -465,7 +445,7 @@ declare module Artifacts {
   type Manifest = ReturnType<typeof parseManifest>;
 
   interface InstallabilityErrors {
-    errors: LH.Crdp.Page.InstallabilityError[];
+    errors: Crdp.Page.InstallabilityError[];
   }
 
   interface ImageElement {
@@ -529,6 +509,8 @@ declare module Artifacts {
     node: NodeDetails;
     /** The loading attribute of the image. */
     loading?: string;
+    /** The fetch priority hint for HTMLImageElements. */
+    fetchPriority?: string;
   }
 
   interface OptimizedImage {
@@ -580,6 +562,7 @@ declare module Artifacts {
     node: NodeDetails;
     nodeId?: number;
     animations?: {name?: string, failureReasonsMask?: number, unsupportedProperties?: string[]}[];
+    type?: string;
   }
 
   interface ViewportDimensions {
@@ -591,22 +574,24 @@ declare module Artifacts {
   }
 
   interface InspectorIssues {
-    attributionReportingIssue: LH.Crdp.Audits.AttributionReportingIssueDetails[];
-    blockedByResponseIssue: LH.Crdp.Audits.BlockedByResponseIssueDetails[];
-    clientHintIssue: LH.Crdp.Audits.ClientHintIssueDetails[];
-    contentSecurityPolicyIssue: LH.Crdp.Audits.ContentSecurityPolicyIssueDetails[];
-    corsIssue: LH.Crdp.Audits.CorsIssueDetails[];
-    deprecationIssue: LH.Crdp.Audits.DeprecationIssueDetails[];
-    federatedAuthRequestIssue: LH.Crdp.Audits.FederatedAuthRequestIssueDetails[],
-    genericIssue: LH.Crdp.Audits.GenericIssueDetails[];
-    heavyAdIssue: LH.Crdp.Audits.HeavyAdIssueDetails[];
-    lowTextContrastIssue: LH.Crdp.Audits.LowTextContrastIssueDetails[];
-    mixedContentIssue: LH.Crdp.Audits.MixedContentIssueDetails[];
-    navigatorUserAgentIssue: LH.Crdp.Audits.NavigatorUserAgentIssueDetails[];
-    quirksModeIssue: LH.Crdp.Audits.QuirksModeIssueDetails[];
-    cookieIssue: LH.Crdp.Audits.CookieIssueDetails[];
-    sharedArrayBufferIssue: LH.Crdp.Audits.SharedArrayBufferIssueDetails[];
-    twaQualityEnforcement: LH.Crdp.Audits.TrustedWebActivityIssueDetails[];
+    attributionReportingIssue: Crdp.Audits.AttributionReportingIssueDetails[];
+    blockedByResponseIssue: Crdp.Audits.BlockedByResponseIssueDetails[];
+    bounceTrackingIssue: Crdp.Audits.BounceTrackingIssueDetails[];
+    clientHintIssue: Crdp.Audits.ClientHintIssueDetails[];
+    contentSecurityPolicyIssue: Crdp.Audits.ContentSecurityPolicyIssueDetails[];
+    corsIssue: Crdp.Audits.CorsIssueDetails[];
+    deprecationIssue: Crdp.Audits.DeprecationIssueDetails[];
+    federatedAuthRequestIssue: Crdp.Audits.FederatedAuthRequestIssueDetails[],
+    genericIssue: Crdp.Audits.GenericIssueDetails[];
+    heavyAdIssue: Crdp.Audits.HeavyAdIssueDetails[];
+    lowTextContrastIssue: Crdp.Audits.LowTextContrastIssueDetails[];
+    mixedContentIssue: Crdp.Audits.MixedContentIssueDetails[];
+    navigatorUserAgentIssue: Crdp.Audits.NavigatorUserAgentIssueDetails[];
+    quirksModeIssue: Crdp.Audits.QuirksModeIssueDetails[];
+    cookieIssue: Crdp.Audits.CookieIssueDetails[];
+    sharedArrayBufferIssue: Crdp.Audits.SharedArrayBufferIssueDetails[];
+    stylesheetLoadingIssue: Crdp.Audits.StylesheetLoadingIssueDetails[];
+    federatedAuthUserInfoRequestIssue: Crdp.Audits.FederatedAuthUserInfoRequestIssueDetails[];
   }
 
   // Computed artifact types below.
@@ -641,9 +626,9 @@ declare module Artifacts {
   interface MetricComputationDataInput {
     devtoolsLog: DevtoolsLog;
     trace: Trace;
-    settings: Immutable<Config.Settings>;
+    settings: Audit.Context['settings'];
     gatherContext: Artifacts['GatherContext'];
-    simulator?: InstanceType<typeof LanternSimulator>;
+    simulator?: InstanceType<typeof Simulator>;
     URL: Artifacts['URL'];
   }
 
@@ -703,7 +688,7 @@ declare module Artifacts {
     timestamps: TraceTimes;
     /** The relative times from timeOrigin to key events, in milliseconds. */
     timings: TraceTimes;
-    /** The subset of trace events from the page's process, sorted by timestamp. */
+    /** The subset of trace events from the main frame's process, sorted by timestamp. Due to cross-origin navigations, the main frame may have multiple processes, so events may be from more than one process.  */
     processEvents: Array<TraceEvent>;
     /** The subset of trace events from the page's main thread, sorted by timestamp. */
     mainThreadEvents: Array<TraceEvent>;
@@ -711,12 +696,16 @@ declare module Artifacts {
     frameEvents: Array<TraceEvent>;
     /** The subset of trace events from the main frame and any child frames, sorted by timestamp. */
     frameTreeEvents: Array<TraceEvent>;
-    /** IDs for the trace's main frame, process, and thread. */
-    mainFrameIds: {pid: number, tid: number, frameId: string};
+    /** IDs for the trace's main frame, and process. The startingPid is the initial process id, however cross-origin navigations may incur changes to the pid while the frame ID remains identical. */
+    mainFrameInfo: {startingPid: number, frameId: string};
     /** The list of frames committed in the trace. */
     frames: Array<{id: string, url: string}>;
-    /** The trace event marking the time at which the run should consider to have begun. Typically the same as the navigationStart but might differ due to SPA navigations, client-side redirects, etc. In the FR timespan case, this event is injected by Lighthouse itself. */
+    /** The trace event marking the time at which the run should consider to have begun. Typically the same as the navigationStart but might differ due to SPA navigations, client-side redirects, etc. In the timespan case, this event is injected by Lighthouse itself. */
     timeOriginEvt: TraceEvent;
+    /** All received trace events subsetted to important categories. */
+    _keyEvents: Array<TraceEvent>;
+    /** Map where keys are process IDs and their values are thread IDs */
+    _rendererPidToTid: Map<number, number>;
   }
 
   interface ProcessedNavigation {
@@ -763,16 +752,6 @@ declare module Artifacts {
     npm?: string;
   }
 
-  interface FullPageScreenshot {
-    screenshot: {
-      /** Base64 image data URL. */
-      data: string;
-      width: number;
-      height: number;
-    };
-    nodes: Record<string, Rect>;
-  }
-
   interface TimingSummary {
     firstContentfulPaint: number | undefined;
     firstContentfulPaintTs: number | undefined;
@@ -784,6 +763,10 @@ declare module Artifacts {
     largestContentfulPaintTs: number | undefined;
     largestContentfulPaintAllFrames: number | undefined;
     largestContentfulPaintAllFramesTs: number | undefined;
+    timeToFirstByte: number | undefined;
+    timeToFirstByteTs: number | undefined;
+    lcpLoadStart: number | undefined;
+    lcpLoadEnd: number | undefined;
     interactive: number | undefined;
     interactiveTs: number | undefined;
     speedIndex: number | undefined;
@@ -791,7 +774,6 @@ declare module Artifacts {
     maxPotentialFID: number | undefined;
     cumulativeLayoutShift: number | undefined;
     cumulativeLayoutShiftMainFrame: number | undefined;
-    totalCumulativeLayoutShift: number | undefined;
     totalBlockingTime: number | undefined;
     observedTimeOrigin: number;
     observedTimeOriginTs: number;
@@ -799,7 +781,6 @@ declare module Artifacts {
     observedNavigationStartTs: number | undefined;
     observedCumulativeLayoutShift: number | undefined;
     observedCumulativeLayoutShiftMainFrame: number | undefined;
-    observedTotalCumulativeLayoutShift: number | undefined;
     observedFirstPaint: number | undefined;
     observedFirstPaintTs: number | undefined;
     observedFirstContentfulPaint: number | undefined;
@@ -847,7 +828,8 @@ declare module Artifacts {
       property: string;
       attribute: string | null;
       prediction: string | null;
-    }
+    };
+    preventsPaste?: boolean;
     node: NodeDetails;
   }
 
@@ -884,7 +866,7 @@ declare module Artifacts {
     /** Time of the console log in milliseconds since epoch. */
     timestamp: number;
     /** The stack trace of the log/exception, if known. */
-    stackTrace?: LH.Crdp.Runtime.StackTrace;
+    stackTrace?: Crdp.Runtime.StackTrace;
     /** The URL of the log/exception, if known. */
     url?: string;
     /** The script id of the log/exception, if known. */
@@ -915,8 +897,8 @@ declare module Artifacts {
    * deprecations, violations, and more.
    */
   interface ConsoleProtocolLog extends BaseConsoleMessage {
-    source: LH.Crdp.Log.LogEntry['source'],
-    level: LH.Crdp.Log.LogEntry['level'],
+    source: Crdp.Log.LogEntry['source'],
+    level: Crdp.Log.LogEntry['level'],
     eventType: 'protocolLog';
   }
 
@@ -925,6 +907,25 @@ declare module Artifacts {
   interface ImageElementRecord extends ImageElement {
     /** The MIME type of the underlying image file. */
     mimeType?: string;
+  }
+
+  interface Entity extends IEntity {
+    isUnrecognized?: boolean;
+  }
+
+  interface EntityClassification {
+    urlsByEntity: Map<Entity, Set<string>>;
+    entityByUrl: Map<string, Entity>;
+    firstParty?: Entity;
+
+    // Convenience methods.
+    isFirstParty: (url: string) => boolean;
+  }
+
+  interface TraceImpactedNode {
+    node_id: number;
+    old_rect?: Array<number>;
+    new_rect?: Array<number>;
   }
 }
 
@@ -960,13 +961,21 @@ export interface TraceEvent {
     };
     data?: {
       frame?: string;
+      parent?: string;
+      frameID?: string;
+      frameTreeNodeId?: number;
+      isMainFrame?: boolean;
+      persistentIds?: boolean,
+      processId?: number;
       isLoadingMainFrame?: boolean;
       documentLoaderURL?: string;
+      navigationId?: string;
       frames?: {
         frame: string;
         url: string;
         parent?: string;
         processId?: number;
+        name?: string;
       }[];
       page?: string;
       readyState?: number;
@@ -990,11 +999,9 @@ export interface TraceEvent {
       cumulative_score?: number;
       id?: string;
       nodeId?: number;
-      impacted_nodes?: Array<{
-        node_id: number,
-        old_rect?: Array<number>,
-        new_rect?: Array<number>,
-      }>;
+      DOMNodeId?: number;
+      imageUrl?: string;
+      impacted_nodes?: Artifacts.TraceImpactedNode[];
       score?: number;
       weighted_score_delta?: number;
       had_recent_input?: boolean;
@@ -1005,6 +1012,8 @@ export interface TraceEvent {
       interactionType?: 'drag'|'keyboard'|'tapOrClick';
       maxDuration?: number;
       type?: string;
+      functionName?: string;
+      name?: string;
     };
     frame?: string;
     name?: string;

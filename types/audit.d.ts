@@ -4,21 +4,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import ArbitraryEqualityMap = require('../lighthouse-core/lib/arbitrary-equality-map.js');
-import {Artifacts} from './artifacts';
-import AuditDetails from './lhr/audit-details';
-import Config from './config';
-import Gatherer from './gatherer';
-import {FormattedIcu, IcuMessage} from './lhr/i18n';
-import * as AuditResult from './lhr/audit-result';
+import {ArbitraryEqualityMap} from '../core/lib/arbitrary-equality-map.js';
+import {Artifacts} from './artifacts.js';
+import AuditDetails from './lhr/audit-details.js';
+import Config from './config.js';
+import Gatherer from './gatherer.js';
+import {IcuMessage} from './lhr/i18n.js';
+import * as AuditResult from './lhr/audit-result.js';
+import Util from './utility-types.js';
 
 declare module Audit {
   export import Details = AuditDetails;
   export type Result = AuditResult.Result;
   export type ScoreDisplayMode = AuditResult.ScoreDisplayMode;
   export type ScoreDisplayModes = AuditResult.ScoreDisplayModes;
+  export type MetricSavings = AuditResult.MetricSavings;
 
-  type Context = Immutable<{
+  type Context = Util.Immutable<{
     /** audit options */
     options: Record<string, any>;
     settings: Config.Settings;
@@ -73,6 +75,8 @@ declare module Audit {
     explanation?: string | IcuMessage;
     /** Error message from any exception thrown while running this audit. */
     errorMessage?: string | IcuMessage;
+    /** Error stack from any exception thrown while running this audit. */
+    errorStack?: string;
     warnings?: Array<string | IcuMessage>;
     /** Overrides scoreDisplayMode with notApplicable if set to true */
     notApplicable?: boolean;
@@ -80,6 +84,8 @@ declare module Audit {
     details?: AuditDetails;
     /** If an audit encounters unusual execution circumstances, strings can be put in this optional array to add top-level warnings to the LHR. */
     runWarnings?: Array<IcuMessage>;
+    /** [EXPERIMENTAL] Estimates of how much this audit affects various performance metrics. Values will be in the unit of the respective metrics. */
+    metricSavings?: MetricSavings;
   }
 
   /** The Audit.Product type for audits that do not return a `numericValue`. */

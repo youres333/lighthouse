@@ -4,27 +4,31 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import {strict as assert} from 'assert';
+import assert from 'assert/strict';
 
 import jsdom from 'jsdom';
 
-import {Util} from '../../renderer/util.js';
-import {I18n} from '../../renderer/i18n.js';
-import URL from '../../../lighthouse-core/lib/url-shim.js';
+import {ReportUtils} from '../../renderer/report-utils.js';
+import {I18nFormatter} from '../../renderer/i18n-formatter.js';
 import {DOM} from '../../renderer/dom.js';
 import {DetailsRenderer} from '../../renderer/details-renderer.js';
 import {PerformanceCategoryRenderer} from '../../renderer/performance-category-renderer.js';
-import {readJson} from '../../../root.js';
+import {readJson} from '../../../core/test/test-utils.js';
+import {Globals} from '../../renderer/report-globals.js';
 
-const sampleResultsOrig = readJson('../../../lighthouse-core/test/results/sample_v2.json', import.meta);
+const sampleResultsOrig = readJson('../../../core/test/results/sample_v2.json', import.meta);
 
 describe('PerfCategoryRenderer', () => {
   let category;
   let renderer;
   let sampleResults;
 
-  beforeAll(() => {
-    Util.i18n = new I18n('en', {...Util.UIStrings});
+  before(() => {
+    Globals.apply({
+      providedStrings: {},
+      i18n: new I18nFormatter('en'),
+      reportJson: null,
+    });
 
     const {document} = new jsdom.JSDOM().window;
     const dom = new DOM(document);
@@ -32,12 +36,12 @@ describe('PerfCategoryRenderer', () => {
     renderer = new PerformanceCategoryRenderer(dom, detailsRenderer);
 
     // TODO: don't call a LH.ReportResult `sampleResults`, which is typically always LH.Result
-    sampleResults = Util.prepareReportResult(sampleResultsOrig);
+    sampleResults = ReportUtils.prepareReportResult(sampleResultsOrig);
     category = sampleResults.categories.performance;
   });
 
-  afterAll(() => {
-    Util.i18n = undefined;
+  after(() => {
+    Globals.i18n = undefined;
   });
 
   it('renders the category header', () => {
@@ -70,11 +74,10 @@ describe('PerfCategoryRenderer', () => {
       Array.from(timelineElements).map(el => el.id),
       [
         'first-contentful-paint',
-        'interactive',
-        'speed-index',
-        'total-blocking-time',
         'largest-contentful-paint',
+        'total-blocking-time',
         'cumulative-layout-shift',
+        'speed-index',
       ]
     );
   });
@@ -120,7 +123,7 @@ describe('PerfCategoryRenderer', () => {
     const disclamerLink = disclaimerEl.querySelector('a');
     assert.ok(disclamerLink, 'disclaimer contains coverted markdown link');
     const disclamerUrl = new URL(disclamerLink.href);
-    assert.strictEqual(disclamerUrl.hostname, 'web.dev');
+    assert.strictEqual(disclamerUrl.hostname, 'developer.chrome.com');
     const calcLink = disclaimerEl.querySelector('a.lh-calclink');
     assert.ok(calcLink, 'disclaimer contains scorecalc link');
     assert.strictEqual(new URL(calcLink.href).hostname, 'googlechrome.github.io');
@@ -147,17 +150,40 @@ describe('PerfCategoryRenderer', () => {
     expect(matchingElements).toHaveLength(0);
   });
 
+  it('renders an audit as an opportunity if overallSavingMs is present', () => {
+    // Make a non-opportunity into an opportunity.
+    const cloneCategory = JSON.parse(JSON.stringify(category));
+    const crcAudit = cloneCategory.auditRefs.find(a => a.id === 'critical-request-chains');
+    expect(crcAudit.result.details.overallSavingsMs).toBe(undefined);
+    crcAudit.result.details.overallSavingsMs = 5555;
+    crcAudit.result.details.score = 0.5;
+
+    const categoryDOM = renderer.render(cloneCategory, sampleResults.categoryGroups);
+
+    const crcElem = categoryDOM.querySelector('.lh-audit-group--load-opportunities #critical-request-chains.lh-audit--load-opportunity'); // eslint-disable-line max-len
+
+    const crcSparklineBarElem = crcElem.querySelector('.lh-sparkline__bar');
+    expect(crcSparklineBarElem).toBeTruthy();
+
+    const crcWastedElem = crcElem.querySelector('.lh-audit__display-text');
+    expect(crcWastedElem.textContent).toBe('5.56s');
+    expect(crcWastedElem.title).toMatch(/\d+ chains found/);
+
+    const crcDetailsElem = crcElem.querySelector('.lh-crc-container.lh-details');
+    expect(crcDetailsElem.textContent).toMatch('Maximum critical path latency');
+  });
+
   it('renders the failing performance opportunities', () => {
     const categoryDOM = renderer.render(category, sampleResults.categoryGroups);
 
     const oppAudits = category.auditRefs.filter(audit =>
       audit.result.details &&
-      audit.result.details.type === 'opportunity' &&
-      !Util.showAsPassed(audit.result));
+      audit.result.details.overallSavingsMs !== undefined &&
+      !ReportUtils.showAsPassed(audit.result));
     const oppElements = [...categoryDOM.querySelectorAll('.lh-audit--load-opportunity')];
     expect(oppElements.map(e => e.id).sort()).toEqual(oppAudits.map(a => a.id).sort());
     expect(oppElements.length).toBeGreaterThan(0);
-    expect(oppElements.length).toMatchInlineSnapshot('7');
+    expect(oppElements.length).toMatchInlineSnapshot('6');
 
     const oppElement = oppElements[0];
     const oppSparklineBarElement = oppElement.querySelector('.lh-sparkline__bar');
@@ -221,8 +247,8 @@ describe('PerfCategoryRenderer', () => {
 
     const diagnosticAuditIds = category.auditRefs.filter(audit => {
       return !audit.group &&
-        !(audit.result.details && audit.result.details.type === 'opportunity') &&
-        !Util.showAsPassed(audit.result);
+        !(audit.result.details?.overallSavingsMs !== undefined) &&
+        !ReportUtils.showAsPassed(audit.result);
     }).map(audit => audit.id).sort();
     assert.ok(diagnosticAuditIds.length > 0);
 
@@ -237,7 +263,7 @@ describe('PerfCategoryRenderer', () => {
 
     const passedAudits = category.auditRefs.filter(audit =>
       !audit.group &&
-      Util.showAsPassed(audit.result));
+      ReportUtils.showAsPassed(audit.result));
     const passedElements = passedSection.querySelectorAll('.lh-audit');
     assert.equal(passedElements.length, passedAudits.length);
   });
@@ -323,18 +349,18 @@ describe('PerfCategoryRenderer', () => {
       expect(url.hash.split('&')).toMatchInlineSnapshot(`
 Array [
   "#FCP=6844",
-  "TTI=8191",
-  "SI=8114",
+  "LCP=13320",
   "TBT=1221",
-  "LCP=6844",
   "CLS=0",
+  "SI=8114",
+  "TTI=8191",
   "FMP=6844",
 ]
 `);
     });
 
     it('also appends device and version number', () => {
-      Util.reportJson = {
+      Globals.reportJson = {
         configSettings: {formFactor: 'mobile'},
         lighthouseVersion: '6.0.0',
       };
@@ -344,18 +370,18 @@ Array [
         expect(url.hash.split('&')).toMatchInlineSnapshot(`
 Array [
   "#FCP=6844",
-  "TTI=8191",
-  "SI=8114",
+  "LCP=13320",
   "TBT=1221",
-  "LCP=6844",
   "CLS=0.14",
+  "SI=8114",
+  "TTI=8191",
   "FMP=6844",
   "device=mobile",
   "version=6.0.0",
 ]
 `);
       } finally {
-        Util.reportJson = null;
+        Globals.reportJson = null;
       }
     });
 
@@ -390,7 +416,7 @@ Array [
     let getDescriptionsAfterCheckedToggle;
 
     describe('works if there is a performance category', () => {
-      beforeAll(() => {
+      before(() => {
         container = renderer.render(category, sampleResults.categoryGroups);
         const metricsAuditGroup = container.querySelector(metricsSelector);
         toggle = metricsAuditGroup.querySelector(toggleSelector);
