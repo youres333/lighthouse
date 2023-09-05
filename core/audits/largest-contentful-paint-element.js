@@ -45,8 +45,9 @@ class LargestContentfulPaintElement extends Audit {
     return {
       id: 'largest-contentful-paint-element',
       title: str_(UIStrings.title),
+      failureTitle: str_(UIStrings.title),
       description: str_(UIStrings.description),
-      scoreDisplayMode: Audit.SCORING_MODES.INFORMATIVE,
+      scoreDisplayMode: Audit.SCORING_MODES.BINARY,
       guidanceLevel: 1,
       supportedModes: ['navigation'],
       requiredArtifacts:
@@ -162,7 +163,7 @@ class LargestContentfulPaintElement extends Audit {
     const lcpSavings = Math.max(0, metricLcp - idealLcp);
 
     return {
-      score: 1,
+      score: lcpSavings > 0 ? 0 : 1,
       displayValue,
       details,
       metricSavings: {

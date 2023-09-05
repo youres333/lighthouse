@@ -582,7 +582,7 @@ const expectations = {
         }}},
       },
       'largest-contentful-paint-element': {
-        score: null,
+        score: 0,
         displayValue: /\d+\xa0ms/,
         details: {
           items: [
