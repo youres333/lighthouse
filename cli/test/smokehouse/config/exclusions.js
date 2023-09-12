@@ -12,6 +12,8 @@ const exclusions = {
   'bundle': [],
   'cli': [],
   'devtools': [
+    // https://github.com/GoogleChrome/lighthouse/issues/15452
+    'fps-scaled',
     // Disabled because normal Chrome usage makes DevTools not function on
     // these poorly constructed pages
     'errors-expired-ssl', 'errors-infinite-loop',
