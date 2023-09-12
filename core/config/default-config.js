@@ -193,11 +193,7 @@ const defaultConfig = {
     'user-timings',
     'critical-request-chains',
     'redirects',
-    // 'installable-manifest',
-    // 'splash-screen',
     'themed-omnibox',
-    // 'maskable-icon',
-    // 'content-width',
     'image-aspect-ratio',
     'image-size-responsive',
     'preload-fonts',
@@ -228,9 +224,6 @@ const defaultConfig = {
     'prioritize-lcp-image',
     'csp-xss',
     'script-treemap-data',
-    // 'manual/pwa-cross-browser',
-    // 'manual/pwa-page-transitions',
-    // 'manual/pwa-each-page-has-url',
     'accessibility/accesskeys',
     'accessibility/aria-allowed-attr',
     'accessibility/aria-allowed-role',
@@ -638,26 +631,6 @@ const defaultConfig = {
         {id: 'structured-data', weight: 0},
       ],
     },
-    // 'pwa': {
-    //   title: str_(UIStrings.pwaCategoryTitle),
-    //   description: str_(UIStrings.pwaCategoryDescription),
-    //   manualDescription: str_(UIStrings.pwaCategoryManualDescription),
-    //   supportedModes: ['navigation'],
-    //   auditRefs: [
-    //     // Installable
-    //     {id: 'installable-manifest', weight: 2, group: 'pwa-installable'},
-    //     // PWA Optimized
-    //     {id: 'splash-screen', weight: 1, group: 'pwa-optimized'},
-    //     {id: 'themed-omnibox', weight: 1, group: 'pwa-optimized'},
-    //     {id: 'content-width', weight: 1, group: 'pwa-optimized'},
-    //     {id: 'viewport', weight: 2, group: 'pwa-optimized'},
-    //     {id: 'maskable-icon', weight: 1, group: 'pwa-optimized'},
-    //     // Manual audits
-    //     {id: 'pwa-cross-browser', weight: 0},
-    //     {id: 'pwa-page-transitions', weight: 0},
-    //     {id: 'pwa-each-page-has-url', weight: 0},
-    //   ],
-    // },
   },
 };
 
