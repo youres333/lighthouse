@@ -579,7 +579,7 @@ function createWarningsToplevelComponent(dom) {
 }
 
 
-/** @typedef {'3pFilter'|'audit'|'categoryHeader'|'chevron'|'clump'|'crc'|'crcChain'|'elementScreenshot'|'footer'|'fraction'|'gauge'|'heading'|'metric'|'opportunity'|'opportunityHeader'|'scorescale'|'scoresWrapper'|'snippet'|'snippetContent'|'snippetHeader'|'snippetLine'|'styles'|'topbar'|'warningsToplevel'} ComponentName */
+/** @typedef {'3pFilter'|'audit'|'categoryHeader'|'chevron'|'clump'|'crc'|'crcChain'|'elementScreenshot'|'footer'|'fraction'|'gauge'| 'gaugePwa' | 'heading'|'metric'|'opportunity'|'opportunityHeader'|'scorescale'|'scoresWrapper'|'snippet'|'snippetContent'|'snippetHeader'|'snippetLine'|'styles'|'topbar'|'warningsToplevel'} ComponentName */
 /**
  * @param {DOM} dom
  * @param {ComponentName} componentName
