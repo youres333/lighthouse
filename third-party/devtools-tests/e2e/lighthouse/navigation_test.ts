@@ -77,7 +77,6 @@ describe('Navigation', async function() {
       'accessibility',
       'best-practices',
       'seo',
-      'pwa',
       'lighthouse-plugin-publisher-ads',
     ]);
 
@@ -122,13 +121,10 @@ describe('Navigation', async function() {
     });
 
     const {auditResults, erroredAudits, failedAudits} = getAuditsBreakdown(lhr, ['max-potential-fid']);
-    assert.strictEqual(auditResults.length, 188);
+    assert.strictEqual(auditResults.length, 181);
     assert.deepStrictEqual(erroredAudits, []);
     assert.deepStrictEqual(failedAudits.map(audit => audit.id), [
-      'installable-manifest',
-      'splash-screen',
       'themed-omnibox',
-      'maskable-icon',
       'document-title',
       'html-has-lang',
       'meta-description',
@@ -207,13 +203,10 @@ describe('Navigation', async function() {
     ];
 
     const {auditResults, erroredAudits, failedAudits} = getAuditsBreakdown(lhr, flakyAudits);
-    assert.strictEqual(auditResults.length, 165);
+    assert.strictEqual(auditResults.length, 158);
     assert.deepStrictEqual(erroredAudits, []);
     assert.deepStrictEqual(failedAudits.map(audit => audit.id), [
-      'installable-manifest',
-      'splash-screen',
       'themed-omnibox',
-      'maskable-icon',
       'document-title',
       'html-has-lang',
       'meta-description',

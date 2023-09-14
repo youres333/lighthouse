@@ -4,8 +4,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import pwaDetailsExpectations from './pwa-expectations-details.js';
-
 /** @type {LH.Config} */
 const config = {
   extends: 'lighthouse:default',
@@ -26,33 +24,8 @@ const expectations = {
       'viewport': {
         score: 1,
       },
-      'installable-manifest': {
-        score: 1,
-        details: {items: [], debugData: {manifestUrl: 'https://caltrainschedule.io/manifest.json'}},
-      },
-      'splash-screen': {
-        score: 1,
-        details: {items: [pwaDetailsExpectations]},
-      },
       'themed-omnibox': {
         score: 0,
-      },
-      'content-width': {
-        score: 1,
-      },
-
-      // "manual" audits. Just verify in the results.
-      'pwa-cross-browser': {
-        score: null,
-        scoreDisplayMode: 'manual',
-      },
-      'pwa-page-transitions': {
-        score: null,
-        scoreDisplayMode: 'manual',
-      },
-      'pwa-each-page-has-url': {
-        score: null,
-        scoreDisplayMode: 'manual',
       },
     },
   },

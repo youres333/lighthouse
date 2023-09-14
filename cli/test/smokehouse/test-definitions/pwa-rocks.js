@@ -30,34 +30,9 @@ const expectations = {
       'viewport': {
         score: 1,
       },
-      'installable-manifest': {
-        score: 1,
-        details: {items: [], debugData: {manifestUrl: 'https://connorjclark.github.io/pwa.rocks/pwa.webmanifest'}},
-      },
-      'splash-screen': {
-        score: 0,
-        details: {items: [pwaRocksExpectations]},
-      },
       'themed-omnibox': {
         score: 0,
         details: {items: [pwaRocksExpectations]},
-      },
-      'content-width': {
-        score: 1,
-      },
-
-      // "manual" audits. Just verify in the results.
-      'pwa-cross-browser': {
-        score: null,
-        scoreDisplayMode: 'manual',
-      },
-      'pwa-page-transitions': {
-        score: null,
-        scoreDisplayMode: 'manual',
-      },
-      'pwa-each-page-has-url': {
-        score: null,
-        scoreDisplayMode: 'manual',
       },
     },
   },

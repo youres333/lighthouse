@@ -17,9 +17,6 @@ const DEFAULT_CATEGORIES = [{
 }, {
   id: 'seo',
   title: 'SEO',
-}, {
-  id: 'pwa',
-  title: 'PWA',
 }];
 
 /** @typedef {{selectedCategories: string[], device: string}} Settings */
