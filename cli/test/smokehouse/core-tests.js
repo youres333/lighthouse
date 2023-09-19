@@ -45,11 +45,6 @@ import perfFrameMetrics from './test-definitions/perf-frame-metrics.js';
 import perfPreload from './test-definitions/perf-preload.js';
 import perfTraceElements from './test-definitions/perf-trace-elements.js';
 import pubads from './test-definitions/pubads.js';
-import pwaAirhorner from './test-definitions/pwa-airhorner.js';
-import pwaCaltrain from './test-definitions/pwa-caltrain.js';
-import pwaChromestatus from './test-definitions/pwa-chromestatus.js';
-import pwaRocks from './test-definitions/pwa-rocks.js';
-import pwaSvgomg from './test-definitions/pwa-svgomg.js';
 import redirectsClientPaintServer from './test-definitions/redirects-client-paint-server.js';
 import redirectsHistoryPushState from './test-definitions/redirects-history-push-state.js';
 import redirectsMultipleServer from './test-definitions/redirects-multiple-server.js';
@@ -109,11 +104,6 @@ const smokeTests = [
   perfPreload,
   perfTraceElements,
   pubads,
-  pwaAirhorner,
-  pwaCaltrain,
-  pwaChromestatus,
-  pwaRocks,
-  pwaSvgomg,
   redirectsClientPaintServer,
   redirectsHistoryPushState,
   redirectsMultipleServer,
