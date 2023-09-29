@@ -79,6 +79,7 @@ function enableLinkConditioner() {
  * @return {Promise<Result>}
  */
 async function runThrottledMobileDevice(url) {
+  execFileSync('adb', 'forward tcp:9222 localabstract:chrome_devtools_remote'.split(' '));
   const disableLinkConditioner = enableLinkConditioner();
   try {
     return await runLighthouse(url, [
@@ -97,7 +98,6 @@ async function runThrottledMobileDevice(url) {
  * @return {Promise<Result>}
  */
 async function runUnthrottledLocalDevice(url) {
-  execFileSync('adb', 'forward tcp:9222 localabstract:chrome_devtools_remote'.split(' '));
   return runLighthouse(url, [
     '--throttling-method=provided',
   ]);
@@ -192,7 +192,7 @@ async function main() {
       const numTested = index;
       const avgPerUrl = (performance.now() - startTime) / index;
       const timeLeftMs = avgPerUrl * (urlsToTest.length - numTested);
-      const timeLeftMinutes = timeLeftMs / 1000;
+      const timeLeftMinutes = timeLeftMs / 1000 / 1000;
       const timeLeft = timeLeftMinutes > 60
         ? `${Math.floor(timeLeftMinutes / 60)} hours` :
         `${timeLeftMinutes} minutes`;
