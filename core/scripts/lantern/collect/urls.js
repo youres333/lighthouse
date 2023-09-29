@@ -126,7 +126,7 @@ UNION DISTINCT
 const urls2023 = [
   'http://2011hana-animals.blogspot.com/',
   'http://a2ascholarships.iccr.gov.in/',
-  'http://autolote.transauto.com.sv/',
+  // 'http://autolote.transauto.com.sv/',
   'http://blog.darom.com.br/',
   'http://blove.jp/',
   'http://buckeyebroadband.speedtestcustom.com/',

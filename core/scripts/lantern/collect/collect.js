@@ -79,7 +79,7 @@ function enableLinkConditioner() {
  * @return {Promise<Result>}
  */
 async function runThrottledMobileDevice(url) {
-  // const disableLinkConditioner = enableLinkConditioner();
+  const disableLinkConditioner = enableLinkConditioner();
   try {
     return await runLighthouse(url, [
       '--port=9222',
@@ -88,7 +88,7 @@ async function runThrottledMobileDevice(url) {
       '--throttling.cpuSlowdownMultiplier=1',
     ]);
   } finally {
-    // disableLinkConditioner();
+    disableLinkConditioner();
   }
 }
 
@@ -97,6 +97,7 @@ async function runThrottledMobileDevice(url) {
  * @return {Promise<Result>}
  */
 async function runUnthrottledLocalDevice(url) {
+  execFileSync('adb', 'forward tcp:9222 localabstract:chrome_devtools_remote'.split(' '));
   return runLighthouse(url, [
     '--throttling-method=provided',
   ]);
@@ -154,6 +155,9 @@ async function main() {
 
   fs.mkdirSync(common.collectFolder, {recursive: true});
 
+  // Warmup device.
+  await runThrottledMobileDevice('https://www.example.com');
+
   // Traces are collected for one URL at a time, in series, so all traces are from a small time
   // frame, reducing the chance of a site change affecting results.
   for (const url of TEST_URLS) {
@@ -185,9 +189,9 @@ async function main() {
     }
 
     updateProgress();
-    // unthrottledRun = await repeatUntilPassOrNull(() => runUnthrottledLocalDevice(url));
-    updateProgress();
     mobileRun = await repeatUntilPassOrNull(() => runThrottledMobileDevice(url));
+    updateProgress();
+    unthrottledRun = await repeatUntilPassOrNull(() => runUnthrottledLocalDevice(url));
     updateProgress();
     if (!unthrottledRun.result) log.log('failed to get wpt result');
     if (!mobileRun.result) log.log('failed to get unthrottled result');
