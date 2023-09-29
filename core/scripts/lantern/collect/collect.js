@@ -158,15 +158,25 @@ async function main() {
   // Warmup device.
   await runThrottledMobileDevice('https://www.example.com');
 
-  // Traces are collected for one URL at a time, in series, so all traces are from a small time
-  // frame, reducing the chance of a site change affecting results.
-  for (const url of TEST_URLS) {
+  const urlsToTest = TEST_URLS.filter(url => {
     // This URL has been done on a previous script invocation. Skip it.
     if (summary.results.find((urlResultSet) => urlResultSet.url === url)) {
       log.log(`already collected for ${url}`);
-      continue;
+      return false;
     }
 
+    return true;
+  });
+  const skipped = TEST_URLS.length - urlsToTest.length;
+  if (skipped) {
+    log.log(`skipping ${skipped} urls that have already been collected`);
+  }
+
+  const startTime = performance.now();
+
+  // Traces are collected for one URL at a time, in series, so all traces are from a small time
+  // frame, reducing the chance of a site change affecting results.
+  for (const url of urlsToTest) {
     log.log(`collecting for ${url}`);
     const sanitizedUrl = url.replace(/[^a-z0-9]/gi, '-');
 
@@ -178,13 +188,21 @@ async function main() {
     // The closure this makes is too convenient to decompose.
     // eslint-disable-next-line no-inner-declarations
     function updateProgress() {
-      const index = TEST_URLS.indexOf(url);
+      const index = urlsToTest.indexOf(url);
+      const numTested = index;
+      const avgPerUrl = (performance.now() - startTime) / index;
+      const timeLeftMs = avgPerUrl * (urlsToTest.length - numTested);
+      const timeLeftMinutes = timeLeftMs / 1000;
+      const timeLeft = timeLeftMinutes > 60
+        ? `${Math.floor(timeLeftMinutes / 60)} hours` :
+        `${timeLeftMinutes} minutes`;
       log.progress([
-        `${url} (${index + 1} / ${TEST_URLS.length})`,
+        `${url} (${index + 1} / ${urlsToTest.length})`,
         'unthrottled, local machine',
         (unthrottledRun ? (unthrottledRun.result ? '✅' : '❌') : '…'),
         'throttled, mobile device',
         (mobileRun ? (mobileRun.result ? '✅' : '❌') : '…'),
+        `Time left: ~${timeLeft}`,
       ].join(' '));
     }
 
@@ -193,8 +211,8 @@ async function main() {
     updateProgress();
     unthrottledRun = await repeatUntilPassOrNull(() => runUnthrottledLocalDevice(url));
     updateProgress();
-    if (!unthrottledRun.result) log.log('failed to get wpt result');
-    if (!mobileRun.result) log.log('failed to get unthrottled result');
+    if (!unthrottledRun.result) log.log('failed to get unthrottled result');
+    if (!mobileRun.result) log.log('failed to get mobile result');
 
     const unthrottledResult = unthrottledRun.result;
     const wptResult = mobileRun.result;
