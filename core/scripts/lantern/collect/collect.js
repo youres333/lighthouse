@@ -198,9 +198,9 @@ async function main() {
         `${timeLeftMinutes} minutes`;
       log.progress([
         `${url} (${index + 1} / ${urlsToTest.length})`,
-        'unthrottled, local machine',
+        'local',
         (unthrottledRun ? (unthrottledRun.result ? '✅' : '❌') : '…'),
-        'throttled, mobile device',
+        'mobile',
         (mobileRun ? (mobileRun.result ? '✅' : '❌') : '…'),
         `Time left: ~${timeLeft}`,
       ].join(' '));
