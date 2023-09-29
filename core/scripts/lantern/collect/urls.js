@@ -122,7 +122,7 @@ UNION DISTINCT
 (SELECT url FROM (SELECT * FROM temp_urls LIMIT 1000) ORDER BY RAND() LIMIT 200)
 )
 */
-// Note: this is a random sampling of the World Wide Web, so expect lots of porn.
+// Note: this is a random sampling of the World Wide Web, so expect lots of NSFW content.
 const urls2023 = [
   'http://2011hana-animals.blogspot.com/',
   'http://a2ascholarships.iccr.gov.in/',
