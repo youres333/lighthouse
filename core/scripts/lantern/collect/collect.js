@@ -38,9 +38,10 @@ function saveData(filename, data) {
 
 /**
  * @param {string} url
+ * @param {string[]} args
  * @return {Promise<Result>}
  */
-async function runUnthrottledLocally(url) {
+async function runLighthouse(url, args) {
   const artifactsFolder = `${LH_ROOT}/.tmp/collect-traces-artifacts`;
   if (fs.existsSync(artifactsFolder)) {
     fs.rmSync(artifactsFolder, {recursive: true});
@@ -48,9 +49,8 @@ async function runUnthrottledLocally(url) {
   await execFileAsync('node', [
     `${LH_ROOT}/cli`,
     url,
-    '--throttling-method=provided',
     `-AG=${artifactsFolder}`,
-    process.env.OOPIFS === '1' ? '' : '--chrome-flags=--disable-features=site-per-process',
+    ...args,
   ]);
   const lhrString = fs.readFileSync(`${artifactsFolder}/lhr.report.json`, 'utf-8');
   assertLhr(JSON.parse(lhrString));
@@ -79,12 +79,27 @@ function enableLinkConditioner() {
  * @return {Promise<Result>}
  */
 async function runThrottledMobileDevice(url) {
-  const disableLinkConditioner = enableLinkConditioner();
+  // const disableLinkConditioner = enableLinkConditioner();
   try {
-    return await runUnthrottledLocally(url);
+    return await runLighthouse(url, [
+      '--port=9222',
+      '--throttling-method=provided',
+      '--screenEmulation.disabled',
+      '--throttling.cpuSlowdownMultiplier=1',
+    ]);
   } finally {
-    disableLinkConditioner();
+    // disableLinkConditioner();
   }
+}
+
+/**
+ * @param {string} url
+ * @return {Promise<Result>}
+ */
+async function runUnthrottledLocalDevice(url) {
+  return runLighthouse(url, [
+    '--throttling-method=provided',
+  ]);
 }
 
 /**
@@ -170,7 +185,7 @@ async function main() {
     }
 
     updateProgress();
-    unthrottledRun = await repeatUntilPassOrNull(() => runUnthrottledLocally(url));
+    // unthrottledRun = await repeatUntilPassOrNull(() => runUnthrottledLocalDevice(url));
     updateProgress();
     mobileRun = await repeatUntilPassOrNull(() => runThrottledMobileDevice(url));
     updateProgress();
