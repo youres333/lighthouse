@@ -192,7 +192,7 @@ async function main() {
       const numTested = index;
       const avgPerUrl = (performance.now() - startTime) / index;
       const timeLeftMs = avgPerUrl * (urlsToTest.length - numTested);
-      const timeLeftMinutes = timeLeftMs / 1000 / 1000;
+      const timeLeftMinutes = Math.floor(timeLeftMs / 1000 / 1000);
       const timeLeft = timeLeftMinutes > 60
         ? `${Math.floor(timeLeftMinutes / 60)} hours` :
         `${timeLeftMinutes} minutes`;
