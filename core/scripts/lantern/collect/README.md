@@ -49,7 +49,9 @@ node --max-old-space-size=4096 collect.js
 
 Output will be in `dist/collect-lantern-traces`, and zipped at `dist/collect-lantern-traces.zip`.
 
-Rename the zip with the current data (ex: `golden-lantern-traces-2019-12-17.zip`) to Google Drive, and update `VERSION` in `download-traces.sh`.
+Rename the zip with the current data (ex: `lantern-traces-2019-12-17.zip`) to Google Drive, and update `VERSION` in `download-traces.sh`.
+
+Finally, upload the zip to the `lh-lantern-data` Cloud storage.
 
 ## Verify URLs
 
