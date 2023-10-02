@@ -1,3 +1,5 @@
+// TODO why https://atendimento-eletronico.bancovw.com.br/logon/ get stuck
+
 /**
  * @license
  * Copyright 2019 Google LLC
@@ -131,7 +133,6 @@ function assertLhr(lhr) {
   if (!lhr) throw new Error('missing lhr');
   if (lhr.runtimeError) throw new Error(`runtime error: ${lhr.runtimeError}`);
   const metrics = common.getMetrics(lhr);
-  console.log(metrics);
   if (metrics &&
       metrics.cumulativeLayoutShift !== undefined &&
       metrics.firstContentfulPaint !== undefined &&
