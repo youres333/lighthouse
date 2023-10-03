@@ -27,10 +27,13 @@ describe('ProtocolSession', () => {
   let puppeteerSession;
   /** @type {ProtocolSession} */
   let session;
+  let rawSend = fnAny();
 
   beforeEach(() => {
+    rawSend = fnAny().mockResolvedValue(Promise.resolve());
+
     // @ts-expect-error - Individual mock functions are applied as necessary.
-    puppeteerSession = new CDPSessionImpl({_rawSend: fnAny(), send: fnAny()}, '', 'root');
+    puppeteerSession = new CDPSessionImpl({_rawSend: rawSend}, '', 'root');
     session = new ProtocolSession(puppeteerSession);
   });
 
@@ -161,6 +164,20 @@ describe('ProtocolSession', () => {
 
       expect(resultPromise).toBeDone();
       expect(await resultPromise).toBe('result');
+    });
+
+    it('should ignore puppeteer protocol timeouts', async () => {
+      session.setNextProtocolTimeout(Infinity);
+      expect(session.hasNextProtocolTimeout()).toBe(true);
+      expect(session.getNextProtocolTimeout()).toBe(Infinity);
+
+      // https://github.com/puppeteer/puppeteer/blob/28c1c2662a656a99c049218de4e7ab505c30f04f/packages/puppeteer-core/src/cdp/Connection.ts#L75
+      rawSend.mockRejectedValue(new Error(`Increase the 'protocolTimeout' setting`));
+
+      await session.sendCommand('Page.navigate', {url: ''});
+
+      expect(session.hasNextProtocolTimeout()).toBe(false);
+      expect(session.getNextProtocolTimeout()).toBe(DEFAULT_TIMEOUT);
     });
   });
 
