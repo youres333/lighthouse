@@ -19,6 +19,11 @@ import * as common from './common.js';
 import {LH_ROOT} from '../../../../shared/root.js';
 import {makeGolden} from './golden.js';
 
+import * as playwright from 'playwright';
+
+import lighthouse from '../../../index.js';
+import puppeteer from 'puppeteer';
+
 const execFileAsync = promisify(execFile);
 
 const TEST_URLS = process.env.TEST_URLS ? process.env.TEST_URLS.split(' ') : defaultTestUrls;
@@ -261,8 +266,38 @@ async function main() {
   log.closeProgress();
 }
 
-try {
-  await main();
-} finally {
-  if (log) log.closeProgress();
-}
+// try {
+//   await main();
+// } finally {
+//   if (log) log.closeProgress();
+// }
+
+const caps = {
+  'browser': 'android',
+  // 'browser_version': 'latest',
+  'os': 'android',
+  'os_version': '9.0',
+  'build': 'puppeteer-build-1',
+  'device' : 'Google Pixel 2',
+  'name': 'My first Puppeteer test',
+  'browserstack.username': process.env.BROWSERSTACK_USERNAME || 'connorclark_ew2AEp',
+  'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY || 'sHP3NE6YBztjCywDTwER',
+  // 'browserstack.networkLogs': true,
+  // 'browserstack.console': 'errors',
+};
+const wsUrl = `wss://cdp.browserstack.com/playwright?caps=${encodeURIComponent(JSON.stringify(caps))}`;
+// const browser = await playwright.chromium.connect({wsEndpoint: wsUrl});
+console.log({wsUrl});
+const browser = await puppeteer.connect({browserWSEndpoint: wsUrl});
+const page = await browser.newPage();
+
+
+
+console.log('starting...');
+const r = await lighthouse('https://www.example.com', {port: 9223}, undefined, page);
+console.log(JSON.stringify(r?.lhr, null, 2));
+
+
+// const r = await runLighthouse('https://www.example.com', ['--hostname', wsUrl]);
+
+console.log(r);
