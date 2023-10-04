@@ -71,7 +71,25 @@ describe('Lighthouse Viewer', () => {
       executablePath: getChromePath(),
     });
     viewerPage = await browser.newPage();
-    viewerPage.on('pageerror', pageError => pageErrors.push(pageError));
+    viewerPage.on('pageerror', e => pageErrors.push(`${e.message} ${e.stack}`));
+    viewerPage.on('console', (e) => {
+      if (e.type() === 'error' || e.type() === 'warning') {
+        // TODO gotta upgrade our own stuff.
+        if (e.text().includes('Please adopt the new report API')) return;
+        // Rendering a report from localhost page will attempt to display unreachable resources.
+        if (e.location().url.includes('lighthouse-480x318.jpg')) return;
+
+        const describe = (jsHandle) => {
+          return jsHandle.executionContext().evaluate((obj) => {
+            return JSON.stringify(obj, null, 2);
+          }, jsHandle);
+        };
+        const promise = Promise.all(e.args().map(describe)).then(args => {
+          return `${e.text()} ${args.join(' ')} ${JSON.stringify(e.location(), null, 2)}`;
+        });
+        pageErrors.push(promise);
+      }
+    });
   });
 
   after(async function() {
@@ -81,16 +99,17 @@ describe('Lighthouse Viewer', () => {
     ]);
   });
 
-  beforeEach(async function() {
+  async function claimErrors() {
+    const theErrors = pageErrors;
     pageErrors = [];
-  });
+    return await Promise.all(theErrors);
+  }
 
   async function ensureNoErrors() {
     await viewerPage.bringToFront();
     await viewerPage.evaluate(() => new Promise(window.requestAnimationFrame));
-    const theErrors = pageErrors;
-    pageErrors = [];
-    expect(theErrors).toHaveLength(0);
+    const errors = await claimErrors();
+    expect(errors).toHaveLength(0);
   }
 
   afterEach(async function() {
@@ -262,7 +281,7 @@ describe('Lighthouse Viewer', () => {
 
       const savedPage = await browser.newPage();
       const savedPageErrors = [];
-      savedPage.on('pageerror', pageError => savedPageErrors.push(pageError));
+      savedPage.on('pageerror', e => savedPageErrors.push(`${e.message} ${e.stack}`));
       const firstLogPromise =
         new Promise(resolve => savedPage.once('console', e => resolve(e.text())));
       await savedPage.goto(`file://${tmpDir}/${filename}`);
@@ -282,6 +301,8 @@ describe('Lighthouse Viewer', () => {
       waitForAck,
       new Promise((resolve, reject) => setTimeout(reject, 5_000)),
     ]);
+    // Give async work some time to happen (ex: SwapLocaleFeature.enable).
+    await new Promise(resolve => setTimeout(resolve, 3_000));
     await ensureNoErrors();
 
     const content = await viewerPage.$eval('main', el => el.textContent);
@@ -466,10 +487,12 @@ describe('Lighthouse Viewer', () => {
       const errorMessage = await viewerPage.evaluate(errorEl => errorEl.textContent, errorEl);
       expect(errorMessage).toBe('badPsiResponse error');
 
-      // One error.
-      expect(pageErrors).toHaveLength(1);
-      expect(pageErrors[0].message).toContain('badPsiResponse error');
-      pageErrors = [];
+      // Expected errors.
+      const errors = await claimErrors();
+      expect(errors).toHaveLength(3);
+      expect(errors[0]).toContain('500 (Internal Server Error)');
+      expect(errors[1]).toContain('badPsiResponse error');
+      expect(errors[2]).toContain('badPsiResponse error');
     });
   });
 });
