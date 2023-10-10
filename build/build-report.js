@@ -15,6 +15,31 @@ import {getIcuMessageIdParts} from '../shared/localization/format.js';
 import {locales} from '../shared/localization/locales.js';
 import {UIStrings as FlowUIStrings} from '../flow-report/src/i18n/ui-strings.js';
 
+/** @type {esbuild.Plugin} */
+const postprocessPlugin = {
+  name: 'postprocess',
+  setup({onEnd}) {
+    onEnd(async (result) => {
+      if (result.errors.length) {
+        return;
+      }
+
+      const codeFile = result.outputFiles?.find(file => file.path.endsWith('.js'));
+      if (!codeFile) {
+        throw new Error('missing output');
+      }
+
+      // Preact can use `innerHTML` if the `dangerouslySetInnerHTML` property is set, so Preact's
+      // usages of `innerHTML` get flagged by g3. We don't actually use this property so it's safe
+      // to just remove the possibility of preact using `innerHTML` as well.
+      let code = codeFile.text;
+      code = code.replaceAll('innerHTML', '__fakeInnerHTML');
+
+      await fs.promises.writeFile(codeFile.path, code);
+    });
+  },
+};
+
 /**
  * Extract only the strings needed for the flow report. Code generated is
  * an object whose keys are locale codes (en-US, es, etc.) and values are localized UIStrings.
@@ -52,10 +77,12 @@ function buildStandaloneReport() {
     format: 'iife',
     bundle: true,
     minify: true,
+    write: false,
     plugins: [
       plugins.replaceModules({
         [`${LH_ROOT}/report/assets/styles.js`]: buildStylesModule(),
       }),
+      postprocessPlugin,
     ],
   });
 }
@@ -73,6 +100,7 @@ async function buildFlowReport() {
     charset: 'utf8',
     bundle: true,
     minify: true,
+    write: false,
     plugins: [
       plugins.replaceModules({
         [`${LH_ROOT}/flow-report/src/i18n/localized-strings.js`]: buildFlowStrings(),
@@ -81,6 +109,7 @@ async function buildFlowReport() {
       }),
       plugins.ignoreBuiltins(),
       buildReportBulkLoader,
+      postprocessPlugin,
     ],
   });
 }
@@ -131,12 +160,14 @@ export const format = {registerLocaleData, hasLocale};
     format: 'esm',
     bundle: true,
     minify: true,
+    write: false,
     plugins: [
       plugins.replaceModules({
         // Exclude this 30kb from the devtools bundle for now.
         [`${LH_ROOT}/shared/localization/i18n-module.js`]: i18nModuleShim,
         [`${LH_ROOT}/report/assets/styles.js`]: buildStylesModule(),
       }),
+      postprocessPlugin,
     ],
   });
 }
@@ -148,6 +179,7 @@ async function buildUmdBundle() {
     bundle: true,
     // We do not minify, because this is pulled into google3 and minified there anyhow.
     minify: false,
+    write: false,
     plugins: [
       plugins.umd('report'),
       plugins.replaceModules({
@@ -156,6 +188,7 @@ async function buildUmdBundle() {
       }),
       plugins.ignoreBuiltins(),
       buildReportBulkLoader,
+      postprocessPlugin,
     ],
   });
 }
