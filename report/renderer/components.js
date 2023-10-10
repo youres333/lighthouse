@@ -174,6 +174,37 @@ function createElementScreenshotComponent(dom) {
 /**
  * @param {DOM} dom
  */
+function createExplodeyGaugeComponent(dom) {
+  const el0 = dom.createFragment();
+  const el1 = dom.createElement("div", "lh-exp-gauge-component");
+  const el2 = dom.createElement("div", "lh-exp-gauge__wrapper");
+  el2.setAttribute('target', '_blank');
+  const el3 = dom.createElement("div", "lh-exp-gauge__svg-wrapper");
+  const el4 = dom.createElementNS("http://www.w3.org/2000/svg", "svg", "lh-exp-gauge");
+  const el5 = dom.createElementNS("http://www.w3.org/2000/svg", "g", "lh-exp-gauge__inner");
+  const el6 = dom.createElementNS("http://www.w3.org/2000/svg", "circle", "lh-exp-gauge__bg");
+  const el7 = dom.createElementNS("http://www.w3.org/2000/svg", "circle", "lh-exp-gauge__base lh-exp-gauge--faded");
+  const el8 = dom.createElementNS("http://www.w3.org/2000/svg", "circle", "lh-exp-gauge__arc");
+  const el9 = dom.createElementNS("http://www.w3.org/2000/svg", "text", "lh-exp-gauge__percentage");
+  el5.append(" ",el6," ",el7," ",el8," ",el9," ");
+  const el10 = dom.createElementNS("http://www.w3.org/2000/svg", "g", "lh-exp-gauge__outer");
+  const el11 = dom.createElementNS("http://www.w3.org/2000/svg", "circle", "lh-cover");
+  el10.append(" ",el11," ");
+  const el12 = dom.createElementNS("http://www.w3.org/2000/svg", "text", "lh-exp-gauge__label");
+  el12.setAttribute('text-anchor', 'middle');
+  el12.setAttribute('x', '0');
+  el12.setAttribute('y', '60');
+  el4.append(" ",el5," ",el10," ",el12," ");
+  el3.append(" ",el4," ");
+  el2.append(" ",el3," ");
+  el1.append(" ",el2," ");
+  el0.append(el1);
+  return el0;
+}
+
+/**
+ * @param {DOM} dom
+ */
 function createFooterComponent(dom) {
   const el0 = dom.createFragment();
   const el1 = dom.createElement("style");
@@ -270,53 +301,6 @@ function createMetricComponent(dom) {
   const el6 = dom.createElement("div", "lh-metric__description");
   el2.append(" ",el3," ",el4," ",el5," ",el6," ");
   el1.append(" ",el2," ");
-  el0.append(el1);
-  return el0;
-}
-
-/**
- * @param {DOM} dom
- */
-function createOpportunityComponent(dom) {
-  const el0 = dom.createFragment();
-  const el1 = dom.createElement("div", "lh-audit lh-audit--load-opportunity");
-  const el2 = dom.createElement("details", "lh-expandable-details");
-  const el3 = dom.createElement("summary");
-  const el4 = dom.createElement("div", "lh-audit__header");
-  const el5 = dom.createElement("div", "lh-load-opportunity__cols");
-  const el6 = dom.createElement("div", "lh-load-opportunity__col lh-load-opportunity__col--one");
-  const el7 = dom.createElement("span", "lh-audit__score-icon");
-  const el8 = dom.createElement("div", "lh-audit__title");
-  el6.append(" ",el7," ",el8," ");
-  const el9 = dom.createElement("div", "lh-load-opportunity__col lh-load-opportunity__col--two");
-  const el10 = dom.createElement("div", "lh-load-opportunity__sparkline");
-  const el11 = dom.createElement("div", "lh-sparkline");
-  const el12 = dom.createElement("div", "lh-sparkline__bar");
-  el11.append(el12);
-  el10.append(" ",el11," ");
-  const el13 = dom.createElement("div", "lh-audit__display-text");
-  const el14 = dom.createElement("div", "lh-chevron-container");
-  el9.append(" ",el10," ",el13," ",el14," ");
-  el5.append(" ",el6," ",el9," ");
-  el4.append(" ",el5," ");
-  el3.append(" ",el4," ");
-  const el15 = dom.createElement("div", "lh-audit__description");
-  const el16 = dom.createElement("div", "lh-audit__stackpacks");
-  el2.append(" ",el3," ",el15," ",el16," ");
-  el1.append(" ",el2," ");
-  el0.append(el1);
-  return el0;
-}
-
-/**
- * @param {DOM} dom
- */
-function createOpportunityHeaderComponent(dom) {
-  const el0 = dom.createFragment();
-  const el1 = dom.createElement("div", "lh-load-opportunity__header lh-load-opportunity__cols");
-  const el2 = dom.createElement("div", "lh-load-opportunity__col lh-load-opportunity__col--one");
-  const el3 = dom.createElement("div", "lh-load-opportunity__col lh-load-opportunity__col--two");
-  el1.append(" ",el2," ",el3," ");
   el0.append(el1);
   return el0;
 }
@@ -595,13 +579,12 @@ export function createComponent(dom, componentName) {
     case 'crc': return createCrcComponent(dom);
     case 'crcChain': return createCrcChainComponent(dom);
     case 'elementScreenshot': return createElementScreenshotComponent(dom);
+    case 'explodeyGauge': return createExplodeyGaugeComponent(dom);
     case 'footer': return createFooterComponent(dom);
     case 'fraction': return createFractionComponent(dom);
     case 'gauge': return createGaugeComponent(dom);
     case 'heading': return createHeadingComponent(dom);
     case 'metric': return createMetricComponent(dom);
-    case 'opportunity': return createOpportunityComponent(dom);
-    case 'opportunityHeader': return createOpportunityHeaderComponent(dom);
     case 'scorescale': return createScorescaleComponent(dom);
     case 'scoresWrapper': return createScoresWrapperComponent(dom);
     case 'snippet': return createSnippetComponent(dom);

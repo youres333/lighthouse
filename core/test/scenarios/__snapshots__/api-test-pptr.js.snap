@@ -474,7 +474,6 @@ Array [
   "non-composited-animations",
   "preload-fonts",
   "third-party-summary",
-  "unsized-images",
   "user-timings",
 ]
 `;
@@ -531,6 +530,7 @@ Array [
 
 exports[`Individual modes API startTimespan should compute results from timespan after page load 2`] = `
 Array [
+  "bootup-time",
   "duplicated-javascript",
   "efficient-animated-content",
   "legacy-javascript",
@@ -542,7 +542,6 @@ Array [
   "third-party-summary",
   "unminified-css",
   "unminified-javascript",
-  "unsized-images",
   "unused-css-rules",
   "unused-javascript",
   "user-timings",
