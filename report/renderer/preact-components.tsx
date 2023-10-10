@@ -91,39 +91,6 @@ const Metric: FunctionComponent = () => {
   </div>;
 };
 
-const Opportunity: FunctionComponent = () => {
-  return <div class="lh-audit lh-audit--load-opportunity">
-    <details class="lh-expandable-details">
-      <summary>
-        <div class="lh-audit__header">
-          <div class="lh-load-opportunity__cols">
-            <div class="lh-load-opportunity__col lh-load-opportunity__col--one">
-              <span class="lh-audit__score-icon"></span>
-              <div class="lh-audit__title"></div>
-            </div>
-            <div class="lh-load-opportunity__col lh-load-opportunity__col--two">
-              <div class="lh-load-opportunity__sparkline">
-                <div class="lh-sparkline"><div class="lh-sparkline__bar"></div></div>
-              </div>
-              <div class="lh-audit__display-text"></div>
-              <div class="lh-chevron-container"></div>
-            </div>
-          </div>
-        </div>
-      </summary>
-      <div class="lh-audit__description"></div>
-      <div class="lh-audit__stackpacks"></div>
-    </details>
-  </div>;
-};
-
-const OpportunityHeader: FunctionComponent = () => {
-  return <div class="lh-load-opportunity__header lh-load-opportunity__cols">
-    <div class="lh-load-opportunity__col lh-load-opportunity__col--one"></div>
-    <div class="lh-load-opportunity__col lh-load-opportunity__col--two"></div>
-  </div>;
-};
-
 const ScoresWrapper: FunctionComponent = () => {
   return <>
     <style jsx>{`
@@ -186,10 +153,8 @@ const ScoresWrapper: FunctionComponent = () => {
         position: absolute;
         grid-column: 1;
         bottom: -1px;
-      }
-
-      .lh-gauge__wrapper:first-of-type {
-        contain: none;
+        left: 0px;
+        right: 0px;
       }
     `}</style>
     <div class="lh-scores-wrapper">
@@ -506,6 +471,27 @@ const Gauge: FunctionComponent = () => {
     <div class="lh-gauge__percentage"></div>
     <div class="lh-gauge__label"></div>
   </a>;
+};
+
+const ExplodeyGauge: FunctionComponent = () => {
+  return <div class="lh-exp-gauge-component">
+    <div class="lh-exp-gauge__wrapper" target="_blank">
+      <div class="lh-exp-gauge__svg-wrapper">
+        <svg class="lh-exp-gauge">
+          <g class="lh-exp-gauge__inner">
+            <circle class="lh-exp-gauge__bg" />
+            <circle class="lh-exp-gauge__base lh-exp-gauge--faded" />
+            <circle class="lh-exp-gauge__arc" />
+            <text class="lh-exp-gauge__percentage"></text>
+          </g>
+          <g class="lh-exp-gauge__outer">
+            <circle class="lh-cover" />
+          </g>
+          <text class="lh-exp-gauge__label" text-anchor="middle" x="0" y="60"></text>
+        </svg>
+      </div>
+    </div>
+  </div>;
 };
 
 const Fraction: FunctionComponent = () => {
@@ -883,13 +869,12 @@ function createComponent(dom: DOM, componentName: ComponentName): DocumentFragme
     case 'crcChain': return renderComponent(dom, CrcChain);
     case 'elementScreenshot': return renderComponent(dom, ElementScreenshot);
     case 'footer': return renderComponent(dom, Footer);
+    case 'explodeyGauge': return renderComponent(dom, ExplodeyGauge);
     case 'fraction': return renderComponent(dom, Fraction);
     case 'gauge': return renderComponent(dom, Gauge);
     case 'gaugePwa': return renderComponent(dom, GaugePwa);
     case 'heading': return renderComponent(dom, Heading);
     case 'metric': return renderComponent(dom, Metric);
-    case 'opportunity': return renderComponent(dom, Opportunity);
-    case 'opportunityHeader': return renderComponent(dom, OpportunityHeader);
     case 'scorescale': return renderComponent(dom, Scorescale);
     case 'scoresWrapper': return renderComponent(dom, ScoresWrapper);
     case 'snippet': return renderComponent(dom, Snippet);
@@ -913,8 +898,6 @@ export {
   Clump,
   Audit,
   Metric,
-  Opportunity,
-  OpportunityHeader,
   ScoresWrapper,
   Topbar,
   Heading,
