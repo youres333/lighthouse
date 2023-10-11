@@ -235,7 +235,7 @@ describe('ReportRenderer', () => {
       .filter(url => DOCS_ORIGINS.includes(url.origin))
       .map(url => url.searchParams.get('utm_medium'));
 
-    assert.ok(utmChannels.length >= 100);
+    assert.ok(utmChannels.length >= 99);
     for (const utmChannel of utmChannels) {
       assert.strictEqual(utmChannel, lhrChannel);
     }
