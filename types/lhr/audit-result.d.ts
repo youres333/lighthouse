@@ -31,7 +31,7 @@ interface ScoreDisplayModes {
 
 type ScoreDisplayMode = ScoreDisplayModes[keyof ScoreDisplayModes];
 
-interface MetricSavings {
+export interface MetricSavings {
   LCP?: number;
   FCP?: number;
   CLS?: number;

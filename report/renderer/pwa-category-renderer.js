@@ -29,8 +29,12 @@ export class PwaCategoryRenderer extends CategoryRenderer {
 
     // Manual audits are still in a manual clump.
     const manualAuditRefs = auditRefs.filter(ref => ref.result.scoreDisplayMode === 'manual');
-    const manualElem = this.renderClump('manual',
-      {auditRefs: manualAuditRefs, description: category.manualDescription, openByDefault: true});
+    const clumpOpts = {
+      auditRefsOrEls: manualAuditRefs,
+      description: category.manualDescription,
+      openByDefault: true,
+    };
+    const manualElem = this.renderClump('manual', clumpOpts);
     categoryElem.append(manualElem);
 
     return categoryElem;

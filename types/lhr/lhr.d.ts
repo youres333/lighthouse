@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Result as AuditResult} from './audit-result.js';
+import {Result as AuditResult, MetricSavings} from './audit-result.js';
 import AuditDetails from './audit-details.js';
 import {ConfigSettings} from './settings.js';
 
@@ -115,7 +115,7 @@ declare module Result {
     /** Optional grouping within the category. Matches the key of a Result.Group. */
     group?: string;
     /** The conventional acronym for the audit/metric. */
-    acronym?: string;
+    acronym?: MetricAcronym;
     /** Any audit IDs closely relevant to this one. */
     relevantAudits?: string[];
   }
@@ -197,6 +197,8 @@ declare module Result {
 
   /** Gather mode used to collect artifacts. */
   type GatherMode = 'navigation'|'timespan'|'snapshot';
+
+  type MetricAcronym = keyof MetricSavings | 'All';
 }
 
 export default Result;
