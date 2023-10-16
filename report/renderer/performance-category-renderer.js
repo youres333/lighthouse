@@ -5,6 +5,7 @@
  */
 
 /** @typedef {import('./dom.js').DOM} DOM */
+/** @typedef {LH.Result.MetricAcronym | 'All'} FilterType */
 
 import {CategoryRenderer} from './category-renderer.js';
 import {ReportUtils} from './report-utils.js';
@@ -232,7 +233,7 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
     groupEl.classList.add('lh-audit-group--diagnostics');
 
     /**
-     * @param {LH.Result.MetricAcronym} acronym
+     * @param {FilterType} acronym
      */
     function refreshFilteredAudits(acronym) {
       for (const audit of allInsights) {
@@ -347,17 +348,17 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
    * Render the control to filter the audits by metric. The filtering is done at runtime by CSS only
    * @param {LH.ReportResult.AuditRef[]} filterableMetrics
    * @param {HTMLDivElement} categoryEl
-   * @param {(acronym: LH.Result.MetricAcronym) => void} onFilterChange
+   * @param {(acronym: FilterType) => void} onFilterChange
    */
   renderMetricAuditFilter(filterableMetrics, categoryEl, onFilterChange) {
     const metricFilterEl = this.dom.createElement('div', 'lh-metricfilter');
     const textEl = this.dom.createChildOf(metricFilterEl, 'span', 'lh-metricfilter__text');
     textEl.textContent = Globals.strings.showRelevantAudits;
 
-    const filterChoices = /** @type {LH.ReportResult.AuditRef[]} */ ([
-      ({acronym: 'All'}),
+    const filterChoices = [
+      /** @type {const} */ ({acronym: 'All'}),
       ...filterableMetrics,
-    ]);
+    ];
 
     // Form labels need to reference unique IDs, but multiple reports rendered in the same DOM (eg PSI)
     // would mean ID conflict.  To address this, we 'scope' these radio inputs with a unique suffix.
@@ -371,7 +372,7 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
 
       const labelEl = this.dom.createChildOf(metricFilterEl, 'label', 'lh-metricfilter__label');
       labelEl.htmlFor = elemId;
-      labelEl.title = metric.result?.title;
+      labelEl.title = 'result' in metric ? metric.result.title : '';
       labelEl.textContent = metric.acronym || metric.id;
 
       if (metric.acronym === 'All') {

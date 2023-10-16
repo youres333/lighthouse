@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Result as AuditResult, MetricSavings} from './audit-result.js';
+import {Result as AuditResult} from './audit-result.js';
 import AuditDetails from './audit-details.js';
 import {ConfigSettings} from './settings.js';
 
@@ -198,7 +198,7 @@ declare module Result {
   /** Gather mode used to collect artifacts. */
   type GatherMode = 'navigation'|'timespan'|'snapshot';
 
-  type MetricAcronym = keyof MetricSavings | 'All';
+  type MetricAcronym = 'FCP' | 'LCP' | 'TBT' | 'CLS' | 'INP' | 'SI' | 'TTI' | 'FMP';
 }
 
 export default Result;
