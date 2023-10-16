@@ -389,17 +389,6 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
         categoryEl.classList.toggle('lh-category--filtered', metric.acronym !== 'All');
 
         onFilterChange(metric.acronym || 'All');
-        // for (const perfAuditEl of categoryEl.querySelectorAll('div.lh-audit')) {
-        //   if (metric.acronym === 'All') {
-        //     perfAuditEl.hidden = false;
-        //     continue;
-        //   }
-
-        //   perfAuditEl.hidden = true;
-        //   if (metric.relevantAudits && metric.relevantAudits.includes(perfAuditEl.id)) {
-        //     perfAuditEl.hidden = false;
-        //   }
-        // }
 
         // Hide groups/clumps if all child audits are also hidden.
         const groupEls = categoryEl.querySelectorAll('div.lh-audit-group, details.lh-audit-group');
