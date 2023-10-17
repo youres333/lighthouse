@@ -6,15 +6,13 @@
 
 import assert from 'assert/strict';
 
-import jsdom from 'jsdom';
-import jestMock from 'jest-mock';
-
 import {ReportUtils} from '../../renderer/report-utils.js';
 import {DOM} from '../../renderer/dom.js';
 import {DetailsRenderer} from '../../renderer/details-renderer.js';
 import {CategoryRenderer} from '../../renderer/category-renderer.js';
 import {ReportRenderer} from '../../renderer/report-renderer.js';
 import {readJson} from '../../../core/test/test-utils.js';
+import {installJsdomHooks} from '../setup/jsdom-setup.js';
 
 const sampleResultsOrig = readJson('../../../core/test/results/sample_v2.json', import.meta);
 
@@ -24,19 +22,9 @@ describe('ReportRenderer', () => {
   let renderer;
   let sampleResults;
 
+  installJsdomHooks();
+
   before(() => {
-    global.console.warn = jestMock.fn();
-
-    // Stub out matchMedia for Node.
-    global.matchMedia = function() {
-      return {
-        addListener: function() {},
-      };
-    };
-
-    const {window} = new jsdom.JSDOM();
-    global.self = window;
-
     const dom = new DOM(window.document);
     const detailsRenderer = new DetailsRenderer(dom);
     const categoryRenderer = new CategoryRenderer(dom, detailsRenderer);

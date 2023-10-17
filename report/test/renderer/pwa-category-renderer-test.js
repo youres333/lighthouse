@@ -6,8 +6,6 @@
 
 import assert from 'assert/strict';
 
-import jsdom from 'jsdom';
-
 import {ReportUtils, UIStrings} from '../../renderer/report-utils.js';
 import {I18nFormatter} from '../../renderer/i18n-formatter.js';
 import {DOM} from '../../renderer/dom.js';
@@ -15,6 +13,7 @@ import {DetailsRenderer} from '../../renderer/details-renderer.js';
 import {PwaCategoryRenderer} from '../../renderer/pwa-category-renderer.js';
 import {readJson} from '../../../core/test/test-utils.js';
 import {Globals} from '../../renderer/report-globals.js';
+import {installJsdomHooks} from '../setup/jsdom-setup.js';
 
 const sampleResultsOrig = readJson('../../../core/test/results/sample_v2.json', import.meta);
 
@@ -23,6 +22,8 @@ describe('PwaCategoryRenderer', () => {
   let pwaRenderer;
   let sampleResults;
 
+  installJsdomHooks();
+
   before(() => {
     Globals.apply({
       providedStrings: {},
@@ -30,7 +31,6 @@ describe('PwaCategoryRenderer', () => {
       reportJson: null,
     });
 
-    const {document} = new jsdom.JSDOM().window;
     const dom = new DOM(document);
     const detailsRenderer = new DetailsRenderer(dom);
     pwaRenderer = new PwaCategoryRenderer(dom, detailsRenderer);

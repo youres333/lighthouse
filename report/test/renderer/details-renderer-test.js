@@ -6,22 +6,23 @@
 
 import assert from 'assert/strict';
 
-import jsdom from 'jsdom';
 import jestMock from 'jest-mock';
 
 import {DOM} from '../../renderer/dom.js';
 import {I18nFormatter} from '../../renderer/i18n-formatter.js';
 import {DetailsRenderer} from '../../renderer/details-renderer.js';
 import {Globals} from '../../renderer/report-globals.js';
+import {installJsdomHooks} from '../setup/jsdom-setup.js';
 
 describe('DetailsRenderer', () => {
   let renderer;
 
   function createRenderer(options) {
-    const {document} = new jsdom.JSDOM().window;
     const dom = new DOM(document);
     renderer = new DetailsRenderer(dom, options);
   }
+
+  installJsdomHooks();
 
   before(() => {
     Globals.apply({

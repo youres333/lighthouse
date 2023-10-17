@@ -51,7 +51,7 @@
     "test-proto": "yarn compile-proto && yarn build-proto-roundtrip",
     "unit-core": "yarn mocha core",
     "unit-cli": "yarn mocha --testMatch cli/**/*-test.js",
-    "unit-report": "yarn mocha --testMatch report/**/*-test.js",
+    "unit-report": "bash report/test/run-report-tests.sh",
     "unit-treemap": "yarn mocha --testMatch treemap/**/*-test.js",
     "unit-viewer": "yarn mocha --testMatch viewer/**/*-test.js",
     "unit-flow": "bash flow-report/test/run-flow-report-tests.sh",

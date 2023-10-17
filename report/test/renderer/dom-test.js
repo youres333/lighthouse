@@ -7,17 +7,18 @@
 import assert from 'assert/strict';
 
 import jestMock from 'jest-mock';
-import jsdom from 'jsdom';
 
 import {DOM} from '../../renderer/dom.js';
 import {I18nFormatter} from '../../renderer/i18n-formatter.js';
 import {Globals} from '../../renderer/report-globals.js';
+import {installJsdomHooks} from '../setup/jsdom-setup.js';
 
 describe('DOM', () => {
   /** @type {DOM} */
   let dom;
-  let window;
   let nativeCreateObjectURL;
+
+  installJsdomHooks();
 
   before(() => {
     Globals.apply({
@@ -25,7 +26,6 @@ describe('DOM', () => {
       i18n: new I18nFormatter('en'),
       reportJson: null,
     });
-    window = new jsdom.JSDOM().window;
 
     // The Node version of URL.createObjectURL isn't compatible with the jsdom blob type,
     // so we stub it.
@@ -204,7 +204,7 @@ describe('DOM', () => {
     it('sets href for safe in-page named anchors', () => {
       const a = dom.createElement('a');
       dom.safelySetHref(a, '#footer');
-      expect(a.href).toEqual('about:blank#footer');
+      expect(a.href).toEqual('file:///Users/example/report.html/#footer');
     });
 
     it('doesnt set href if destination is unsafe', () => {

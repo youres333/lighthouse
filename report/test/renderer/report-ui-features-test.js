@@ -6,10 +6,8 @@
 
 import assert from 'assert/strict';
 
-import jsdom from 'jsdom';
 import jestMock from 'jest-mock';
 
-import {reportAssets} from '../../generator/report-assets.js';
 import {ReportUtils, UIStrings} from '../../renderer/report-utils.js';
 import {DOM} from '../../renderer/dom.js';
 import {DetailsRenderer} from '../../renderer/details-renderer.js';
@@ -17,12 +15,15 @@ import {ReportUIFeatures} from '../../renderer/report-ui-features.js';
 import {CategoryRenderer} from '../../renderer/category-renderer.js';
 import {ReportRenderer} from '../../renderer/report-renderer.js';
 import {readJson} from '../../../core/test/test-utils.js';
+import {installJsdomHooks} from '../setup/jsdom-setup.js';
 
 const sampleResultsOrig = readJson('../../../core/test/results/sample_v2.json', import.meta);
 
 describe('ReportUIFeatures', () => {
   let sampleResults;
   let dom;
+
+  installJsdomHooks();
 
   /**
    * @param {LH.JSON} lhr
@@ -41,50 +42,9 @@ describe('ReportUIFeatures', () => {
   }
 
   before(() => {
-    global.console.warn = jestMock.fn();
-
-    // Stub out matchMedia for Node.
-    global.matchMedia = function() {
-      return {
-        addListener: function() {},
-      };
-    };
-
-    const document = new jsdom.JSDOM(reportAssets.REPORT_TEMPLATE);
-    global.self = document.window;
-    global.self.matchMedia = function() {
-      return {
-        addListener: function() {},
-      };
-    };
-
-    global.HTMLElement = document.window.HTMLElement;
-    global.HTMLInputElement = document.window.HTMLInputElement;
-    global.CustomEvent = document.window.CustomEvent;
-
-    global.window = document.window;
-    global.window.requestAnimationFrame = fn => fn();
-    global.window.getComputedStyle = function() {
-      return {
-        marginTop: '10px',
-        height: '10px',
-      };
-    };
-    global.window.ResizeObserver = class ResizeObserver {
-      observe() { }
-      unobserve() { }
-    };
-
-    dom = new DOM(document.window.document);
+    dom = new DOM(window.document);
     sampleResults = ReportUtils.prepareReportResult(sampleResultsOrig);
     render(sampleResults);
-  });
-
-  after(() => {
-    global.window = undefined;
-    global.HTMLElement = undefined;
-    global.HTMLInputElement = undefined;
-    global.CustomEvent = undefined;
   });
 
   describe('initFeatures', () => {

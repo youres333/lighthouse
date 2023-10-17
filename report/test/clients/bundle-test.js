@@ -6,42 +6,15 @@
 
 import fs from 'fs';
 
-import jsdom from 'jsdom';
-import jestMock from 'jest-mock';
-
 import * as lighthouseRenderer from '../../clients/bundle.js';
 import {LH_ROOT} from '../../../shared/root.js';
+import {installJsdomHooks} from '../setup/jsdom-setup.js';
 
 const sampleResultsStr =
   fs.readFileSync(LH_ROOT + '/core/test/results/sample_v2.json', 'utf-8');
 
 describe('lighthouseRenderer bundle', () => {
-  let document;
-  before(() => {
-    global.console.warn = jestMock.fn();
-
-    const {window} = new jsdom.JSDOM();
-    document = window.document;
-
-    global.window = global.self = window;
-    global.window.requestAnimationFrame = fn => fn();
-    global.HTMLInputElement = window.HTMLInputElement;
-    // Stub out matchMedia for Node.
-    global.self.matchMedia = function() {
-      return {
-        addListener: function() {},
-      };
-    };
-    global.window.ResizeObserver = class ResizeObserver {
-      observe() { }
-      unobserve() { }
-    };
-  });
-
-  after(() => {
-    global.window = global.self = undefined;
-    global.HTMLInputElement = undefined;
-  });
+  installJsdomHooks();
 
   it('renders an LHR to DOM', () => {
     const lhr = /** @type {LH.Result} */ JSON.parse(sampleResultsStr);
