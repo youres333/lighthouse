@@ -119,27 +119,26 @@ class LanternFirstContentfulPaint extends LanternMetric {
   }
 
   /**
+   * @typedef getFirstPaintBasedGraphOpts
+   * @property {number} paintTs The timestamp used to filter out tasks that occured after our
+   *    paint of interest. Typically this is First Contentful Paint or First Meaningful Paint.
+   * @property {function(NetworkNode):boolean} blockingResourcesFilter The function that determines which resources
+   *    should be considered *possibly* render-blocking.
+   * @property {(function(CPUNode):boolean)=} extraBlockingCpuNodesToIncludeFilter The function that determines which CPU nodes
+   *    should also be included in our blocking node IDs set.
+   */
+  /**
    * This function computes the graph required for the first paint of interest.
    *
    * @param {Node} dependencyGraph
-   * @param {number} paintTs The timestamp used to filter out tasks that occured after our
-   *    paint of interest. Typically this is First Contentful Paint or First Meaningful Paint.
-   * @param {function(NetworkNode):boolean} blockingResourcesFilter The function that determines which resources
-   *    should be considered *possibly* render-blocking.
-   * @param {(function(CPUNode):boolean)=} extraBlockingCpuNodesToIncludeFilter The function that determines which CPU nodes
-   *    should also be included in our blocking node IDs set.
+   * @param {getFirstPaintBasedGraphOpts} opts
    * @return {Node}
    */
   static getFirstPaintBasedGraph(
       dependencyGraph,
-      paintTs,
-      blockingResourcesFilter,
-      extraBlockingCpuNodesToIncludeFilter
+      {paintTs, blockingResourcesFilter, extraBlockingCpuNodesToIncludeFilter}
   ) {
-    const {
-      definitelyNotRenderBlockingScriptUrls,
-      blockingCpuNodeIds,
-    } = this.getBlockingNodeData(
+    const {definitelyNotRenderBlockingScriptUrls, blockingCpuNodeIds} = this.getBlockingNodeData(
       dependencyGraph,
       paintTs,
       blockingResourcesFilter,
@@ -173,14 +172,14 @@ class LanternFirstContentfulPaint extends LanternMetric {
    * @return {Node}
    */
   static getOptimisticGraph(dependencyGraph, processedNavigation) {
-    return this.getFirstPaintBasedGraph(
-      dependencyGraph,
-      processedNavigation.timestamps.firstContentfulPaint,
+    return this.getFirstPaintBasedGraph(dependencyGraph, {
+      paintTs: processedNavigation.timestamps.firstContentfulPaint,
       // In the optimistic graph we exclude resources that appeared to be render blocking but were
       // initiated by a script. While they typically have a very high importance and tend to have a
       // significant impact on the page's content, these resources don't technically block rendering.
-      node => node.hasRenderBlockingPriority() && node.initiatorType !== 'script'
-    );
+      blockingResourcesFilter: node =>
+        node.hasRenderBlockingPriority() && node.initiatorType !== 'script',
+    });
   }
 
   /**
@@ -189,11 +188,10 @@ class LanternFirstContentfulPaint extends LanternMetric {
    * @return {Node}
    */
   static getPessimisticGraph(dependencyGraph, processedNavigation) {
-    return this.getFirstPaintBasedGraph(
-      dependencyGraph,
-      processedNavigation.timestamps.firstContentfulPaint,
-      node => node.hasRenderBlockingPriority()
-    );
+    return this.getFirstPaintBasedGraph(dependencyGraph, {
+      paintTs: processedNavigation.timestamps.firstContentfulPaint,
+      blockingResourcesFilter: node => node.hasRenderBlockingPriority(),
+    });
   }
 }
 

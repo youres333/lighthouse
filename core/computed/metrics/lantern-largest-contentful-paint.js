@@ -49,11 +49,10 @@ class LanternLargestContentfulPaint extends LanternMetric {
       throw new LighthouseError(LighthouseError.errors.NO_LCP);
     }
 
-    return LanternFirstContentfulPaint.getFirstPaintBasedGraph(
-      dependencyGraph,
-      lcp,
-      LanternLargestContentfulPaint.isNotLowPriorityImageNode
-    );
+    return LanternFirstContentfulPaint.getFirstPaintBasedGraph(dependencyGraph, {
+      paintTs: lcp,
+      blockingResourcesFilter: LanternLargestContentfulPaint.isNotLowPriorityImageNode,
+    });
   }
 
   /**
@@ -67,13 +66,12 @@ class LanternLargestContentfulPaint extends LanternMetric {
       throw new LighthouseError(LighthouseError.errors.NO_LCP);
     }
 
-    return LanternFirstContentfulPaint.getFirstPaintBasedGraph(
-      dependencyGraph,
-      lcp,
-      _ => true,
+    return LanternFirstContentfulPaint.getFirstPaintBasedGraph(dependencyGraph, {
+      paintTs: lcp,
+      blockingResourcesFilter: _ => true,
       // For pessimistic LCP we'll include *all* layout nodes
-      node => node.didPerformLayout()
-    );
+      extraBlockingCpuNodesToIncludeFilter: node => node.didPerformLayout(),
+    });
   }
 
   /**
