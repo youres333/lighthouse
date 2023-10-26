@@ -34,10 +34,10 @@ class LanternFirstMeaningfulPaint extends LanternMetric {
       throw new LighthouseError(LighthouseError.errors.NO_FMP);
     }
     return LanternFirstContentfulPaint.getFirstPaintBasedGraph(dependencyGraph, {
-      paintTs: fmp,
+      cutoffTimestamp: fmp,
       // See LanternFirstContentfulPaint's getOptimisticGraph implementation for a longer description
       // of why we exclude script initiated resources here.
-      blockingResourcesFilter: node =>
+      treatScriptAsBlocking: node =>
         node.hasRenderBlockingPriority() && node.initiatorType !== 'script',
     });
   }
@@ -54,10 +54,10 @@ class LanternFirstMeaningfulPaint extends LanternMetric {
     }
 
     return LanternFirstContentfulPaint.getFirstPaintBasedGraph(dependencyGraph, {
-      paintTs: fmp,
-      blockingResourcesFilter: node => node.hasRenderBlockingPriority(),
+      cutoffTimestamp: fmp,
+      treatScriptAsBlocking: node => node.hasRenderBlockingPriority(),
       // For pessimistic FMP we'll include *all* layout nodes
-      extraBlockingCpuNodesToIncludeFilter: node => node.didPerformLayout(),
+      additionalCpuNodesToTreatAsBlocking: node => node.didPerformLayout(),
     });
   }
 
