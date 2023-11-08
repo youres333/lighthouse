@@ -73,11 +73,11 @@ async function getPageFromConnection(connection) {
  * @param {any} connection
  * @param {string} url
  * @param {LH.Flags} flags Lighthouse flags
- * @param {{lrDevice?: 'desktop'|'mobile', categoryIDs?: Array<string>, logAssets: boolean, configOverride?: LH.Config}} lrOpts Options coming from Lightrider
+ * @param {{lrDevice?: 'desktop'|'mobile', categoryIDs?: Array<string>, logAssets: boolean, configOverride?: LH.Config, ignoreStatusCode?: boolean}} lrOpts Options coming from Lightrider
  * @return {Promise<string>}
  */
 async function runLighthouseInLR(connection, url, flags, lrOpts) {
-  const {lrDevice, categoryIDs, logAssets, configOverride} = lrOpts;
+  const {lrDevice, categoryIDs, logAssets, configOverride, ignoreStatusCode} = lrOpts;
 
   // Certain fixes need to kick in under LR, see https://github.com/GoogleChrome/lighthouse/issues/5839
   global.isLightrider = true;
@@ -92,9 +92,12 @@ async function runLighthouseInLR(connection, url, flags, lrOpts) {
     config = configOverride;
   } else {
     config = lrDevice === 'desktop' ? LR_PRESETS.desktop : LR_PRESETS.mobile;
+    config.settings = config.settings || {};
     if (categoryIDs) {
-      config.settings = config.settings || {};
       config.settings.onlyCategories = categoryIDs;
+    }
+    if (ignoreStatusCode) {
+      config.settings.ignoreStatusCode = true;
     }
   }
 
