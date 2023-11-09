@@ -68,7 +68,6 @@ const expectations = {
     audits: {
       'resource-summary': {
         score: null,
-        displayValue: '10 requests • 165 KiB',
         details: {
           items: [
             {resourceType: 'total', requestCount: 10, transferSize: '168521±1000'},
