@@ -2657,6 +2657,9 @@
   "core/lib/lh-error.js | urlInvalid": {
     "message": "T̂h́ê ÚR̂Ĺ ŷóû h́âv́ê ṕr̂óv̂íd̂éd̂ áp̂ṕêár̂ś t̂ó b̂é îńv̂ál̂íd̂."
   },
+  "core/lib/navigation-error.js | warningStatusCode": {
+    "message": "L̂íĝh́t̂h́ôúŝé ŵáŝ ún̂áb̂ĺê t́ô ŕêĺîáb̂ĺŷ ĺôád̂ t́ĥé p̂áĝé ŷóû ŕêq́ûéŝt́êd́. M̂ák̂é ŝúr̂é ŷóû ár̂é t̂éŝt́îńĝ t́ĥé ĉór̂ŕêćt̂ ÚR̂Ĺ âńd̂ t́ĥát̂ t́ĥé ŝér̂v́êŕ îś p̂ŕôṕêŕl̂ý r̂éŝṕôńd̂ín̂ǵ t̂ó âĺl̂ ŕêq́ûéŝt́ŝ. (Śt̂át̂úŝ ćôd́ê: {errorCode})"
+  },
   "core/lib/navigation-error.js | warningXhtml": {
     "message": "T̂h́ê ṕâǵê ḾÎḾÊ t́ŷṕê íŝ X́ĤT́M̂Ĺ: L̂íĝh́t̂h́ôúŝé d̂óêś n̂ót̂ éx̂ṕl̂íĉít̂ĺŷ śûṕp̂ór̂t́ t̂h́îś d̂óĉúm̂én̂t́ t̂ýp̂é"
   },
@@ -3108,22 +3111,22 @@
     "message": "Ûśê [`Gzip compression`](https://support.nitropack.io/hc/en-us/articles/13229297479313-Enabling-GZIP-compression) ín̂ Ńît́r̂óP̂áĉḱ t̂ó r̂éd̂úĉé t̂h́ê śîźê óf̂ t́ĥé f̂íl̂éŝ t́ĥát̂ ár̂é ŝén̂t́ t̂ó t̂h́ê b́r̂óŵśêŕ."
   },
   "node_modules/lighthouse-stack-packs/packs/nuxt.js | modern-image-formats": {
-    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ `format=\"webp\"`. [Ĺêár̂ń m̂ór̂é](https://image.nuxtjs.org/components/nuxt-img#format)."
+    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ `format=\"webp\"`. [Ĺêár̂ń m̂ór̂é](https://image.nuxt.com/usage/nuxt-img#format)."
   },
   "node_modules/lighthouse-stack-packs/packs/nuxt.js | offscreen-images": {
-    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ `loading=\"lazy\"` f́ôŕ ôf́f̂śĉŕêén̂ ím̂áĝéŝ. [Ĺêár̂ń m̂ór̂é](https://image.nuxtjs.org/components/nuxt-img#loading)."
+    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ `loading=\"lazy\"` f́ôŕ ôf́f̂śĉŕêén̂ ím̂áĝéŝ. [Ĺêár̂ń m̂ór̂é](https://image.nuxt.com/usage/nuxt-img#loading)."
   },
   "node_modules/lighthouse-stack-packs/packs/nuxt.js | prioritize-lcp-image": {
-    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝṕêćîf́ŷ `preload` f́ôŕ L̂ĆP̂ ím̂áĝé. [L̂éâŕn̂ ḿôŕê](https://image.nuxtjs.org/components/nuxt-img#preload)."
+    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝṕêćîf́ŷ `preload` f́ôŕ L̂ĆP̂ ím̂áĝé. [L̂éâŕn̂ ḿôŕê](https://image.nuxt.com/usage/nuxt-img#preload)."
   },
   "node_modules/lighthouse-stack-packs/packs/nuxt.js | unsized-images": {
-    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝṕêćîf́ŷ éx̂ṕl̂íĉít̂ `width` án̂d́ `height`. [L̂éâŕn̂ ḿôŕê](https://image.nuxtjs.org/components/nuxt-img#width--height)."
+    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝṕêćîf́ŷ éx̂ṕl̂íĉít̂ `width` án̂d́ `height`. [L̂éâŕn̂ ḿôŕê](https://image.nuxt.com/usage/nuxt-img#width-height)."
   },
   "node_modules/lighthouse-stack-packs/packs/nuxt.js | uses-optimized-images": {
-    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ t́ĥé âṕp̂ŕôṕr̂íât́ê `quality`. [Ĺêár̂ń m̂ór̂é](https://image.nuxtjs.org/components/nuxt-img#quality)."
+    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ t́ĥé âṕp̂ŕôṕr̂íât́ê `quality`. [Ĺêár̂ń m̂ór̂é](https://image.nuxt.com/usage/nuxt-img#quality)."
   },
   "node_modules/lighthouse-stack-packs/packs/nuxt.js | uses-responsive-images": {
-    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ t́ĥé âṕp̂ŕôṕr̂íât́ê `sizes`. [Ĺêár̂ń m̂ór̂é](https://image.nuxtjs.org/components/nuxt-img#sizes)."
+    "message": "Ûśê t́ĥé `nuxt/image` ĉóm̂ṕôńêńt̂ án̂d́ ŝét̂ t́ĥé âṕp̂ŕôṕr̂íât́ê `sizes`. [Ĺêár̂ń m̂ór̂é](https://image.nuxt.com/usage/nuxt-img#sizes)."
   },
   "node_modules/lighthouse-stack-packs/packs/octobercms.js | efficient-animated-content": {
     "message": "[R̂ép̂ĺâćê án̂ím̂át̂éd̂ ǴÎF́ŝ ẃît́ĥ v́îd́êó](https://web.dev/replace-gifs-with-videos/) f̂ór̂ f́âśt̂ér̂ ẃêb́ p̂áĝé l̂óâd́ŝ án̂d́ ĉón̂śîd́êŕ ûśîńĝ ḿôd́êŕn̂ f́îĺê f́ôŕm̂át̂ś ŝúĉh́ âś [Ŵéb̂Ḿ](https://web.dev/replace-gifs-with-videos/#create-webm-videos) ôŕ [ÂV́1](https://developers.google.com/web/updates/2018/09/chrome-70-media-updates#av1-decoder) t̂ó îḿp̂ŕôv́ê ćôḿp̂ŕêśŝíôń êf́f̂íĉíêńĉý b̂ý ĝŕêát̂ér̂ t́ĥán̂ 30% óv̂ér̂ t́ĥé ĉúr̂ŕêńt̂ śt̂át̂é-ôf́-t̂h́ê-ár̂t́ v̂íd̂éô ćôd́êć, V̂Ṕ9."
@@ -3359,6 +3362,12 @@
   "report/renderer/report-utils.js | runtimeAnalysisWindow": {
     "message": "Îńît́îál̂ ṕâǵê ĺôád̂"
   },
+  "report/renderer/report-utils.js | runtimeAnalysisWindowSnapshot": {
+    "message": "P̂óîńt̂-ín̂-t́îḿê śn̂áp̂śĥót̂"
+  },
+  "report/renderer/report-utils.js | runtimeAnalysisWindowTimespan": {
+    "message": "Ûśêŕ îńt̂ér̂áĉt́îón̂ś t̂ím̂éŝṕâń"
+  },
   "report/renderer/report-utils.js | runtimeCustom": {
     "message": "Ĉúŝt́ôḿ t̂h́r̂ót̂t́l̂ín̂ǵ"
   },
@@ -3393,10 +3402,10 @@
     "message": "Ûśêŕ âǵêńt̂ (ńêt́ŵór̂ḱ)"
   },
   "report/renderer/report-utils.js | runtimeSingleLoad": {
-    "message": "Ŝín̂ǵl̂é p̂áĝé l̂óâd́"
+    "message": "Ŝín̂ǵl̂é p̂áĝé ŝéŝśîón̂"
   },
   "report/renderer/report-utils.js | runtimeSingleLoadTooltip": {
-    "message": "T̂h́îś d̂át̂á îś t̂ák̂én̂ f́r̂óm̂ á ŝín̂ǵl̂é p̂áĝé l̂óâd́, âś ôṕp̂óŝéd̂ t́ô f́îél̂d́ d̂át̂á ŝúm̂ḿâŕîźîńĝ ḿâńŷ śêśŝíôńŝ."
+    "message": "T̂h́îś d̂át̂á îś t̂ák̂én̂ f́r̂óm̂ á ŝín̂ǵl̂é p̂áĝé ŝéŝśîón̂, áŝ óp̂ṕôśêd́ t̂ó f̂íêĺd̂ d́ât́â śûḿm̂ár̂íẑín̂ǵ m̂án̂ý ŝéŝśîón̂ś."
   },
   "report/renderer/report-utils.js | runtimeSlow4g": {
     "message": "Ŝĺôẃ 4Ĝ t́ĥŕôt́t̂ĺîńĝ"
