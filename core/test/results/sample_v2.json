@@ -5858,8 +5858,18 @@
     "locale": "en-US",
     "blockedUrlPatterns": null,
     "additionalTraceCategories": null,
-    "extraHeaders": null,
-    "precomputedLanternData": null,
+    "extraHeaders": {
+      "Cookie": "monster=blue",
+      "x-men": "wolverine"
+    },
+    "precomputedLanternData": {
+      "additionalRttByOrigin": {
+        "http://localhost:10200'": 500
+      },
+      "serverResponseTimeByOrigin": {
+        "'http://localhost:10200'": 1000
+      }
+    },
     "onlyAudits": null,
     "onlyCategories": null,
     "skipAudits": null
