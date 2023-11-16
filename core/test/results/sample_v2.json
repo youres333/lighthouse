@@ -5859,17 +5859,9 @@
     "blockedUrlPatterns": null,
     "additionalTraceCategories": null,
     "extraHeaders": {
-      "Cookie": "monster=blue",
-      "x-men": "wolverine"
+      "Cookie": "monster=blue"
     },
-    "precomputedLanternData": {
-      "additionalRttByOrigin": {
-        "http://localhost:10200'": 500
-      },
-      "serverResponseTimeByOrigin": {
-        "'http://localhost:10200'": 1000
-      }
-    },
+    "precomputedLanternData": null,
     "onlyAudits": null,
     "onlyCategories": null,
     "skipAudits": null
