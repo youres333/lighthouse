@@ -482,23 +482,23 @@ message AuditResult {
   message MetricSavings {
     // Optional numeric value representing the audit's savings for the LCP
     // metric.
-    google.protobuf.DoubleValue LCP = 1;
+    optional google.protobuf.DoubleValue LCP = 1;
 
     // Optional numeric value representing the audit's savings for the FCP
     // metric.
-    google.protobuf.DoubleValue FCP = 2;
+    optional google.protobuf.DoubleValue FCP = 2;
 
     // Optional numeric value representing the audit's savings for the CLS
     // metric.
-    google.protobuf.DoubleValue CLS = 3;
+    optional google.protobuf.DoubleValue CLS = 3;
 
     // Optional numeric value representing the audit's savings for the TBT
     // metric.
-    google.protobuf.DoubleValue TBT = 4;
+    optional google.protobuf.DoubleValue TBT = 4;
 
     // Optional numeric value representing the audit's savings for the INP
     // metric.
-    google.protobuf.DoubleValue INP = 5;
+    optional google.protobuf.DoubleValue INP = 5;
   }
 
   // The audit's MetricSavings.
@@ -803,16 +803,16 @@ message LhrEntity {
   string name = 1;
 
   // An optional homepage URL of the entity.
-  string homepage = 2;
+  optional string homepage = 2;
 
   // An optional category name for the entity.
-  string category = 3;
+  optional string category = 3;
 
   // An optional flag indicating if the entity is the first party.
-  bool is_first_party = 4;
+  optional bool is_first_party = 4;
 
   // An optional flag indicating if the entity is not recognized.
-  bool is_unrecognized = 5;
+  optional bool is_unrecognized = 5;
 
   // A list of URL origin strings that belong to this entity.
   repeated string origins = 6;
