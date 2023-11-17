@@ -41,14 +41,14 @@ async function generateHash(str) {
 /**
  * @param {LH.Result|LH.FlowResult} reportObject
  * @param {string} filename
- * @returns Promise<object described below>
+ * @returns {Promise<string>}
  */
 async function uploadLhrToTraceCafe(reportObject, filename) {
   const lhrJsonStr = JSON.stringify(reportObject);
   const lhrBlob = await gzipStringToBlob(lhrJsonStr);
 
   const hash = await generateHash(lhrJsonStr);
-  // Strip time off filename, for a cleaner look
+  // Remove the time string, for a cleaner look
   const shortname = filename.split('_').slice(0, 2).join('_').replaceAll('-', '_');
   const id = `${shortname}-${hash}`;
 
@@ -81,30 +81,6 @@ async function uploadLhrToTraceCafe(reportObject, filename) {
   }
   return id;
 }
-
-/**
- * Result is in this shape:
- *
-  {
-    name: 'lhrs/lhrfilename.json',
-    bucket: 'tum-lhrs',
-    generation: '1700156936417822',
-    metageneration: '1',
-    contentType: 'application/json',
-    timeCreated: '2023-11-16T17:48:56.475Z',
-    updated: '2023-11-16T17:48:56.475Z',
-    storageClass: 'MULTI_REGIONAL',
-    size: '472',
-    md5Hash: 'KDAFaeEugvWpLvt8SS0unw==',
-    contentEncoding: 'gzip',
-    contentDisposition: "inline; filename*=utf-8''lhrfilename.json",
-    cacheControl: 'max-age=31536000',
-    crc32c: 'Jhu89w==',
-    etag: 'CJ7kh5KKyYIDEAE=',
-    downloadTokens: '021e757e-a64d-491a-97c9-01dbf2463266',
-    metadata: {oName: 'lhrfilename.json'},
-  };
- */
 
 export {
   uploadLhrToTraceCafe,

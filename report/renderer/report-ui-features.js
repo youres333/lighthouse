@@ -177,7 +177,7 @@ export class ReportUIFeatures {
    */
   uploadForPermalink() {
     // TODO ?
-    throw new Error('Cannot save as gist from base report');
+    throw new Error('Cannot Get Permalink from base report');
   }
 
   _enableFireworks() {

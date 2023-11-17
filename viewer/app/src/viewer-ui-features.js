@@ -38,7 +38,7 @@ export class ViewerUIFeatures extends ReportUIFeatures {
   initFeatures(report) {
     super.initFeatures(report);
 
-    // Disable option to save as gist if no handler for saving.
+    // Disable option to Get Permalink if no handler for saving.
     if (!this._uploadForPermalinkHandler) {
       const permalinkItem =
         this._dom.find('.lh-tools__dropdown a[data-action="upload-for-permalink"]',
