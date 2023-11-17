@@ -628,7 +628,7 @@ function createTopbarComponent(dom) {
   el26.setAttribute('role', 'menuitem');
   el26.setAttribute('tabindex', '-1');
   el26.setAttribute('href', '#');
-  el26.setAttribute('data-i18n', 'dropdownGetPermalink');
+  el26.setAttribute('data-i18n', 'dropdownShareableURL');
   el26.setAttribute('data-action', 'upload-for-permalink');
   const el27 = dom.createElement("a", "lh-report-icon lh-report-icon--open lh-hidden");
   el27.setAttribute('role', 'menuitem');
