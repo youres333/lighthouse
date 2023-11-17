@@ -78,7 +78,7 @@ const Topbar: FunctionComponent<{onMenuClick: JSX.MouseEventHandler<HTMLButtonEl
           <TopbarButton
             onClick={() => uploadForPermalink(flowResult)}
             label="Button that saves the report to a gist"
-          >{strings.dropdownUploadForPermalink}</TopbarButton>
+          >{strings.dropdownGetPermalink}</TopbarButton>
       }
       <div style={{flexGrow: 1}} />
       <TopbarButton

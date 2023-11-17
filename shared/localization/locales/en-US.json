@@ -3296,14 +3296,14 @@
   "report/renderer/report-utils.js | dropdownDarkTheme": {
     "message": "Toggle Dark Theme"
   },
+  "report/renderer/report-utils.js | dropdownGetPermalink": {
+    "message": "Get Permalink"
+  },
   "report/renderer/report-utils.js | dropdownPrintExpanded": {
     "message": "Print Expanded"
   },
   "report/renderer/report-utils.js | dropdownPrintSummary": {
     "message": "Print Summary"
-  },
-  "report/renderer/report-utils.js | dropdownSaveGist": {
-    "message": "Save as Gist"
   },
   "report/renderer/report-utils.js | dropdownSaveHTML": {
     "message": "Save as HTML"

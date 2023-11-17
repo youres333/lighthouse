@@ -3296,14 +3296,14 @@
   "report/renderer/report-utils.js | dropdownDarkTheme": {
     "message": "T̂óĝǵl̂é D̂ár̂ḱ T̂h́êḿê"
   },
+  "report/renderer/report-utils.js | dropdownGetPermalink": {
+    "message": "Ĝét̂ Ṕêŕm̂ál̂ín̂ḱ"
+  },
   "report/renderer/report-utils.js | dropdownPrintExpanded": {
     "message": "P̂ŕîńt̂ Éx̂ṕâńd̂éd̂"
   },
   "report/renderer/report-utils.js | dropdownPrintSummary": {
     "message": "P̂ŕîńt̂ Śûḿm̂ár̂ý"
-  },
-  "report/renderer/report-utils.js | dropdownSaveGist": {
-    "message": "Ŝáv̂é âś Ĝíŝt́"
   },
   "report/renderer/report-utils.js | dropdownSaveHTML": {
     "message": "Ŝáv̂é âś ĤT́M̂Ĺ"
