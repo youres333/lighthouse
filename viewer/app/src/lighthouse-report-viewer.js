@@ -14,6 +14,10 @@ import {DOM} from '../../../report/renderer/dom.js';
 import {ReportRenderer} from '../../../report/renderer/report-renderer.js';
 import {TextEncoding} from '../../../report/renderer/text-encoding.js';
 import {renderFlowReport} from '../../../flow-report/api';
+import {uploadLhrToTraceCafe} from './tracecafe-storage.js';
+// eslint-disable-next-line max-len
+import {getLhrFilenamePrefix, getFlowResultFilenamePrefix} from '../../../report/generator/file-namer.js';
+import {Util} from '../../../shared/util.js';
 
 /* global logger ReportGenerator */
 
@@ -40,7 +44,7 @@ function find(query, context) {
 export class LighthouseReportViewer {
   constructor() {
     this._onPaste = this._onPaste.bind(this);
-    this._onSaveJson = this._onSaveJson.bind(this);
+    this._doUploadForPermalink = this._doUploadForPermalink.bind(this);
     this._onFileLoad = this._onFileLoad.bind(this);
     this._onUrlInputChange = this._onUrlInputChange.bind(this);
 
@@ -108,6 +112,7 @@ export class LighthouseReportViewer {
     const gistId = params.get('gist');
     const psiurl = params.get('psiurl');
     const jsonurl = params.get('jsonurl');
+    const lhrid = params.get('id');
     const gzip = params.get('gzip') === '1';
 
     const hash = window.__hash ?? location.hash;
@@ -125,9 +130,10 @@ export class LighthouseReportViewer {
       }
     }
 
-    if (!gistId && !psiurl && !jsonurl) return Promise.resolve();
+    if (!gistId && !psiurl && !jsonurl && !lhrid) return Promise.resolve();
 
     this._toggleLoadingBlur(true);
+
     let loadPromise = Promise.resolve();
     if (psiurl) {
       loadPromise = this._fetchFromPSI({
@@ -142,15 +148,11 @@ export class LighthouseReportViewer {
         this._reportIsFromGist = true;
         this._replaceReportHtml(reportJson);
       }).catch(err => logger.error(err.message));
-    } else if (jsonurl) {
-      const firebaseAuth = this._github.getFirebaseAuth();
-      loadPromise = firebaseAuth.getAccessTokenIfLoggedIn()
-        .then(token => {
-          return token
-            ? Promise.reject(new Error('Can only use jsonurl when not logged in'))
-            : null;
-        })
-        .then(() => fetch(jsonurl))
+    } else if (jsonurl ?? lhrid) {
+      const fetchableUrl = jsonurl ??
+        `https://firebasestorage.googleapis.com/v0/b/tum-lhrs/o/lhrs%2F${lhrid}?alt=media`;
+
+      fetch(fetchableUrl)
         .then(resp => resp.json())
         .then(json => {
           this._reportIsFromJSON = true;
@@ -200,9 +202,9 @@ export class LighthouseReportViewer {
   /**
    * @param {LH.Result} json
    * @param {HTMLElement} rootEl
-   * @param {(json: LH.Result|LH.FlowResult) => void} [saveGistCallback]
+   * @param {(json: LH.Result|LH.FlowResult) => void} [uploadForPermalinkHandler]
    */
-  _renderLhr(json, rootEl, saveGistCallback) {
+  _renderLhr(json, rootEl, uploadForPermalinkHandler) {
     // Allow users to view the runnerResult
     if ('lhr' in json) {
       const runnerResult = /** @type {{lhr: LH.Result}} */ (/** @type {unknown} */ (json));
@@ -235,7 +237,7 @@ export class LighthouseReportViewer {
     renderer.renderReport(json, rootEl);
 
     const features = new ViewerUIFeatures(dom, {
-      saveGist: saveGistCallback,
+      uploadForPermalinkHandler,
       /** @param {LH.Result} newLhr */
       refresh: newLhr => {
         this._replaceReportHtml(newLhr);
@@ -250,12 +252,12 @@ export class LighthouseReportViewer {
   /**
    * @param {LH.FlowResult} json
    * @param {HTMLElement} rootEl
-   * @param {(json: LH.Result|LH.FlowResult) => void} [saveGistCallback]
+   * @param {(json: LH.Result|LH.FlowResult) => void} [uploadForPermalinkHandler]
    */
-  _renderFlowResult(json, rootEl, saveGistCallback) {
+  _renderFlowResult(json, rootEl, uploadForPermalinkHandler) {
     // TODO: Add save HTML functionality with ReportGenerator loaded async.
     renderFlowReport(json, rootEl, {
-      saveAsGist: saveGistCallback,
+      uploadForPermalink: uploadForPermalinkHandler,
     });
     // Install as global for easier debugging.
     window.__LIGHTHOUSE_FLOW_JSON__ = json;
@@ -278,17 +280,17 @@ export class LighthouseReportViewer {
     container.append(rootEl);
 
     // Only give gist-saving callback if current report isn't from a gist.
-    let saveGistCallback;
+    let uploadForPermalinkHandler;
     if (!this._reportIsFromGist) {
-      saveGistCallback = this._onSaveJson;
+      uploadForPermalinkHandler = this._doUploadForPermalink;
     }
 
     try {
       if (this._isFlowReport(json)) {
-        this._renderFlowResult(json, rootEl, saveGistCallback);
+        this._renderFlowResult(json, rootEl, uploadForPermalinkHandler);
         window.ga('send', 'event', 'report', 'flow-report');
       } else {
-        this._renderLhr(json, rootEl, saveGistCallback);
+        this._renderLhr(json, rootEl, uploadForPermalinkHandler);
         window.ga('send', 'event', 'report', 'report');
       }
 
@@ -362,19 +364,31 @@ export class LighthouseReportViewer {
    * @return {Promise<string|void>} id of the created gist.
    * @private
    */
-  async _onSaveJson(reportJson) {
+  async _doUploadForPermalink(reportJson) {
     if (window.ga) {
       window.ga('send', 'event', 'report', 'share');
     }
 
-    // TODO: find and reuse existing json gist if one exists.
     try {
-      const id = await this._github.createGist(reportJson);
+      let filename;
+      if ('steps' in reportJson) {
+        filename = getFlowResultFilenamePrefix(reportJson);
+      } else {
+        filename = getLhrFilenamePrefix({
+          finalDisplayedUrl: Util.getFinalDisplayedUrl(reportJson),
+          fetchTime: reportJson.fetchTime,
+        });
+      }
+
+      await uploadLhrToTraceCafe(reportJson, filename);
+
       if (window.ga) {
         window.ga('send', 'event', 'report', 'created');
       }
-      history.pushState({}, '', `${LighthouseReportViewer.APP_URL}?gist=${id}`);
-      return id;
+      const updatedUrl = new URL(LighthouseReportViewer.APP_URL);
+      updatedUrl.searchParams.append('id', filename);
+      history.pushState({}, '', updatedUrl.href);
+      return filename;
     } catch (err) {
       logger.log(err.message);
     }
