@@ -35,7 +35,7 @@ async function uploadLhrToTraceCafe(reportObject, filename) {
   const lhrJsonStr = JSON.stringify(reportObject);
   const lhrBlob = await gzipStringToBlob(lhrJsonStr);
 
-  // This REST technique is completely undocumented, but.. it works. ;)
+  // This REST technique is completely undocumented, but.. it works.
   const formData = new FormData();
   formData.append(
     'metadata',

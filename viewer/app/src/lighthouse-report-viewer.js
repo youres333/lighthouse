@@ -57,6 +57,7 @@ export class LighthouseReportViewer {
      * @type {boolean}
      */
     this._reportIsFromGist = false;
+    this._reportIsFromTraceCafe = false;
     this._reportIsFromPSI = false;
     this._reportIsFromJSON = false;
 
@@ -155,7 +156,11 @@ export class LighthouseReportViewer {
       fetch(fetchableUrl)
         .then(resp => resp.json())
         .then(json => {
-          this._reportIsFromJSON = true;
+          if (jsonurl) {
+            this._reportIsFromJSON = true;
+          } else {
+            this._reportIsFromTraceCafe = true;
+          }
           this._replaceReportHtml(json);
         })
         .catch(err => logger.error(err.message));
@@ -279,11 +284,9 @@ export class LighthouseReportViewer {
     const rootEl = document.createElement('div');
     container.append(rootEl);
 
-    // Only give gist-saving callback if current report isn't from a gist.
-    let uploadForPermalinkHandler;
-    if (!this._reportIsFromGist) {
-      uploadForPermalinkHandler = this._doUploadForPermalink;
-    }
+    // Don't allow uploading if the report is already uploaded.
+    const uploadForPermalinkHandler = this._reportIsFromTraceCafe ?
+      undefined : this._doUploadForPermalink;
 
     try {
       if (this._isFlowReport(json)) {
@@ -295,7 +298,8 @@ export class LighthouseReportViewer {
       }
 
       // Only clear query string if current report isn't from a gist or PSI.
-      if (!this._reportIsFromGist && !this._reportIsFromPSI && !this._reportIsFromJSON) {
+      if (!this._reportIsFromGist && !this._reportIsFromPSI &&
+         !this._reportIsFromJSON && !this._reportIsFromTraceCafe) {
         history.pushState({}, '', LighthouseReportViewer.APP_URL);
       }
     } catch (e) {
@@ -303,7 +307,8 @@ export class LighthouseReportViewer {
       container.innerHTML = '';
       throw e;
     } finally {
-      this._reportIsFromGist = this._reportIsFromPSI = this._reportIsFromJSON = false;
+      this._reportIsFromGist = this._reportIsFromPSI =
+        this._reportIsFromJSON = this._reportIsFromTraceCafe = false;
     }
 
     // Remove the placeholder UI once the user has loaded a report.

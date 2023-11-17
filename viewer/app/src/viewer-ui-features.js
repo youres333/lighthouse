@@ -38,7 +38,7 @@ export class ViewerUIFeatures extends ReportUIFeatures {
   initFeatures(report) {
     super.initFeatures(report);
 
-    // Disable option to save as gist if no callback for saving.
+    // Disable option to save as gist if no handler for saving.
     if (!this._uploadForPermalinkHandler) {
       const permalinkItem =
         this._dom.find('.lh-tools__dropdown a[data-action="upload-for-permalink"]',
@@ -59,8 +59,8 @@ export class ViewerUIFeatures extends ReportUIFeatures {
     if (this._uploadForPermalinkHandler) {
       this._uploadForPermalinkHandler(this.json);
     } else {
-      // UI should prevent this from being called with no callback, but throw to be sure.
-      throw new Error('Cannot save this report as a gist');
+      // UI should prevent this from being called with no handler, but throw to be sure.
+      throw new Error('Cannot upload this report for sharing');
     }
 
     // Disable upload-for-permalink option after saving.
