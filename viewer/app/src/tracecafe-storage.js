@@ -50,14 +50,14 @@ async function uploadLhrToTraceCafe(reportObject, filename) {
   const hash = await generateHash(lhrJsonStr);
   // Remove the time string, for a cleaner look
   const shortname = filename.split('_').slice(0, 2).join('_').replaceAll('-', '_');
-  const id = `${shortname}-${hash}`;
+  const cafeid = `${shortname}-${hash}`;
 
   // This REST technique is completely undocumented, but.. it works.
   const formData = new FormData();
   formData.append(
     'metadata',
     JSON.stringify({
-      name: `lhrs/${id}`,
+      name: `lhrs/${cafeid}`,
       cacheControl: 'max-age=31536000',
       contentEncoding: 'gzip',
       contentType: 'application/json',
@@ -67,7 +67,7 @@ async function uploadLhrToTraceCafe(reportObject, filename) {
   formData.append('file', lhrBlob, 'filename');
 
   const resp = await fetch(
-    `https://firebasestorage.googleapis.com/v0/b/tum-lhrs/o?name=lhrs%2F${id}`,
+    `https://firebasestorage.googleapis.com/v0/b/tum-lhrs/o?name=lhrs%2F${cafeid}`,
     {
       method: 'POST',
       body: formData,
@@ -79,7 +79,7 @@ async function uploadLhrToTraceCafe(reportObject, filename) {
     console.error(payload);
     throw new Error(`Upload failed. ${payload?.error?.message}`);
   }
-  return id;
+  return cafeid;
 }
 
 export {

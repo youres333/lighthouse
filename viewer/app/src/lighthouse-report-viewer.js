@@ -113,7 +113,7 @@ export class LighthouseReportViewer {
     const gistId = params.get('gist');
     const psiurl = params.get('psiurl');
     const jsonurl = params.get('jsonurl');
-    const lhrid = params.get('id');
+    const cafeid = params.get('id');
     const gzip = params.get('gzip') === '1';
 
     const hash = window.__hash ?? location.hash;
@@ -131,7 +131,7 @@ export class LighthouseReportViewer {
       }
     }
 
-    if (!gistId && !psiurl && !jsonurl && !lhrid) return Promise.resolve();
+    if (!gistId && !psiurl && !jsonurl && !cafeid) return Promise.resolve();
 
     this._toggleLoadingBlur(true);
 
@@ -149,9 +149,9 @@ export class LighthouseReportViewer {
         this._reportIsFromGist = true;
         this._replaceReportHtml(reportJson);
       }).catch(err => logger.error(err.message));
-    } else if (jsonurl ?? lhrid) {
+    } else if (jsonurl ?? cafeid) {
       const fetchableUrl = jsonurl ??
-        `https://firebasestorage.googleapis.com/v0/b/tum-lhrs/o/lhrs%2F${lhrid}?alt=media`;
+        `https://firebasestorage.googleapis.com/v0/b/tum-lhrs/o/lhrs%2F${cafeid}?alt=media`;
 
       fetch(fetchableUrl)
         .then(resp => resp.json())
