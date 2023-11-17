@@ -385,13 +385,13 @@ export class LighthouseReportViewer {
         });
       }
 
-      await uploadLhrToTraceCafe(reportJson, filename);
+      const id = await uploadLhrToTraceCafe(reportJson, filename);
 
       if (window.ga) {
         window.ga('send', 'event', 'report', 'created');
       }
       const updatedUrl = new URL(LighthouseReportViewer.APP_URL);
-      updatedUrl.searchParams.append('id', filename);
+      updatedUrl.searchParams.append('id', id);
       history.pushState({}, '', updatedUrl.href);
       return filename;
     } catch (err) {
