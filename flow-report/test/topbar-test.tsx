@@ -59,12 +59,12 @@ it('save button opens save dialog for HTML file', async () => {
   );
 });
 
-it('provides save as gist option if defined', async () => {
+it('provides permalink option if defined', async () => {
   const uploadForPermalink = jestMock.fn();
   options = {uploadForPermalink};
   const root = render(<Topbar onMenuClick={() => {}}/>, {wrapper});
 
-  const saveButton = root.getByText('Save as Gist');
+  const saveButton = root.getByText('Get Permalink');
   saveButton.click();
 
   expect(uploadForPermalink).toHaveBeenCalledWith(flowResult);
