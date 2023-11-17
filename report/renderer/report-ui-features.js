@@ -177,7 +177,7 @@ export class ReportUIFeatures {
    */
   uploadForPermalink() {
     // TODO ?
-    throw new Error('Cannot Get Permalink from base report');
+    throw new Error('Cannot Upload for Shareable URL from base report');
   }
 
   _enableFireworks() {

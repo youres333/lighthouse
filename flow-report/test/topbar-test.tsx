@@ -64,7 +64,7 @@ it('provides permalink option if defined', async () => {
   options = {uploadForPermalink};
   const root = render(<Topbar onMenuClick={() => {}}/>, {wrapper});
 
-  const saveButton = root.getByText('Get Permalink');
+  const saveButton = root.getByText('Upload for Shareable URL');
   saveButton.click();
 
   expect(uploadForPermalink).toHaveBeenCalledWith(flowResult);

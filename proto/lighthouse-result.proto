@@ -670,7 +670,7 @@ message I18n {
     string runtime_analysis_window_snapshot = 66;
 
     // Option in a dropdown menu that gets a shareable URL for the current report.
-    string dropdown_get_permalink = 67;
+    string dropdown_shareable_URL = 67;
   }
 
   // The message holding all formatted strings used in the renderer.
