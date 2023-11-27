@@ -1027,6 +1027,18 @@
         ]
       }
     },
+    "third-party-cookies": {
+      "id": "third-party-cookies",
+      "title": "Avoids third-party cookies",
+      "description": "Third-party cookie support will be removed in a future version of Chrome. [Learn more about third-party cookie deprecation](https://developer.chrome.com/en/docs/privacy-sandbox/third-party-cookie-phase-out/).",
+      "score": 1,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": []
+      }
+    },
     "mainthread-work-breakdown": {
       "id": "mainthread-work-breakdown",
       "title": "Minimize main-thread work",
@@ -6615,6 +6627,11 @@
           "group": "best-practices-general"
         },
         {
+          "id": "third-party-cookies",
+          "weight": 5,
+          "group": "best-practices-general"
+        },
+        {
           "id": "errors-in-console",
           "weight": 1,
           "group": "best-practices-general"
@@ -6631,7 +6648,7 @@
         }
       ],
       "id": "best-practices",
-      "score": 0.18
+      "score": 0.33
     },
     "seo": {
       "title": "SEO",
@@ -8217,6 +8234,12 @@
       },
       {
         "startTime": 0,
+        "name": "lh:audit:third-party-cookies",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:mainthread-work-breakdown",
         "duration": 100,
         "entryType": "measure"
@@ -9668,6 +9691,12 @@
       ],
       "core/audits/deprecations.js | columnDeprecate": [
         "audits.deprecations.details.headings[0].label"
+      ],
+      "core/audits/third-party-cookies.js | title": [
+        "audits[third-party-cookies].title"
+      ],
+      "core/audits/third-party-cookies.js | description": [
+        "audits[third-party-cookies].description"
       ],
       "core/audits/mainthread-work-breakdown.js | failureTitle": [
         "audits[mainthread-work-breakdown].title"
