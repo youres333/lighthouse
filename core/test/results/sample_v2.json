@@ -1030,7 +1030,7 @@
     "third-party-cookies": {
       "id": "third-party-cookies",
       "title": "Avoids third-party cookies",
-      "description": "Third-party cookie support will be removed in a future version of Chrome. [Learn more about third-party cookie deprecation](https://developer.chrome.com/en/docs/privacy-sandbox/third-party-cookie-phase-out/).",
+      "description": "Support for third-party cookies will be removed in a future version of Chrome. [Learn more about phasing out third-party cookies](https://developer.chrome.com/en/docs/privacy-sandbox/third-party-cookie-phase-out/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "details": {
