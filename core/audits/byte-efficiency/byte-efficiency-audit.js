@@ -248,10 +248,10 @@ class ByteEfficiencyAudit extends Audit {
     if (metricComputationInput.gatherContext.gatherMode === 'navigation') {
       const graph = await PageDependencyGraph.request(metricComputationInput, context);
       const {
-        pessimisticGraph: pessimisticFCPGraph,
+        optimisticGraph: optimisticFCPGraph,
       } = await LanternFirstContentfulPaint.request(metricComputationInput, context);
       const {
-        pessimisticGraph: pessimisticLCPGraph,
+        optimisticGraph: optimisticLCPGraph,
       } = await LanternLargestContentfulPaint.request(metricComputationInput, context);
 
       wastedMs = this.computeWasteWithTTIGraph(results, graph, simulator, {
@@ -260,13 +260,13 @@ class ByteEfficiencyAudit extends Audit {
 
       const {savings: fcpSavings} = this.computeWasteWithGraph(
         results,
-        pessimisticFCPGraph,
+        optimisticFCPGraph,
         simulator,
         {providedWastedBytesByUrl: result.wastedBytesByUrl, label: 'fcp'}
       );
       const {savings: lcpGraphSavings} = this.computeWasteWithGraph(
         results,
-        pessimisticLCPGraph,
+        optimisticLCPGraph,
         simulator,
         {providedWastedBytesByUrl: result.wastedBytesByUrl, label: 'lcp'}
       );
