@@ -17,6 +17,7 @@ import {NetworkRequest} from '../../lib/network-request.js';
 import {ProcessedNavigation} from '../../computed/processed-navigation.js';
 import {LoadSimulator} from '../../computed/load-simulator.js';
 import {FirstContentfulPaint} from '../../computed/metrics/first-contentful-paint.js';
+import {LCPBreakdown} from '../../computed/metrics/lcp-breakdown.js';
 
 /** @typedef {import('../../lib/dependency-graph/simulator/simulator').Simulator} Simulator */
 /** @typedef {import('../../lib/dependency-graph/base-node.js').Node} Node */
@@ -125,7 +126,7 @@ class RenderBlockingResources extends Audit {
   /**
    * @param {LH.Artifacts} artifacts
    * @param {LH.Audit.Context} context
-   * @return {Promise<{wastedMs: number, results: Array<{url: string, totalBytes: number, wastedMs: number}>}>}
+   * @return {Promise<{fcpSavings: number, lcpSavings: number, results: Array<{url: string, totalBytes: number, wastedMs: number}>}>}
    */
   static async computeResults(artifacts, context) {
     const gatherContext = artifacts.GatherContext;
@@ -148,9 +149,13 @@ class RenderBlockingResources extends Audit {
     // Cast to just `LanternMetric` since we explicitly set `throttlingMethod: 'simulate'`.
     const fcpSimulation = /** @type {LH.Artifacts.LanternMetric} */
       (await FirstContentfulPaint.request(metricComputationData, context));
+    const lcpBreakdown = await LCPBreakdown.request(metricComputationData, context);
+
     const fcpTsInMs = processedNavigation.timestamps.firstContentfulPaint / 1000;
 
     const nodesByUrl = getNodesAndTimingByUrl(fcpSimulation.optimisticEstimate.nodeTimings);
+
+    let blockingEndTime = 0;
 
     const results = [];
     const deferredNodeIds = new Set();
@@ -171,6 +176,10 @@ class RenderBlockingResources extends Audit {
       const wastedMs = Math.round(stackSpecificTiming.duration);
       if (wastedMs < MINIMUM_WASTED_MS) continue;
 
+      if (stackSpecificTiming.endTime > blockingEndTime) {
+        blockingEndTime = stackSpecificTiming.endTime;
+      }
+
       results.push({
         url: resource.tag.url,
         totalBytes: resource.transferSize,
@@ -179,10 +188,10 @@ class RenderBlockingResources extends Audit {
     }
 
     if (!results.length) {
-      return {results, wastedMs: 0};
+      return {results, fcpSavings: 0, lcpSavings: 0};
     }
 
-    const wastedMs = RenderBlockingResources.estimateSavingsWithGraphs(
+    const fcpSavings = RenderBlockingResources.estimateSavingsWithGraphs(
       simulator,
       fcpSimulation.optimisticGraph,
       deferredNodeIds,
@@ -190,7 +199,16 @@ class RenderBlockingResources extends Audit {
       artifacts.Stacks
     );
 
-    return {results, wastedMs};
+    let lcpSavings = 0;
+    if (lcpBreakdown.loadEnd) {
+      // If LCP is an image then blocking resources only affect the LCP timing when the LCP image
+      // resource finishes downloading before the last blocking resource finishes downloading.
+      lcpSavings = Math.min(Math.max(0, blockingEndTime - lcpBreakdown.loadEnd), fcpSavings);
+    } else {
+      lcpSavings = fcpSavings;
+    }
+
+    return {results, fcpSavings, lcpSavings};
   }
 
   /**
@@ -276,11 +294,12 @@ class RenderBlockingResources extends Audit {
    * @return {Promise<LH.Audit.Product>}
    */
   static async audit(artifacts, context) {
-    const {results, wastedMs} = await RenderBlockingResources.computeResults(artifacts, context);
+    const {results, fcpSavings, lcpSavings} =
+      await RenderBlockingResources.computeResults(artifacts, context);
 
     let displayValue;
     if (results.length > 0) {
-      displayValue = str_(i18n.UIStrings.displayValueMsSavings, {wastedMs});
+      displayValue = str_(i18n.UIStrings.displayValueMsSavings, {wastedMs: fcpSavings});
     }
 
     /** @type {LH.Audit.Details.Opportunity['headings']} */
@@ -291,15 +310,15 @@ class RenderBlockingResources extends Audit {
     ];
 
     const details = Audit.makeOpportunityDetails(headings, results,
-      {overallSavingsMs: wastedMs});
+      {overallSavingsMs: fcpSavings});
 
     return {
       displayValue,
       score: results.length ? 0 : 1,
-      numericValue: wastedMs,
+      numericValue: fcpSavings,
       numericUnit: 'millisecond',
       details,
-      metricSavings: {FCP: wastedMs, LCP: wastedMs},
+      metricSavings: {FCP: fcpSavings, LCP: lcpSavings},
     };
   }
 }
