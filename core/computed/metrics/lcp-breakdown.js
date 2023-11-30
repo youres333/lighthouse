@@ -5,9 +5,7 @@
  */
 
 import {makeComputedArtifact} from '../computed-artifact.js';
-import {LighthouseError} from '../../lib/lh-error.js';
 import {LargestContentfulPaint} from './largest-contentful-paint.js';
-import {ProcessedNavigation} from '../processed-navigation.js';
 import {TimeToFirstByte} from './time-to-first-byte.js';
 import {LCPImageRecord} from '../lcp-image-record.js';
 
@@ -18,13 +16,7 @@ class LCPBreakdown {
    * @return {Promise<{ttfb: number, loadStart?: number, loadEnd?: number}>}
    */
   static async compute_(data, context) {
-    const processedNavigation = await ProcessedNavigation.request(data.trace, context);
-    const observedLcp = processedNavigation.timings.largestContentfulPaint;
-    if (observedLcp === undefined) {
-      throw new LighthouseError(LighthouseError.errors.NO_LCP);
-    }
-    const timeOrigin = processedNavigation.timestamps.timeOrigin / 1000;
-
+    const lcpResult = await LargestContentfulPaint.request(data, context);
     const {timing: ttfb} = await TimeToFirstByte.request(data, context);
 
     const lcpRecord = await LCPImageRecord.request(data, context);
@@ -32,15 +24,26 @@ class LCPBreakdown {
       return {ttfb};
     }
 
-    // Official LCP^tm. Will be lantern result if simulated, otherwise same as observedLcp.
-    const {timing: metricLcp} = await LargestContentfulPaint.request(data, context);
-    const throttleRatio = metricLcp / observedLcp;
+    let loadStart;
+    let loadEnd;
+    if ('optimisticEstimate' in lcpResult) {
+      for (const [node, timing] of lcpResult.optimisticEstimate.nodeTimings) {
+        if (node.type !== 'network') continue;
+        if (node.record.requestId !== lcpRecord.requestId) continue;
 
-    const unclampedLoadStart = (lcpRecord.networkRequestTime - timeOrigin) * throttleRatio;
-    const loadStart = Math.max(ttfb, Math.min(unclampedLoadStart, metricLcp));
+        loadStart = timing.startTime;
+        loadEnd = timing.endTime;
+        break;
+      }
 
-    const unclampedLoadEnd = (lcpRecord.networkEndTime - timeOrigin) * throttleRatio;
-    const loadEnd = Math.max(loadStart, Math.min(unclampedLoadEnd, metricLcp));
+      if (!loadStart || !loadEnd) throw new Error('LCP image record has no lantern timing');
+
+      loadEnd = Math.min(loadEnd, lcpResult.timing);
+      loadStart = Math.max(ttfb, Math.min(loadStart, loadEnd));
+    } else {
+      loadStart = lcpRecord.networkRequestTime;
+      loadEnd = lcpRecord.networkEndTime;
+    }
 
     return {
       ttfb,

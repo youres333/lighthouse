@@ -29,6 +29,7 @@ class BaseNode {
   constructor(id) {
     this._id = id;
     this._isMainDocument = false;
+    this._isLcpRecord = false;
     /** @type {Node[]} */
     this._dependents = [];
     /** @type {Node[]} */
@@ -77,6 +78,20 @@ class BaseNode {
    */
   isMainDocument() {
     return this._isMainDocument;
+  }
+
+  /**
+   * @param {boolean} value
+   */
+  setIsLcpRecord(value) {
+    this._isLcpRecord = value;
+  }
+
+  /**
+   * @return {boolean}
+   */
+  isLcpRecord() {
+    return this._isLcpRecord;
   }
 
   /**

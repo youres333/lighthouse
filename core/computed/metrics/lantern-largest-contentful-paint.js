@@ -35,7 +35,7 @@ class LanternLargestContentfulPaint extends LanternMetric {
 
     const isImage = node.record.resourceType === 'Image';
     const isLowPriority = node.record.priority === 'Low' || node.record.priority === 'VeryLow';
-    return !isImage || !isLowPriority;
+    return !isImage || !isLowPriority || node.isLcpRecord();
   }
 
   /**

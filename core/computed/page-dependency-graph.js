@@ -13,6 +13,7 @@ import {ProcessedTrace} from './processed-trace.js';
 import {NetworkRecords} from './network-records.js';
 import {NetworkAnalyzer} from '../lib/dependency-graph/simulator/network-analyzer.js';
 import {DocumentUrls} from './document-urls.js';
+import {LCPImageRecord} from './lcp-image-record.js';
 
 /** @typedef {import('../lib/dependency-graph/base-node.js').Node} Node */
 /** @typedef {Omit<LH.Artifacts['URL'], 'finalDisplayedUrl'>} URLArtifact */
@@ -399,9 +400,10 @@ class PageDependencyGraph {
    * @param {LH.Artifacts.ProcessedTrace} processedTrace
    * @param {Array<LH.Artifacts.NetworkRequest>} networkRecords
    * @param {URLArtifact} URL
+   * @param {LH.Artifacts.NetworkRequest} [lcpRecord]
    * @return {Node}
    */
-  static createGraph(processedTrace, networkRecords, URL) {
+  static createGraph(processedTrace, networkRecords, URL, lcpRecord) {
     const networkNodeOutput = PageDependencyGraph.getNetworkNodeOutput(networkRecords);
     const cpuNodes = PageDependencyGraph.getCPUNodes(processedTrace);
     const {requestedUrl, mainDocumentUrl} = URL;
@@ -422,6 +424,12 @@ class PageDependencyGraph {
     PageDependencyGraph.linkNetworkNodes(rootNode, networkNodeOutput);
     PageDependencyGraph.linkCPUNodes(rootNode, networkNodeOutput, cpuNodes);
     mainDocumentNode.setIsMainDocument(true);
+
+    if (lcpRecord) {
+      const lcpRecordNode = networkNodeOutput.idToNodeMap.get(lcpRecord.requestId);
+      if (!lcpRecordNode) throw new Error('lcpRecordNode not found');
+      lcpRecordNode.setIsLcpRecord(true);
+    }
 
     if (NetworkNode.hasCycle(rootNode)) {
       throw new Error('Invalid dependency graph created, cycle detected');
@@ -469,16 +477,17 @@ class PageDependencyGraph {
    */
   static async compute_(data, context) {
     const {trace, devtoolsLog} = data;
-    const [processedTrace, networkRecords] = await Promise.all([
+    const [processedTrace, networkRecords, lcpRecord] = await Promise.all([
       ProcessedTrace.request(trace, context),
       NetworkRecords.request(devtoolsLog, context),
+      LCPImageRecord.request(data, context),
     ]);
 
     // COMPAT: Backport for pre-10.0 clients that don't pass the URL artifact here (e.g. pubads).
     // Calculates the URL artifact from the processed trace and DT log.
     const URL = data.URL || await DocumentUrls.request(data, context);
 
-    return PageDependencyGraph.createGraph(processedTrace, networkRecords, URL);
+    return PageDependencyGraph.createGraph(processedTrace, networkRecords, URL, lcpRecord);
   }
 }
 
