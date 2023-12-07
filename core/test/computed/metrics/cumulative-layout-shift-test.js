@@ -451,4 +451,46 @@ describe('Metrics: CLS', () => {
       });
     });
   });
+
+  describe('getImpactByNodeId', () => {
+    it('combines scores for the same nodeId across multiple shift events', () => {
+      const layoutShiftEvents = [
+        {
+          ts: 1_000_000,
+          isMainFrame: true,
+          weightedScore: 1,
+          impactedNodes: [
+            {
+              new_rect: [0, 0, 200, 200],
+              node_id: 60,
+              old_rect: [0, 0, 200, 100],
+            },
+            {
+              new_rect: [0, 300, 200, 200],
+              node_id: 25,
+              old_rect: [0, 100, 200, 100],
+            },
+          ],
+        },
+        {
+          ts: 2_000_000,
+          isMainFrame: true,
+          weightedScore: 0.3,
+          impactedNodes: [
+            {
+              new_rect: [0, 100, 200, 200],
+              node_id: 60,
+              old_rect: [0, 0, 200, 200],
+            },
+          ],
+        },
+      ];
+
+      const impactByNodeId = CumulativeLayoutShift.getImpactByNodeId(layoutShiftEvents);
+      expect(Array.from(impactByNodeId.entries())).toEqual([
+        [60, 0.7],
+        [25, 0.6],
+      ]);
+    });
+  });
 });
