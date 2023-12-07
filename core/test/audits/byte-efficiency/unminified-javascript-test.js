@@ -15,6 +15,7 @@ const resourceType = 'Script';
 describe('Page uses optimized responses', () => {
   it('fails when given unminified scripts', () => {
     const responseHeaders = [{name: 'Content-Encoding'}];
+    const commonRecord = {resourceType, responseHeaders};
     const auditResult = UnminifiedJavascriptAudit.audit_({
       URL: {finalDisplayedUrl: 'https://www.example.com'},
       Scripts: [
@@ -60,10 +61,10 @@ describe('Page uses optimized responses', () => {
         },
       ].map(createScript),
     }, [
-      {requestId: '123.1', url: 'foo.js', transferSize: 20 * KB, resourceType, responseHeaders},
-      {requestId: '123.2', url: 'other.js', transferSize: 50 * KB, resourceType, responseHeaders},
-      {requestId: '123.3', url: 'valid-ish.js', transferSize: 100 * KB, resourceType, responseHeaders},
-      {requestId: '123.4', url: 'invalid.js', transferSize: 100 * KB, resourceType, responseHeaders},
+      {requestId: '123.1', url: 'foo.js', transferSize: 20 * KB, ...commonRecord},
+      {requestId: '123.2', url: 'other.js', transferSize: 50 * KB, ...commonRecord},
+      {requestId: '123.3', url: 'valid-ish.js', transferSize: 100 * KB, ...commonRecord},
+      {requestId: '123.4', url: 'invalid.js', transferSize: 100 * KB, ...commonRecord},
     ]);
 
     const results = auditResult.items.map(item => Object.assign(item, {
