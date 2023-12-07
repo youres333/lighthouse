@@ -26,6 +26,8 @@ import {ExecutionContext} from '../driver/execution-context.js';
 
 /** @typedef {{nodeId: number, score?: number, animations?: {name?: string, failureReasonsMask?: number, unsupportedProperties?: string[]}[], type?: string}} TraceElementData */
 
+const MAX_LAYOUT_SHIFT_ELEMENTS = 15;
+
 /**
  * @this {HTMLElement}
  */
@@ -73,7 +75,7 @@ class TraceElements extends BaseGatherer {
 
     return [...impactByNodeId.entries()]
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 5)
+      .slice(0, MAX_LAYOUT_SHIFT_ELEMENTS)
       .map(([nodeId, clsContribution]) => {
         return {
           nodeId: nodeId,

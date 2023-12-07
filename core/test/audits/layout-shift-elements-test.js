@@ -119,16 +119,18 @@ describe('Performance: layout-shift-elements audit', () => {
         nodeLabel: 'My Test Label',
         snippet: '<h1 class="test-class">',
       },
-      score: 0.3,
+      score: 0.1,
     };
     const trace = createTestTrace({});
-    for (let i = 1; i <= 9; ++i) {
+
+    // Create 20 shift events on 20 unique elements
+    for (let i = 1; i <= 20; ++i) {
       trace.traceEvents.push({
         args: {
           data: {
             had_recent_input: false,
             is_main_frame: true,
-            weighted_score_delta: 0.3,
+            weighted_score_delta: 0.1,
             impacted_nodes: [{
               node_id: i,
               old_rect: [0, 0, 1, 1],
@@ -143,18 +145,19 @@ describe('Performance: layout-shift-elements audit', () => {
     }
     const artifacts = {
       traces: {defaultPass: trace},
-      TraceElements: Array(5).fill(clsElement),
+      // Only create element data for the first 15 elements
+      TraceElements: Array(15).fill(clsElement),
     };
 
     const auditResult = await LayoutShiftElementsAudit.audit(artifacts, {computedCache: new Map()});
     expect(auditResult.score).toEqual(0);
     expect(auditResult.notApplicable).toEqual(false);
-    expect(auditResult.displayValue).toBeDisplayString('9 elements found');
-    expect(auditResult.details.items).toHaveLength(6);
+    expect(auditResult.displayValue).toBeDisplayString('20 elements found');
+    expect(auditResult.details.items).toHaveLength(16);
 
-    expect(auditResult.details.items[5].node.type).toEqual('code');
-    expect(auditResult.details.items[5].node.value).toBeDisplayString('Other');
-    expect(auditResult.details.items[5].score).toBeCloseTo(4 * 0.3);
+    expect(auditResult.details.items[15].node.type).toEqual('code');
+    expect(auditResult.details.items[15].node.value).toBeDisplayString('Other');
+    expect(auditResult.details.items[15].score).toBeCloseTo(5 * 0.1);
   });
 
   it('correctly handles when there are no CLS elements to show', async () => {

@@ -82,11 +82,6 @@ describe('Trace Elements gatherer - GetTopLayoutShiftElements', () => {
     return sum;
   }
 
-  function expectEqualFloat(actual, expected) {
-    const diff = Math.abs(actual - expected);
-    expect(diff).toBeLessThanOrEqual(Number.EPSILON);
-  }
-
   it('returns layout shift data sorted by impact area', async () => {
     const trace = createTestTrace({});
     trace.traceEvents.push(
@@ -111,7 +106,7 @@ describe('Trace Elements gatherer - GetTopLayoutShiftElements', () => {
       {nodeId: 60, score: 0.4},
     ]);
     const total = sumScores(result);
-    expectEqualFloat(total, 1.0);
+    expect(total).toBeCloseTo(1.0);
   });
 
   it('returns only the top five values', async () => {
@@ -157,7 +152,16 @@ describe('Trace Elements gatherer - GetTopLayoutShiftElements', () => {
           node_id: 7,
           old_rect: [0, 0, 100, 100],
         },
-      ])
+      ]),
+      makeLayoutShiftTraceEvent(1,
+        Array(10).fill({
+          new_rect: [0, 0, 100, 200],
+          old_rect: [0, 0, 100, 100],
+        }).map((event, i) => ({
+          ...event,
+          node_id: i + 8,
+        }))
+      )
     );
 
     const result =
@@ -168,9 +172,19 @@ describe('Trace Elements gatherer - GetTopLayoutShiftElements', () => {
       {nodeId: 2, score: 0.5},
       {nodeId: 6, score: 0.25},
       {nodeId: 7, score: 0.25},
+      {nodeId: 4, score: 0.125},
+      {nodeId: 5, score: 0.125},
+      {nodeId: 8, score: 0.1},
+      {nodeId: 9, score: 0.1},
+      {nodeId: 10, score: 0.1},
+      {nodeId: 11, score: 0.1},
+      {nodeId: 12, score: 0.1},
+      {nodeId: 13, score: 0.1},
+      {nodeId: 14, score: 0.1},
+      {nodeId: 15, score: 0.1},
     ]);
     const total = sumScores(result);
-    expectEqualFloat(total, 2.5);
+    expect(total).toBeCloseTo(3.55);
   });
 });
 
