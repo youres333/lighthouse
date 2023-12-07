@@ -76,10 +76,12 @@ function makeJsUsage(usages) {
 describe('UnusedJavaScript audit', () => {
   const domain = 'https://www.google.com';
   const scriptUnknown = {coverage: generateCoverage(domain, [[0, 3000, false]])};
+  /* eslint-disable max-len */
   const scriptA = generateScriptWithCoverage(`${domain}/scriptA.js`, [[0, 100, true]]);
   const scriptB = generateScriptWithCoverage(`${domain}/scriptB.js`, [[0, 200, true], [0, 50, false]]);
   const inlineA = generateScriptWithCoverage(`${domain}/inline.html`, [[0, 5000, true], [5000, 6000, false]]);
   const inlineB = generateScriptWithCoverage(`${domain}/inline.html`, [[0, 15000, true], [0, 5000, false]]);
+  /* eslint-enable max-len */
   const all = [scriptA, scriptB, scriptUnknown, inlineA, inlineB];
   const recordA = generateRecord(`${domain}/scriptA.js`, 35000, 'Script');
   const recordB = generateRecord(`${domain}/scriptB.js`, 50000, 'Script');
