@@ -2990,28 +2990,51 @@
             "id": "unused-css-rules",
             "title": "Reduce unused CSS",
             "description": "Reduce unused rules from stylesheets and defer CSS not used for above-the-fold content to decrease bytes consumed by network activity. [Learn how to reduce unused CSS](https://developer.chrome.com/docs/lighthouse/performance/unused-css-rules/).",
-            "score": 1,
+            "score": 0,
             "scoreDisplayMode": "metricSavings",
             "numericValue": 0,
             "numericUnit": "millisecond",
-            "displayValue": "",
+            "displayValue": "Potential savings of 13 KiB",
             "metricSavings": {
-              "FCP": 0,
+              "FCP": 160,
               "LCP": 0
             },
             "details": {
               "type": "opportunity",
-              "headings": [],
-              "items": [],
+              "headings": [
+                {
+                  "key": "url",
+                  "valueType": "url",
+                  "label": "URL"
+                },
+                {
+                  "key": "totalBytes",
+                  "valueType": "bytes",
+                  "label": "Transfer Size"
+                },
+                {
+                  "key": "wastedBytes",
+                  "valueType": "bytes",
+                  "label": "Potential Savings"
+                }
+              ],
+              "items": [
+                {
+                  "url": "https://www.mikescerealshack.co/_next/static/css/08dcb440d7d83b488817.css",
+                  "wastedBytes": 13631,
+                  "wastedPercent": 75.20136820037516,
+                  "totalBytes": 18126
+                }
+              ],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
+              "overallSavingsBytes": 13631,
               "sortedBy": [
                 "wastedBytes"
               ],
               "debugData": {
                 "type": "debugdata",
                 "metricSavings": {
-                  "FCP": 0,
+                  "FCP": 160,
                   "LCP": 0
                 }
               }
@@ -7201,6 +7224,7 @@
               "audits[long-tasks].details.headings[0].label",
               "audits[unsized-images].details.headings[1].label",
               "audits[total-byte-weight].details.headings[0].label",
+              "audits[unused-css-rules].details.headings[0].label",
               "audits[legacy-javascript].details.headings[0].label"
             ],
             "core/lib/i18n/i18n.js | columnTimeSpent": [
@@ -7409,7 +7433,8 @@
             ],
             "core/lib/i18n/i18n.js | columnTransferSize": [
               "audits[third-party-summary].details.headings[1].label",
-              "audits[total-byte-weight].details.headings[1].label"
+              "audits[total-byte-weight].details.headings[1].label",
+              "audits[unused-css-rules].details.headings[1].label"
             ],
             "core/lib/i18n/i18n.js | columnBlockingTime": [
               "audits[third-party-summary].details.headings[2].label"
@@ -7983,6 +8008,24 @@
             "core/audits/byte-efficiency/unused-css-rules.js | description": [
               "audits[unused-css-rules].description"
             ],
+            "core/lib/i18n/i18n.js | displayValueByteSavings": [
+              {
+                "values": {
+                  "wastedBytes": 13631
+                },
+                "path": "audits[unused-css-rules].displayValue"
+              },
+              {
+                "values": {
+                  "wastedBytes": 167
+                },
+                "path": "audits[legacy-javascript].displayValue"
+              }
+            ],
+            "core/lib/i18n/i18n.js | columnWastedBytes": [
+              "audits[unused-css-rules].details.headings[2].label",
+              "audits[legacy-javascript].details.headings[2].label"
+            ],
             "core/audits/byte-efficiency/unused-javascript.js | title": [
               "audits[unused-javascript].title"
             ],
@@ -8030,17 +8073,6 @@
             ],
             "core/audits/byte-efficiency/legacy-javascript.js | description": [
               "audits[legacy-javascript].description"
-            ],
-            "core/lib/i18n/i18n.js | displayValueByteSavings": [
-              {
-                "values": {
-                  "wastedBytes": 167
-                },
-                "path": "audits[legacy-javascript].displayValue"
-              }
-            ],
-            "core/lib/i18n/i18n.js | columnWastedBytes": [
-              "audits[legacy-javascript].details.headings[2].label"
             ],
             "core/audits/dobetterweb/doctype.js | title": [
               "audits.doctype.title"
@@ -20498,21 +20530,44 @@
             "id": "unused-css-rules",
             "title": "Reduce unused CSS",
             "description": "Reduce unused rules from stylesheets and defer CSS not used for above-the-fold content to decrease bytes consumed by network activity. [Learn how to reduce unused CSS](https://developer.chrome.com/docs/lighthouse/performance/unused-css-rules/).",
-            "score": 1,
+            "score": 0.5,
             "scoreDisplayMode": "metricSavings",
             "numericValue": 0,
             "numericUnit": "millisecond",
-            "displayValue": "",
+            "displayValue": "Potential savings of 14 KiB",
             "metricSavings": {
               "FCP": 0,
               "LCP": 0
             },
             "details": {
               "type": "opportunity",
-              "headings": [],
-              "items": [],
+              "headings": [
+                {
+                  "key": "url",
+                  "valueType": "url",
+                  "label": "URL"
+                },
+                {
+                  "key": "totalBytes",
+                  "valueType": "bytes",
+                  "label": "Transfer Size"
+                },
+                {
+                  "key": "wastedBytes",
+                  "valueType": "bytes",
+                  "label": "Potential Savings"
+                }
+              ],
+              "items": [
+                {
+                  "url": "https://www.mikescerealshack.co/_next/static/css/08dcb440d7d83b488817.css",
+                  "wastedBytes": 13997,
+                  "wastedPercent": 77.22056714112325,
+                  "totalBytes": 18126
+                }
+              ],
               "overallSavingsMs": 0,
-              "overallSavingsBytes": 0,
+              "overallSavingsBytes": 13997,
               "sortedBy": [
                 "wastedBytes"
               ],
@@ -24830,6 +24885,7 @@
               "audits[long-tasks].details.headings[0].label",
               "audits[unsized-images].details.headings[1].label",
               "audits[total-byte-weight].details.headings[0].label",
+              "audits[unused-css-rules].details.headings[0].label",
               "audits[modern-image-formats].details.headings[1].label",
               "audits[uses-responsive-images].details.headings[1].label",
               "audits[legacy-javascript].details.headings[0].label"
@@ -25040,7 +25096,8 @@
             ],
             "core/lib/i18n/i18n.js | columnTransferSize": [
               "audits[third-party-summary].details.headings[1].label",
-              "audits[total-byte-weight].details.headings[1].label"
+              "audits[total-byte-weight].details.headings[1].label",
+              "audits[unused-css-rules].details.headings[1].label"
             ],
             "core/lib/i18n/i18n.js | columnBlockingTime": [
               "audits[third-party-summary].details.headings[2].label"
@@ -25605,19 +25662,13 @@
             "core/audits/byte-efficiency/unused-css-rules.js | description": [
               "audits[unused-css-rules].description"
             ],
-            "core/audits/byte-efficiency/unused-javascript.js | title": [
-              "audits[unused-javascript].title"
-            ],
-            "core/audits/byte-efficiency/unused-javascript.js | description": [
-              "audits[unused-javascript].description"
-            ],
-            "core/audits/byte-efficiency/modern-image-formats.js | title": [
-              "audits[modern-image-formats].title"
-            ],
-            "core/audits/byte-efficiency/modern-image-formats.js | description": [
-              "audits[modern-image-formats].description"
-            ],
             "core/lib/i18n/i18n.js | displayValueByteSavings": [
+              {
+                "values": {
+                  "wastedBytes": 13997
+                },
+                "path": "audits[unused-css-rules].displayValue"
+              },
               {
                 "values": {
                   "wastedBytes": 68889.75
@@ -25637,14 +25688,27 @@
                 "path": "audits[legacy-javascript].displayValue"
               }
             ],
-            "core/lib/i18n/i18n.js | columnResourceSize": [
-              "audits[modern-image-formats].details.headings[2].label",
-              "audits[uses-responsive-images].details.headings[2].label"
-            ],
             "core/lib/i18n/i18n.js | columnWastedBytes": [
+              "audits[unused-css-rules].details.headings[2].label",
               "audits[modern-image-formats].details.headings[3].label",
               "audits[uses-responsive-images].details.headings[3].label",
               "audits[legacy-javascript].details.headings[2].label"
+            ],
+            "core/audits/byte-efficiency/unused-javascript.js | title": [
+              "audits[unused-javascript].title"
+            ],
+            "core/audits/byte-efficiency/unused-javascript.js | description": [
+              "audits[unused-javascript].description"
+            ],
+            "core/audits/byte-efficiency/modern-image-formats.js | title": [
+              "audits[modern-image-formats].title"
+            ],
+            "core/audits/byte-efficiency/modern-image-formats.js | description": [
+              "audits[modern-image-formats].description"
+            ],
+            "core/lib/i18n/i18n.js | columnResourceSize": [
+              "audits[modern-image-formats].details.headings[2].label",
+              "audits[uses-responsive-images].details.headings[2].label"
             ],
             "core/audits/byte-efficiency/uses-optimized-images.js | title": [
               "audits[uses-optimized-images].title"
